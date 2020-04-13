@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +11,23 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js("resources/js/app.js", "public/js").sass(
+    "resources/sass/app.scss",
+    "public/css"
+);
+
+// .js(
+//     [
+//         "./resources/js/theme/jquery.min.js",
+//         "./resources/js/theme/easing.min.js",
+//         "./resources/js/theme/hoverIntent.js",
+//         "./resources/js/theme/superfish.min.js",
+//         "./resources/js/theme/jquery.ajaxchimp.min.js",
+//         "./resources/js/theme/jquery.magnific-popup.min.js",
+//         "./resources/js/theme/jquery-ui.js",
+//         "./resources/js/theme/jquery.nice-select.min.js",
+//         "./resources/js/theme/mail-script.js",
+//         "./resources/js/theme/main.js"
+//     ],
+//     "public/js/theme.js"
+// )
