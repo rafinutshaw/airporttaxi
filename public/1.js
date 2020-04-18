@@ -43,6 +43,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -70,45 +91,104 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("section", { staticClass: "home-about-area section-gap" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row align-journey-center" }, [
-            _c("div", { staticClass: "col-lg-6 about-left" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: {
-                  src: __webpack_require__(/*! ../../../public/img/about-img.jpg */ "./public/img/about-img.jpg"),
-                  alt: ""
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-6 about-right" }, [
-              _c("h1", [_vm._v("Globally Connected by Large Network")]),
-              _vm._v(" "),
-              _c("h4", [
-                _vm._v(
-                  "\n                        We are here to listen from you deliver exellence\n                    "
+      _c("section", { attrs: { id: "home-about-area section-gap" } }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-dark-skin",
+            staticStyle: {
+              "background-image": "url('img/asset 45.jpeg')",
+              "background-repeat": "repeat-x",
+              "padding-top": "72px",
+              "padding-bottom": "430px"
+            },
+            attrs: { id: "limoking-parallax-wrapper-1", "data-bgspeed": "0" }
+          },
+          [
+            _c("div", { staticClass: "container" }, [
+              _c("div", { staticClass: "limoking-title-item" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "limoking-item-title-wrapper limoking-item  limoking-center-icon-divider limoking-large "
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "limoking-item-title-container container"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "limoking-item-title-head-inner" },
+                          [
+                            _c(
+                              "h3",
+                              {
+                                staticClass:
+                                  "limoking-item-title limoking-skin-title limoking-skin-border"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    We serve you like a king\n                                "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "limoking-nav-title" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "limoking-item-title-content-icon-divider-wrapper"
+                            },
+                            [
+                              _c("div", {
+                                staticClass:
+                                  "limoking-item-title-center-icon-divider"
+                              }),
+                              _vm._v(" "),
+                              _c("i", { staticClass: "fa fa-star" }),
+                              _vm._v(" "),
+                              _c("div", {
+                                staticClass:
+                                  "limoking-item-title-center-icon-divider"
+                              })
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "limoking-item-title-caption limoking-skin-info"
+                          },
+                          [
+                            _vm._v(
+                              "\n                                We offer you a super VIP experience in\n                                middle of New York.\n                            "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
                 )
               ]),
               _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "\n                        Lorem ipsum dolor sit amet, consectetur adipisicing\n                        elit, sed do eiusmod tempor incididunt ut labore et\n                        dolore magna aliqua.Ut enim ad minim. Lorem ipsum\n                        dolor sit amet, consectetur adipisicing elit, sed do\n                        eiusmod tempor.\n                    "
-                )
-              ]),
+              _c("div", { staticClass: "clear" }),
               _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "text-uppercase primary-btn",
-                  attrs: { href: "#" }
-                },
-                [_vm._v("Get Details")]
-              )
+              _c("div", { staticClass: "clear" })
             ])
-          ])
-        ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "clear" })
       ])
     ])
   }
@@ -223,17 +303,6 @@ function normalizeComponent (
   }
 }
 
-
-/***/ }),
-
-/***/ "./public/img/about-img.jpg":
-/*!**********************************!*\
-  !*** ./public/img/about-img.jpg ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/about-img.jpg?17967a19d0c598e22a63c1e787d18373";
 
 /***/ }),
 

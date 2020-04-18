@@ -2,7 +2,7 @@
 <footer class="footer-area section-gap">
     <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center">
                 <div class="single-footer-widget">
                     <h6>Quick links</h6>
                     <ul>
@@ -13,7 +13,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center">
                 <div class="single-footer-widget">
                     <h6>Features</h6>
                     <ul>
@@ -24,7 +24,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-6 col-sm-6">
+            {{-- <div class="col-lg-2 col-md-6 col-sm-6">
                 <div class="single-footer-widget">
                     <h6>Resources</h6>
                     <ul>
@@ -34,8 +34,8 @@
                         <li><a href="#">Agencies</a></li>
                     </ul>
                 </div>
-            </div>
-            <div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+            </div> --}}
+            <div class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center social-widget">
                 <div class="single-footer-widget">
                     <h6>Follow Us</h6>
                     <p>Let us be social</p>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4  col-md-6 col-sm-6">
+            {{-- <div class="col-lg-4  col-md-6 col-sm-6">
                 <div class="single-footer-widget">
                     <h6>Newsletter</h6>
                     <p>Stay update with our latest</p>
@@ -67,11 +67,11 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <p class="mt-80 mx-auto footer-text col-lg-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy; All rights reserved | This template is made with <i class="fas fa-heart"
-                    aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    aria-hidden="true"></i> by <a href="#" target="_blank">Sezan & Utsha</a>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
         </div>

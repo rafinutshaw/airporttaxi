@@ -20,7 +20,9 @@
     <meta name="keywords" content="">
     <!-- meta character set -->
     <meta charset="UTF-8">
-
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
     <!--
                 CSS
@@ -31,8 +33,9 @@
     <link rel="stylesheet" href="{{ asset("css/theme/nice-select.css") }}">
     <link rel="stylesheet" href="{{ asset("css/theme/animate.min.css") }}">
     <link rel="stylesheet" href="{{ asset("css/theme/jquery-ui.css") }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/theme/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
 
@@ -40,7 +43,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.8.1/jquery.serializejson.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/2.8.1/jquery.serializejson.min.js">
+    </script>
 
     <script src="{{ asset("js/theme/easing.min.js") }}"></script>
     <script src="{{ asset("js/theme/hoverIntent.js") }}"></script>
@@ -54,9 +58,4 @@
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/theme.js') }}"></script> --}}
-    <style>
-        .container-fluid.main-menu {
-            padding: 25px 80px;
-        }
-    </style>
 </head>

@@ -1,0 +1,60 @@
+.container-fluid.main-menu {
+    padding: 25px 80px;
+}
+
+body {
+    font-family: "Hind", sans-serif;
+}
+
+p.mt-80.mx-auto.footer-text.col-lg-12 {
+    color: #777777;
+}
+
+.single-footer-widget ul li a:hover {
+    color: white;
+}
+
+.footer-text a,
+.footer-text i {
+    color: #17a2b8;
+}
+
+.section-gap {
+    padding: 50px 0;
+}
+
+.nav-menu a {
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0.7;
+    text-decoration: none;
+    padding-right: 15px;
+    padding-bottom: 5px;
+}
+
+.nav-menu a:hover {
+    color: #1eacc7;
+    opacity: 1;
+    text-decoration: none;
+    border-bottom: 2px solid #1eacc7;
+}
+
+.nav-menu ul li:hover > a {
+    color: #1eacc7;
+}
+
+#mobile-nav ul .menu-item-active {
+    color: #1eacc7;
+}
+
+#mobile-nav ul li a:hover {
+    color: #1eacc7;
+}
+/* a:hover {
+    text-decoration: none;
+} */
+a:hover {
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.05);
+}

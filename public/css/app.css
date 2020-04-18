@@ -16924,3 +16924,9 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
+.btn-primary {
+  color: #fff;
+  background-color: #5856d6;
+  border-color: #5856d6;
+}
+

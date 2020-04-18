@@ -8,7 +8,10 @@
                     class="row fullscreen d-flex align-items-center justify-content-between"
                     style="height: 966px;"
                 >
-                    <div class="banner-content col-lg-6 col-md-5 ">
+                    <div class="col-lg-5 col-md-6">
+                        <booking-form></booking-form>
+                    </div>
+                    <div class="banner-content col-lg-4 col-md-5">
                         <h6 class="text-white ">Need a ride? just call</h6>
                         <h1 class="text-uppercase">
                             911 999 911
@@ -22,561 +25,1006 @@
                             >Call for taxi</a
                         >
                     </div>
-                    <div class="col-lg-5 col-md-6 header-right">
-                        <h4 class="pb-10">BOOK ONLINE</h4>
-                        <div style="text-align: left;">
-                            <form class="container" id="bookingForm">
-                                <div
-                                    v-for="(item, index) in journey"
-                                    :key="index"
-                                >
-                                    <div class="mb-2">
-                                        <label
-                                            class="bookingFormLabel"
-                                            for="Start"
-                                            >Start</label
-                                        >
-                                        <div class="form-group input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i
-                                                        class="fas fa-map-marker-alt"
-                                                    ></i>
-                                                </div>
-                                            </div>
-                                            <input
-                                                v-model="item.start"
-                                                type="text"
-                                                name="Start"
-                                                id="Start"
-                                                class="form-control"
-                                                aria-describedby="helpId"
-                                                placeholder="e.g. Heathrow Airport or AA11AA"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="form-group input-group"
-                                        v-show="!index && item.via.length > 0"
-                                    >
-                                        <draggable
-                                            tag="div"
-                                            :list="item.via"
-                                            class="form-group"
-                                            handle=".handle"
-                                        >
-                                            <div
-                                                v-for="(viaItem,
-                                                viaIndex) in item.via"
-                                                :key="viaIndex"
-                                            >
-                                                <div class="mb-2">
-                                                    <label
-                                                        class="bookingFormLabel"
-                                                        for="Via"
-                                                        >Via</label
-                                                    >
-                                                    <div
-                                                        class="form-group input-group"
-                                                    >
-                                                        <div
-                                                            class="input-group-prepend"
-                                                        >
-                                                            <div
-                                                                class="input-group-text"
-                                                            >
-                                                                <i
-                                                                    class="fa fa-align-justify handle"
-                                                                ></i>
-                                                            </div>
-                                                        </div>
-                                                        <input
-                                                            v-model="
-                                                                viaItem.name
-                                                            "
-                                                            type="text"
-                                                            name="Via"
-                                                            id="Via"
-                                                            class="form-control"
-                                                            placeholder="e.g. InterContinental London Park Lane"
-                                                            aria-describedby="helpId"
-                                                        />
-                                                        <!-- <i
-                                                            class="fa fa-times close ml-2 mt-1"
-                                                            @click="
-                                                                removeVia(
-                                                                    viaIndex
-                                                                )
-                                                            "
-                                                        ></i> -->
-                                                    </div>
-                                                </div>
-
-                                                <button
-                                                    class="btn btn-sm btn-danger"
-                                                    @click.prevent="
-                                                        removeVia(viaIndex)
-                                                    "
-                                                >
-                                                    Remove
-                                                </button>
-                                            </div>
-                                        </draggable>
-                                    </div>
-                                    <div class="mt-2">
-                                        <label
-                                            class="bookingFormLabel"
-                                            for="End"
-                                            >End</label
-                                        >
-                                        <div class="form-group input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i
-                                                        class="fas fa-map-marker-alt"
-                                                    ></i>
-                                                </div>
-                                            </div>
-                                            <input
-                                                v-model="item.end"
-                                                type="text"
-                                                name="End"
-                                                id="End"
-                                                class="form-control"
-                                                placeholder="e.g. AA11AA or Heathrow Airport"
-                                                aria-describedby="helpId"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <button
-                                    class="btn btn-sm btn-primary mt-2"
-                                    @click.prevent="add"
-                                >
-                                    Add
-                                </button>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
         <!-- End banner Area -->
 
         <!-- Start home-about Area -->
-        <section class="home-about-area section-gap">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 about-left">
-                        <img
-                            class="img-fluid"
-                            src="../../../public/img/about-img.jpg"
-                            alt=""
-                        />
-                    </div>
-                    <div class="col-lg-6 about-right">
-                        <h1>Globally Connected by Large Network</h1>
-                        <h4>
-                            We are here to listen from you deliver exellence
-                        </h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua.Ut enim ad minim. Lorem ipsum
-                            dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor.
-                        </p>
-                        <a class="text-uppercase primary-btn" href="#"
-                            >Get Details</a
+        <section id="home-about-area section-gap">
+            <div
+                class="limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-dark-skin"
+                id="limoking-parallax-wrapper-1"
+                data-bgspeed="0"
+                style="background-image: url('img/asset 45.jpeg'); background-repeat: repeat-x;padding-top: 72px; padding-bottom: 430px; "
+            >
+                <div class="container">
+                    <div class="limoking-title-item">
+                        <div
+                            class="limoking-item-title-wrapper limoking-item  limoking-center-icon-divider limoking-large "
                         >
+                            <div
+                                class="limoking-item-title-container container"
+                            >
+                                <div class="limoking-item-title-head-inner">
+                                    <h3
+                                        class="limoking-item-title limoking-skin-title limoking-skin-border"
+                                    >
+                                        We serve you like a king
+                                    </h3>
+                                </div>
+                                <div class="limoking-nav-title">
+                                    <div
+                                        class="limoking-item-title-content-icon-divider-wrapper"
+                                    >
+                                        <div
+                                            class="limoking-item-title-center-icon-divider"
+                                        ></div>
+                                        <i class="fa fa-star"></i>
+                                        <div
+                                            class="limoking-item-title-center-icon-divider"
+                                        ></div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="limoking-item-title-caption limoking-skin-info"
+                                >
+                                    We offer you a super VIP experience in
+                                    middle of New York.
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="clear"></div>
+                    <div class="clear"></div>
                 </div>
             </div>
+            <div class="clear"></div>
         </section>
         <!-- End home-about Area -->
 
-        <!-- Start services Area -->
-        <section class="services-area pb-120">
+        <!-- Start Cars Area -->
+        <section class="services-area pb-50 pt-50">
             <div class="container">
                 <div class="row section-title">
-                    <h1>What Services we offer to our clients</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
+                    <h1>Find Car by Type</h1>
+                    <p>
+                        We offer professional car rental services in our range
+                        of high-end vehicles.
+                    </p>
                 </div>
+
+                <!-- Bootstrap Card -->
                 <div class="row">
-                    <div class="col-lg-4 single-service">
-                        <span class="lnr lnr-car"></span>
-                        <a href="#">
-                            <h4>Taxi Service</h4>
-                        </a>
-                        <p>
-                            Usage of the Internet is becoming more common due to
-                            rapid advancement of technology and power.
-                        </p>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-deck border-0 transform-on-hover">
+                            <div class="card">
+                                <img
+                                    src="../../../public/img/Cars/Saloon Car.jpeg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-body">
+                                    <h5 class="card-title">Saloon Car</h5>
+                                    <p class="card-text">
+                                        Ford Mondeo, VW Passat or similar. These
+                                        can accommodate up to 3 passengers plus
+                                        3 suitcases (20kg max) or 4 passengers
+                                        plus hand luggage. Any more luggage than
+                                        this will require a larger vehicle.
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- <div class="card text-white">
+                                <img
+                                    src="../../../public/img/Cars/Estate Car.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">Card title</h5>
+                                </div>
+                            </div>
+                            <div class="card text-white">
+                                <img
+                                    src="../../../public/img/Cars/Estate Car.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">Card title</h5>
+                                </div>
+                            </div> -->
+                            <!-- <div class="card" style="width: 18rem;">
+                            <img
+                                src="../../../public/img/Cars/Estate Car.jpg"
+                                class="card-img-top"
+                                alt="..."
+                            />
+                            <div class="card-body">
+                                <a href="#" class="btn btn-primary"
+                                    >Go somewhere</a
+                                >
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <img
+                                src="../../../public/img/Cars/Saloon Car.jpeg"
+                                class="card-img-top"
+                                alt="..."
+                            />
+                            <div class="card-body">
+                                <a href="#" class="btn btn-primary"
+                                    >Go somewhere</a
+                                >
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <img
+                                src="../../../public/img/Cars/People Carrier.jpg"
+                                class="card-img-top"
+                                alt="..."
+                            />
+                            <div class="card-body">
+                                <a href="#" class="btn btn-primary"
+                                    >Go somewhere</a
+                                >
+                            </div>
+                        </div> -->
+                        </div>
                     </div>
-                    <div class="col-lg-4 single-service">
-                        <span class="lnr lnr-briefcase"></span>
-                        <a href="#">
-                            <h4>Office Pick-ups</h4>
-                        </a>
-                        <p>
-                            Usage of the Internet is becoming more common due to
-                            rapid advancement of technology and power.
-                        </p>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-deck border-0 transform-on-hover">
+                            <div class="card">
+                                <img
+                                    src="../../../public/img/Cars/Estate Car.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-body">
+                                    <h5 class="card-title">Estate Car</h5>
+                                    <p class="card-text">
+                                        Volvo Estate, VW Passat or similar.
+                                        These can accommodate up to 4 passengers
+                                        plus 4 suitcases (20kg max). Any more
+                                        luggage than this will require a larger
+                                        vehicle.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-4 single-service">
-                        <span class="lnr lnr-bus"></span>
-                        <a href="#">
-                            <h4>Event Transportation</h4>
-                        </a>
-                        <p>
-                            Usage of the Internet is becoming more common due to
-                            rapid advancement of technology and power.
-                        </p>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-deck border-0 transform-on-hover">
+                            <div class="card">
+                                <img
+                                    src="../../../public/img/Cars/People Carrier.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-body">
+                                    <h5 class="card-title">People Carrier</h5>
+                                    <p class="card-text">
+                                        VW Sharan, Ford Galaxy or similar. These
+                                        can accommodate up to 5 passengers plus
+                                        5 suitcases (20kg max) or 6 passengers
+                                        plus hand luggage. Any more luggage than
+                                        this will require a larger vehicle.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-deck border-0 transform-on-hover">
+                            <div class="card">
+                                <img
+                                    src="../../../public/img/Cars/Executive Car.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-body">
+                                    <h5 class="card-title">Executive Car</h5>
+                                    <p class="card-text">
+                                        E Class Mercedes or similar. These can
+                                        accommodate up to 3 passengers plus 3
+                                        suitcases (20kg max) or 4 passengers
+                                        plus hand luggage. Any more luggage than
+                                        this will require a larger vehicle.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-deck border-0 transform-on-hover">
+                            <div class="card">
+                                <img
+                                    src="../../../public/img/Cars/Executive People Carrier.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        Executive People Carrier
+                                    </h5>
+                                    <p class="card-text">
+                                        Mercedes Viano or similar. These can
+                                        accommodate up to 5 passengers plus 5
+                                        suitcases (20kg max) or 6 passengers
+                                        plus hand luggage. Any more luggage than
+                                        this will require a larger vehicle.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-deck border-0 transform-on-hover">
+                            <div class="card">
+                                <img
+                                    src="../../../public/img/Cars/8 Seater Minibus.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-body">
+                                    <h5 class="card-title">8 Seater Minibus</h5>
+                                    <p class="card-text">
+                                        VW Transporter or similar. These can
+                                        accommodate 8 passengers plus up to 8
+                                        suitcases (20kg max). Any more luggage
+                                        than this will require a larger vehicle.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Bootstrap Card -->
+
+                <!-- Bootstrap Card -->
+                <!-- <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-0 transform-on-hover">
+                            <div class="card text-white">
+                                <img
+                                    src="../../../public/img/Cars/Estate Car.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">Card title</h5>
+                                </div>
+                            </div>
+                            <div class="card text-white">
+                                <img
+                                    src="../../../public/img/Cars/Estate Car.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">Card title</h5>
+                                </div>
+                            </div>
+                            <div class="card text-white">
+                                <img
+                                    src="../../../public/img/Cars/Estate Car.jpg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">Card title</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- Bootstrap Card -->
             </div>
         </section>
-        <!-- End services Area -->
+        <!-- End Cars Area -->
 
-        <!-- Start image-gallery Area -->
-        <section class="image-gallery-area section-gap">
-            <div class="container">
-                <div class="row section-title">
-                    <h1>Image Gallery that we like to share</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
+        <!-- Start Our Promise Area -->
+        <section>
+            <section id="content-section-4">
+                <div
+                    class="limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-darkblue"
+                    id="limoking-parallax-wrapper-2"
+                    data-bgspeed="0"
+                    style="background-image: url('img/asset 46.jpeg'); padding-top: 95px; padding-bottom: 50px; "
+                >
+                    <div class="container">
+                        <div class="six columns">
+                            <div
+                                class="limoking-item limoking-about-us-item limoking-with-divider"
+                            >
+                                <div class="about-us-title-wrapper">
+                                    <h3 class="about-us-title">
+                                        We promise, you will have the best
+                                        experience
+                                    </h3>
+                                    <div class="about-us-title-divider"></div>
+                                </div>
+                                <div class="about-us-content-wrapper">
+                                    <div
+                                        class="about-us-content limoking-skin-content"
+                                    >
+                                        <p class="mb-50">
+                                            Sed posuere consectetur est at
+                                            lobortis. Cum sociis natoque
+                                            penatibus et magnis dis parturient
+                                            montes, nascetur ridiculus mus.
+                                            Nullam quis risus eget urna mollis
+                                            ornare vel eu leo. Cras mattis
+                                            consectetur purus sit amet
+                                            fermentum.
+                                        </p>
+                                    </div>
+                                    <a
+                                        id="book-now"
+                                        class="about-us-read-more limoking-button large"
+                                        href="contact-page.html"
+                                        >Book Now</a
+                                    >
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 single-gallery">
-                        <a href="img/g1.jpg" class="img-gal"
-                            ><img
-                                class="img-fluid"
-                                src="../../../public/img/g1.jpg"
-                                alt=""
-                        /></a>
+                <div class="clear"></div>
+            </section>
+        </section>
+        <!-- End Our Promise Area -->
 
-                        <a href="img/g4.jpg" class="img-gal"
-                            ><img
-                                class="img-fluid"
-                                src="../../../public/img/g4.jpg"
-                                alt=""
-                        /></a>
+        <!-- Start Price Range Area -->
+        <section id="content-section-5">
+            <div
+                class="limoking-color-wrapper  gdlr-show-all limoking-skin-dark-skin"
+                style="background-color: #1eacc7; padding-top: 0px; padding-bottom: 0px; "
+            >
+                <div class="container">
+                    <div
+                        class="limoking-item limoking-stunning-item row d-flex justify-content-between"
+                    >
+                        <div class="stunning-item-content col-md-8">
+                            <h2 class="stunning-item-title">
+                                What about pricing?
+                            </h2>
+                            <div
+                                class="stunning-item-caption limoking-skin-content"
+                            >
+                                Don’t worry. We provide very nice deals and the
+                                most competative price just for you!
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <a
+                                class="stunning-item-button limoking-info-font align-self-center"
+                                href="service-rates.html"
+                                style="color: #fff;background: #009fbd;"
+                                >Check Rates</a
+                            >
+                        </div>
                     </div>
-                    <div class="col-lg-4 single-gallery">
-                        <a href="img/g2.jpg" class="img-gal"
-                            ><img
-                                class="img-fluid"
-                                src="../../../public/img/g2.jpg"
-                                alt=""
-                        /></a>
-
-                        <a href="img/g5.jpg" class="img-gal"
-                            ><img
-                                class="img-fluid"
-                                src="../../../public/img/g5.jpg"
-                                alt=""
-                        /></a>
-                    </div>
-                    <div class="col-lg-4 single-gallery">
-                        <a href="img/g3.jpg" class="img-gal"
-                            ><img
-                                class="img-fluid"
-                                src="../../../public/img/g3.jpg"
-                                alt=""
-                        /></a>
-
-                        <a href="img/g6.jpg" class="img-gal"
-                            ><img
-                                class="img-fluid"
-                                src="../../../public/img/g6.jpg"
-                                alt=""
-                        /></a>
-                    </div>
+                    <!-- <div class="limoking-stunning-item-ux limoking-ux"></div> -->
+                    <div class="clear"></div>
+                    <div class="clear"></div>
                 </div>
             </div>
+            <div class="clear"></div>
         </section>
-        <!-- End image-gallery Area -->
+        <!-- End Price Range Area -->
 
-        <!-- Start reviews Area -->
-        <section class="reviews-area section-gap">
-            <div class="container">
-                <div class="row section-title">
-                    <h1>Client’s Reviews</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-review">
-                            <h4>Cody Hines</h4>
-                            <p>
-                                Accessories Here you can find the best computer
-                                accessory for your laptop, monitor, printer,
-                                scanner, speaker.
-                            </p>
-                            <div class="star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-review">
-                            <h4>Chad Herrera</h4>
-                            <p>
-                                Accessories Here you can find the best computer
-                                accessory for your laptop, monitor, printer,
-                                scanner, speaker.
-                            </p>
-                            <div class="star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-review">
-                            <h4>Andre Gonzalez</h4>
-                            <p>
-                                Accessories Here you can find the best computer
-                                accessory for your laptop, monitor, printer,
-                                scanner, speaker.
-                            </p>
-                            <div class="star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-review">
-                            <h4>Jon Banks</h4>
-                            <p>
-                                Accessories Here you can find the best computer
-                                accessory for your laptop, monitor, printer,
-                                scanner, speaker.
-                            </p>
-                            <div class="star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-review">
-                            <h4>Landon Houston</h4>
-                            <p>
-                                Accessories Here you can find the best computer
-                                accessory for your laptop, monitor, printer,
-                                scanner, speaker.
-                            </p>
-                            <div class="star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-review">
-                            <h4>Nelle Wade</h4>
-                            <p>
-                                Accessories Here you can find the best computer
-                                accessory for your laptop, monitor, printer,
-                                scanner, speaker.
-                            </p>
-                            <div class="star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End reviews Area -->
-
-        <!-- Start home-calltoaction Area -->
-        <section class="home-calltoaction-area relative">
-            <div class="container">
-                <div class="overlay overlay-bg"></div>
-                <div class="row align-items-center section-gap">
-                    <div class="col-lg-8">
-                        <h1>Experience Great Support</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation.
-                        </p>
-                    </div>
-                    <div class="col-lg-4 btn-left">
-                        <a href="#" class="primary-btn"
-                            >Reach Our Support Team</a
+        <!-- Start Our Services Area -->
+        <section class="our-services">
+            <div
+                class="limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-dark-skin pb-40"
+                id="limoking-parallax-wrapper-3"
+                data-bgspeed="0"
+                style="background-image: url('img/asset 47.jpeg'); padding-top: 70px; "
+            >
+                <div class="container">
+                    <div class="limoking-title-item">
+                        <div
+                            class="limoking-item-title-wrapper limoking-item  limoking-center-divider limoking-medium "
                         >
+                            <div
+                                class="limoking-item-title-container container"
+                            >
+                                <div class="limoking-item-title-head-inner">
+                                    <div
+                                        class="limoking-item-title-center-divider limoking-left"
+                                        style="display: block; margin-right: 126.5px;"
+                                    ></div>
+                                    <h3
+                                        class="limoking-item-title limoking-skin-title limoking-skin-border"
+                                    >
+                                        Our Services
+                                    </h3>
+                                    <div
+                                        class="limoking-item-title-center-divider limoking-right"
+                                        style="display: block; margin-left: 126.5px;"
+                                    ></div>
+                                </div>
+                                <div
+                                    class="limoking-item-title-caption limoking-skin-info"
+                                >
+                                    Magna Risus Vestibulum Vulputate
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="clear"></div>
+                    <div class="clear"></div>
                 </div>
             </div>
-        </section>
-        <!-- End home-calltoaction Area -->
 
-        <!-- Start latest-blog Area -->
-        <section class="latest-blog-area section-gap">
-            <div class="container">
-                <div class="row section-title">
-                    <h1>Latest News from our Blog</h1>
-                    <p>Who are in extremely love with eco friendly system.</p>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="single-latest-blog">
-                            <div class="thumb">
-                                <img
-                                    class="img-fluid"
-                                    src="../../../public/img/b1.jpg"
-                                    alt=""
-                                />
+            <div
+                class="limoking-color-wrapper  gdlr-show-all no-skin d-flex justify-content-center"
+                style="background-color: #ffffff; padding-top: 70px; padding-bottom: 20px; "
+            >
+                <div class="container row">
+                    <div class="four columns col-md-4 col-12">
+                        <div class="limoking-ux column-service-ux">
+                            <div
+                                class="limoking-item limoking-column-service-item limoking-medium"
+                                style="margin-bottom: 40px;"
+                            >
+                                <div class="column-service-image">
+                                    <img
+                                        src="img/asset 18.png"
+                                        alt=""
+                                        width="41"
+                                        height="46"
+                                    />
+                                </div>
+                                <div class="column-service-content-wrapper">
+                                    <h3 class="column-service-title">
+                                        Night Parties
+                                    </h3>
+                                    <div
+                                        class="column-service-content limoking-skin-content"
+                                    >
+                                        <p>
+                                            Limos King offers superb lim service
+                                            in New York and Manhatatan. &nbsp;We
+                                            are the most popular and has been
+                                            chosen by many important people. We
+                                            also provide premier service to the
+                                            airport, wedding, casino, sport
+                                            event, proms etc.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="tags">
-                                <li><a href="#">Travel</a></li>
-                                <li><a href="#">Life Style</a></li>
-                            </ul>
-                            <a href="#">
-                                <h4>Portable latest Fashion for young women</h4>
-                            </a>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore.
-                            </p>
-                            <p class="date">31st January, 2018</p>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="single-latest-blog">
-                            <div class="thumb">
-                                <img
-                                    class="img-fluid"
-                                    src="../../../public/img/b2.jpg"
-                                    alt=""
-                                />
+                    <div class="four columns col-md-4 col-12">
+                        <div class="limoking-ux column-service-ux">
+                            <div
+                                class="limoking-item limoking-column-service-item limoking-medium"
+                                style="margin-bottom: 40px;"
+                            >
+                                <div class="column-service-image">
+                                    <img
+                                        src="img/asset 19.png"
+                                        alt=""
+                                        width="41"
+                                        height="46"
+                                    />
+                                </div>
+                                <div class="column-service-content-wrapper">
+                                    <h3 class="column-service-title">
+                                        Weddings
+                                    </h3>
+                                    <div
+                                        class="column-service-content limoking-skin-content"
+                                    >
+                                        <p>
+                                            Limos King offers superb lim service
+                                            in New York and Manhatatan. &nbsp;We
+                                            are the most popular and has been
+                                            chosen by many important people. We
+                                            also provide premier service to the
+                                            airport, wedding, casino, sport
+                                            event, proms etc.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <ul class="tags">
-                                <li><a href="#">Travel</a></li>
-                                <li><a href="#">Life Style</a></li>
-                            </ul>
-                            <a href="#">
-                                <h4>Portable latest Fashion for young women</h4>
-                            </a>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore.
-                            </p>
-                            <p class="date">31st January, 2018</p>
                         </div>
                     </div>
+                    <div class="four columns col-md-4 col-12">
+                        <div class="limoking-ux column-service-ux">
+                            <div
+                                class="limoking-item limoking-column-service-item limoking-medium"
+                                style="margin-bottom: 40px;"
+                            >
+                                <div class="column-service-image">
+                                    <img
+                                        src="img/asset 20.png"
+                                        alt=""
+                                        width="41"
+                                        height="46"
+                                    />
+                                </div>
+                                <div class="column-service-content-wrapper">
+                                    <h3 class="column-service-title">
+                                        Casinos
+                                    </h3>
+                                    <div
+                                        class="column-service-content limoking-skin-content"
+                                    >
+                                        <p>
+                                            Limos King offers superb lim service
+                                            in New York and Manhatatan. We are
+                                            the most popular and has been chosen
+                                            by many important people. We also
+                                            provide premier service to the
+                                            airport, wedding, casino, sport
+                                            event, proms etc.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="four columns col-md-4 col-12">
+                        <div class="limoking-ux column-service-ux">
+                            <div
+                                class="limoking-item limoking-column-service-item limoking-medium"
+                                style="margin-bottom: 40px;"
+                            >
+                                <div class="column-service-image">
+                                    <img
+                                        src="img/asset 21.png"
+                                        alt=""
+                                        width="41"
+                                        height="46"
+                                    />
+                                </div>
+                                <div class="column-service-content-wrapper">
+                                    <h3 class="column-service-title">
+                                        Birthdays
+                                    </h3>
+                                    <div
+                                        class="column-service-content limoking-skin-content"
+                                    >
+                                        <p>
+                                            Limos King offers superb lim service
+                                            in New York and Manhatatan. &nbsp;We
+                                            are the most popular and has been
+                                            chosen by many important people. We
+                                            also provide premier service to the
+                                            airport, wedding, casino, sport
+                                            event, proms etc.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="four columns col-md-4 col-12">
+                        <div class="limoking-ux column-service-ux">
+                            <div
+                                class="limoking-item limoking-column-service-item limoking-medium"
+                                style="margin-bottom: 40px;"
+                            >
+                                <div class="column-service-image">
+                                    <img
+                                        src="img/asset 22.png"
+                                        alt=""
+                                        width="41"
+                                        height="46"
+                                    />
+                                </div>
+                                <div class="column-service-content-wrapper">
+                                    <h3 class="column-service-title">Proms</h3>
+                                    <div
+                                        class="column-service-content limoking-skin-content"
+                                    >
+                                        <p>
+                                            Limos King offers superb lim service
+                                            in New York and Manhatatan. &nbsp;We
+                                            are the most popular and has been
+                                            chosen by many important people. We
+                                            also provide premier service to the
+                                            airport, wedding, casino, sport
+                                            event, proms etc.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="four columns col-md-4 col-12">
+                        <div class="limoking-ux column-service-ux">
+                            <div
+                                class="limoking-item limoking-column-service-item limoking-medium"
+                                style="margin-bottom: 40px;"
+                            >
+                                <div class="column-service-image">
+                                    <img
+                                        src="img/asset 23.png"
+                                        alt=""
+                                        width="41"
+                                        height="46"
+                                    />
+                                </div>
+                                <div class="column-service-content-wrapper">
+                                    <h3 class="column-service-title">
+                                        Airport Transfers
+                                    </h3>
+                                    <div
+                                        class="column-service-content limoking-skin-content"
+                                    >
+                                        <p>
+                                            Limos King offers superb lim service
+                                            in New York and Manhatatan. &nbsp;We
+                                            are the most popular and has been
+                                            chosen by many important people. We
+                                            also provide premier service to the
+                                            airport, wedding, casino, sport
+                                            event, proms etc.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
                 </div>
             </div>
         </section>
-        <!-- End latest-blog Area -->
+        <!-- End Our Service  -->
     </div>
 </template>
 
 <script>
-let id = 2;
-import draggable from "vuedraggable";
+import BookingForm from "../components/Booking Form";
 export default {
     components: {
-        draggable
-    },
-    data() {
-        return {
-            journey: [
-                {
-                    start: "",
-                    end: "",
-                    via: []
-                }
-            ],
-            dragging: false
-        };
-    },
-    methods: {
-        add() {
-            this.journey[0].via.push({
-                name: ""
-            });
-        },
-        removeVia(index) {
-            this.journey[0].via.splice(index, 1);
-        }
+        BookingForm
     }
 };
 </script>
 
 <style scoped>
-.form-group {
-    margin-bottom: 0rem;
+h1.text-uppercase {
+    color: #e2e1ff;
+}
+a.primary-btn.text-uppercase {
+    color: white;
+    background-color: #1eacc7;
+    border-radius: 5px;
+}
+.limoking-item-title-wrapper .limoking-item-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+.limoking-skin-dark-skin h1,
+.limoking-skin-dark-skin h2,
+.limoking-skin-dark-skin h3,
+.limoking-skin-dark-skin h4,
+.limoking-skin-dark-skin h5,
+.limoking-skin-dark-skin h6,
+.limoking-skin-dark-skin .limoking-skin-title,
+.limoking-skin-dark-skin .limoking-skin-title a {
+    color: #ffffff;
+}
+.limoking-skin-dark-skin *,
+.limoking-skin-dark-skin .limoking-skin-border {
+    border-color: #ffffff;
+}
+.limoking-item-title-center-icon-divider {
+    display: inline-block;
+    width: 80px;
+    vertical-align: middle;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.limoking-item-title-wrapper.limoking-center-icon-divider {
+    text-align: center;
+}
+.limoking-color-wrapper,
+.limoking-parallax-wrapper {
+    overflow: hidden;
+    background-position: center 0px;
+    background-repeat: repeat;
+    position: relative;
+}
+.limoking-item-title-wrapper.limoking-center-icon-divider.limoking-large
+    .limoking-nav-title,
+.limoking-item-title-wrapper.limoking-center-icon-divider.limoking-extra-large
+    .limoking-nav-title {
+    font-size: 24px;
+}
+.limoking-skin-dark-skin i,
+.limoking-skin-dark-skin .limoking-flex-prev,
+.limoking-skin-dark-skin .limoking-flex-next {
+    color: #ffffff;
+    font-size: large;
+}
+.limoking-item-title-wrapper.limoking-large .limoking-item-title-caption,
+.limoking-item-title-wrapper.limoking-large .limoking-item-title-link {
+    word-spacing: 2px;
+    font-size: 18px;
+    font-weight: lighter;
+}
+.limoking-skin-dark-skin .limoking-skin-info,
+.limoking-skin-dark-skin .limoking-skin-info a,
+.limoking-skin-dark-skin .limoking-skin-info a:hover {
+    color: #ffffff;
+}
+.limoking-item-title-wrapper .limoking-item-title-caption {
+    margin-top: 12px;
+}
+.limoking-skin-dark-skin *,
+.limoking-skin-dark-skin .limoking-skin-border {
+    border-color: #ffffff;
 }
 
-label {
-    margin-bottom: 0.2rem;
+.row.section-title {
+    flex-direction: column;
 }
 
-.fas {
-    font-size: 20px;
-}
-.col-lg-4.col-md-6.header-right {
-    max-width: 450px;
-}
-.header-right {
-    background-color: #f3f3f3eb;
-    box-shadow: 0px 4px 8px #999999a3;
-    border-radius: 8px;
-    padding: 35px;
+img.card-img-top {
+    max-height: 250px;
+    min-height: 250px;
+    /* border-radius: 10px 10px 0px 0px; */
+    background-size: cover;
+    background-position: center center;
+    position: relative;
 }
 
-.header-right .form-control {
-    font-size: 14px;
-    padding: 0.575rem 0.75rem;
-    background-color: #f3f3f3eb;
-    box-shadow: 0px 4px 8px #999999a3;
-    /* border: 1px solid #ced4da; */
-}
-
-.bookingFormLabel {
-    font-weight: 600;
-    font-size: 15px;
-}
-.form-group {
+/* Car Service */
+.ppb_car_type_grid.one.nopadding {
+    margin-bottom: 60px;
     width: 100%;
 }
-/* #bookingForm {
-    padding: 0;
+.page_content_wrapper {
+    width: 100%;
 }
-input#Start {
-    max-width: 230px;
+.standard_wrapper {
+    max-width: 1425px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0 90px;
 }
-input#Via {
-    min-width: 230px;
+.element.grid.classic3_cols.animated1 {
+    width: calc(33.33% - 20px);
+    margin-right: 30px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    float: left;
 }
-input#End {
-    max-width: 230px;
-} */
+.one_third.gallery3.grid.static.filterable.portfolio_type.themeborder {
+    /* background-image: url("../../../public/img/Cars/Executive Car.jpg"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Image Card For Car Services  */
+.grow {
+    transition: all 0.2s ease-in-out;
+}
+.grow:hover {
+    transform: scale(1.05);
+}
+.card {
+    justify-content: space-evenly;
+    border: 0.2px solid #f9f3f3;
+    min-height: 500px;
+    max-height: 500px;
+    margin-bottom: 60px;
+    transition: all 0.2s ease-in-out;
+}
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 1px 5px 8px 2px #dee2e6;
+}
+.card-body {
+    min-height: 250px;
+}
+.card .text-white {
+    margin: 20px;
+}
+.card-img {
+    min-height: 300px;
+    min-width: 206px;
+    border-radius: 5px;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    background-color: #f9f9f9;
+}
+/* Car Service  */
+
+/* Best Expericnce  */
+.limoking-skin-darkblue,
+.limoking-skin-darkblue .limoking-skin-content {
+    color: #c9c9c9;
+}
+.limoking-skin-darkblue *,
+.limoking-skin-darkblue .limoking-skin-border {
+    border-color: #1eacc7;
+}
+.six {
+    width: 50%;
+}
+.limoking-item {
+    margin: 0px 15px 20px;
+    min-height: 1px;
+}
+.limoking-about-us-item.limoking-with-divider .about-us-title {
+    font-size: 35px;
+    margin-bottom: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.limoking-skin-darkblue h1,
+.limoking-skin-darkblue h2,
+.limoking-skin-darkblue h3,
+.limoking-skin-darkblue h4,
+.limoking-skin-darkblue h5,
+.limoking-skin-darkblue h6,
+.limoking-skin-darkblue .limoking-skin-title,
+.limoking-skin-darkblue .limoking-skin-title a {
+    color: #ffffff;
+}
+.limoking-about-us-item.limoking-with-divider .about-us-title-divider {
+    max-width: 100%;
+    width: 135px;
+    border-bottom-width: 0px;
+    border-style: solid;
+    margin-bottom: 30px;
+}
+.limoking-skin-darkblue *,
+.limoking-skin-darkblue .limoking-skin-border {
+    border-color: #1eacc7;
+}
+.limoking-skin-darkblue,
+.limoking-skin-darkblue .limoking-skin-content {
+    color: #c9c9c9;
+}
+.limoking-about-us-item.limoking-with-divider .limoking-button {
+    margin-top: 9px;
+    border-radius: 4px;
+}
+.limoking-skin-darkblue .limoking-button,
+.limoking-skin-darkblue .limoking-button:hover,
+.limoking-skin-darkblue input[type="button"],
+.limoking-skin-darkblue input[type="submit"] {
+    color: #ffffff;
+    background-color: #1eacc7;
+}
+.limoking-button.large {
+    font-size: 15px;
+    padding: 15px 28px;
+}
+
+/* Price Range  */
+.limoking-stunning-item.limoking-item {
+    display: table;
+    width: 100%;
+    margin-bottom: 0px;
+    margin: 30px 0px 20px 0px;
+    justify-content: space-evenly;
+}
+.limoking-stunning-item .stunning-item-content {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+}
+.limoking-stunning-item .stunning-item-title {
+    font-weight: bold;
+    font-size: 21px;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    margin-right: 20px;
+    display: inline;
+}
+.stunning-item-content.col-md-10 {
+    padding-bottom: 20px;
+    padding-left: 0px;
+    left: -15px;
+}
+.stunning-item-button.limoking-info-font {
+    padding: 20px;
+    display: table-cell;
+    font-size: 16px;
+    font-style: italic;
+    border-radius: 5px;
+}
+
+/* Our Services  */
+.limoking-title-item .limoking-item-title-wrapper.limoking-item {
+    margin-bottom: 0px;
+}
+.limoking-item-title-wrapper.limoking-center-divider {
+    text-align: center;
+}
+.limoking-item-title-wrapper.limoking-item {
+    margin-bottom: 30px;
+    position: relative;
+}
+.limoking-item-title-wrapper.limoking-center-divider
+    .limoking-item-title-head-inner {
+    position: relative;
+}
+.limoking-item-title-center-divider.limoking-left {
+    right: 50%;
+    margin-left: 25px;
+}
+.limoking-item-title-center-divider {
+    position: absolute;
+    top: 50%;
+    display: none;
+    width: 80px;
+    border-bottom: 0px;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-style: solid;
+}
+.limoking-item-title-wrapper.limoking-center-divider .limoking-item-title {
+    display: inline-block;
+}
+.limoking-item-title-center-divider.limoking-right {
+    left: 50%;
+    margin-right: 25px;
+}
+.limoking-item-title-wrapper.limoking-medium .limoking-item-title {
+    font-size: 26px;
+    line-height: 34px;
+}
+
+.four {
+    width: 33.333%;
+}
+.limoking-item {
+    margin: 0px 15px 20px;
+    margin-bottom: 20px;
+    min-height: 1px;
+}
+.limoking-column-service-item.limoking-medium .column-service-image {
+    max-width: 50px;
+}
+.limoking-column-service-item .column-service-image {
+    float: left;
+    margin-right: 32px;
+}
+.limoking-column-service-item .column-service-content-wrapper {
+    overflow: hidden;
+}
+.limoking-column-service-item.limoking-medium .column-service-title {
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.limoking-column-service-item .column-service-title {
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+}
+.column-service-title {
+    color: #444444;
+}
+.column-service-content {
+    color: #909090;
+}
+
+@media only screen and (max-width: 335px) {
+    #book-now {
+        display: table;
+        max-width: 50px;
+    }
+}
 </style>
