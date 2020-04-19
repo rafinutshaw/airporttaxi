@@ -31,56 +31,7 @@
         <!-- End banner Area -->
 
         <!-- Start home-about Area -->
-        <section id="home-about-area section-gap">
-            <div
-                class="limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-dark-skin"
-                id="limoking-parallax-wrapper-1"
-                data-bgspeed="0"
-                style="background-image: url('img/asset 45.jpeg'); background-repeat: repeat-x;padding-top: 72px; padding-bottom: 430px; "
-            >
-                <div class="container">
-                    <div class="limoking-title-item">
-                        <div
-                            class="limoking-item-title-wrapper limoking-item  limoking-center-icon-divider limoking-large "
-                        >
-                            <div
-                                class="limoking-item-title-container container"
-                            >
-                                <div class="limoking-item-title-head-inner">
-                                    <h3
-                                        class="limoking-item-title limoking-skin-title limoking-skin-border"
-                                    >
-                                        We serve you like a king
-                                    </h3>
-                                </div>
-                                <div class="limoking-nav-title">
-                                    <div
-                                        class="limoking-item-title-content-icon-divider-wrapper"
-                                    >
-                                        <div
-                                            class="limoking-item-title-center-icon-divider"
-                                        ></div>
-                                        <i class="fa fa-star"></i>
-                                        <div
-                                            class="limoking-item-title-center-icon-divider"
-                                        ></div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="limoking-item-title-caption limoking-skin-info"
-                                >
-                                    We offer you a super VIP experience in
-                                    middle of New York.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </section>
+        <about></about>
         <!-- End home-about Area -->
 
         <!-- Start Cars Area -->
@@ -115,62 +66,6 @@
                                     </p>
                                 </div>
                             </div>
-                            <!-- <div class="card text-white">
-                                <img
-                                    src="../../../public/img/Cars/Estate Car.jpg"
-                                    class="card-img"
-                                    alt="..."
-                                />
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Card title</h5>
-                                </div>
-                            </div>
-                            <div class="card text-white">
-                                <img
-                                    src="../../../public/img/Cars/Estate Car.jpg"
-                                    class="card-img"
-                                    alt="..."
-                                />
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Card title</h5>
-                                </div>
-                            </div> -->
-                            <!-- <div class="card" style="width: 18rem;">
-                            <img
-                                src="../../../public/img/Cars/Estate Car.jpg"
-                                class="card-img-top"
-                                alt="..."
-                            />
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary"
-                                    >Go somewhere</a
-                                >
-                            </div>
-                        </div>
-                        <div class="card" style="width: 18rem;">
-                            <img
-                                src="../../../public/img/Cars/Saloon Car.jpeg"
-                                class="card-img-top"
-                                alt="..."
-                            />
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary"
-                                    >Go somewhere</a
-                                >
-                            </div>
-                        </div>
-                        <div class="card" style="width: 18rem;">
-                            <img
-                                src="../../../public/img/Cars/People Carrier.jpg"
-                                class="card-img-top"
-                                alt="..."
-                            />
-                            <div class="card-body">
-                                <a href="#" class="btn btn-primary"
-                                    >Go somewhere</a
-                                >
-                            </div>
-                        </div> -->
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
@@ -280,46 +175,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Bootstrap Card -->
-
-                <!-- Bootstrap Card -->
-                <!-- <div class="row">
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card border-0 transform-on-hover">
-                            <div class="card text-white">
-                                <img
-                                    src="../../../public/img/Cars/Estate Car.jpg"
-                                    class="card-img"
-                                    alt="..."
-                                />
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Card title</h5>
-                                </div>
-                            </div>
-                            <div class="card text-white">
-                                <img
-                                    src="../../../public/img/Cars/Estate Car.jpg"
-                                    class="card-img"
-                                    alt="..."
-                                />
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Card title</h5>
-                                </div>
-                            </div>
-                            <div class="card text-white">
-                                <img
-                                    src="../../../public/img/Cars/Estate Car.jpg"
-                                    class="card-img"
-                                    alt="..."
-                                />
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Card title</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <!-- Bootstrap Card -->
             </div>
         </section>
@@ -363,7 +218,7 @@
                                     </div>
                                     <a
                                         id="book-now"
-                                        class="about-us-read-more limoking-button large"
+                                        class="primary-btn"
                                         href="contact-page.html"
                                         >Book Now</a
                                     >
@@ -452,7 +307,7 @@
                                 <div
                                     class="limoking-item-title-caption limoking-skin-info"
                                 >
-                                    Magna Risus Vestibulum Vulputate
+                                    What Services we offer to our clients
                                 </div>
                             </div>
                         </div>
@@ -686,9 +541,11 @@
 
 <script>
 import BookingForm from "../components/Booking Form";
+import About from "../pages/About";
 export default {
     components: {
-        BookingForm
+        BookingForm,
+        About
     }
 };
 </script>
@@ -937,13 +794,18 @@ img.card-img-top {
     left: -15px;
 }
 .stunning-item-button.limoking-info-font {
-    padding: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    line-height: 42px;
     display: table-cell;
     font-size: 16px;
-    font-style: italic;
-    border-radius: 5px;
+    border-radius: 4px;
 }
-
+/* .stunning-item-button.limoking-info-font:hover {
+    background-color: #06c4ea;
+    color: white;
+    border: 1px solid #05badd;
+} */
 /* Our Services  */
 .limoking-title-item .limoking-item-title-wrapper.limoking-item {
     margin-bottom: 0px;

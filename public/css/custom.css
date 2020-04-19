@@ -50,6 +50,7 @@ p.mt-80.mx-auto.footer-text.col-lg-12 {
 #mobile-nav ul li a:hover {
     color: #1eacc7;
 }
+
 /* a:hover {
     text-decoration: none;
 } */
@@ -57,4 +58,62 @@ a:hover {
     text-decoration: none;
     transition: all 0.2s ease-in-out;
     transform: scale(1.05);
+}
+
+::selection {
+    background-color: #1eacc7;
+    color: #fff;
+}
+
+::-moz-selection {
+    background-color: #1eacc7;
+    color: #fff;
+}
+
+.primary-btn {
+    background: #1eacc7;
+    line-height: 42px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: none;
+    color: #fff;
+    display: inline-block;
+    font-weight: 600;
+    position: relative;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+}
+
+.primary-btn:hover {
+    background-color: #06c4ea;
+    color: white;
+    border: 1px solid #05badd;
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.05);
+}
+
+.form-select .nice-select .list .option.selected {
+    color: #1eacc7;
+    background: transparent;
+}
+
+.form-select .nice-select .list .option:hover {
+    color: #1eacc7;
+    background: transparent;
+}
+
+/* Icon */
+.contact-page-area .address-wrap .single-contact-address .lnr {
+    color: #1eacc7;
+}
+/* Form */
+.contact-page-area .form-area input,
+.contact-page-area .form-area textarea {
+    border-radius: 0.4rem;
+    font-size: 0.9rem;
 }

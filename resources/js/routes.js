@@ -26,6 +26,11 @@ const routes = [
         path: "/service",
         name: "Service",
         component: () => import("./pages/Service")
+    },
+    {
+        path: "/contact",
+        name: "Contact",
+        component: () => import("./pages/Contact")
     }
     // {
     //     path: "/login",

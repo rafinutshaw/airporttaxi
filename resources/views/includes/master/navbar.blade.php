@@ -9,8 +9,7 @@
                     <li class="menu-active"><router-link to="/" tag="a">Home</router-link></li>
                     <li class="menu-active"><router-link to="/about" tag="a">About</router-link></li>
                     <li class="menu-active"><router-link to="/service" tag="a">Service</router-link></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li class="menu-has-children"><a href="">Blog</a>
+                    {{-- <li class="menu-has-children"><a href="">Blog</a> --}}
                         <ul>
                             <li><a href="blog-home.html">Blog Home</a></li>
                             <li><a href="blog-single.html">Blog Single</a></li>
@@ -22,8 +21,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="elements.html">Elements</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li class="menu-active"><router-link to="/contact" tag="a">Contact</router-link></li>
                 </ul>
             </nav><!-- #nav-menu-container -->
         </div>

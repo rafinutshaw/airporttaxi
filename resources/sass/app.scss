@@ -1,16 +1,23 @@
+
+// $primary: #1eacc7;
+
+@import "variables";
 @import "~bootstrap/scss/bootstrap";
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
-// @import "variables";
-
-.btn-primary {
-    color: #fff;
-    background-color: #5856d6;
-    border-color: #5856d6;
+.btn:hover {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.05);
 }
+
+// .btn-primary {
+//     color: #fff;
+//     background-color: #5856d6;
+//     border-color: #5856d6;
+// }
 
 // .btn-primary:hover {
 //   color: #fff;

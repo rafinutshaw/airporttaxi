@@ -1,11 +1,12 @@
 <template>
-    <div class="mt-5 pt-5">
+    <div class="mt-50">
         <!-- Start services Area -->
         <section class="our-services">
             <div
-                class="limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-dark-skin pb-40 pt-40"
+                class="limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-dark-skin pb-40"
                 id="limoking-parallax-wrapper-3"
                 data-bgspeed="0"
+                style="background-image: url('img/asset 47.jpeg'); padding-top: 70px; "
             >
                 <div class="container">
                     <div class="limoking-title-item">
@@ -33,7 +34,7 @@
                                 <div
                                     class="limoking-item-title-caption limoking-skin-info"
                                 >
-                                    Magna Risus Vestibulum Vulputate
+                                    What Services we offer to our clients
                                 </div>
                             </div>
                         </div>
@@ -42,7 +43,6 @@
                     <div class="clear"></div>
                 </div>
             </div>
-
             <div
                 class="limoking-color-wrapper  gdlr-show-all no-skin d-flex justify-content-center"
                 style="background-color: #ffffff; padding-top: 70px; padding-bottom: 20px; "
@@ -270,11 +270,50 @@ export default {};
 </script>
 
 <style scoped>
+/* Car Service */
+.ppb_car_type_grid.one.nopadding {
+    margin-bottom: 60px;
+    width: 100%;
+}
+.page_content_wrapper {
+    width: 100%;
+}
+.standard_wrapper {
+    max-width: 1425px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0 90px;
+}
+.element.grid.classic3_cols.animated1 {
+    width: calc(33.33% - 20px);
+    margin-right: 30px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    float: left;
+}
+.one_third.gallery3.grid.static.filterable.portfolio_type.themeborder {
+    /* background-image: url("../../../public/img/Cars/Executive Car.jpg"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
+.limoking-skin-dark-skin h1,
+.limoking-skin-dark-skin h2,
+.limoking-skin-dark-skin h3,
+.limoking-skin-dark-skin h4,
+.limoking-skin-dark-skin h5,
+.limoking-skin-dark-skin h6,
+.limoking-skin-dark-skin .limoking-skin-title,
+.limoking-skin-dark-skin .limoking-skin-title a {
+    color: #ffffff;
+}
 .limoking-title-item .limoking-item-title-wrapper.limoking-item {
     margin-bottom: 0px;
 }
 .limoking-item-title-wrapper.limoking-center-divider {
+    color: #ffffff;
     text-align: center;
 }
 .limoking-item-title-wrapper.limoking-item {
@@ -298,6 +337,7 @@ export default {};
     border-bottom-color: currentcolor;
     border-bottom-style: none;
     border-style: solid;
+    color: white;
 }
 .limoking-item-title-wrapper.limoking-center-divider .limoking-item-title {
     display: inline-block;
@@ -345,4 +385,5 @@ export default {};
 }
 .column-service-content {
     color: #909090;
-}</style>
+}
+</style>

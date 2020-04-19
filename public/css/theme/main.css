@@ -1022,6 +1022,7 @@ h6 {
     -moz-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
+    border-radius: 5px;
 }
 
 .genric-btn:focus {
@@ -1090,6 +1091,19 @@ h6 {
 
 .genric-btn.primary {
     color: #fff;
+    background: #1eacc7;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.genric-btn.primary:hover {
+    color: #1eacc7;
+    border: 1px solid #1eacc7;
+    background: #fff;
+}
+
+/* .genric-btn.primary {
+    color: #fff;
     background: #f9d700;
     border: 1px solid transparent;
 }
@@ -1098,7 +1112,7 @@ h6 {
     color: #f9d700;
     border: 1px solid #f9d700;
     background: #fff;
-}
+} */
 
 .genric-btn.primary-border {
     color: #f9d700;
@@ -2068,6 +2082,7 @@ h6 {
     background: transparent;
 }
 
+
 .form-select .current {
     margin-right: 50px;
     font-weight: 300;
@@ -2428,7 +2443,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     color: #008000;
 }
 
-.primary-btn {
+/* .primary-btn {
     background: #f9d700;
     line-height: 42px;
     padding-left: 30px;
@@ -2444,7 +2459,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     transition: all 0.3s ease 0s;
     cursor: pointer;
     position: relative;
-}
+} */
 
 .primary-btn:focus {
     outline: none;
@@ -2462,9 +2477,9 @@ body.mobile-nav-active #mobile-nav-toggle {
     transition: all 0.3s ease 0s;
 }
 
-.primary-btn:hover {
+/* .primary-btn:hover {
     color: #fff;
-}
+} */
 
 .primary-btn:hover span {
     color: #fff;
@@ -2523,7 +2538,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 /*-------- Start Banner Area ------------*/
 .banner-area {
     /* background: url("{{ asset('img/header-bg.jpg')}}") center; */
-    background: url("../../img/header-bg.jpg") center;
+    background: url("../../img/asset 5.jpeg") center;
     background-size: cover;
 }
 
@@ -3929,9 +3944,14 @@ body.mobile-nav-active #mobile-nav-toggle {
     text-transform: uppercase !important;
 }
 
-.contact-page-area .form-area .genric-btn:hover {
+/* .contact-page-area .form-area .genric-btn:hover {
     border: 1px solid #f9d700;
     color: #f9d700 !important;
+} */
+
+.contact-page-area .form-area .genric-btn:hover {
+    border: 1px solid #1eacc7;
+    color: #1eacc7 !important;
 }
 
 @media (max-width: 991px) {

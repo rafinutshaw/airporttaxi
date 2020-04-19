@@ -180,8 +180,8 @@ label {
 .form-group {
     width: 100%;
 }
-.btn-primary {
+/* .btn-primary {
     background-color: #5856d6;
     border-color: #5856d6;
-}
+} */
 </style>

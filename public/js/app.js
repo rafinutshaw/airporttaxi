@@ -34673,7 +34673,7 @@ var routes = [{
    * * which is lazy-loaded when the route is visited.
    */
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(0), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./pages/Home */ "./resources/js/pages/Home.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(0), __webpack_require__.e(6), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ./pages/Home */ "./resources/js/pages/Home.vue"));
   }
   /* webpackChunkName: "home" */
 
@@ -34681,13 +34681,19 @@ var routes = [{
   path: "/about",
   name: "About",
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./pages/About */ "./resources/js/pages/About.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./pages/About */ "./resources/js/pages/About.vue"));
   }
 }, {
   path: "/service",
   name: "Service",
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./pages/Service */ "./resources/js/pages/Service.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ./pages/Service */ "./resources/js/pages/Service.vue"));
+  }
+}, {
+  path: "/contact",
+  name: "Contact",
+  component: function component() {
+    return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./pages/Contact */ "./resources/js/pages/Contact.vue"));
   }
 } // {
 //     path: "/login",
