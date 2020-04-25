@@ -22,7 +22,7 @@
                             experiences by staying in a small.
                         </p>
                         <a href="#" class="primary-btn text-uppercase"
-                            >Call for taxi</a
+                            >Call for Ride</a
                         >
                     </div>
                 </div>
@@ -784,7 +784,7 @@ img.card-img-top {
     font-weight: bold;
     font-size: 21px;
     text-transform: uppercase;
-    margin-bottom: 0px;
+    /* margin-bottom: 0px; */
     margin-right: 20px;
     display: inline;
 }
