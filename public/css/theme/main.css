@@ -2601,7 +2601,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     }
 }
 
-.banner-content .primary-btn {
+/* .banner-content .primary-btn {
     background-color: #f9d700;
     color: #222;
     font-weight: 600;
@@ -2610,7 +2610,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .banner-content .primary-btn:hover {
     background-color: #fff;
-}
+} */
 
 @media (max-width: 767px) {
     .banner-content {

@@ -2,7 +2,7 @@
     <div class="header-right">
         <h4 class="pb-10">BOOK ONLINE</h4>
         <div style="text-align: left;">
-            <form class="container" id="bookingForm">
+            <div class="container" id="bookingForm">
                 <div v-for="(item, index) in journey" :key="index">
                     <div class="mb-2">
                         <label class="bookingFormLabel" for="Start"
@@ -61,13 +61,9 @@
                                             aria-describedby="helpId"
                                         />
                                         <!-- <i
-                                                            class="fa fa-times close ml-2 mt-1"
-                                                            @click="
-                                                                removeVia(
-                                                                    viaIndex
-                                                                )
-                                                            "
-                                                        ></i> -->
+                                            class="fa fa-times close ml-2 mt-1"
+                                            @click="removeVia(viaIndex)"
+                                        ></i> -->
                                     </div>
                                 </div>
 
@@ -98,6 +94,16 @@
                                 aria-describedby="helpId"
                             />
                         </div>
+                        <autocomplete
+                            class="mt-3"
+                            :search="search"
+                            placeholder="Search for a City"
+                            aria-label="Search for a City"
+                            auto-select
+                            :get-result-value="getResultValue"
+                            @submit="handleSubmit"
+                        ></autocomplete>
+                        <p>{{ SelectedCity }}</p>
                     </div>
                 </div>
                 <button
@@ -106,17 +112,22 @@
                 >
                     Add
                 </button>
-            </form>
+
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import draggable from "vuedraggable";
+import Autocomplete from "@trevoreyre/autocomplete-vue";
+import "@trevoreyre/autocomplete-vue/dist/style.css";
+import Cities from "../../store/Cities";
 
 export default {
     components: {
-        draggable
+        draggable,
+        Autocomplete
     },
     data() {
         return {
@@ -127,7 +138,9 @@ export default {
                     via: []
                 }
             ],
-            dragging: false
+            dragging: false,
+            CityNames: Cities,
+            SelectedCity: null
         };
     },
     methods: {
@@ -138,12 +151,30 @@ export default {
         },
         removeVia(index) {
             this.journey[0].via.splice(index, 1);
+        },
+        search(input) {
+            return new Promise(resolve => {
+                if (input.length < 1) {
+                    return [];
+                }
+                let value = this.CityNames.Names.filter(name => {
+                    return name.toLowerCase().startsWith(input.toLowerCase());
+                });
+                resolve(value);
+            });
+        },
+        getResultValue(result) {
+            return result;
+        },
+        handleSubmit(result) {
+            this.SelectedCity = result;
         }
     }
 };
 </script>
 
-<style scoped>.form-group {
+<style scoped>
+.form-group {
     margin-bottom: 0rem;
 }
 
@@ -154,13 +185,16 @@ label {
 .fas {
     font-size: 20px;
 }
+
 .col-lg-4.col-md-6.header-right {
     max-width: 450px;
 }
+
 .header-right {
     background-color: #f3f3f3eb;
     box-shadow: 0px 4px 8px #999999a3;
     border-radius: 8px;
+    max-width: 450px;
     padding: 35px;
     margin-top: 100px;
 }
@@ -173,13 +207,19 @@ label {
     /* border: 1px solid #ced4da; */
 }
 
+.autocomplete-input {
+    font-size: 14px;
+}
+
 .bookingFormLabel {
     font-weight: 600;
     font-size: 15px;
 }
+
 .form-group {
     width: 100%;
 }
+
 /* .btn-primary {
     background-color: #5856d6;
     border-color: #5856d6;

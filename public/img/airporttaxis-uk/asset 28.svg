@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve" preserveAspectRatio="xMaxYMax meet" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.5;" class="ots-icon ots-icon-return">
+            <title>Return Icon</title>
+            <g transform="rotate(0 50 50)">
+                
+                <path d="M0,0l60,0c22.077,0 40,17.923 40,40c0,22.077 -17.923,40 -40,40l-20,0l0,20l-40,-30l40,-30l0,20l20,0c11.038,0 20,-8.962 20,-20c0,-10.995 -8.892,-19.93 -19.871,-20l-0.129,0l-60,0l0,-20Z"/>
+            </g>
+        </svg>

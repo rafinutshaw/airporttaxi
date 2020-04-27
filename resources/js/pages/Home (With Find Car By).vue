@@ -1,4 +1,5 @@
 <template>
+<!-- Here we didn't include "FindCarByType" rather than we used as inline -->
     <div>
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">
@@ -10,7 +11,158 @@
                     <div class="col-lg-5 col-md-6 booking-form-div">
                         <booking-form></booking-form>
                     </div>
-                    <find-car-by-type></find-car-by-type>
+                    <div class="banner-content col-lg-6 col-md-10 col-sm-12">
+                        <div class="row justify-content-center">
+                            <h2 class="text-white font-weight-bold">
+                                Find Cars by type
+                            </h2>
+                        </div>
+                        <!-- Saloon Car -->
+                        <div class="row mt-3 car-div">
+                            <div
+                                class="col-md-3 d-flex justify-content-center mb-2"
+                            >
+                                <img
+                                    class="car-img"
+                                    src="../../../public/img/Cars/Cars SVG/Saloon Car.svg"
+                                    alt=""
+                                />
+                            </div>
+                            <div
+                                class="col-md-9 text-white"
+                                style="text-align: justify;"
+                            >
+                                <strong>Saloon Car:</strong> Up to 3 passengers
+                                plus 3 suitcases (20kg max) or 4 passengers plus
+                                hand luggage. Any more luggage than this will
+                                require a larger vehicle.
+                            </div>
+                        </div>
+                        <!-- Estate Car -->
+                        <div class="row mt-3 car-div">
+                            <div
+                                class="col-md-3 d-flex justify-content-center mb-2"
+                            >
+                                <img
+                                    class="car-img"
+                                    src="../../../public/img/Cars/Cars SVG/Estate Car.svg"
+                                    alt=""
+                                />
+                            </div>
+                            <div
+                                class="col-md-9 text-white"
+                                style="text-align: justify;"
+                            >
+                                <strong>Estate Car:</strong> Up to 4 passengers
+                                plus 4 suitcases (20kg max). Any more luggage
+                                than this will require a larger vehicle.
+                            </div>
+                        </div>
+                        <!-- People Carrier -->
+                        <div class="row mt-3 car-div">
+                            <div
+                                class="col-md-3 d-flex justify-content-center mb-2"
+                            >
+                                <img
+                                    class="car-img"
+                                    src="../../../public/img/Cars/Cars SVG/People Carrier.svg"
+                                    alt=""
+                                />
+                            </div>
+                            <div
+                                class="col-md-9 text-white"
+                                style="text-align: justify;"
+                            >
+                                <strong>People Carrier:</strong> Up to 5
+                                passengers plus 5 suitcases (20kg max) or 6
+                                passengers plus hand luggage. Any more luggage
+                                than this will require a larger vehicle.
+                            </div>
+                        </div>
+                        <!-- Executive Car -->
+                        <div class="row mt-3 car-div">
+                            <div
+                                class="col-md-3 d-flex justify-content-center mb-2"
+                            >
+                                <img
+                                    class="car-img"
+                                    src="../../../public/img/Cars/Cars SVG/Executive Car.svg"
+                                    alt=""
+                                />
+                            </div>
+                            <div
+                                class="col-md-9 text-white"
+                                style="text-align: justify;"
+                            >
+                                <strong>Executive Car:</strong> Up to 3
+                                passengers plus 3 suitcases (20kg max) or 4
+                                passengers plus hand luggage. Any more luggage
+                                than this will require a larger vehicle.
+                            </div>
+                        </div>
+                        <!-- Executive People Carrier -->
+                        <div class="row mt-3 car-div">
+                            <div
+                                class="col-md-3 d-flex justify-content-center mb-2"
+                            >
+                                <img
+                                    class="car-img"
+                                    src="../../../public/img/Cars/Cars SVG/Executive People Carrier.svg"
+                                    alt=""
+                                />
+                            </div>
+                            <div
+                                class="col-md-9 text-white"
+                                style="text-align: justify;"
+                            >
+                                <strong>Executive People Carrier:</strong> Up to
+                                5 passengers plus 5 suitcases (20kg max) or 6
+                                passengers plus hand luggage. Any more luggage
+                                than this will require a larger vehicle.
+                            </div>
+                        </div>
+                        <!-- 8 Seater Minibus -->
+                        <div class="row mt-3 car-div">
+                            <div
+                                class="col-md-3 d-flex justify-content-center mb-2"
+                            >
+                                <img
+                                    class="car-img"
+                                    src="../../../public/img/Cars/Cars SVG/8 Seater Minibus.svg"
+                                    alt=""
+                                />
+                            </div>
+                            <div
+                                class="col-md-9 text-white"
+                                style="text-align: justify;"
+                            >
+                                <strong>Saloon Car:</strong> 8 passengers plus
+                                up to 8 suitcases (20kg max). Any more luggage
+                                than this will require a larger vehicle.
+                            </div>
+                        </div>
+                        <!-- 14 Seater Minibus -->
+                        <div class="row mt-3 car-div">
+                            <div
+                                class="col-md-3 d-flex justify-content-center mb-2"
+                            >
+                                <img
+                                    class="car-img"
+                                    src="../../../public/img/Cars/Cars SVG/14 Seater Minibus.svg"
+                                    alt=""
+                                />
+                            </div>
+                            <div
+                                class="col-md-9 text-white"
+                                style="text-align: justify;"
+                            >
+                                <strong>14 Seater Minibus:</strong> 12
+                                passengers plus up to 12 suitcases (20kg max) or
+                                16 passengers with hand luggage. Any more
+                                luggage than this will require a larger vehicle.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -536,6 +688,11 @@ export default {
         FindCarModal,
         FindCarByType,
         About
+    },
+    methods: {
+        suitableCarModal() {
+            this.$root.$emit("findCarModal");
+        }
     }
 };
 </script>
@@ -939,94 +1096,5 @@ img.card-img-top {
 }
 
 /* Start Section Banner */
-.col-md-9.text-white {
-    color: #eaeaea !important;
-    font-size: 15px;
-}
-.col-md-9.text-white strong {
-    color: white !important;
-}
-.booking-form-div {
-    left: 8%;
-}
-.fullscreen {
-    height: 966px;
-}
-
-@media only screen and (max-width: 1700px) {
-    .booking-form-div {
-        left: 5%;
-    }
-}
-
-@media only screen and (max-width: 1400px) {
-    .booking-form-div {
-        left: 2%;
-    }
-}
-
-@media only screen and (max-width: 1025px) {
-    .fullscreen {
-        height: 1100px;
-    }
-    .booking-form-div {
-        left: 2%;
-    }
-}
-
-@media only screen and (max-width: 990px) {
-    .booking-form-div {
-        left: 22%;
-        min-width: 500px;
-    }
-    .fullscreen {
-        height: 1212px;
-    }
-    .header-right {
-        min-width: 450px;
-    }
-}
-
-@media only screen and (max-width: 840px) {
-    .fullscreen {
-        /* height: 1320px; */
-    }
-    .booking-form-div {
-        left: 17%;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .booking-form-div {
-        left: 0;
-        display: flex;
-        justify-content: center;
-    }
-    .fullscreen {
-        height: 1320px;
-    }
-}
-@media only screen and (max-width: 540px) {
-    .header-right {
-        min-width: 350px;
-        margin-right: 0px;
-        margin-left: 0px;
-    }
-    .booking-form-div {
-        min-width: 350px;
-        padding: 0px;
-    }
-}
-@media only screen and (max-width: 400px) {
-    .header-right {
-        min-width: 200px;
-        max-width: 290px;
-    }
-    .booking-form-div {
-        min-width: 200px;
-        max-width: 290px;
-        margin-left: 15px;
-    }
-}
 /* End Section Banner */
 </style>

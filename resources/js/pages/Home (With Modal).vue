@@ -1,16 +1,37 @@
 <template>
+<!-- This Vue file is for popup Modal when user click from Home page to see different types of Cars -->
     <div>
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">
             <div class="overlay overlay-bg"></div>
-            <div class="container-fluid pl-5 pr-5">
+            <div class="container">
                 <div
                     class="row fullscreen d-flex align-items-center justify-content-between"
+                    style="height: 966px;"
                 >
-                    <div class="col-lg-5 col-md-6 booking-form-div">
+                    <div class="col-lg-5 col-md-6">
                         <booking-form></booking-form>
                     </div>
-                    <find-car-by-type></find-car-by-type>
+                    <div class="banner-content col-lg-5 col-md-12">
+                        <!-- <h6 class="text-white">Need a ride? just call</h6> -->
+                        <h6 class="text-white">Don't know which car you want?</h6>
+                        <h1 class="text-uppercase">
+                            Check now
+                        </h1>
+                        <p class="pt-10 pb-10 text-white">
+                            We offer professional car rental services in our range of high-end vehicles. 
+                        </p>
+                        <button
+                            class="primary-btn text-uppercase"
+                            @click="suitableCarModal"
+                        >
+                            Find your suitable car
+                        </button>
+
+                        <!-- Find Car By Type Modal Component -->
+                        <findCarModal></findCarModal>
+                        <!-- Find Car By Type Modal Component -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -528,14 +549,17 @@
 <script>
 import BookingForm from "../components/Home/Booking Form";
 import FindCarModal from "../components/Home/Find Car Modal";
-import FindCarByType from "../components/Home/Find Cars By Type";
 import About from "../pages/About";
 export default {
     components: {
         BookingForm,
         FindCarModal,
-        FindCarByType,
         About
+    },
+    methods: {
+        suitableCarModal() {
+            this.$root.$emit("findCarModal");
+        }
     }
 };
 </script>
@@ -937,96 +961,4 @@ img.card-img-top {
         max-width: 50px;
     }
 }
-
-/* Start Section Banner */
-.col-md-9.text-white {
-    color: #eaeaea !important;
-    font-size: 15px;
-}
-.col-md-9.text-white strong {
-    color: white !important;
-}
-.booking-form-div {
-    left: 8%;
-}
-.fullscreen {
-    height: 966px;
-}
-
-@media only screen and (max-width: 1700px) {
-    .booking-form-div {
-        left: 5%;
-    }
-}
-
-@media only screen and (max-width: 1400px) {
-    .booking-form-div {
-        left: 2%;
-    }
-}
-
-@media only screen and (max-width: 1025px) {
-    .fullscreen {
-        height: 1100px;
-    }
-    .booking-form-div {
-        left: 2%;
-    }
-}
-
-@media only screen and (max-width: 990px) {
-    .booking-form-div {
-        left: 22%;
-        min-width: 500px;
-    }
-    .fullscreen {
-        height: 1212px;
-    }
-    .header-right {
-        min-width: 450px;
-    }
-}
-
-@media only screen and (max-width: 840px) {
-    .fullscreen {
-        /* height: 1320px; */
-    }
-    .booking-form-div {
-        left: 17%;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .booking-form-div {
-        left: 0;
-        display: flex;
-        justify-content: center;
-    }
-    .fullscreen {
-        height: 1320px;
-    }
-}
-@media only screen and (max-width: 540px) {
-    .header-right {
-        min-width: 350px;
-        margin-right: 0px;
-        margin-left: 0px;
-    }
-    .booking-form-div {
-        min-width: 350px;
-        padding: 0px;
-    }
-}
-@media only screen and (max-width: 400px) {
-    .header-right {
-        min-width: 200px;
-        max-width: 290px;
-    }
-    .booking-form-div {
-        min-width: 200px;
-        max-width: 290px;
-        margin-left: 15px;
-    }
-}
-/* End Section Banner */
 </style>

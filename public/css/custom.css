@@ -2,6 +2,16 @@
     padding: 25px 80px;
 }
 
+::selection {
+    background-color: #1eacc7;
+    color: #fff;
+}
+
+::-moz-selection {
+    background-color: #1eacc7;
+    color: #fff;
+}
+
 body {
     font-family: "Hind", sans-serif;
 }
@@ -23,6 +33,7 @@ p.mt-80.mx-auto.footer-text.col-lg-12 {
     padding: 50px 0;
 }
 
+/* Start Navbar Section  */
 .nav-menu a {
     font-weight: bold;
     font-size: 14px;
@@ -32,49 +43,39 @@ p.mt-80.mx-auto.footer-text.col-lg-12 {
     padding-bottom: 5px;
 }
 
-.nav-menu a:hover {
+.nav-link {
+    font-weight: bold;
+    opacity: 0.7;
+    text-decoration: none;
+    padding-right: 15px;
+}
+
+.nav-link:hover {
     color: #1eacc7;
     opacity: 1;
     text-decoration: none;
     border-bottom: 2px solid #1eacc7;
 }
 
-.nav-menu ul li:hover > a {
-    color: #1eacc7;
-}
-
-#mobile-nav ul .menu-item-active {
-    color: #1eacc7;
-}
-
-#mobile-nav ul li a:hover {
-    color: #1eacc7;
-}
-
-/* a:hover {
+.nav-link.router-link-exact-active.router-link-active { 
+    color: white;
+    opacity: 1;
     text-decoration: none;
-} */
+    /* border-bottom: 2px solid #1eacc7; */
+}
+/* End Navbar Section  */
+
 a:hover {
     text-decoration: none;
     transition: all 0.2s ease-in-out;
-    transform: scale(1.05);
-}
-
-::selection {
-    background-color: #1eacc7;
-    color: #fff;
-}
-
-::-moz-selection {
-    background-color: #1eacc7;
-    color: #fff;
+    transform: scale(1.03);
 }
 
 .primary-btn {
     background: #1eacc7;
-    line-height: 42px;
-    padding-left: 30px;
-    padding-right: 30px;
+    line-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
     border: none;
     color: #fff;
     display: inline-block;

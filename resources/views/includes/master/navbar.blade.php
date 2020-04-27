@@ -1,30 +1,30 @@
-<header id="header" class="" style="position: sticky;">
-    {{-- <div class="header-top">
-    </div> --}}
-    <div class="container-fluid main-menu">
-        <div class="row align-items-center justify-content-between d-flex">
-            <router-link to="/" tag="a"><img src="{{ asset("img/logo (3).png") }}" alt="" title="" style="max-width: 40px" /></router-link>
-            <nav id="nav-menu-container">
-                <ul class="nav-menu">
-                    <li class="menu-active"><router-link to="/" tag="a">Home</router-link></li>
-                    <li class="menu-active"><router-link to="/about" tag="a">About</router-link></li>
-                    <li class="menu-active"><router-link to="/service" tag="a">Service</router-link></li>
-                    {{-- <li class="menu-has-children"><a href="">Blog</a> --}}
-                        <ul>
-                            <li><a href="blog-home.html">Blog Home</a></li>
-                            <li><a href="blog-single.html">Blog Single</a></li>
-                            <li class="menu-has-children"><a href="">Level 2</a>
-                                <ul>
-                                    <li><a href="#">Item One</a></li>
-                                    <li><a href="#">Item Two</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-active"><router-link to="/contact" tag="a">Contact</router-link></li>
-                </ul>
-            </nav><!-- #nav-menu-container -->
+{{-- <header id="header" class="" style="position: sticky;">
+</header> --}}
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color:black">
+    <div class="container">
+        <router-link to="/" tag="a" class="navbar-brand"><img src="{{ asset("img/logo (3).png") }}" alt=""
+                title="{{ config('app.name') }}" style="width: 40px; height: 40px" />
+        </router-link>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item pr-2">
+                    <router-link to="/" tag="a" class="nav-link">Home</router-link>
+                </li>
+                <li class="nav-item pr-2">
+                    <router-link to="/about" tag="a" class="nav-link">About</router-link>
+                </li>
+                <li class="nav-item pr-2">
+                    <router-link to="/service" tag="a" class="nav-link">Service</router-link>
+                </li>
+                <li class="nav-item pr-2">
+                    <router-link to="/contact" tag="a" class="nav-link">Contact Us</router-link>
+                </li>
+            </ul>
         </div>
     </div>
-</header>
-
+</nav>
