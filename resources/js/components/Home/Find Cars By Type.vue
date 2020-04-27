@@ -118,9 +118,11 @@ export default {};
 </script>
 
 <style scoped>
+
 .banner-content {
     right: 8%;
-    top: 5%;
+    margin-top: 10%;
+    margin-bottom: 5%;
 }
 .car-img {
     width: 80%;
@@ -133,25 +135,23 @@ export default {};
 
 @media only screen and (max-width: 1400px) {
     .banner-content {
-        right: 2%;
+        right: 5%;
     }
 }
 
 @media only screen and (max-width: 1025px) {
     .banner-content {
         right: 2%;
-        top: 3%;
+        margin-top: 12%;
+        margin-bottom: 5%;
     }
 }
 
 @media only screen and (max-width: 990px) {
     .banner-content {
         right: 0%;
-        left: 10%;
-        top: 0%;
-    }
-    .header-right {
-        min-width: 450px;
+        left: 8%;
+        margin-top: 2%;
     }
 }
 
@@ -163,7 +163,7 @@ export default {};
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 760px) {
     .banner-content {
         display: flex;
         flex-direction: column;
@@ -173,7 +173,7 @@ export default {};
         margin-bottom: 5%;
     }
     .car-img {
-        width: 40%;
+        width: 30%;
         margin-bottom: 2%;
     }
     .car-div {

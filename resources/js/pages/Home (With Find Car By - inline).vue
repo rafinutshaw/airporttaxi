@@ -1,5 +1,5 @@
 <template>
-<!-- Here we didn't include "FindCarByType" rather than we used as inline -->
+    <!-- Here we didn't include "FindCarByType" rather than we used as inline -->
     <div>
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">
@@ -1096,5 +1096,126 @@ img.card-img-top {
 }
 
 /* Start Section Banner */
+.col-md-9.text-white {
+    color: #eaeaea !important;
+    font-size: 15px;
+}
+.col-md-9.text-white strong {
+    color: white !important;
+}
+.booking-form-div {
+    left: 8%;
+}
+.fullscreen {
+    height: auto;
+}
+
+.banner-content {
+    right: 8%;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+.car-img {
+    width: 80%;
+}
+@media only screen and (max-width: 1700px) {
+    .booking-form-div {
+        left: 5%;
+    }
+    .banner-content {
+        right: 5%;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .booking-form-div {
+        left: 2%;
+    }
+    .banner-content {
+        right: 5%;
+    }
+}
+
+@media only screen and (max-width: 1025px) {
+    .booking-form-div {
+        left: 2%;
+    }
+    .banner-content {
+        right: 2%;
+        margin-top: 12%;
+        margin-bottom: 5%;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .booking-form-div {
+        left: 22%;
+        min-width: 500px;
+    }
+    .header-right {
+        min-width: 450px;
+    }
+    .banner-content {
+        right: 0%;
+        left: 8%;
+        margin-top: 2%;
+    }
+}
+
+@media only screen and (max-width: 840px) {
+    .booking-form-div {
+        left: 17%;
+    }
+    .banner-content {
+        right: 0%;
+        top: 1%;
+        margin-bottom: 2%;
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    .booking-form-div {
+        left: 0px;
+        display: flex;
+        justify-content: center;
+    }
+    .banner-content {
+        display: flex;
+        flex-direction: column;
+        right: 0;
+        left: 0%;
+        padding-top: 3%;
+        margin-bottom: 5%;
+    }
+    .car-img {
+        width: 30%;
+        margin-bottom: 2%;
+    }
+    .car-div {
+        margin-top: 2.5rem !important;
+    }
+}
+@media only screen and (max-width: 540px) {
+    .header-right {
+        min-width: 350px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+    .booking-form-div {
+        min-width: 350px;
+        padding: 0px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .header-right {
+        min-width: 200px;
+        max-width: 290px;
+    }
+    .booking-form-div {
+        min-width: 200px;
+        max-width: 290px;
+        margin-left: 15px;
+    }
+}
 /* End Section Banner */
 </style>

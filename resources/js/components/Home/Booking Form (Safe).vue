@@ -197,7 +197,6 @@ label {
     max-width: 450px;
     padding: 35px;
     margin-top: 100px;
-    margin-bottom: 50px;
 }
 
 .header-right .form-control {
