@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + ".js?id=" + {"0":"56ca4d15b0958888b102","1":"c133bf8eaafce0688975"}[chunkId] + ""
+/******/ 		return __webpack_require__.p + "js/chunks/" + ({}[chunkId]||chunkId) + ".js?id=" + {"0":"56ca4d15b0958888b102","1":"c133bf8eaafce0688975","2":"d239cab8210552df577e"}[chunkId] + ""
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -69641,6 +69641,12 @@ var routes = [{
   name: "Contact",
   component: function component() {
     return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./pages/Contact */ "./resources/js/pages/Contact.vue"));
+  }
+}, {
+  path: "/career",
+  name: "Career",
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./pages/Career */ "./resources/js/pages/Career.vue"));
   }
 } // {
 //     path: "/login",

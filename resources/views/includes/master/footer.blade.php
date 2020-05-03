@@ -6,7 +6,7 @@
                 <div class="single-footer-widget">
                     <h6>Quick links</h6>
                     <ul>
-                        <li><a href="#">Jobs</a></li>
+                        <li><router-link to="/career" tag="a">Career</router-link></li>
                         <li><a href="#">Brand Assets</a></li>
                         <li><a href="#">Investor Relations</a></li>
                         <li><a href="#">Terms of Service</a></li>
@@ -69,10 +69,8 @@
                 </div>
             </div> --}}
             <p class="mt-80 mx-auto footer-text col-lg-12">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy; All rights reserved | This template is made with <i class="fas fa-heart"
+                Copyright &copy; All rights reserved | This website is made with <i class="fas fa-heart"
                     aria-hidden="true"></i> by <a href="#" target="_blank">Sezan & Utsha</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
         </div>
     </div>
