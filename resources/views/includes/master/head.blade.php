@@ -31,7 +31,8 @@
     <link rel="stylesheet" href="{{ asset("css/theme/font-awesome.min.css") }}">
     <link rel="stylesheet" href="{{ asset("css/theme/magnific-popup.css") }}">
     <link rel="stylesheet" href="{{ asset("css/theme/nice-select.css") }}">
-    <link rel="stylesheet" href="{{ asset("css/theme/animate.min.css") }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset("css/theme/animate.min.css") }}"> --}}
     <link rel="stylesheet" href="{{ asset("css/theme/jquery-ui.css") }}">
     <link rel="stylesheet" href="{{ asset('css/theme/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">

@@ -8,7 +8,7 @@
                 <div
                     class="row fullscreen d-flex align-items-center justify-content-between"
                 >
-                    <div class="col-lg-5 col-md-6 booking-form-div">
+                    <div class="col-lg-5 col-md-6 booking-form-div pl-0 pr-0">
                         <booking-form></booking-form>
                     </div>
                     <find-car-by-type></find-car-by-type>

@@ -8,9 +8,32 @@
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
+
+// .mx-calendar {
+//   width: 375px !important;
+// }
+
+// @import '~vue2-datepicker/scss/index.scss';
+
+.width-100 {
+    width: 100% !important;
+}
+
 .btn:hover {
     transition: all 0.2s ease-in-out;
     transform: scale(1.05);
+}
+
+.btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+}
+.btn-primary:hover {
+    background-color: #06c4ea;
+    border-color: #06c4ea;
+}
+.btn-primary.disabled, .btn-primary:disabled {
+    cursor: not-allowed;
 }
 
 // .btn-primary {

@@ -57,7 +57,7 @@ p.mt-80.mx-auto.footer-text.col-lg-12 {
     border-bottom: 2px solid #1eacc7;
 }
 
-.nav-link.router-link-exact-active.router-link-active { 
+.nav-link.router-link-exact-active.router-link-active {
     color: white;
     opacity: 1;
     text-decoration: none;
@@ -72,7 +72,8 @@ a:hover {
 }
 
 .primary-btn {
-    background: #1eacc7;
+    background-color: #3acae6;
+    border-color: #3acae6;
     line-height: 40px;
     padding-left: 20px;
     padding-right: 20px;
@@ -117,4 +118,16 @@ a:hover {
 .contact-page-area .form-area textarea {
     border-radius: 0.4rem;
     font-size: 0.9rem;
+}
+
+/* Booking Form v-select */
+.style-chooser.vs--single.vs--searchable,
+.style-chooser .vs__search::placeholder,
+.style-chooser .vs__dropdown-toggle,
+.style-chooser .vs__dropdown-menu {
+    border: none;
+    color: #394066;
+    text-transform: capitalize;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
