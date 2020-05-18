@@ -301,7 +301,7 @@ export default {
                     remember
                 })
                 .then(response => {
-                    window.location = "/home";
+                    window.location = "/";
                 })
                 .catch(error => {
                     if (error.response.status == 422) {

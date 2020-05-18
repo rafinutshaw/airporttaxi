@@ -3686,7 +3686,7 @@ __webpack_require__.r(__webpack_exports__);
         password_confirmation: password_confirmation,
         remember: remember
       }).then(function (response) {
-        window.location = "/home";
+        window.location = "/";
       })["catch"](function (error) {
         if (error.response.status == 422) {
           // To set Server Side Error Message for a form value
