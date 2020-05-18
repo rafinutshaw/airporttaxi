@@ -24,7 +24,53 @@
                 <li class="nav-item pr-2">
                     <router-link to="/contact" tag="a" class="nav-link">Contact Us</router-link>
                 </li>
+
+                <!-- Authentication Links -->
+                @guest
+                <li class="nav-item">
+                    <router-link to="/login" class="nav-link">{{ __('Login') }}</router-link>
+                </li>
+                @if (Route::has('register'))
+                <li class="nav-item">
+                    <router-link to="/register" class="nav-link">{{ __('Register') }}</router-link>
+                </li>
+                @endif
+                @else
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        {{-- <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();
+                        localStorage.removeItem('loggedIn');>
+                        {{ __('Logout') }}
+                        </a> --}}
+
+                        <a id="logout" class="dropdown-item" href="{{ route('logout') }}" onclick="logout(event)">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                        </form>
+                    </div>
+                </li>
+                @endguest
             </ul>
         </div>
     </div>
 </nav>
+@section('navbar-scripts')
+
+    <script type="application/javascript">
+        function logout(e) {
+            e.preventDefault();
+            document.getElementById('logout-form').submit();
+            localStorage.removeItem('loggedIn');
+        };
+    </script>
+
+@endsection

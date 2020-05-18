@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\WelcomeCustomer;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +18,31 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', function () {
-    return view('index');
+Route::get('/home', function () {
+    // Mail::to("sezansarker@gmail.com")->send(new WelcomeCustomer("Sezan", config('app.url')));
+    // return view('index');
+    dd(config('app.url'));
 });
 
-Route::get('/{any}', function(){
+Auth::routes();
+
+Route::get('/email', function () {
+
+    Mail::to("sezansarker@gmail.com")->send(new WelcomeCustomer());
+});
+
+Route::get('/demo', function () {
+    return "demo";
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/{any}', function () {
     return view('index');
 })->where('any', '.*');
+
+// Route::get("{path}", "WelcomeController@index")->where("path", "([A-z\d-\/_.]+)?");
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

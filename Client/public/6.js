@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[1],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Auth/Register.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************!*\
@@ -367,6 +367,33 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "\n.register[data-v-593630de] {\r\n    background: url(" + escape(__webpack_require__(/*! ../../../../public/img/join-us.jpg */ "./public/img/join-us.jpg")) + ") center;\r\n    background-size: cover;\n}\n#registerContainer[data-v-593630de] {\r\n    margin-top: 5%;\r\n    margin-bottom: 5%;\n}\n.card[data-v-593630de] {\r\n    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1),\r\n        0 5px 15px rgba(0, 0, 0, 0.07) !important;\n}\n.form-control[data-v-593630de] {\r\n    transition: box-shadow 0.15s ease;\r\n    border: 0;\r\n    box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);\n}\n.card[data-v-593630de] {\r\n    border: 0px;\n}\n.card-header[data-v-593630de] {\r\n    background-color: white;\r\n    border-bottom: 0px;\n}\n.card-body[data-v-593630de] {\r\n    background-color: #f4f5f7;\n}\r\n", ""]);
 
 // exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/url/escape.js":
+/*!***************************************************!*\
+  !*** ./node_modules/css-loader/lib/url/escape.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function escape(url) {
+    if (typeof url !== 'string') {
+        return url
+    }
+    // If url is already wrapped in quotes, remove them
+    if (/^['"].*['"]$/.test(url)) {
+        url = url.slice(1, -1);
+    }
+    // Should url be wrapped?
+    // See https://drafts.csswg.org/css-values-3/#urls
+    if (/["'() \t\n]/.test(url)) {
+        return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"'
+    }
+
+    return url
+}
 
 
 /***/ }),

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/Auth/Login.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************!*\
@@ -243,7 +243,7 @@ __webpack_require__.r(__webpack_exports__);
         password: password
       }).then(function (response) {
         localStorage.setItem("loggedIn", true);
-        window.location = "/";
+        window.location = "/home";
       })["catch"](function (error) {
         if (error.response.status == 422) {
           _this.form.errors.push("Sorry, email or password was incorrect.");
@@ -306,6 +306,33 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 exports.push([module.i, "\n.login[data-v-ba36952a] {\n    background: url(" + escape(__webpack_require__(/*! ../../../../public/img/join-us.jpg */ "./public/img/join-us.jpg")) + ") center;\n    background-size: cover;\n}\n#loginContainer[data-v-ba36952a] {\n    margin-top: 5%;\n    margin-bottom: 5%;\n}\n.card[data-v-ba36952a] {\n    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1),\n        0 5px 15px rgba(0, 0, 0, 0.07) !important;\n}\n.form-control[data-v-ba36952a] {\n    transition: box-shadow 0.15s ease;\n    border: 0;\n    box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02);\n}\n.card[data-v-ba36952a] {\n    border: 0px;\n}\n.card-header[data-v-ba36952a] {\n    background-color: white;\n    border-bottom: 0px;\n}\n.card-body[data-v-ba36952a] {\n    background-color: #f4f5f7;\n}\n", ""]);
 
 // exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/url/escape.js":
+/*!***************************************************!*\
+  !*** ./node_modules/css-loader/lib/url/escape.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function escape(url) {
+    if (typeof url !== 'string') {
+        return url
+    }
+    // If url is already wrapped in quotes, remove them
+    if (/^['"].*['"]$/.test(url)) {
+        url = url.slice(1, -1);
+    }
+    // Should url be wrapped?
+    // See https://drafts.csswg.org/css-values-3/#urls
+    if (/["'() \t\n]/.test(url)) {
+        return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"'
+    }
+
+    return url
+}
 
 
 /***/ }),
@@ -762,6 +789,17 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./public/img/join-us.jpg":
+/*!********************************!*\
+  !*** ./public/img/join-us.jpg ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/join-us.jpg?7c9de289f4acb7db164eeb6f09fc0aee";
+
+/***/ }),
+
 /***/ "./resources/js/pages/Auth/Login.vue":
 /*!*******************************************!*\
   !*** ./resources/js/pages/Auth/Login.vue ***!
@@ -846,6 +884,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_ba36952a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/tools/tools.js":
+/*!*************************************!*\
+  !*** ./resources/js/tools/tools.js ***!
+  \*************************************/
+/*! exports provided: autoClose */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "autoClose", function() { return autoClose; });
+// Auto Close any HTML Element
+var autoClose = function autoClose(target, timeout) {
+  setTimeout(function () {
+    $(target).remove();
+  }, timeout);
+};
 
 /***/ })
 

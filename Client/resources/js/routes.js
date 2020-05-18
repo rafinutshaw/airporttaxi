@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./pages/Home";
+import Register from "./pages/Auth/Register";
 
 Vue.use(Router);
 
@@ -38,17 +39,23 @@ const routes = [
         path: "/career",
         name: "Career",
         component: () => import("./pages/Career")
+    },
+    {
+        path: "/login",
+        name: "Login",
+        component: () => import("./pages/Auth/Login")
+    },
+    {
+        path: "/register",
+        name: "Register",
+        component: () => import("./pages/Auth/Register")
+    },
+    {
+        path: "/reset-password",
+        name: "Reset Password",
+        // component: () => import("./pages/Auth/Password/Email")
+        component: Register
     }
-    // {
-    //     path: "/login",
-    //     name: "Login",
-    //     component: () => import("../components/Login.vue")
-    // },
-    // {
-    //     path: "/signup",
-    //     name: "Signup",
-    //     component: () => import("../components/Signup.vue")
-    // }
 ];
 
 const router = new Router({
