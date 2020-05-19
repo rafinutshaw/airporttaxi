@@ -6,9 +6,11 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeCustomer;
 use App\Http\Controllers\Controller;
+use App\Notifications\RegistrationNotification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -83,6 +85,7 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        Mail::to($user->email)->send(new WelcomeCustomer($user->name, config('app.url')));
+        // Mail::to($user->email)->send(new WelcomeCustomer($user->name, config('app.url')));
+        $user->notify(new RegistrationNotification($user->name));
     }
 }
