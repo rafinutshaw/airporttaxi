@@ -15,27 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/home', function () {
-    // Mail::to("sezansarker@gmail.com")->send(new WelcomeCustomer("Sezan", config('app.url')));
-    // return view('index');
-    dd(config('app.url'));
+Route::get('/', function () {
+    return view('layouts.master');
 });
-
 Auth::routes();
 
-Route::get('/email', function () {
-
-    Mail::to("sezansarker@gmail.com")->send(new WelcomeCustomer());
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
+    
+    Route::get('/', 'CustomerController@index')->name('customer.dashboard');
 });
-
-Route::get('/demo', function () {
-    return "demo";
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/{any}', function () {
     return view('index');
@@ -43,6 +31,4 @@ Route::get('/{any}', function () {
 
 // Route::get("{path}", "WelcomeController@index")->where("path", "([A-z\d-\/_.]+)?");
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

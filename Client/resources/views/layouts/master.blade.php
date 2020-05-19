@@ -13,6 +13,7 @@
         <router-view></router-view>
         @include('includes.master.footer')
         @yield('navbar-scripts')
+        @yield('customer-sidebar-script')
     </div>
 </body>
 </html>

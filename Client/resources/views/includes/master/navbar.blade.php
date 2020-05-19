@@ -48,6 +48,9 @@
                         localStorage.removeItem('loggedIn');>
                         {{ __('Logout') }}
                         </a> --}}
+                        <a class="dropdown-item" href="{{ route('customer.dashboard') }}">
+                            {{ __('Dashboard') }}
+                        </a>
 
                         <a id="logout" class="dropdown-item" href="{{ route('logout') }}" onclick="logout(event)">
                             {{ __('Logout') }}

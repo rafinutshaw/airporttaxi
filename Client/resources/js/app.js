@@ -6,6 +6,35 @@ import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import * as rules from "vee-validate/dist/rules";
 import store from "./store";
 
+// Sweet Alert 2
+import Swal from "sweetalert2";
+window.Swal = Swal;
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: toast => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+    }
+});
+window.Toast = Toast;
+// Sweet Alert 2
+
+Vue.config.productionTip = true;
+
+// My Custom Validation with Error Message
+extend("required", {
+    validate: value => {
+        if (value > 0) {
+            return true;
+        }
+    },
+    message: "{_field_} field is required"
+});
+
 // install Vee-Validate rules and localization
 Object.keys(rules).forEach(rule => {
     extend(rule, rules[rule]);

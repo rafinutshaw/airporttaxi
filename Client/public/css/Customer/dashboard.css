@@ -1,0 +1,10 @@
+a.nav-link.router-link-exact-active.router-link-active {
+  background-color: #3f61b5 !important;
+  color: white !important;
+}
+
+a.nav-link.router-link-exact-active.router-link-active:hover a.nav-link.router-link-exact-active.router-link-active:focus {
+  background-color: #3f61b5 !important;
+  color: white !important;
+}
+
