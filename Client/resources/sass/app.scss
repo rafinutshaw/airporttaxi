@@ -1,11 +1,10 @@
-
 // $primary: #1eacc7;
 
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 
 // OverlayScrollbars
-@import '~overlayscrollbars/css/OverlayScrollbars.css';
+@import "~overlayscrollbars/css/OverlayScrollbars.css";
 
 @import "~admin-lte/dist/css/adminlte.css";
 
@@ -13,12 +12,16 @@
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
-
 // .mx-calendar {
 //   width: 375px !important;
 // }
 
 // @import '~vue2-datepicker/scss/index.scss';
+
+.invalid-feedback {
+    display: block;
+    font-size: 90%;
+}
 
 .width-100 {
     width: 100% !important;
@@ -37,7 +40,8 @@
     background-color: #06c4ea;
     border-color: #06c4ea;
 }
-.btn-primary.disabled, .btn-primary:disabled {
+.btn-primary.disabled,
+.btn-primary:disabled {
     cursor: not-allowed;
 }
 

@@ -48706,6 +48706,11 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
+.invalid-feedback {
+  display: block;
+  font-size: 90%;
+}
+
 .width-100 {
   width: 100% !important;
 }

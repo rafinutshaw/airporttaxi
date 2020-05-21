@@ -12,7 +12,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 {{-- <img src={{ asset(Auth::user()->image) }} class="img-circle elevation-2" alt="User Image"> --}}
-                <img src={{ asset(Auth::user()->image) }} class="img-circle elevation-2" alt="User Image">
+                <img src={{ asset('storage/'.Auth::user()->image ) }} class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -29,7 +29,7 @@
                             Dashboard
                         </p>
                     </router-link> --}}
-                    <a href="{{ route('customer.dashboard') }}" class="nav-link active">
+                    <a href="{{ route('customer.dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-border-all orange"></i>
                         Dashboard
                     </a>
@@ -68,22 +68,11 @@
                 {{-- Ending Booking --}}
 
                 {{-- Starting Profile --}}
-                <li class="nav-item has-treeview menu">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('customer.profile') }}" class="nav-link">
                         <i class="fa fa-user nav-icon"></i>
-                        <p>
-                            Profile
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                        <p>Profile</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-plus nav-icon"></i>
-                                <p>Update Profile</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 {{-- Ending Profile --}}
 
@@ -105,7 +94,7 @@
     <!-- /.sidebar -->
 </aside>
 
-@section('customer-sidebar-script')
+@section('scripts')
 <script type="application/javascript">
     $(document).ready(function () {
         $(".nav-link").click(function () {

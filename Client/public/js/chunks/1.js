@@ -242,7 +242,8 @@ __webpack_require__.r(__webpack_exports__);
         email: email,
         password: password
       }).then(function (response) {
-        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("loggedIn", true); // console.log(response);
+
         window.location = "/";
       })["catch"](function (error) {
         if (error.response.status == 422) {
@@ -260,7 +261,7 @@ __webpack_require__.r(__webpack_exports__);
       //         // this.$router.push("/home");
       //         // axios.get("/home");
       //         // window.location.reload();
-      //         window.location = "/home";
+      //         window.location = "/";
       //     })
       //     .catch(error => {
       //         if (error.response.status == 422) {

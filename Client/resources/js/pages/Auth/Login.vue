@@ -229,6 +229,8 @@ export default {
                 .post("/login", { email, password })
                 .then(response => {
                     localStorage.setItem("loggedIn", true);
+                    // console.log(response);
+
                     window.location = "/";
                 })
                 .catch(error => {
@@ -257,7 +259,7 @@ export default {
             //         // this.$router.push("/home");
             //         // axios.get("/home");
             //         // window.location.reload();
-            //         window.location = "/home";
+            //         window.location = "/";
             //     })
             //     .catch(error => {
             //         if (error.response.status == 422) {

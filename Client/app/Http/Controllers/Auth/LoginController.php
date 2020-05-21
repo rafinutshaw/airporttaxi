@@ -37,4 +37,8 @@ class LoginController extends Controller
         // }
         return '/';
     }
+    protected function authenticated(Request $request, $user)
+    {
+        return $user;
+    }
 }

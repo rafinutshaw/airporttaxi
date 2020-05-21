@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 
-@section('customer-dashboard')
+@section('content')
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

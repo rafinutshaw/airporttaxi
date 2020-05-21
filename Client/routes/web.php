@@ -21,8 +21,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
-    
+
     Route::get('/', 'CustomerController@index')->name('customer.dashboard');
+    Route::get('/profile', 'CustomerController@profile')->name('customer.profile');
+    Route::post('/upload-profile-image', 'CustomerController@uploadImage')->name('customer.upload-image');
+    Route::patch('/{id}/update', 'CustomerController@update')->name('customer.profile.update');
+    Route::patch('/{id}/password-update', 'CustomerController@changePassword')->name('customer.password.update');
 });
 
 Route::get('/{any}', function () {
