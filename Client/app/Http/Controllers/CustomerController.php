@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
+    public function settings()
+    {
+        return view('pages.customer.settings');
+    }
+
     public function index()
     {
         return view('pages.customer.dashboard');
@@ -53,7 +58,7 @@ class CustomerController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function updateProfile(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|string',
@@ -94,7 +99,12 @@ class CustomerController extends Controller
     //     return redirect()->back()->with('successfully-password-updated', 'You have successfully updated your profile.');
     // }
 
-    public function changePassword(Request $request)
+    public function changePassword()
+    {
+        return view('pages.customer.change-password');
+    }
+
+    public function updatePassword(Request $request)
     {
         if(empty($request->get('current-password'))) {
             return redirect()->back()->with("error", "Current Password is required. Please try again.");

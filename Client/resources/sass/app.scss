@@ -18,6 +18,10 @@
 
 // @import '~vue2-datepicker/scss/index.scss';
 
+.laravel-box-shadow {
+    box-shadow: 0 20px 30px -16px rgba(9,9,16,.2);
+}
+
 .invalid-feedback {
     display: block;
     font-size: 90%;

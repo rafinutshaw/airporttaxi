@@ -24,9 +24,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
     Route::get('/', 'CustomerController@index')->name('customer.dashboard');
     Route::get('/profile', 'CustomerController@profile')->name('customer.profile');
+    
+    Route::get('/settings', 'CustomerController@settings')->name('customer.settings');
     Route::post('/upload-profile-image', 'CustomerController@uploadImage')->name('customer.upload-image');
-    Route::patch('/{id}/update', 'CustomerController@update')->name('customer.profile.update');
-    Route::patch('/{id}/password-update', 'CustomerController@changePassword')->name('customer.password.update');
+    Route::patch('/{id}/update', 'CustomerController@updateProfile')->name('customer.profile.update');
+    Route::get('/change-password', 'CustomerController@changePassword')->name('customer.password.change');
+    Route::patch('/{id}/password-update', 'CustomerController@updatePassword')->name('customer.password.update');
+    
+    Route::get('/{any}', 'CustomerController@index')->where('any', '.*');
 });
 
 Route::get('/{any}', function () {

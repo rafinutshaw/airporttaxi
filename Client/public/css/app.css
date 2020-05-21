@@ -48706,6 +48706,10 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
+.laravel-box-shadow {
+  box-shadow: 0 20px 30px -16px rgba(9, 9, 16, 0.2);
+}
+
 .invalid-feedback {
   display: block;
   font-size: 90%;

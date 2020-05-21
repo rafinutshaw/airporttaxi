@@ -31,7 +31,9 @@
                     </router-link> --}}
                     <a href="{{ route('customer.dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-border-all orange"></i>
-                        Dashboard
+                        <p>
+                            Dashboard
+                        </p>
                     </a>
                 </li>
 
@@ -69,9 +71,9 @@
 
                 {{-- Starting Profile --}}
                 <li class="nav-item">
-                    <a href="{{ route('customer.profile') }}" class="nav-link">
-                        <i class="fa fa-user nav-icon"></i>
-                        <p>Profile</p>
+                    <a href="{{ route('customer.settings') }}" class="nav-link">
+                        <i class="fas fa-user-cog nav-icon"></i>
+                        <p>Settings</p>
                     </a>
                 </li>
                 {{-- Ending Profile --}}
