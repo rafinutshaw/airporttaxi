@@ -86,45 +86,13 @@
                                                 ></i>
                                             </div>
                                         </div>
-                                        <v-select
-                                            label="text_en"
-                                            placeholder="Enter your pickup point"
-                                            class="form-control d-flex flex-column justify-content-center style-chooser"
-                                            v-model="viaItem.route"
-                                            :filterable="false"
-                                            :options="options"
-                                            @search="onSearch"
-                                            :closeOnSelect="true"
-                                        >
-                                            <template slot="no-options">
-                                                type to search Places..
-                                            </template>
-                                            <template
-                                                slot="option"
-                                                slot-scope="option"
-                                            >
-                                                <div class="d-center">
-                                                    <!-- <img :src="option.owner.avatar_url" /> -->
-                                                    {{ option.text_en }}
-                                                </div>
-                                            </template>
-                                            <template
-                                                slot="selected-option"
-                                                slot-scope="option"
-                                            >
-                                                <div class="selected d-center">
-                                                    <!-- <img :src="option.owner.avatar_url" /> -->
-                                                    {{ option.text_en }}
-                                                </div>
-                                            </template>
-                                        </v-select>
 
-                                        <!-- <v-select
+                                        <v-select
                                             class="form-control d-flex flex-column justify-content-center style-chooser"
                                             placeholder="e.g. AA11AA or Heathrow Airport"
                                             v-model="viaItem.name"
                                             :options="CityNames"
-                                        ></v-select> -->
+                                        ></v-select>
                                         <i
                                             class="fa fa-times close mt-1 remove-icon"
                                             @click.prevent="removeVia(viaIndex)"
@@ -180,46 +148,29 @@
                                 :options="CityNames"
                             ></v-select> -->
                         </div>
-
-                        <!-- Starting Map Error -->
-                        <div v-if="mapData.errors.length > 0">
-                            <div
-                                class="mt-4 alert alert-danger alert-dismissible fade show"
-                                role="alert"
-                            >
-                                {{ mapData.errors }}
-                                <button
-                                    type="button"
-                                    class="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Ending Map Error -->
                     </div>
-                    <!-- <div id="map">
-                        <Mapbox
-                            access-token="pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg"
-                            :map-options="{
-                                container: 'map',
-                                style: 'mapbox://styles/mapbox/streets-v11',
-                                center: [-122.486052, 37.830348],
-                                zoom: 13
-                            }"
-                            :geolocate-control="{
-                                show: true,
-                                position: 'top-left'
-                            }"
-                            :fullscreen-control="{
-                                show: true,
-                                position: 'top-left'
-                            }"
-                            @map-load="loaded"
-                        />
-                    </div> -->
+                    <div id="map">
+                        <MglMap
+                            :mapboxGl="mapbox"
+                            :accessToken="mapBox.accessToken"
+                            :mapStyle="mapBox.mapStyle"
+                            :center="mapBox.coordinates"
+                        >
+                            <MglMarker
+                                :coordinates="mapBox.coordinates"
+                                color="blue"
+                            />
+                            <!-- Adding navigation control -->
+                            <MglNavigationControl position="top-right" />
+                            <!-- Adding GeoJSON layer -->
+                            <MglGeojsonLayer
+                                :sourceId="route"
+                                :source="mapBox.geoJsonSource"
+                                layerId="route"
+                                :layer="mapBox.geoJsonlayer"
+                            />
+                        </MglMap>
+                    </div>
                 </div>
                 <div
                     class="container-fluid d-flex justify-content-between pl-0 pr-0 mt-2 booking-form-btn"
@@ -230,19 +181,6 @@
                     >
                         Add Route
                     </button>
-                    <!-- <button
-                        class="btn btn-primary mt-2"
-                        @click.prevent="submitQuote"
-                    >
-                        Quote Now
-                        <span
-                            ><i
-                                class="fa fa-arrow-right ml-1"
-                                aria-hidden="true"
-                            ></i
-                        ></span>
-                    </button> -->
-
                     <button
                         class="btn btn-primary mt-2"
                         :disabled="!validateQuote"
@@ -279,45 +217,21 @@
             <h6>First Journey</h6>
             <ul class="list-unstyled origin">
                 <li>
-                    <span class="d-flex">
-                        <p class="mb-0 mr-1"><strong>Start: </strong></p>
-                        {{ journey[0].origin.text }}
+                    <span>
+                        <strong>Start: </strong> {{ journey[0].origin.text }}
                     </span>
                 </li>
-                <div v-if="journey[0].via">
-                    <li>
-                        <span class="d-flex">
-                            <p class="mb-0 mr-1"><strong>Via: </strong></p>
-                            {{ journey[0].viaRouteNames }}
-                        </span>
-                    </li>
-                </div>
                 <li>
-                    <span class="d-flex">
-                        <p class="mb-0 mr-2"><strong>End: </strong></p>
-                        {{ journey[0].destination.text }}
+                    <span>
+                        <strong>End: </strong> {{ journey[0].destination.text }}
                     </span>
                 </li>
             </ul>
-
             <div id="map">
-                <Mapbox
-                    access-token="pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg"
-                    :map-options="{
-                        container: 'map',
-                        style: 'mapbox://styles/mapbox/streets-v11',
-                        center: mapData.center,
-                        zoom: 13
-                    }"
-                    :geolocate-control="{
-                        show: true,
-                        position: 'top-left'
-                    }"
-                    :fullscreen-control="{
-                        show: true,
-                        position: 'top-left'
-                    }"
-                    @map-load="loaded"
+                <MglMap
+                    :mapboxGl="mapbox"
+                    :accessToken="mapBox.accessToken"
+                    :mapStyle="mapBox.mapStyle"
                 />
             </div>
         </div>
@@ -947,17 +861,23 @@ import Cities from "../../store/Cities";
 
 import _ from "lodash";
 
-import mapboxgl from "mapbox-gl";
-import Mapbox from "mapbox-gl-vue";
-import qs from "qs";
+import Mapbox from "mapbox-gl";
+import {
+    MglMap,
+    MglMarker,
+    MglNavigationControl,
+    MglGeojsonLayer
+} from "vue-mapbox";
 
 export default {
     components: {
         draggable,
         vSelect,
         DatePicker,
-        mapboxgl,
-        Mapbox
+        MglMap,
+        MglMarker,
+        MglNavigationControl,
+        MglGeojsonLayer
     },
     data() {
         return {
@@ -968,11 +888,9 @@ export default {
                     originType: "",
                     destination: "",
                     pickupDate: null,
-                    via: [],
-                    viaRouteNames: ""
+                    via: []
                 }
             ],
-
             formStage: [
                 {
                     place: true,
@@ -980,6 +898,57 @@ export default {
                     journeyFare: false,
                     basket: false
                 }
+            ],
+            CityNames: [
+                "Bath",
+                "Birmingham",
+                "Bradford",
+                "Brighton and Hove",
+                "Bristol",
+                "Cambridge",
+                "Canterbury",
+                "Carlisle",
+                "Chester",
+                "Chichester",
+                "Coventry",
+                "Derby",
+                "Durham",
+                "Ely",
+                "Exeter",
+                "Gloucester",
+                "Hereford",
+                "Kingston upon Hull",
+                "Lancaster",
+                "Leeds",
+                "Leicester",
+                "Lichfield",
+                "Lincoln",
+                "Liverpool City of London",
+                "Manchester",
+                "Newcastle upon Tyne",
+                "Norwich",
+                "Nottingham",
+                "Oxford",
+                "Peterborough",
+                "Plymouth",
+                "Portsmouth",
+                "Preston",
+                "Ripon",
+                "Salford",
+                "Salisbury",
+                "Sheffield",
+                "Southampton",
+                "St Albans",
+                "Stoke-on-Trent",
+                "Sunderland",
+                "Truro",
+                "Wakefield",
+                "Wells",
+                "Westminster",
+                "Winchester",
+                "Wolverhampton",
+                "Worcester",
+                "York"
             ],
             // Ending Journey Details Form
 
@@ -994,48 +963,93 @@ export default {
 
             options: [],
 
+            mapApiUrl:
+                "https://api.mapbox.com/geocoding/v5/mapbox.places/Heathrow%20Airport.json?access_token=pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg&country=gb&language=en&limit=5&types=address,poi",
+
             mapBox: {
-                mapStyle: "mapbox://styles/mapbox/streets-v11",
                 accessToken:
                     "pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg",
-                postUrl:
-                    "https://api.mapbox.com/directions/v5/mapbox/driving?access_token=pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg"
-            },
-
-            mapData: {
-                // To submit a post request to mapdata api, we need full route list and so we'll store full route list in mapData.fullRoutes
-                fullRoutes: "",
-
-                // After submitting post request to mapbox api and getting coordinates, we'll store the coordinates to mapData.coordinates
-                coordinates: [],
-                center: [],
-                start: "",
-                end: "",
-                responseCode: "",
-                errors: ""
+                mapStyle: "mapbox://styles/mapbox/streets-v11",
+                coordinates: [-122.48369693756104, 37.83381888486939],
+                geoJsonSource: {
+                    type: "geojson",
+                    data: {}
+                },
+                geoJsonLayer: {
+                    id: "route",
+                    type: "line",
+                    source: "route",
+                    layout: {
+                        "line-join": "round",
+                        "line-cap": "round"
+                    }
+                }
             }
         };
     },
     methods: {
-        // Adding via route
         add() {
             this.journey[0].via.push({
-                // route: ""
+                name: ""
             });
         },
-
-        // Remove a via route
         removeVia(index) {
             this.journey[0].via.splice(index, 1);
         },
+        submittedQuote() {
+            return new Promise((resolve, reject) => {
+                if (!this.journey[0].origin || !this.journey[0].destination)
+                    reject(false);
+                else resolve(true);
+            });
+        },
+        submitQuote() {
+            this.submittedQuote().then(() => {
+                this.formStage[0].place = false;
+                this.formStage[0].journeyFare = true;
+            });
+        },
+        backToBooking() {
+            this.formStage[0].place = true;
+            this.formStage[0].journeyFare = false;
+            $("html,body").scrollTop(0);
+        },
+        submitFare() {
+            this.formStage[0].journeyFare = false;
+            this.formStage[0].details = true;
+            $("html,body").scrollTop(0);
+        },
+        backToFare() {
+            this.formStage[0].journeyFare = true;
+            this.formStage[0].details = false;
+            $("html,body").scrollTop(0);
+        },
+        continueToBasket() {
+            this.formStage[0].details = false;
+            this.formStage[0].basket = true;
+            $("html,body").scrollTop(0);
+        },
+        backToBasket() {
+            this.formStage[0].details = true;
+            this.formStage[0].basket = false;
+            $("html,body").scrollTop(0);
+        },
+        notBeforeToday(date) {
+            return date < new Date().setHours(0, 0, 0, 0);
+        },
 
-        // Function to search a place
         onSearch(search, loading) {
             loading(true);
             this.search(loading, search, this);
         },
-
-        // Searching a place
+        // search: _.debounce((loading, search, vm) => {
+        //     fetch(
+        //         `https://api.github.com/search/repositories?q=${escape(search)}`
+        //     ).then(res => {
+        //         res.json().then(json => (vm.options = json.items));
+        //         loading(false);
+        //     });
+        // }, 1000)
         search: _.debounce((loading, search, vm) => {
             if (search.length > 0) {
                 axios
@@ -1047,272 +1061,7 @@ export default {
                     });
             }
             loading(false);
-        }, 1000),
-
-        // Creating a MapBox
-        loaded(map) {
-            map.addSource("route", {
-                type: "geojson",
-                data: {
-                    type: "FeatureCollection",
-                    features: [
-                        {
-                            properties: {},
-                            geometry: {
-                                type: "LineString",
-                                coordinates: this.mapData.coordinates
-                            }
-                        }
-                    ]
-                }
-            });
-            map.addLayer({
-                id: "route",
-                type: "line",
-                source: "route",
-                layout: {
-                    "line-join": "round",
-                    "line-cap": "round"
-                },
-                paint: {
-                    "line-color": "#888",
-                    "line-width": 8
-                }
-            });
-            new mapboxgl.Marker()
-                .setLngLat(this.mapData.coordinates[0])
-                .addTo(map);
-
-            new mapboxgl.Marker()
-                .setLngLat(
-                    this.mapData.coordinates[
-                        this.mapData.coordinates.length - 1
-                    ]
-                )
-                .addTo(map);
-
-            var places = {
-                type: "FeatureCollection",
-                features: [
-                    {
-                        type: "Feature",
-                        properties: {
-                            description: this.mapData.start
-                        },
-                        geometry: {
-                            type: "Point",
-                            coordinates: this.mapData.coordinates[0]
-                        }
-                    },
-                    {
-                        type: "Feature",
-                        properties: {
-                            description: this.mapData.end
-                        },
-                        geometry: {
-                            type: "Point",
-                            coordinates: this.mapData.coordinates[
-                                this.mapData.coordinates.length - 1
-                            ]
-                        }
-                    }
-                ]
-            };
-
-            map.addSource("places", {
-                type: "geojson",
-                data: places
-            });
-            map.addLayer({
-                id: "poi-labels",
-                type: "symbol",
-                source: "places",
-                layout: {
-                    "text-field": ["get", "description"],
-                    "text-variable-anchor": ["top", "bottom", "left", "right"],
-                    "text-radial-offset": 0.5,
-                    "text-justify": "auto",
-                    "icon-image": ["concat", ["get", "icon"], "-15"]
-                }
-            });
-        },
-
-        // Posting a request to  MapBox Api
-        mapBoxPostRequest() {
-            return new Promise((resolve, reject) => {
-                // Storing the starting point
-                this.mapData.fullRoutes +=
-                    this.journey[0].origin.geometry.coordinates.join(",") + ";";
-
-                // Checking is there is any via route
-                if (this.journey[0].via.length) {
-                    let viaRoutes = this.journey[0].via;
-
-                    for (let i = 0; i < viaRoutes.length; i++) {
-                        // Checking if user adds a route field and input something or not
-                        if (_.isEmpty(viaRoutes)) i++;
-
-                        // Storing via route names so that we can show those name later
-                        this.journey[0].viaRouteNames +=
-                            viaRoutes[i].route.text + ", ";
-
-                        // If there is any via route then concate it with mapData.fullRoutes
-                        this.mapData.fullRoutes +=
-                            viaRoutes[i].route.geometry.coordinates.join(",") +
-                            ";";
-                    }
-
-                    // Checking if via routes are there and if so then delete last two words
-                    // Because last two words of this string are "," & " "
-                    if (this.journey[0].viaRouteNames.length) {
-                        this.journey[0].viaRouteNames = this.journey[0].viaRouteNames.slice(
-                            0,
-                            -2
-                        );
-                    }
-                }
-
-                // Storing the ending point
-                this.mapData.fullRoutes += this.journey[0].destination.geometry.coordinates.join(
-                    ","
-                );
-
-                const data = qs.stringify({
-                    // coordinates:
-                    //     this.journey[0].origin["center"].join(",") +
-                    //     ";" +
-                    //     this.journey[0].destination["center"].join(","),
-                    coordinates: this.mapData.fullRoutes,
-                    geometries: "geojson",
-                    overview: "full",
-                    steps: false
-                });
-
-                axios({
-                    method: "post",
-                    url: this.mapBox.postUrl,
-                    data,
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    }
-                })
-                    .then(response => {
-                        if (
-                            response.data.code != "Ok" &&
-                            response.status != 200 &&
-                            (!this.journey[0].origin ||
-                                !this.journey[0].destination)
-                        )
-                            reject(false);
-                        else if (
-                            response.data.code === "NoRoute" &&
-                            response.status == 200
-                        ) {
-                            this.mapData.errors =
-                                "There was no route found for the given places.";
-                            console.log(this.mapData.errors);
-                            reject(false);
-                        } else if (
-                            response.data.code === "NoSegment" &&
-                            response.status == 200
-                        ) {
-                            this.mapData.errors =
-                                "No road segment could be matched for one or more coordinates within the supplied radiuses. Check for coordinates that are too far away from a road.";
-                            console.log(this.mapData.errors);
-                            reject(false);
-                        } else {
-                            // Getting sesponse code from mapbox api
-                            this.mapData.responseCode = response.data.code;
-
-                            // Storing coordinates as array from mapbox api
-                            this.mapData.coordinates =
-                                response.data.routes[0].geometry.coordinates;
-
-                            this.mapData.center = this.mapData.coordinates[0];
-
-                            this.mapData.start =
-                                response.data.waypoints[0].name;
-                            this.mapData.end =
-                                response.data.waypoints[
-                                    response.data.waypoints.length - 1
-                                ].name;
-                            resolve(true);
-                        }
-                    })
-                    .catch(error => {
-                        this.mapData.errors = "The given input was not valid.";
-                        console.log(this.mapData.errors);
-                        console.log(error.status);
-
-                        reject(false);
-                    });
-            });
-        },
-
-        // Used before
-        submittedQuote() {
-            return new Promise((resolve, reject) => {
-                // setTimeout(() => {
-                //     if (!this.journey[0].origin || !this.journey[0].destination)
-                //         reject(false);
-                //     else resolve(true);
-                // }, 1000);
-                this.mapBoxPostRequest(resolve, reject);
-            });
-        },
-
-        // After submitting MapBox Api request change formStage Value
-        submitQuote() {
-            // this.submittedQuote().then(() => {
-            //     this.formStage[0].place = false;
-            //     this.formStage[0].journeyFare = true;
-            // });
-
-            this.mapBoxPostRequest().then(() => {
-                this.formStage[0].place = false;
-                this.formStage[0].journeyFare = true;
-            });
-        },
-
-        backToBooking() {
-            this.formStage[0].place = true;
-            this.formStage[0].journeyFare = false;
-            
-            this.mapData.fullRoutes = this.mapData.start = this.mapData.end = this.mapData.responseCode = this.mapData.errors =
-                "";
-            this.mapData.coordinates = this.mapData.center = [];
-            this.journey[0].viaRouteNames = "";
-
-            $("html,body").scrollTop(0);
-        },
-
-        submitFare() {
-            this.formStage[0].journeyFare = false;
-            this.formStage[0].details = true;
-            $("html,body").scrollTop(0);
-        },
-
-        backToFare() {
-            this.formStage[0].journeyFare = true;
-            this.formStage[0].details = false;
-            $("html,body").scrollTop(0);
-        },
-
-        continueToBasket() {
-            this.formStage[0].details = false;
-            this.formStage[0].basket = true;
-            $("html,body").scrollTop(0);
-        },
-
-        backToBasket() {
-            this.formStage[0].details = true;
-            this.formStage[0].basket = false;
-            $("html,body").scrollTop(0);
-        },
-
-        notBeforeToday(date) {
-            return date < new Date().setHours(0, 0, 0, 0);
-        }
+        }, 1000)
     },
     computed: {
         validateQuote() {
@@ -1330,6 +1079,9 @@ export default {
         //         return true;
         //     else return false;
         // }
+    },
+    created() {
+        this.mapbox = Mapbox;
     }
 };
 </script>

@@ -6,6 +6,8 @@ import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import * as rules from "vee-validate/dist/rules";
 import store from "./store";
 
+Vue.prototype.lodash = window._;
+
 // Sweet Alert 2
 import Swal from "sweetalert2";
 window.Swal = Swal;

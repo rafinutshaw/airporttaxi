@@ -72,4 +72,9 @@
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/theme.js') }}"></script> --}}
+
+    {{-- Mapbox --}}
+    
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
 </head>
