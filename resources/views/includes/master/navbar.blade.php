@@ -73,6 +73,9 @@
             e.preventDefault();
             document.getElementById('logout-form').submit();
             localStorage.removeItem('loggedIn');
+            localStorage.removeItem('authUsername');
+            localStorage.removeItem("authEmail");
+            localStorage.removeItem("authMobile");
         };
     </script>
 

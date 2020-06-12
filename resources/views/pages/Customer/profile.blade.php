@@ -20,7 +20,7 @@
                                     style="width: 150px"> --}}
                                     <img class="d-flex justify-content-center profile-user-img img-responsive img-circle mb-4"
                                         src="{{ asset('storage/'.Auth::user()->image ) }}" alt="User profile picture"
-                                        style="width: 150px">
+                                        style="width: 150px; object-fit: cover">
 
                                     <form action="{{ route('customer.upload-image') }}" method="post"
                                         enctype="multipart/form-data">

@@ -54,13 +54,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('customer.booking-history') }}" class="nav-link">
                                 <i class="fas fa-history nav-icon"></i>
                                 <p>Booking History</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('customer.upcoming-booking') }}" class="nav-link">
                                 <i class="fas fa-calendar-plus nav-icon"></i>
                                 <p>Upcoming Booking</p>
                             </a>
@@ -79,8 +79,13 @@
                 {{-- Ending Profile --}}
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    {{-- <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
+                        <i class="nav-icon fas fa-power-off red"></i>
+                        <p> Logout </p>
+                    </a> --}}
+                    
+                    <a class="nav-link" href="{{ route('logout') }}" id="logout">
                         <i class="nav-icon fas fa-power-off red"></i>
                         <p> Logout </p>
                     </a>
@@ -104,6 +109,15 @@
                 $(".nav-link").removeClass("active");
                 $(this).addClass("active");
             }
+        });
+
+        $("#logout").click(function (e) { 
+            e.preventDefault();
+            document.getElementById('logout-form').submit();
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('authUsername');
+            localStorage.removeItem("authEmail");
+            localStorage.removeItem("authMobile");
         });
     });
 

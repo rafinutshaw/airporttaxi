@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\WelcomeCustomer;
+use App\Price;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +21,25 @@ Route::get('/', function () {
 });
 Auth::routes();
 
+Route::get('/price-list', function () {
+    $prices = Price::all('car_type_id', 'price', 'trip_type');
+
+    return response()->json($prices, 200);
+});
+
+Route::post('/submit-booking', 'BookingController@guestBooking')->name('guest-booking');
+
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
     Route::get('/', 'CustomerController@index')->name('customer.dashboard');
+
+    // ? Booking
+    Route::group(['prefix' => 'booking'], function () {
+        Route::get('/booking-history', 'CustomerController@bookingHistory')->name('customer.booking-history');
+        Route::get('/upcoming-booking', 'CustomerController@upcomingBooking')->name('customer.upcoming-booking');
+        Route::get('/view-booking/{id}', 'CustomerController@viewBooking')->name('customer.view-booking');
+    });
+
     Route::get('/profile', 'CustomerController@profile')->name('customer.profile');
     
     Route::get('/settings', 'CustomerController@settings')->name('customer.settings');

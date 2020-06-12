@@ -22,6 +22,7 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->string('image')->default('images/customer-profile-image/default.png')->nullable();
             $table->string('gender')->nullable();
+            $table->boolean('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

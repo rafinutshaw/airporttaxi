@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Booking;
 use App\Customer;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Auth;
@@ -106,7 +109,7 @@ class CustomerController extends Controller
 
     public function updatePassword(Request $request)
     {
-        if(empty($request->get('current-password'))) {
+        if (empty($request->get('current-password'))) {
             return redirect()->back()->with("error", "Current Password is required. Please try again.");
         }
 
@@ -132,6 +135,38 @@ class CustomerController extends Controller
         $user->save();
 
         return redirect()->back()->with("successfully-password-updated", "Password changed successfully !");
+    }
+
+    public function bookingHistory()
+    {
+        $bookingHistory = Booking::where(
+            [
+                ['customer_id', Auth::id()],
+                ['journey_date', '<', Carbon::now()]
+            ]
+        )->paginate(10);
+
+        return view('pages.customer.booking.booking-history', compact('bookingHistory'));
+    }
+
+    public function upcomingBooking()
+    {
+        $upcomingBookings = Booking::where(
+            [
+                ['customer_id', Auth::id()],
+                ['journey_date', '>', Carbon::now()],
+                ['booking_status_id', '!=', '4'],
+            ]
+        )->paginate(10);
+
+        return view('pages.customer.booking.upcoming-booking', compact('upcomingBookings'));
+    }
+
+    public function viewBooking(Request $request)
+    {
+        $booking = Booking::findOrFail($request->id);
+
+        return view('pages.customer.booking.view-booking', compact('booking'));
     }
 
     public function create()

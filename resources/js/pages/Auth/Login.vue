@@ -229,7 +229,9 @@ export default {
                 .post("/login", { email, password })
                 .then(response => {
                     localStorage.setItem("loggedIn", true);
-                    // console.log(response);
+                    localStorage.setItem("authUsername", response.data.name);
+                    localStorage.setItem("authEmail", response.data.email);
+                    localStorage.setItem("authMobile", response.data.mobile);
 
                     window.location = "/";
                 })

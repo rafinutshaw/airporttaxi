@@ -242,8 +242,10 @@ __webpack_require__.r(__webpack_exports__);
         email: email,
         password: password
       }).then(function (response) {
-        localStorage.setItem("loggedIn", true); // console.log(response);
-
+        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("authUsername", response.data.name);
+        localStorage.setItem("authEmail", response.data.email);
+        localStorage.setItem("authMobile", response.data.mobile);
         window.location = "/";
       })["catch"](function (error) {
         if (error.response.status == 422) {
