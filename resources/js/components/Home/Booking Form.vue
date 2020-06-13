@@ -382,22 +382,12 @@
 
                         <div class="labels">
                             <label class="single">
-                                Single £{{ priceList[0].price }}
+                                Fare £{{ priceList[0].price }}
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[0].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-
-                            <label class="return">
-                                Return £{{ priceList[1].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[1].price"
-                                    v-model="journey[0].fare"
+                                    :value="priceList[0].id"
+                                    v-model="journey[0].priceId"
                                 />
                             </label>
                         </div>
@@ -425,22 +415,12 @@
 
                         <div class="labels">
                             <label class="single">
-                                Single £{{ priceList[2].price }}
+                                Fare £{{ priceList[1].price }}
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[2].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-
-                            <label class="return">
-                                Return £{{ priceList[3].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[3].price"
-                                    v-model="journey[0].fare"
+                                    :value="priceList[1].id"
+                                    v-model="journey[0].priceId"
                                 />
                             </label>
                         </div>
@@ -468,22 +448,12 @@
 
                         <div class="labels">
                             <label class="single">
-                                Single £{{ priceList[4].price }}
+                                Fare £{{ priceList[2].price }}
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[4].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-
-                            <label class="return">
-                                Return £{{ priceList[5].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[5].price"
-                                    v-model="journey[0].fare"
+                                    :value="priceList[2].id"
+                                    v-model="journey[0].priceId"
                                 />
                             </label>
                         </div>
@@ -511,22 +481,12 @@
 
                         <div class="labels">
                             <label class="single">
-                                Single £{{ priceList[6].price }}
+                                Fare £{{ priceList[3].price }}
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[6].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-
-                            <label class="return">
-                                Return £{{ priceList[7].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[7].price"
-                                    v-model="journey[0].fare"
+                                    :value="priceList[3].id"
+                                    v-model="journey[0].priceId"
                                 />
                             </label>
                         </div>
@@ -554,22 +514,12 @@
 
                         <div class="labels">
                             <label class="single">
-                                Single £{{ priceList[8].price }}
+                                Fare £{{ priceList[4].price }}
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[8].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-
-                            <label class="return">
-                                Return £{{ priceList[9].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[9].price"
-                                    v-model="journey[0].fare"
+                                    :value="priceList[4].id"
+                                    v-model="journey[0].priceId"
                                 />
                             </label>
                         </div>
@@ -597,22 +547,12 @@
 
                         <div class="labels">
                             <label class="single">
-                                Single £{{ priceList[10].price }}
+                                Fare £{{ priceList[5].price }}
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[10].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-
-                            <label class="return">
-                                Return £{{ priceList[11].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[11].price"
-                                    v-model="journey[0].fare"
+                                    :value="priceList[5].id"
+                                    v-model="journey[0].priceId"
                                 />
                             </label>
                         </div>
@@ -640,22 +580,12 @@
 
                         <div class="labels">
                             <label class="single">
-                                Single £{{ priceList[12].price }}
+                                Fare £{{ priceList[6].price }}
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[12].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-
-                            <label class="return">
-                                Return £{{ priceList[13].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[13].price"
-                                    v-model="journey[0].fare"
+                                    :value="priceList[6].id"
+                                    v-model="journey[0].priceId"
                                 />
                             </label>
                         </div>
@@ -680,7 +610,7 @@
                         type="button"
                         class="btn btn-primary"
                         @click="submitFare"
-                        :disabled="journey[0].fare === null"
+                        :disabled="journey[0].priceId === null"
                     >
                         Select Fare
                         <i
@@ -990,7 +920,7 @@
                         <strong>Total Fare</strong>
                     </div>
                     <div class="">
-                        <strong>£{{ journey[0].fare }}</strong>
+                        <strong>£{{ quoteDetails.fare }}</strong>
                     </div>
                 </div>
 
@@ -1103,6 +1033,7 @@ export default {
                     pickupDate: null,
                     via: [],
                     viaRouteNames: "",
+                    priceId: null,
                     fare: null
                 }
             ],
@@ -1116,7 +1047,7 @@ export default {
                 destinationName: "",
                 viaRouteNames: "",
                 journeyDate: null,
-                fare: "",
+                fare: null,
 
                 // Passenger Details
                 name: "",
@@ -1481,7 +1412,13 @@ export default {
             this.formStage[0].journeyFare = false;
             this.formStage[0].details = true;
 
-            this.quoteDetails.fare = this.journey[0].fare;
+            this.quoteDetails.priceId = this.journey[0].priceId;
+
+            axios
+                .post("/get-price", { price_id: this.journey[0].priceId })
+                .then(response => {
+                    this.quoteDetails.fare = response.data;
+                });
 
             $("html,body").scrollTop(0);
         },
@@ -1490,7 +1427,7 @@ export default {
             this.formStage[0].journeyFare = true;
             this.formStage[0].details = false;
 
-            this.quoteDetails.fare = null;
+            this.quoteDetails.priceId = null;
 
             $("html,body").scrollTop(0);
         },
@@ -1513,34 +1450,33 @@ export default {
 
         payNow() {
             this.data = {
-                    name: this.quoteDetails.name,
-                    email: this.quoteDetails.email,
-                    mobile: this.quoteDetails.mobile,
-                    from: this.quoteDetails.originName,
-                    via: this.quoteDetails.viaRouteNames,
-                    to: this.quoteDetails.destinationName,
-                    journey_date: this.quoteDetails.journeyDate,
-                    passengers: this.quoteDetails.passengers,
-                    luggage: this.quoteDetails.luggage,
-                    coupon_id: this.quoteDetails.coupon_id,
-                    price_id: this.quoteDetails.price_id,
-                    discount: this.quoteDetails.discount,
-                    total_price: parseFloat(this.quoteDetails.fare),
-                    passport: this.quoteDetails.passport,
-                    flight_number: this.quoteDetails.flightNumber,
-                    flight_origin: this.quoteDetails.flightOrigin,
-                    meet_and_greet_service: this.quoteDetails
-                        .meetAndGreetService,
-                    booking_status_id: 0
-                };
+                name: this.quoteDetails.name,
+                email: this.quoteDetails.email,
+                mobile: this.quoteDetails.mobile,
+                from: this.quoteDetails.originName,
+                via: this.quoteDetails.viaRouteNames,
+                to: this.quoteDetails.destinationName,
+                journey_date: this.quoteDetails.journeyDate,
+                passengers: this.quoteDetails.passengers,
+                luggage: this.quoteDetails.luggage,
+                // coupon_id: this.quoteDetails.coupon_id,
+                price_id: this.quoteDetails.fare,
+                discount: this.quoteDetails.discount,
+                total_price: parseFloat(this.quoteDetails.priceId),
+                passport: this.quoteDetails.passport,
+                flight_number: this.quoteDetails.flightNumber,
+                flight_origin: this.quoteDetails.flightOrigin,
+                meet_and_greet_service: this.quoteDetails.meetAndGreetService,
+                booking_status_id: 0
+            };
 
             axios.post("/submit-booking", this.data).then(response => {
                 Swal.fire({
-                    icon: 'success',
+                    icon: "success",
                     title: response.data,
                     showConfirmButton: false,
                     timer: 1500
-                })
+                });
             });
         }
     },

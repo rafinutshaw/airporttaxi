@@ -22,10 +22,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/price-list', function () {
-    $prices = Price::all('car_type_id', 'price', 'trip_type');
+    $prices = Price::all('id', 'car_type_id', 'price');
 
     return response()->json($prices, 200);
 });
+
+Route::post('get-price/', 'BookingController@getPrice')->name('get-price');
 
 Route::post('/submit-booking', 'BookingController@guestBooking')->name('guest-booking');
 

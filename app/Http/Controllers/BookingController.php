@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Booking;
 use App\Customer;
+use App\Price;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,12 @@ class BookingController extends Controller
     //     return $guest;
     // }
 
+    public function getPrice(Request $request)
+    {
+        $getPrice = Price::find($request['price_id']);
+        return response()->json($getPrice->price, 200);
+    }
+
     public function guestBooking(Request $request)
     {
         $checkExistingUser = Customer::where('email', $request['email'])->first();
@@ -39,7 +46,7 @@ class BookingController extends Controller
                 'journey_date' => $request['journey_date'],
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
-                'coupon_id' => $request['coupon_id'],
+                // 'coupon_id' => $request['coupon_id'],
                 'price_id' => $request['price_id'],
                 'discount' => $request['discount'],
                 'total_price' => $request['total_price'],
@@ -71,7 +78,7 @@ class BookingController extends Controller
                 'journey_date' => $request['journey_date'],
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
-                'coupon_id' => $request['coupon_id'],
+                // 'coupon_id' => $request['coupon_id'],
                 'price_id' => $request['price_id'],
                 'discount' => $request['discount'],
                 'total_price' => $request['total_price'],
