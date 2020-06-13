@@ -1460,7 +1460,7 @@ export default {
                 passengers: this.quoteDetails.passengers,
                 luggage: this.quoteDetails.luggage,
                 // coupon_id: this.quoteDetails.coupon_id,
-                price_id: this.quoteDetails.fare,
+                price_id: this.journey[0].priceId,
                 discount: this.quoteDetails.discount,
                 total_price: parseFloat(this.quoteDetails.fare),
                 passport: this.quoteDetails.passport,

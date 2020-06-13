@@ -75,7 +75,7 @@
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->luggage }}">
                                             </div>
                                         </div>
-                                        @if (!empty($booking->coupon_id) )    
+                                        {{-- @if (!empty($booking->coupon_id) )    
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Coupon</label>
                                                 <div class="col-sm-7">
@@ -90,7 +90,7 @@
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ '₤ '. $booking->price->price }}">
                                             </div>
                                         </div>
-                                        @endif
+                                        @endif --}}
 
                                         @if (!empty($booking->discount))
                                             <div class="form-group row">
