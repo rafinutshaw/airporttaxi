@@ -1462,7 +1462,7 @@ export default {
                 // coupon_id: this.quoteDetails.coupon_id,
                 price_id: this.quoteDetails.fare,
                 discount: this.quoteDetails.discount,
-                total_price: parseFloat(this.quoteDetails.priceId),
+                total_price: parseFloat(this.quoteDetails.fare),
                 passport: this.quoteDetails.passport,
                 flight_number: this.quoteDetails.flightNumber,
                 flight_origin: this.quoteDetails.flightOrigin,
