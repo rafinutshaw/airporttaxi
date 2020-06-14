@@ -38,7 +38,7 @@ class BookingController extends Controller
             $booking = Booking::create([
                 'customer_id' => $checkExistingUser->id,
                 'name' => $checkExistingUser->name,
-                'mobile' => $checkExistingUser->mobile,
+                'mobile' => $request['mobile'],
 
                 'from' => $request['from'],
                 'via' => $request['via'],

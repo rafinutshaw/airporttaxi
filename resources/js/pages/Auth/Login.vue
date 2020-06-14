@@ -228,10 +228,14 @@ export default {
             axios
                 .post("/login", { email, password })
                 .then(response => {
+                    console.log(response.data);
+                    
                     localStorage.setItem("loggedIn", true);
                     localStorage.setItem("authUsername", response.data.name);
                     localStorage.setItem("authEmail", response.data.email);
-                    localStorage.setItem("authMobile", response.data.mobile);
+                    
+                    if(response.data.mobile != null)
+                        localStorage.setItem("authMobile", response.data.mobile);
 
                     window.location = "/";
                 })

@@ -301,6 +301,11 @@ export default {
                     remember
                 })
                 .then(response => {
+                    localStorage.setItem("loggedIn", true);
+                    localStorage.setItem("authUsername", response.data.name);
+                    localStorage.setItem("authEmail", response.data.email);
+                    // localStorage.setItem("authMobile", response.data.mobile);
+
                     window.location = "/";
                 })
                 .catch(error => {

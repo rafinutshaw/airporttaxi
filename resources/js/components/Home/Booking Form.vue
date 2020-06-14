@@ -1113,7 +1113,9 @@ export default {
         if (localStorage.getItem("loggedIn") !== null) {
             this.quoteDetails.name = localStorage.getItem("authUsername");
             this.quoteDetails.email = localStorage.getItem("authEmail");
-            this.quoteDetails.mobile = localStorage.getItem("authMobile");
+
+            if (localStorage.getItem("authMobile"))
+                this.quoteDetails.mobile = localStorage.getItem("authMobile");
         }
 
         // Getting the price list from database
@@ -1477,6 +1479,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                window.location = "/";
             });
         }
     },

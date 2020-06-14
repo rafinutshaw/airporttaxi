@@ -52,13 +52,17 @@
                             {{ __('Dashboard') }}
                         </a>
 
-                        <a id="logout" class="dropdown-item" href="{{ route('logout') }}" onclick="logout(event)">
+                        {{-- <a id="logout" class="dropdown-item" href="{{ route('logout') }}" onclick="logout(event)">
+                            {{ __('Logout') }}
+                        </a> --}}
+
+                        {{-- <a class="dropdown-item" href="{{ route('logout') }}" id="logout">
                             {{ __('Logout') }}
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                        </form>
+                            @csrf
+                        </form> --}}
                     </div>
                 </li>
                 @endguest
@@ -68,15 +72,17 @@
 </nav>
 @section('navbar-scripts')
 
-    <script type="application/javascript">
-        function logout(e) {
-            e.preventDefault();
-            document.getElementById('logout-form').submit();
-            localStorage.removeItem('loggedIn');
-            localStorage.removeItem('authUsername');
-            localStorage.removeItem("authEmail");
-            localStorage.removeItem("authMobile");
-        };
-    </script>
+<script type="application/javascript">
+    function logout(e) {
+        e.preventDefault();
+        document.getElementById('logout-form').submit();
+        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('authUsername');
+        localStorage.removeItem("authEmail");
+        localStorage.removeItem("authMobile");
+        window.location = "/";
+    };
+
+</script>
 
 @endsection
