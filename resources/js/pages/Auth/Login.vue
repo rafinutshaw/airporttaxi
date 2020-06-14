@@ -228,7 +228,7 @@ export default {
             axios
                 .post("/login", { email, password })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     
                     localStorage.setItem("loggedIn", true);
                     localStorage.setItem("authUsername", response.data.name);

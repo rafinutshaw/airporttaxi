@@ -242,7 +242,7 @@ __webpack_require__.r(__webpack_exports__);
         email: email,
         password: password
       }).then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("authUsername", response.data.name);
         localStorage.setItem("authEmail", response.data.email);

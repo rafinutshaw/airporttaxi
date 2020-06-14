@@ -305,6 +305,7 @@ export default {
                     localStorage.setItem("authUsername", response.data.name);
                     localStorage.setItem("authEmail", response.data.email);
                     // localStorage.setItem("authMobile", response.data.mobile);
+                    // console.log(response.data);
 
                     window.location = "/";
                 })

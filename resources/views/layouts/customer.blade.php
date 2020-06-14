@@ -4,7 +4,6 @@
 <head>
     {{-- <script src="{{ asset("js/theme/jquery.min.js") }}"></script> --}}
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('style')
     
@@ -23,8 +22,9 @@
         @yield('content')
 
         {{-- Additional Scripts --}}
-        @yield('scripts')
     </div>
+    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>

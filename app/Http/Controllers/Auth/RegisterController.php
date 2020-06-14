@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Providers\RouteServiceProvider;
+use App\Rules\CustomerEmailCheckingRule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Notifications\RegistrationNotification;
@@ -63,10 +64,22 @@ class RegisterController extends Controller
         // ]);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
+            'email' => ['required', 'string', 'email', 'max:255', new CustomerEmailCheckingRule],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+
+    // public function register(Request $request)
+    // {
+    //     $ifGuestUser = Customer::where('email', '=', $request['email'])->first();
+
+    //     if ($ifGuestUser === null) {
+    //         // user doesn't exist
+    //         return response()->json('Guest User');
+    //     }
+
+    //     return response()->json($ifGuestUser);
+    // }
 
     /**
      * Create a new user instance after a valid registration.
@@ -76,16 +89,40 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $ifGuestUser = Customer::where('email', '=', $data['email'])->first();
+
+        if ($ifGuestUser === null) {
+            // user doesn't exist
+            return Customer::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'status' => 1,
+                'password' => Hash::make($data['password']),
+            ]);
+        } else if ($ifGuestUser !== null && $ifGuestUser->status != 1) {
+            $ifGuestUser->name = $data['name'];
+            $ifGuestUser->password = Hash::make($data['password']);
+            $ifGuestUser->status = 1;
+            $ifGuestUser->save();
+            return $ifGuestUser;
+        }
+
         // return User::create([
         //     'name' => $data['name'],
         //     'email' => $data['email'],
         //     'password' => Hash::make($data['password']),
         // ]);
-        return Customer::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        // $email = $data['email'];
+        // $ifGuestUser = Customer::findOrFail($email)->get();
+        // $ifGuestUser = Customer::where('email', '=', $email)->first();
+
+        // return response()->json($email);
+
+        // return Customer::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
     }
 
     /**

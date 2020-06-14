@@ -125,12 +125,12 @@
                                                     <input type="text" readonly class="form-control-plaintext" value="{{ $booking->flight_origin }}">
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            {{-- <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Meet & Greet Service</label>
                                                 <div class="col-sm-7">
                                                     <input type="text" readonly class="form-control-plaintext" value="{{ $booking->meet_and_greet_service }}">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         @endif
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Booking Status</label>

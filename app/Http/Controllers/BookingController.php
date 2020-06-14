@@ -61,6 +61,7 @@ class BookingController extends Controller
         } else {
             $guest = Customer::create([
                 'name' => $request['name'],
+                // 'name' => 'Sezan',
                 'email' => $request['email'],
                 'mobile' => $request['mobile'],
                 'password' => Hash::make(Str::random(8)),
