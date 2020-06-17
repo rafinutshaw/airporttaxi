@@ -41,7 +41,8 @@ class CustomerController extends Controller
             $fileName = time() . '.' . $request->image->extension();
 
             // ? Storing the image and getting the file path
-            $path = $request->image->storeAs('images/customer-profile-image', $fileName, 'public');
+            // $path = $request->image->storeAs('images/customer-profile-image', $fileName, 'public');
+            $path = $request->image->storeAs('customer-profile-image', $fileName, 'images');
 
             $this->deleteOldImage();
 
@@ -57,7 +58,8 @@ class CustomerController extends Controller
     public function deleteOldImage()
     {
         if (auth()->user()->image != "images/customer-profile-image/default.png") {
-            Storage::delete('public/' . auth()->user()->image);
+            // Storage::delete('public/' . auth()->user()->image);
+            Storage::disk('images')->delete(auth()->user()->image);
         }
     }
 

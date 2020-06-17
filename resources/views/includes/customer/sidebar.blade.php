@@ -12,7 +12,19 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 {{-- <img src={{ asset(Auth::user()->image) }} class="img-circle elevation-2" alt="User Image"> --}}
-                <img src={{ asset('storage/'.Auth::user()->image ) }} class="img-circle elevation-2" alt="User Image">
+                {{-- <img src={{ asset('storage/'.Auth::user()->image ) }} class="img-circle elevation-2" alt="User Image"> --}}
+                {{-- <img src={{ asset('images/' . Auth::user()->image) }} class="img-circle elevation-2" alt="User Image"> --}}
+                
+                {{-- Checking if image is exists? If so then show it, if not then show the default one --}}
+                <?php 
+                    $userProfileImage = 'images/' . Auth::user()->image;
+                    if (file_exists($userProfileImage)) {
+                        $userProfileImagePath = $userProfileImage;
+                    } else {
+                        $userProfileImagePath = 'images/customer-profile-image/default.png';
+                    }
+                ?>
+                <img src={{ asset($userProfileImagePath) }} class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ Auth::user()->name }}</a>

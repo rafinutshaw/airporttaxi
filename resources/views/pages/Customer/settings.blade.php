@@ -11,9 +11,21 @@
                             {{-- Starting Profile Image Section --}}
                             <div class="col-md-5">
                                 <div class="profile-img d-flex-row">
-                                    <img class="profile-user-img img-responsive rounder"
+                                    {{-- <img class="profile-user-img img-responsive rounder"
                                         src="{{ asset('storage/'.Auth::user()->image ) }}" alt="User profile picture"
-                                        style="max-width: 250px; min-width: 250px; max-height: 270px;">
+                                        style="max-width: 250px; min-width: 250px; max-height: 270px;"> --}}
+
+                                    <?php 
+                                        $userProfileImage = 'images/' . Auth::user()->image;
+                                        if (file_exists($userProfileImage)) {
+                                            $userProfileImagePath = $userProfileImage;
+                                        } else {
+                                            $userProfileImagePath = 'images/customer-profile-image/default.png';
+                                        }
+                                    ?>
+                                    <img class="profile-user-img img-responsive rounder"
+                                        src="{{ asset($userProfileImagePath) }}" alt="User profile picture"
+                                        style="max-width: 250px; min-width: 250px; max-height: 270px; object-fit: cover">
                                 </div>
                                 <form class="d-flex-row" action="{{ route('customer.upload-image') }}" method="post"
                                     enctype="multipart/form-data">
