@@ -239,7 +239,7 @@
                                 class="fas fa-exchange-alt d-flex align-self-center"
                                 style="font-size: 15px"
                             ></i> -->
-                            <p class="text-left mb-0 ml-2">Return Booking?</p>
+                            <p class="text-left mb-0 ml-2 text-black">Return Booking?</p>
                         </div>
                     </div>
 
@@ -2156,6 +2156,10 @@ img {
 /* Ending V-Select */
 .booking-form-icon {
     font-size: 20px;
+    color: #2b2b2b;
+}
+.booking-form-icon:hover {
+    color: black;
 }
 .booking-form-icon-wrapper {
     left: 5px;
@@ -2238,7 +2242,8 @@ label {
 }
 
 .header-right {
-    background-color: #f3f3f3eb;
+    /* background-color: #f3f3f3eb; */
+    background-color: #ffffff8f;
     /* box-shadow: 0px 4px 8px #999999a3; */
     box-shadow: 0px 2px 10px #999999a3;
     border-radius: 8px;
