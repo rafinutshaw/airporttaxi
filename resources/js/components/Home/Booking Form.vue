@@ -12,8 +12,11 @@
             <div id="bookingForm">
                 <div v-for="(item, index) in journey" :key="index">
                     <div class="mb-2 pickup-point">
-                        <div class="row">
-                            <div class="form-group input-group col-sm-11 pr-0">
+                        <div class="row pl-3 pr-3">
+                            <div
+                                class="form-group input-group col-sm-12 pl-0 pr-0"
+                                style="background-color: white"
+                            >
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <i class="fas fa-map-marker-alt"></i>
@@ -55,16 +58,17 @@
                                         ></div>
                                     </template>
                                 </v-select>
-                            </div>
-                            <div
-                                class="col-sm-1 pl-0 pr-0 align-self-center booking-form-icon-wrapper"
-                            >
-                                <i
-                                    class="fa fa-plus-circle d-flex justify-content-center booking-form-icon"
-                                    aria-hidden="true"
-                                    style=";"
-                                    @click.prevent="add"
-                                ></i>
+                                <div
+                                    class="pl-0 pr-0 align-self-center booking-form-icon-wrapper"
+                                    style="background-color: white"
+                                >
+                                    <i
+                                        class="fa fa-plus-circle d-flex justify-content-center booking-form-icon"
+                                        aria-hidden="true"
+                                        style=";"
+                                        @click.prevent="add"
+                                    ></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -156,7 +160,7 @@
                         </draggable>
                     </div>
                     <div class="row">
-                        <div class="mt-2 dropoff-point col-sm-11 pr-0">
+                        <div class="mt-2 dropoff-point col-sm-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
@@ -235,11 +239,9 @@
                     </div>
                     <div class="row container-fluid justify-content-end mt-2">
                         <div class="row" @click.prevent="returnBooking">
-                            <!-- <i
-                                class="fas fa-exchange-alt d-flex align-self-center"
-                                style="font-size: 15px"
-                            ></i> -->
-                            <p class="text-left mb-0 ml-2 text-black">Return Booking?</p>
+                            <p class="text-left mb-0 ml-2 text-black">
+                                Return Booking?
+                            </p>
                         </div>
                     </div>
 
@@ -478,10 +480,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-11 pl-0 pr-0 booking-form-btn">
+                <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
                     <button
                         class="btn btn-block btn-primary mt-2"
-                        style="border-radius: 0px; width: 104%"
+                        style="border-radius: 0px; width: 100%"
                         :disabled="!validateQuote"
                         @click.prevent="submitQuote"
                     >
@@ -651,8 +653,12 @@
                         <div class="row container-fluid">
                             <p>
                                 <span class="pr-2"
-                                    ><i class="fas fa-male pr-1"></i>x3</span
-                                >
+                                    ><i
+                                        class="fas fa-male pull-right icon-chevron-right"
+                                        style="font"
+                                    ></i>
+                                    x3
+                                </span>
                                 <span
                                     ><i class="fas fa-suitcase pr-1"></i
                                     >x3</span
@@ -665,14 +671,14 @@
                     >
                         <label class="single">
                             £{{ priceList[0].price }}
+                        </label>
                             <input
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                    :value="priceList[0].id"
-                                    v-model="journey[0].priceId"
+                                :value="priceList[0].id"
+                                v-model="journey[0].priceId"
                             />
-                        </label>
                     </div>
                 </div>
 
@@ -747,8 +753,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                    :value="priceList[1].id"
-                                    v-model="journey[0].priceId"
+                                :value="priceList[1].id"
+                                v-model="journey[0].priceId"
                             />
                         </label>
                     </div>
@@ -825,8 +831,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                    :value="priceList[2].id"
-                                    v-model="journey[0].priceId"
+                                :value="priceList[2].id"
+                                v-model="journey[0].priceId"
                             />
                         </label>
                     </div>
@@ -903,8 +909,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                    :value="priceList[3].id"
-                                    v-model="journey[0].priceId"
+                                :value="priceList[3].id"
+                                v-model="journey[0].priceId"
                             />
                         </label>
                     </div>
@@ -981,8 +987,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                    :value="priceList[4].id"
-                                    v-model="journey[0].priceId"
+                                :value="priceList[4].id"
+                                v-model="journey[0].priceId"
                             />
                         </label>
                     </div>
@@ -1059,8 +1065,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                    :value="priceList[5].id"
-                                    v-model="journey[0].priceId"
+                                :value="priceList[5].id"
+                                v-model="journey[0].priceId"
                             />
                         </label>
                     </div>
@@ -1137,8 +1143,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                    :value="priceList[6].id"
-                                    v-model="journey[0].priceId"
+                                :value="priceList[6].id"
+                                v-model="journey[0].priceId"
                             />
                         </label>
                     </div>
@@ -1417,7 +1423,10 @@
                             class="btn btn-outline-secondary"
                         >
                             Back
-                        <i class="fa fa-angle-left ml-1" aria-hidden="true"></i>
+                            <i
+                                class="fa fa-angle-left ml-1"
+                                aria-hidden="true"
+                            ></i>
                         </button>
                     </div>
                     <div class="">
@@ -2105,6 +2114,9 @@ export default {
 </script>
 
 <style scoped>
+.row.container-fluid p{
+    margin-bottom: 0px !important;
+}
 #map {
     position: relative;
     top: 0;
@@ -2157,22 +2169,23 @@ img {
 .booking-form-icon {
     font-size: 20px;
     color: #2b2b2b;
+    padding-right: 15px;
 }
 .booking-form-icon:hover {
     color: black;
 }
 .booking-form-icon-wrapper {
-    left: 5px;
+    /* left: 5px; */
+    padding: 0.575rem 0.75rem;
 }
 .price-section {
 }
 @media only screen and (max-width: 575px) {
     .booking-form-icon-wrapper {
-        margin-top: 15px;
-        margin-bottom: 15px;
+        /* margin-top: 15px;
+        margin-bottom: 15px; */
         left: 0px;
     }
-    .pickup-point,
     .via-route,
     .dropoff-point {
         margin: 0px !important;
@@ -2233,8 +2246,8 @@ label {
     margin-bottom: 0.2rem;
 }
 
-.fas {
-    font-size: 20px;
+.fa.fas {
+    font-size: 15px;
 }
 
 .col-lg-4.col-md-6.header-right {
@@ -2322,7 +2335,7 @@ label {
 div.vehicle {
     display: block;
     margin: 10px 0 0 0;
-    padding: 8px 0 0 10px;
+    padding: 8px 0 8px 10px;
     border-radius: 5px;
     font-size: 12px;
     color: black;
