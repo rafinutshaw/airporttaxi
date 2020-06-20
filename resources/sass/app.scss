@@ -18,8 +18,14 @@
 
 // @import '~vue2-datepicker/scss/index.scss';
 
+.fa:hover,
+.fas:hover,
+.far:hover {
+    color: #504e4e;
+}
+
 .laravel-box-shadow {
-    box-shadow: 0 20px 30px -16px rgba(9,9,16,.2);
+    box-shadow: 0 20px 30px -16px rgba(9, 9, 16, 0.2);
 }
 
 .invalid-feedback {

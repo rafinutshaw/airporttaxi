@@ -128,6 +128,15 @@ a:hover {
     border: none;
     color: #394066;
     text-transform: capitalize;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    /* border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px; */
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.vs--disabled .vs__clear,
+.vs--disabled .vs__dropdown-toggle,
+.vs--disabled .vs__open-indicator,
+.vs--disabled .vs__search,
+.vs--disabled .vs__selected {
+    background-color: white !important;
 }

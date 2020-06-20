@@ -1,7 +1,5 @@
 <template>
     <div class="header-right">
-        <h5 class="pb-10">BOOK ONLINE</h5>
-
         <!-- /**
         * TODO:     Stage 1
         * ? Starting Origin-Destination Place Form
@@ -13,55 +11,65 @@
         >
             <div id="bookingForm">
                 <div v-for="(item, index) in journey" :key="index">
-                    <div class="mb-2">
-                        <label class="bookingFormLabel" for="origin"
-                            >Start</label
-                        >
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="mb-2 pickup-point">
+                        <div class="row">
+                            <div class="form-group input-group col-sm-11 pr-0">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <v-select
-                                label="text_en"
-                                placeholder="Enter your pickup point"
-                                class="form-control d-flex flex-column justify-content-center style-chooser"
-                                v-model="item.origin"
-                                :filterable="false"
-                                :options="options"
-                                @search="onSearch"
-                                :closeOnSelect="true"
-                            >
-                                <template slot="no-options">
-                                    type to search Places..
-                                </template>
-                                <template slot="option" slot-scope="option">
-                                    <div class="d-center">
-                                        <!-- <img :src="option.owner.avatar_url" /> -->
-                                        {{ option.text_en }}
-                                    </div>
-                                </template>
-                                <template
-                                    slot="selected-option"
-                                    slot-scope="option"
+                                <v-select
+                                    label="text_en"
+                                    placeholder="Enter your pickup point"
+                                    class="form-control d-flex flex-column justify-content-center style-chooser"
+                                    v-model="item.origin"
+                                    :filterable="false"
+                                    :options="options"
+                                    @search="onSearch"
+                                    :closeOnSelect="true"
                                 >
-                                    <div class="selected d-center">
-                                        <!-- <img :src="option.owner.avatar_url" /> -->
-                                        {{ option.text_en }}
-                                    </div>
-                                </template>
-                            </v-select>
-                            <!-- <v-select
-                                class="form-control d-flex flex-column justify-content-center style-chooser"
-                                placeholder="e.g. Heathrow Airport or AA11AA"
-                                v-model="item.origin"
-                                :options="CityNames"
-                            ></v-select> -->
+                                    <template slot="no-options">
+                                        type to search Places..
+                                    </template>
+                                    <template slot="option" slot-scope="option">
+                                        <div class="d-center">
+                                            {{ option.text_en }}
+                                        </div>
+                                    </template>
+                                    <template
+                                        slot="selected-option"
+                                        slot-scope="option"
+                                    >
+                                        <div class="selected d-center">
+                                            {{ option.text_en }}
+                                        </div>
+                                    </template>
+
+                                    <!-- Loading Spinner -->
+                                    <template #spinner="{ loading }">
+                                        <div
+                                            v-if="loading"
+                                            style="border-left-color: rgba(88,151,251,0.71)"
+                                            class="vs__spinner"
+                                        ></div>
+                                    </template>
+                                </v-select>
+                            </div>
+                            <div
+                                class="col-sm-1 pl-0 pr-0 align-self-center booking-form-icon-wrapper"
+                            >
+                                <i
+                                    class="fa fa-plus-circle d-flex justify-content-center booking-form-icon"
+                                    aria-hidden="true"
+                                    style=";"
+                                    @click.prevent="add"
+                                ></i>
+                            </div>
                         </div>
                     </div>
                     <div
-                        class="form-group input-group"
+                        class="form-group input-group via-route"
                         v-show="!index && item.via.length > 0"
                     >
                         <draggable
@@ -74,181 +82,410 @@
                                 v-for="(viaItem, viaIndex) in item.via"
                                 :key="viaIndex"
                             >
-                                <div class="mb-2">
-                                    <label class="bookingFormLabel" for="Via"
-                                        >Via</label
-                                    >
-                                    <div class="form-group input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i
-                                                    class="fa fa-align-justify handle"
-                                                ></i>
-                                            </div>
-                                        </div>
-                                        <v-select
-                                            label="text_en"
-                                            placeholder="Enter your pickup point"
-                                            class="form-control d-flex flex-column justify-content-center style-chooser"
-                                            v-model="viaItem.route"
-                                            :filterable="false"
-                                            :options="options"
-                                            @search="onSearch"
-                                            :closeOnSelect="true"
+                                <div class="mb-2 mt-2">
+                                    <div class="row justify-content-end">
+                                        <div
+                                            class="form-group input-group col-sm-10 pr-0"
                                         >
-                                            <template slot="no-options">
-                                                type to search Places..
-                                            </template>
-                                            <template
-                                                slot="option"
-                                                slot-scope="option"
-                                            >
-                                                <div class="d-center">
-                                                    <!-- <img :src="option.owner.avatar_url" /> -->
-                                                    {{ option.text_en }}
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-align-justify handle"
+                                                    ></i>
                                                 </div>
-                                            </template>
-                                            <template
-                                                slot="selected-option"
-                                                slot-scope="option"
+                                            </div>
+                                            <v-select
+                                                label="text_en"
+                                                placeholder="Enter your Via Route point"
+                                                class="form-control d-flex flex-column justify-content-center style-chooser"
+                                                v-model="viaItem.route"
+                                                :filterable="false"
+                                                :options="options"
+                                                @search="onSearch"
+                                                :closeOnSelect="true"
                                             >
-                                                <div class="selected d-center">
-                                                    <!-- <img :src="option.owner.avatar_url" /> -->
-                                                    {{ option.text_en }}
-                                                </div>
-                                            </template>
-                                        </v-select>
+                                                <template slot="no-options">
+                                                    type to search Places..
+                                                </template>
+                                                <template
+                                                    slot="option"
+                                                    slot-scope="option"
+                                                >
+                                                    <div class="d-center">
+                                                        {{ option.text_en }}
+                                                    </div>
+                                                </template>
+                                                <template
+                                                    slot="selected-option"
+                                                    slot-scope="option"
+                                                >
+                                                    <div
+                                                        class="selected d-center"
+                                                    >
+                                                        {{ option.text_en }}
+                                                    </div>
+                                                </template>
 
-                                        <!-- <v-select
-                                            class="form-control d-flex flex-column justify-content-center style-chooser"
-                                            placeholder="e.g. AA11AA or Heathrow Airport"
-                                            v-model="viaItem.name"
-                                            :options="CityNames"
-                                        ></v-select> -->
-                                        <i
-                                            class="fa fa-times close mt-1 remove-icon"
-                                            @click.prevent="removeVia(viaIndex)"
-                                        ></i>
+                                                <!-- Loading Spinner -->
+                                                <template
+                                                    #spinner="{ loading }"
+                                                >
+                                                    <div
+                                                        v-if="loading"
+                                                        style="border-left-color: rgba(88,151,251,0.71)"
+                                                        class="vs__spinner"
+                                                    ></div>
+                                                </template>
+                                            </v-select>
+                                        </div>
+                                        <div
+                                            class="col-sm-1 pl-0 pr-0 align-self-center booking-form-icon-wrapper"
+                                        >
+                                            <i
+                                                class="fas fa-times-circle d-flex justify-content-center booking-form-icon"
+                                                aria-hidden="true"
+                                                @click.prevent="
+                                                    removeVia(viaIndex)
+                                                "
+                                            ></i>
+                                            <!-- <i class="fas fa-times-circle"></i> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </draggable>
                     </div>
-                    <div class="mt-2">
-                        <label class="bookingFormLabel" for="destination"
-                            >End</label
-                        >
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="row">
+                        <div class="mt-2 dropoff-point col-sm-11 pr-0">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                </div>
+                                <v-select
+                                    label="text_en"
+                                    placeholder="Enter your Drop off point"
+                                    class="form-control d-flex flex-column justify-content-center style-chooser"
+                                    v-model="item.destination"
+                                    :filterable="false"
+                                    :options="options"
+                                    @search="onSearch"
+                                    :clearSearchOnSelect="true"
+                                >
+                                    <template slot="no-options">
+                                        type to search Places..
+                                    </template>
+                                    <template slot="option" slot-scope="option">
+                                        <div class="d-center">
+                                            {{ option.text_en }}
+                                        </div>
+                                    </template>
+                                    <template
+                                        slot="selected-option"
+                                        slot-scope="option"
+                                    >
+                                        <div class="selected d-center">
+                                            {{ option.text_en }}
+                                        </div>
+                                    </template>
+
+                                    <!-- Loading Spinner -->
+                                    <template #spinner="{ loading }">
+                                        <div
+                                            v-if="loading"
+                                            style="border-left-color: rgba(88,151,251,0.71)"
+                                            class="vs__spinner"
+                                        ></div>
+                                    </template>
+                                </v-select>
+                            </div>
+
+                            <!-- Starting Map Error -->
+                            <div v-if="mapData.errors.length > 0">
+                                <div
+                                    class="mt-4 alert alert-danger alert-dismissible fade show"
+                                    role="alert"
+                                >
+                                    {{ mapData.errors }}
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="alert"
+                                        aria-label="Close"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             </div>
-                            <v-select
-                                label="text_en"
-                                placeholder="Enter your destination point"
-                                class="form-control d-flex flex-column justify-content-center style-chooser"
-                                v-model="item.destination"
-                                :filterable="false"
-                                :options="options"
-                                @search="onSearch"
-                                :clearSearchOnSelect="true"
-                            >
-                                <template slot="no-options">
-                                    type to search Places..
-                                </template>
-                                <template slot="option" slot-scope="option">
-                                    <div class="d-center">
-                                        <!-- <img :src="option.owner.avatar_url" /> -->
-                                        {{ option.text_en }}
-                                    </div>
-                                </template>
-                                <template
-                                    slot="selected-option"
-                                    slot-scope="option"
-                                >
-                                    <div class="selected d-center">
-                                        <!-- <img :src="option.owner.avatar_url" /> -->
-                                        {{ option.text_en }}
-                                    </div>
-                                </template>
-                            </v-select>
-                            <!-- <v-select
-                                class="form-control d-flex flex-column justify-content-center style-chooser"
-                                placeholder="e.g. AA11AA or Heathrow Airport"
-                                v-model="item.destination"
-                                :options="CityNames"
-                            ></v-select> -->
+                            <!-- Ending Map Error -->
                         </div>
+                    </div>
 
-                        <!-- Starting Map Error -->
-                        <div v-if="mapData.errors.length > 0">
-                            <div
-                                class="mt-4 alert alert-danger alert-dismissible fade show"
-                                role="alert"
-                            >
-                                {{ mapData.errors }}
-                                <button
-                                    type="button"
-                                    class="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
+                    <div class="row">
+                        <!-- <div class="d-flex justify-content-end mt-2 col-sm-10 pr-0">
+                            <i class="fas fa-exchange-alt return-booking" style='font-size: 15px'> Return Booking?</i>
+                        </div> -->
+                        <!-- <div class="d-flex justify-content-end mt-2 col-sm-4 pr-0">
+                            <i class="fas fa-exchange-alt return-booking" style='font-size: 15px'></i>
+                        </div>
+                        <div class="d-flex justify-content-end mt-2 col-sm-4 pr-0">
+                            <p class="text-left">Return Booking?</p>
+                        </div> -->
+                    </div>
+                    <div class="row container-fluid justify-content-end mt-2">
+                        <div class="row" @click.prevent="returnBooking">
+                            <!-- <i
+                                class="fas fa-exchange-alt d-flex align-self-center"
+                                style="font-size: 15px"
+                            ></i> -->
+                            <p class="text-left mb-0 ml-2">Return Booking?</p>
+                        </div>
+                    </div>
+
+                    <!-- /*
+                    ? Return Booking
+                    */ -->
+                    <div v-if="journey[0].return" class="mt-2 mb-3">
+                        <div class="mb-2 pickup-point">
+                            <div class="row">
+                                <div
+                                    class="form-group input-group col-sm-11 pr-0"
                                 >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <v-select
+                                        label="text_en"
+                                        placeholder="Return pickup point"
+                                        class="form-control d-flex flex-column justify-content-center style-chooser"
+                                        v-model="item.destination"
+                                        :filterable="false"
+                                        :options="options"
+                                        :disabled="true"
+                                        :closeOnSelect="true"
+                                    >
+                                        <template slot="no-options">
+                                            type to search Places..
+                                        </template>
+                                        <template
+                                            slot="option"
+                                            slot-scope="option"
+                                        >
+                                            <div class="d-center">
+                                                {{ option.text_en }}
+                                            </div>
+                                        </template>
+                                        <template
+                                            slot="selected-option"
+                                            slot-scope="option"
+                                        >
+                                            <div class="selected d-center">
+                                                {{ option.text_en }}
+                                            </div>
+                                        </template>
+
+                                        <!-- Loading Spinner -->
+                                        <template #spinner="{ loading }">
+                                            <div
+                                                v-if="loading"
+                                                style="border-left-color: rgba(88,151,251,0.71)"
+                                                class="vs__spinner"
+                                            ></div>
+                                        </template>
+                                    </v-select>
+                                </div>
+                                <div
+                                    class="col-sm-1 pl-0 pr-0 align-self-center booking-form-icon-wrapper"
+                                >
+                                    <i
+                                        class="fa fa-plus-circle d-flex justify-content-center booking-form-icon"
+                                        aria-hidden="true"
+                                        @click.prevent="addReturnVia"
+                                    ></i>
+                                </div>
                             </div>
                         </div>
-                        <!-- Ending Map Error -->
-                    </div>
-                    <!-- <div id="map">
-                        <Mapbox
-                            access-token="pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg"
-                            :map-options="{
-                                container: 'map',
-                                style: 'mapbox://styles/mapbox/streets-v11',
-                                center: [-122.486052, 37.830348],
-                                zoom: 13
-                            }"
-                            :geolocate-control="{
-                                show: true,
-                                position: 'top-left'
-                            }"
-                            :fullscreen-control="{
-                                show: true,
-                                position: 'top-left'
-                            }"
-                            @map-load="loaded"
-                        />
-                    </div> -->
-                </div>
-                <div
-                    class="container-fluid d-flex justify-content-between pl-0 pr-0 mt-2 booking-form-btn"
-                >
-                    <button
-                        class="btn btn-outline-secondary mt-2"
-                        @click.prevent="add"
-                    >
-                        Add Route
-                    </button>
-                    <!-- <button
-                        class="btn btn-primary mt-2"
-                        @click.prevent="submitQuote"
-                    >
-                        Quote Now
-                        <span
-                            ><i
-                                class="fa fa-arrow-right ml-1"
-                                aria-hidden="true"
-                            ></i
-                        ></span>
-                    </button> -->
+                        <div
+                            class="form-group input-group via-route"
+                            v-show="!index && item.returnVia.length > 0"
+                        >
+                            <draggable
+                                tag="div"
+                                :list="item.returnVia"
+                                class="form-group"
+                                handle=".handle"
+                            >
+                                <div
+                                    v-for="(viaItem,
+                                    viaIndex) in item.returnVia"
+                                    :key="viaIndex"
+                                >
+                                    <div class="mb-2 mt-2">
+                                        <div class="row justify-content-end">
+                                            <div
+                                                class="form-group input-group col-sm-10 pr-0"
+                                            >
+                                                <div
+                                                    class="input-group-prepend"
+                                                >
+                                                    <div
+                                                        class="input-group-text"
+                                                    >
+                                                        <i
+                                                            class="fa fa-align-justify handle"
+                                                        ></i>
+                                                    </div>
+                                                </div>
+                                                <v-select
+                                                    label="text_en"
+                                                    placeholder="Enter your Via Route point"
+                                                    class="form-control d-flex flex-column justify-content-center style-chooser"
+                                                    v-model="viaItem.route"
+                                                    :filterable="false"
+                                                    :options="options"
+                                                    @search="onSearch"
+                                                    :closeOnSelect="true"
+                                                >
+                                                    <template slot="no-options">
+                                                        type to search Places..
+                                                    </template>
+                                                    <template
+                                                        slot="option"
+                                                        slot-scope="option"
+                                                    >
+                                                        <div class="d-center">
+                                                            {{ option.text_en }}
+                                                        </div>
+                                                    </template>
+                                                    <template
+                                                        slot="selected-option"
+                                                        slot-scope="option"
+                                                    >
+                                                        <div
+                                                            class="selected d-center"
+                                                        >
+                                                            {{ option.text_en }}
+                                                        </div>
+                                                    </template>
 
+                                                    <!-- Loading Spinner -->
+                                                    <template
+                                                        #spinner="{ loading }"
+                                                    >
+                                                        <div
+                                                            v-if="loading"
+                                                            style="border-left-color: rgba(88,151,251,0.71)"
+                                                            class="vs__spinner"
+                                                        ></div>
+                                                    </template>
+                                                </v-select>
+                                            </div>
+                                            <div
+                                                class="col-sm-1 pl-0 pr-0 align-self-center booking-form-icon-wrapper"
+                                            >
+                                                <i
+                                                    class="fas fa-times-circle d-flex justify-content-center booking-form-icon"
+                                                    aria-hidden="true"
+                                                    @click.prevent="
+                                                        removeReturnVia(
+                                                            viaIndex
+                                                        )
+                                                    "
+                                                ></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </draggable>
+                        </div>
+                        <div class="row">
+                            <div class="mt-2 dropoff-point col-sm-11 pr-0">
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fas fa-map-marker-alt"
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <v-select
+                                        label="text_en"
+                                        placeholder="Return Drop off point"
+                                        class="form-control d-flex flex-column justify-content-center style-chooser"
+                                        v-model="item.origin"
+                                        :filterable="false"
+                                        :options="options"
+                                        :disabled="true"
+                                        :clearSearchOnSelect="true"
+                                    >
+                                        <template slot="no-options">
+                                            type to search Places..
+                                        </template>
+                                        <template
+                                            slot="option"
+                                            slot-scope="option"
+                                        >
+                                            <div class="d-center">
+                                                {{ option.text_en }}
+                                            </div>
+                                        </template>
+                                        <template
+                                            slot="selected-option"
+                                            slot-scope="option"
+                                        >
+                                            <div class="selected d-center">
+                                                {{ option.text_en }}
+                                            </div>
+                                        </template>
+
+                                        <!-- Loading Spinner -->
+                                        <template #spinner="{ loading }">
+                                            <div
+                                                v-if="loading"
+                                                style="border-left-color: rgba(88,151,251,0.71)"
+                                                class="vs__spinner"
+                                            ></div>
+                                        </template>
+                                    </v-select>
+                                </div>
+
+                                <!-- Starting Map Error -->
+                                <div v-if="mapData.errors.length > 0">
+                                    <div
+                                        class="mt-4 alert alert-danger alert-dismissible fade show"
+                                        role="alert"
+                                    >
+                                        {{ mapData.errors }}
+                                        <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="alert"
+                                            aria-label="Close"
+                                        >
+                                            <span aria-hidden="true"
+                                                >&times;</span
+                                            >
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Ending Map Error -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-11 pl-0 pr-0 booking-form-btn">
                     <button
-                        class="btn btn-primary mt-2"
+                        class="btn btn-block btn-primary mt-2"
+                        style="border-radius: 0px; width: 104%"
                         :disabled="!validateQuote"
                         @click.prevent="submitQuote"
                     >
-                        Quote Now
+                        Book Now
                         <span
                             ><i
                                 class="fa fa-arrow-right ml-1"
@@ -362,7 +599,7 @@
                 v-for="price in priceList[0]" :key="price.id"> -->
             <div class="group-vehicle row d-flex ml-0 mr-0">
                 <!-- Saloon Car -->
-                <div class="group vehicle">
+                <!-- <div class="group vehicle">
                     <h4>Saloon Car</h4>
 
                     <div class="vehicle-content">
@@ -392,10 +629,55 @@
                             </label>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="group vehicle row d-flex align-items-center">
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                    >
+                        <img
+                            class="mr-0 ml-1"
+                            src="../../../../public/img/Cars/Cars SVG/Black Color/Saloon Car black.svg"
+                            alt="Saloon Car"
+                            style="max-width: 5.5rem;"
+                        />
+                    </div>
+                    <div
+                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
+                    >
+                        <div class="row container-fluid">
+                            <h6>Saloon Car</h6>
+                        </div>
+                        <div class="row container-fluid">
+                            <p>
+                                <span class="pr-2"
+                                    ><i class="fas fa-male pr-1"></i>x3</span
+                                >
+                                <span
+                                    ><i class="fas fa-suitcase pr-1"></i
+                                    >x3</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
+                    >
+                        <label class="single">
+                            £{{ priceList[0].price }}
+                            <input
+                                type="radio"
+                                name="vehicle"
+                                class="ml-2 price-list"
+                                    :value="priceList[0].id"
+                                    v-model="journey[0].priceId"
+                            />
+                        </label>
+                    </div>
                 </div>
 
                 <!-- Estate Car -->
-                <div class="group vehicle">
+                <!-- <div class="group vehicle">
                     <h4>Estate Car</h4>
 
                     <div class="vehicle-content">
@@ -425,10 +707,55 @@
                             </label>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="group vehicle row d-flex align-items-center">
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                    >
+                        <img
+                            class="mr-0 ml-1"
+                            src="../../../../public/img/Cars/Cars SVG/Black Color/Estate Car black.svg"
+                            alt="Estate Car"
+                            style="max-width: 5.5rem;"
+                        />
+                    </div>
+                    <div
+                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
+                    >
+                        <div class="row container-fluid">
+                            <h6>Estate Car</h6>
+                        </div>
+                        <div class="row container-fluid">
+                            <p>
+                                <span class="pr-2"
+                                    ><i class="fas fa-male pr-1"></i>x4</span
+                                >
+                                <span
+                                    ><i class="fas fa-suitcase pr-1"></i
+                                    >x4</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
+                    >
+                        <label class="single">
+                            £{{ priceList[1].price }}
+                            <input
+                                type="radio"
+                                name="vehicle"
+                                class="ml-2 price-list"
+                                    :value="priceList[1].id"
+                                    v-model="journey[0].priceId"
+                            />
+                        </label>
+                    </div>
                 </div>
 
                 <!-- People Carrier -->
-                <div class="group vehicle">
+                <!-- <div class="group vehicle">
                     <h4>People Carrier</h4>
 
                     <div class="vehicle-content">
@@ -458,10 +785,55 @@
                             </label>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="group vehicle row d-flex align-items-center">
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                    >
+                        <img
+                            class="mr-0 ml-1"
+                            src="../../../../public/img/Cars/Cars SVG/Black Color/People Carrier black.svg"
+                            alt="People Carrier"
+                            style="max-width: 5.5rem;"
+                        />
+                    </div>
+                    <div
+                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
+                    >
+                        <div class="row container-fluid">
+                            <h6>People Carrier</h6>
+                        </div>
+                        <div class="row container-fluid">
+                            <p>
+                                <span class="pr-2"
+                                    ><i class="fas fa-male pr-1"></i>x5</span
+                                >
+                                <span
+                                    ><i class="fas fa-suitcase pr-1"></i
+                                    >x5</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
+                    >
+                        <label class="single">
+                            £{{ priceList[2].price }}
+                            <input
+                                type="radio"
+                                name="vehicle"
+                                class="ml-2 price-list"
+                                    :value="priceList[2].id"
+                                    v-model="journey[0].priceId"
+                            />
+                        </label>
+                    </div>
                 </div>
 
                 <!-- Executive Car -->
-                <div class="group vehicle">
+                <!-- <div class="group vehicle">
                     <h4>Executive Car</h4>
 
                     <div class="vehicle-content">
@@ -491,10 +863,55 @@
                             </label>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="group vehicle row d-flex align-items-center">
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                    >
+                        <img
+                            class="mr-0 ml-1"
+                            src="../../../../public/img/Cars/Cars SVG/Black Color/Executive Car black.svg"
+                            alt="Executive Car"
+                            style="max-width: 5.5rem;"
+                        />
+                    </div>
+                    <div
+                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
+                    >
+                        <div class="row container-fluid">
+                            <h6>Executive Car</h6>
+                        </div>
+                        <div class="row container-fluid">
+                            <p>
+                                <span class="pr-2"
+                                    ><i class="fas fa-male pr-1"></i>x3</span
+                                >
+                                <span
+                                    ><i class="fas fa-suitcase pr-1"></i
+                                    >x3</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
+                    >
+                        <label class="single">
+                            £{{ priceList[3].price }}
+                            <input
+                                type="radio"
+                                name="vehicle"
+                                class="ml-2 price-list"
+                                    :value="priceList[3].id"
+                                    v-model="journey[0].priceId"
+                            />
+                        </label>
+                    </div>
                 </div>
 
                 <!-- Executive People Carrier -->
-                <div class="group vehicle">
+                <!-- <div class="group vehicle">
                     <h4>Executive People Carrier</h4>
 
                     <div class="vehicle-content">
@@ -524,10 +941,55 @@
                             </label>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="group vehicle row d-flex align-items-center">
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                    >
+                        <img
+                            class="mr-0 ml-1"
+                            src="../../../../public/img/Cars/Cars SVG/Black Color/Executive People Carrier black.svg"
+                            alt="Executive People Carrier"
+                            style="max-width: 5.5rem;"
+                        />
+                    </div>
+                    <div
+                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
+                    >
+                        <div class="row container-fluid">
+                            <h6>Executive People Carrier</h6>
+                        </div>
+                        <div class="row container-fluid">
+                            <p>
+                                <span class="pr-2"
+                                    ><i class="fas fa-male pr-1"></i>x5</span
+                                >
+                                <span
+                                    ><i class="fas fa-suitcase pr-1"></i
+                                    >x5</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
+                    >
+                        <label class="single">
+                            £{{ priceList[4].price }}
+                            <input
+                                type="radio"
+                                name="vehicle"
+                                class="ml-2 price-list"
+                                    :value="priceList[4].id"
+                                    v-model="journey[0].priceId"
+                            />
+                        </label>
+                    </div>
                 </div>
 
                 <!-- 8 Seater Minibus -->
-                <div class="group vehicle">
+                <!-- <div class="group vehicle">
                     <h4>8 Seater Minibus</h4>
 
                     <div class="vehicle-content">
@@ -557,10 +1019,55 @@
                             </label>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="group vehicle row d-flex align-items-center">
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                    >
+                        <img
+                            class="mr-0 ml-1"
+                            src="../../../../public/img/Cars/Cars SVG/Black Color/8 Seater Minibus black.svg"
+                            alt="8 Seater Minibus"
+                            style="max-width: 5.5rem;"
+                        />
+                    </div>
+                    <div
+                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
+                    >
+                        <div class="row container-fluid">
+                            <h6>8 Seater Minibus</h6>
+                        </div>
+                        <div class="row container-fluid">
+                            <p>
+                                <span class="pr-2"
+                                    ><i class="fas fa-male pr-1"></i>x8</span
+                                >
+                                <span
+                                    ><i class="fas fa-suitcase pr-1"></i
+                                    >x8</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
+                    >
+                        <label class="single">
+                            £{{ priceList[5].price }}
+                            <input
+                                type="radio"
+                                name="vehicle"
+                                class="ml-2 price-list"
+                                    :value="priceList[5].id"
+                                    v-model="journey[0].priceId"
+                            />
+                        </label>
+                    </div>
                 </div>
 
                 <!-- 14 Seater Minibus -->
-                <div class="group vehicle">
+                <!-- <div class="group vehicle">
                     <h4>14 Seater Minibus</h4>
 
                     <div class="vehicle-content">
@@ -590,6 +1097,51 @@
                             </label>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="group vehicle row d-flex align-items-center">
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                    >
+                        <img
+                            class="mr-0 ml-1"
+                            src="../../../../public/img/Cars/Cars SVG/Black Color/14 Seater Minibus black.svg"
+                            alt="14 Seater Minibus"
+                            style="max-width: 5.5rem;"
+                        />
+                    </div>
+                    <div
+                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
+                    >
+                        <div class="row container-fluid">
+                            <h6>14 Seater Minibus</h6>
+                        </div>
+                        <div class="row container-fluid">
+                            <p>
+                                <span class="pr-2"
+                                    ><i class="fas fa-male pr-1"></i>x14</span
+                                >
+                                <span
+                                    ><i class="fas fa-suitcase pr-1"></i
+                                    >x8</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
+                    >
+                        <label class="single">
+                            £{{ priceList[6].price }}
+                            <input
+                                type="radio"
+                                name="vehicle"
+                                class="ml-2 price-list"
+                                    :value="priceList[6].id"
+                                    v-model="journey[0].priceId"
+                            />
+                        </label>
+                    </div>
                 </div>
             </div>
             <div
@@ -601,8 +1153,8 @@
                         type="button"
                         class="btn btn-outline-secondary"
                     >
-                        Back to Booking
-                        <i class="fa fa-undo ml-1" aria-hidden="true"></i>
+                        Back
+                        <i class="fa fa-angle-left ml-1" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div class="">
@@ -829,7 +1381,8 @@
                                             format="YYYY-MM-DD HH:mm"
                                             value-type="YYYY-MM-DD HH:mm:ss"
                                             :disabled-date="notBeforeToday"
-                                        ></date-picker>
+                                        >
+                                        </date-picker>
                                     </div>
                                 </div>
                             </div>
@@ -863,8 +1416,8 @@
                             type="button"
                             class="btn btn-outline-secondary"
                         >
-                            Back to Fares
-                            <i class="fa fa-undo ml-1" aria-hidden="true"></i>
+                            Back
+                        <i class="fa fa-angle-left ml-1" aria-hidden="true"></i>
                         </button>
                     </div>
                     <div class="">
@@ -1032,6 +1585,8 @@ export default {
                     destination: "",
                     pickupDate: null,
                     via: [],
+                    returnVia: [],
+                    return: false,
                     viaRouteNames: "",
                     priceId: null,
                     fare: null
@@ -1124,7 +1679,7 @@ export default {
         });
     },
     methods: {
-        // Adding via route
+        // Adding a via route
         add() {
             this.journey[0].via.push({
                 // route: ""
@@ -1136,6 +1691,20 @@ export default {
             this.journey[0].via.splice(index, 1);
         },
 
+        // Adding a Return via route
+        addReturnVia() {
+            this.journey[0].returnVia.push({});
+        },
+
+        // Remove a Return via route
+        removeReturnVia(index) {
+            this.journey[0].returnVia.splice(index, 1);
+        },
+
+        returnBooking() {
+            this.journey[0].return = !this.journey[0].return;
+            this.journey[0].returnVia = [...this.journey[0].via];
+        },
         // Function to search a place
         onSearch(search, loading) {
             loading(true);
@@ -1417,7 +1986,9 @@ export default {
             this.quoteDetails.priceId = this.journey[0].priceId;
 
             axios
-                .post("/get-price", { price_id: this.journey[0].priceId })
+                .post("/get-price", {
+                    price_id: this.journey[0].priceId
+                })
                 .then(response => {
                     this.quoteDetails.fare = response.data;
                 });
@@ -1539,11 +2110,14 @@ export default {
     top: 0;
     bottom: 0;
     width: 376px;
-    height: 300px;
+    height: 250px;
     margin-bottom: 35px;
 }
 
 /* Starting V-Select */
+.input-group-text {
+    border-radius: 0px;
+}
 img {
     height: auto;
     max-width: 2.5rem;
@@ -1580,6 +2154,63 @@ img {
     color: #fff;
 }
 /* Ending V-Select */
+.booking-form-icon {
+    font-size: 20px;
+}
+.booking-form-icon-wrapper {
+    left: 5px;
+}
+.price-section {
+}
+@media only screen and (max-width: 575px) {
+    .booking-form-icon-wrapper {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        left: 0px;
+    }
+    .pickup-point,
+    .via-route,
+    .dropoff-point {
+        margin: 0px !important;
+    }
+    .return-booking {
+        justify-content: center !important;
+        padding-left: 5rem !important;
+    }
+    .header-right {
+        min-width: 430px !important;
+    }
+    .price-section.car-img {
+        flex-direction: column !important;
+        width: min-content !important;
+    }
+    .price-section.car-details {
+        flex-direction: column !important;
+        width: 50%;
+    }
+    .price-section.car-details div.row {
+        padding: 0px;
+        margin: 0px;
+    }
+    .price-section.fare-price {
+        width: max-content !important;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .group-vehicle div.group.vehicle {
+        padding-right: 8px !important;
+    }
+    .price-section.car-img img {
+        max-width: 2.5rem !important;
+    }
+}
+
+.return-booking {
+    /* padding-right: 35px; */
+}
+.return-booking > .row:hover {
+    cursor: pointer;
+}
 
 .input-group-prepend {
     cursor: grab;
@@ -1617,12 +2248,30 @@ label {
     margin-bottom: 50px;
 }
 
+@media only screen and (max-width: 575px) {
+    .header-right {
+        min-width: 430px !important;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .header-right {
+        min-width: 320px !important;
+        max-width: 320px !important;
+    }
+}
+@media only screen and (max-width: 375px) {
+    .header-right {
+        min-width: 270px !important;
+        max-width: 270px !important;
+    }
+}
 .header-right .form-control {
-    font-size: 14px;
+    font-size: 15px;
     padding: 0.575rem 0.75rem;
-    background-color: #f3f3f3eb;
+    background-color: #ffff;
+    /* background-color: #f3f3f3eb; */
     /* box-shadow: 0px 4px 8px #999999a3; */
-    box-shadow: 0px 2px 10px #999999a3;
+    /* box-shadow: 0px 2px 10px #999999a3; */
     /* border: 1px solid #ced4da; */
 }
 
@@ -1643,9 +2292,14 @@ label {
     background-color: #5856d6;
     border-color: #5856d6;
 } */
+
 @media only screen and (max-width: 400px) {
     .booking-form-btn {
         flex-direction: column-reverse;
+    }
+    .header-right {
+        min-width: 320px !important;
+        max-width: 320px !important;
     }
 }
 
