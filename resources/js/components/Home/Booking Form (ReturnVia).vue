@@ -229,51 +229,6 @@
                         </div>
                     </div>
 
-                    <!-- Pick-up Date & Time -->
-                    <div
-                        class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0 mt-3"
-                    >
-                        <div class="width-100">
-                            <div class="mb-2">
-                                <label>Pick-up Date & Time</label>
-                                <div class="form-row align-items-center">
-                                    <div class="col">
-                                        <div class="input-group mb-2">
-                                            <date-picker
-                                                class="width-100"
-                                                readonly
-                                                placeholder="---"
-                                                v-model="
-                                                    quoteDetails.journeyDate
-                                                "
-                                                type="datetime"
-                                                format="YYYY-MM-DD HH:mm"
-                                                value-type="YYYY-MM-DD HH:mm:ss"
-                                                :disabled-date="notBeforeToday"
-                                                :editable="false"
-                                            >
-                                            </date-picker>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- /**
-                            * ? Pickup Date Guidance
-                            */ -->
-                            <div
-                                v-show="pickupDate"
-                                class="form-information-guidance"
-                            >
-                                <small>
-                                    <strong>Pick-up Date</strong> and
-                                    <strong>Pick-up Time</strong> is the date
-                                    and time the driver needs to collect you.
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
                         <!-- <div class="d-flex justify-content-end mt-2 col-sm-10 pr-0">
                             <i class="fas fa-exchange-alt return-booking" style='font-size: 15px'> Return Booking?</i>
@@ -532,54 +487,6 @@
                                     </div>
                                 </div>
                                 <!-- Ending Map Error -->
-                            </div>
-                        </div>
-
-                        <!-- Return Pick-up Date & Time -->
-                        <div
-                            class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0 mt-3"
-                        >
-                            <div class="width-100">
-                                <div class="mb-2">
-                                    <label>Pick-up Date & Time</label>
-                                    <div class="form-row align-items-center">
-                                        <div class="col">
-                                            <div class="input-group mb-2">
-                                                <date-picker
-                                                    class="width-100"
-                                                    readonly
-                                                    placeholder="---"
-                                                    v-model="
-                                                        quoteDetails.returnDate
-                                                    "
-                                                    type="datetime"
-                                                    format="YYYY-MM-DD HH:mm"
-                                                    value-type="YYYY-MM-DD HH:mm:ss"
-                                                    :disabled-date="
-                                                        notBeforeJourneyDate
-                                                    "
-                                                    :editable="false"
-                                                >
-                                                </date-picker>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- /**
-                            * ? Pickup Date Guidance
-                            */ -->
-                                <div
-                                    v-show="pickupDate"
-                                    class="form-information-guidance"
-                                >
-                                    <small>
-                                        <strong>Pick-up Date</strong> and
-                                        <strong>Pick-up Time</strong> is the
-                                        date and time the driver needs to
-                                        collect you.
-                                    </small>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -1487,7 +1394,6 @@
                                             format="YYYY-MM-DD HH:mm"
                                             value-type="YYYY-MM-DD HH:mm:ss"
                                             :disabled-date="notBeforeToday"
-                                            :editable="false"
                                         >
                                         </date-picker>
                                     </div>
@@ -1728,7 +1634,6 @@ export default {
                 destinationName: "",
                 viaRouteNames: "",
                 journeyDate: null,
-                returnDate: null,
                 fare: null,
 
                 // Passenger Details
@@ -1801,6 +1706,13 @@ export default {
             this.priceList = response.data;
         });
     },
+    watch: {
+        journey: function() {
+            for (var i = this.journey[0].via.length - 1; i >= 0; i--) {
+                this.journey[0].returnVia.push(this.journey[0].via[i]);
+            }
+        },
+    },
     methods: {
         selectOnlyThis(id) {
             var myRadioButton = document.getElementsByClassName(
@@ -1830,8 +1742,6 @@ export default {
 
         // Remove a Return via route
         removeReturnVia(index) {
-            console.log(this.journey[0].returnVia[index]);
-
             this.journey[0].returnVia.splice(index, 1);
         },
 
@@ -1848,8 +1758,8 @@ export default {
                 for (var i = this.journey[0].via.length - 1; i >= 0; i--) {
                     this.journey[0].returnVia.push(this.journey[0].via[i]);
                 }
-                // console.log(`Reverse Via:`);
-                // console.log(this.journey[0].returnVia);
+                console.log(`Reverse Via:`);
+                console.log(this.journey[0].returnVia);
             }
         },
         // Function to search a place
@@ -2169,10 +2079,6 @@ export default {
             return date < new Date().setHours(0, 0, 0, 0);
         },
 
-        notBeforeJourneyDate(date) {
-            return date < new Date(this.quoteDetails.journeyDate);
-        },
-
         payNow() {
             this.data = {
                 name: this.quoteDetails.name,
@@ -2220,36 +2126,26 @@ export default {
         }
     },
     computed: {
-        viaRouteChange(index) {
-            // if (this.journey[0].via[index].route && this.journey[0].return) {
-            //     let length = this.journey[0].via.length();
-            //     this.journey[0].returnVia[length - index - 1] = this.journey[0].via[index];
-            // }
-            // this.journey[0].via.forEach((element, index) => {
-            //     if (element.route && this.journey[0].return && viaIndex == index) {
-            //         console.log(this.journey[0].via[index]);
-
-            //     }
-            //     // if (element.route && this.journey[0].return) {
-            //     //     // this.journey[0].returnVia = [];
-            //     //     // for (var i = this.journey[0].via.length - 1; i >= 0; i--) {
-            //     //     //     this.journey[0].returnVia.push(this.journey[0].via[i]);
-            //     //     // }
-            //     //     console.log("viaroutechange");
-            //     // }
-            // });
-            console.log(index);
-        },
         validateQuote() {
             if (
                 this.journey[0].origin &&
                 this.journey[0].destination &&
-                this.quoteDetails.journeyDate &&
                 this.validateArrayObject(this.journey[0].via)
             ) {
                 return true;
             } else return false;
         },
+        
+
+        // getValidation() {
+        //     if (
+        //         this.quoteValidation().then(result => {
+        //             result === true ? true : false;
+        //         })
+        //     )
+        //         return true;
+        //     else return false;
+        // }
 
         checkPassengerDetails() {
             if (
@@ -2280,18 +2176,6 @@ export default {
                 else return false;
             }
         }
-    },
-    watch: {
-        journey() {
-            for (var i = this.journey[0].via.length - 1; i >= 0; i--) {
-                this.journey[0].returnVia.push(this.journey[0].via[i]);
-            }
-        }
-        // viaRouteChange() {
-        //     this.journey[0].via.forEach(element => {
-        //         console.log(element);
-        //     });
-        // },
     }
 };
 </script>

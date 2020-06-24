@@ -48712,6 +48712,11 @@ readers do not read off random characters that represent icons */
   color: #504e4e;
 }
 
+.grab {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
 .laravel-box-shadow {
   box-shadow: 0 20px 30px -16px rgba(9, 9, 16, 0.2);
 }

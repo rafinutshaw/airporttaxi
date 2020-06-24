@@ -141,9 +141,15 @@ class CustomerController extends Controller
 
     public function bookingHistory()
     {
+        // $bookingHistory = Booking::where(
+        //     [
+        //         ['customer_id', Auth::id()],
+        //         ['journey_date', '<', Carbon::now()]
+        //     ]
+        // )->paginate(10);
+
         $bookingHistory = Booking::where(
             [
-                ['customer_id', Auth::id()],
                 ['journey_date', '<', Carbon::now()]
             ]
         )->paginate(10);
@@ -153,9 +159,16 @@ class CustomerController extends Controller
 
     public function upcomingBooking()
     {
+        // $upcomingBookings = Booking::where(
+        //     [
+        //         ['customer_id', Auth::id()],
+        //         ['journey_date', '>', Carbon::now()],
+        //         ['booking_status_id', '!=', '4'],
+        //     ]
+        // )->paginate(10);
+
         $upcomingBookings = Booking::where(
             [
-                ['customer_id', Auth::id()],
                 ['journey_date', '>', Carbon::now()],
                 ['booking_status_id', '!=', '4'],
             ]

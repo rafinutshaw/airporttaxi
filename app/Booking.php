@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
@@ -11,6 +12,16 @@ class Booking extends Model
         'luggage', 'coupon_id', 'price_id', 'discount', 'total_price', 'passport', 'flight_number',
         'flight_origin', 'meet_and_greet_service', 'booking_status_id'
     ];
+
+    // Creating global scope for Booking model so that every customer can only view their own bookings
+    public static function booted()
+    {
+        static::addGlobalScope('booking_created_customer', function (Builder $builder) {
+            if (auth()->check()) {
+                return $builder->where('customer_id', auth()->id());
+            }
+        });
+    }
 
     public function customer()
     {
