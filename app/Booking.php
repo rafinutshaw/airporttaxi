@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
-        'customer_id', 'name', 'mobile', 'from', 'via', 'to', 'journey_date', 'passengers',
-        'luggage', 'coupon_id', 'price_id', 'discount', 'total_price', 'passport', 'flight_number',
-        'flight_origin', 'meet_and_greet_service', 'booking_status_id'
+        'customer_id', 'name', 'mobile', 'from', 'via', 'to', 'journey_date',
+        'returnFrom', 'returnTo', 'returnVia', 'return_journey_date', 'passengers',
+        'luggage', 'price_id', 'discount', 'total_price', 'passport', 'flight_number',
+        'flight_origin', 'meet_and_greet_service', 'booking_status_id',
+        // 'coupon_id'
     ];
 
     // Creating global scope for Booking model so that every customer can only view their own bookings

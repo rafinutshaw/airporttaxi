@@ -165,7 +165,7 @@
                                                             <td>{{ $upcomingBooking->meet_and_greet_service }}</td> --}}
                                                             <td>{{ $upcomingBooking->bookingStatus->status }}</td>
                                                             <td>
-                                                                <a href="{{ route('customer.view-booking', $upcomingBooking->id) }}" class="btn btn-sm btn-outline-primary mr-2">View</a>
+                                                                <a href="{{ route('customer.upcoming.booking.details', $upcomingBooking->id) }}" class="btn btn-sm btn-outline-primary mr-2">View</a>
                                                                 <a href="" class="btn btn-sm btn-outline-secondary">Edit</a>
                                                             </td>
                                                         </tr>

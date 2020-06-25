@@ -44,6 +44,12 @@ class BookingController extends Controller
                 'via' => $request['via'],
                 'to' => $request['to'],
                 'journey_date' => $request['journey_date'],
+
+                'returnFrom' => $request['returnFrom'],
+                'returnVia' => $request['returnVia'],
+                'returnTo' => $request['returnTo'],
+                'return_journey_date' => $request['return_journey_date'],
+
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
                 // 'coupon_id' => $request['coupon_id'],
@@ -77,6 +83,12 @@ class BookingController extends Controller
                 'via' => $request['via'],
                 'to' => $request['to'],
                 'journey_date' => $request['journey_date'],
+
+                'returnFrom' => $request['returnFrom'],
+                'returnVia' => $request['returnVia'],
+                'returnTo' => $request['returnTo'],
+                'return_journey_date' => $request['return_journey_date'],
+
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
                 // 'coupon_id' => $request['coupon_id'],

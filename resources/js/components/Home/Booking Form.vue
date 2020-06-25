@@ -536,7 +536,7 @@
                         </div>
 
                         <!-- Return Pick-up Date & Time -->
-                        <div
+                        <!-- <div
                             class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0 mt-3"
                         >
                             <div class="width-100">
@@ -565,23 +565,8 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- /**
-                            * ? Pickup Date Guidance
-                            */ -->
-                                <div
-                                    v-show="pickupDate"
-                                    class="form-information-guidance"
-                                >
-                                    <small>
-                                        <strong>Pick-up Date</strong> and
-                                        <strong>Pick-up Time</strong> is the
-                                        date and time the driver needs to
-                                        collect you.
-                                    </small>
-                                </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
@@ -640,6 +625,29 @@
                         {{ journey[0].destination.text }}
                     </span>
                 </li>
+                <div v-if="journey[0].return">
+                    <h6>Return Journey</h6>
+                    <li>
+                        <span class="d-flex">
+                            <p class="mb-0 mr-1"><strong>Start: </strong></p>
+                            {{ journey[0].returnFrom.text }}
+                        </span>
+                    </li>
+                    <div v-if="journey[0].returnVia.length > 0">
+                        <li>
+                            <span class="d-flex">
+                                <p class="mb-0 mr-1"><strong>Via: </strong></p>
+                                {{ journey[0].returnViaRouteNames }}
+                            </span>
+                        </li>
+                    </div>
+                    <li>
+                        <span class="d-flex">
+                            <p class="mb-0 mr-2"><strong>End: </strong></p>
+                            {{ journey[0].returnTo.text }}
+                        </span>
+                    </li>
+                </div>
             </ul>
         </div>
         <!-- /**
@@ -1457,59 +1465,6 @@
             * ? Journey Details
             */ -->
             <div class="journey-details">
-                <div class="row d-flex justify-content-between ml-0 mr-0 mt-3">
-                    <div>
-                        <h5>Journey Details</h5>
-                    </div>
-                    <div>
-                        <i
-                            @click="pickupDate = !pickupDate"
-                            class="fas fa-info-circle"
-                            style="color: #5865f5; font-size: 22px"
-                        ></i>
-                    </div>
-                </div>
-                <div
-                    class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0"
-                >
-                    <div class="width-100">
-                        <div class="mb-2">
-                            <label>Pick-up Date & Time</label>
-                            <div class="form-row align-items-center">
-                                <div class="col">
-                                    <div class="input-group mb-2">
-                                        <date-picker
-                                            class="width-100"
-                                            readonly
-                                            placeholder="---"
-                                            v-model="quoteDetails.journeyDate"
-                                            type="datetime"
-                                            format="YYYY-MM-DD HH:mm"
-                                            value-type="YYYY-MM-DD HH:mm:ss"
-                                            :disabled-date="notBeforeToday"
-                                            :editable="false"
-                                        >
-                                        </date-picker>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- /**
-                        * ? Pickup Date Guidance
-                        */ -->
-                        <div
-                            v-show="pickupDate"
-                            class="form-information-guidance"
-                        >
-                            <small>
-                                <strong>Pick-up Date</strong> and
-                                <strong>Pick-up Time</strong> is the date and
-                                time the driver needs to collect you.
-                            </small>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- /**
                 * ? Back to Fares Button & Continue to Basket Button
@@ -1588,7 +1543,9 @@
                 </div>
 
                 <div class="mt-2 width-100">
-                    <label>Enter Your Email to get e-ticekt</label>
+                    <label class="text-black"
+                        >Enter Your Email to get e-ticekt</label
+                    >
                     <div class="form-row align-items-center">
                         <div class="col">
                             <div class="input-group mb-2">
@@ -1709,11 +1666,12 @@ export default {
                     destination: "",
                     pickupDate: null,
                     via: [],
+                    viaRouteNames: "",
                     returnFrom: "",
                     returnTo: "",
                     returnVia: [],
+                    returnViaRouteNames: "",
                     return: false,
-                    viaRouteNames: "",
                     priceId: null,
                     fare: null
                 }
@@ -1728,7 +1686,13 @@ export default {
                 destinationName: "",
                 viaRouteNames: "",
                 journeyDate: null,
-                returnDate: null,
+
+                // Return Values
+                returnFrom: "",
+                returnTo: "",
+                returnVia: "",
+                // returnDate: null,
+
                 fare: null,
 
                 // Passenger Details
@@ -1967,7 +1931,7 @@ export default {
                 this.mapData.fullRoutes +=
                     this.journey[0].origin.geometry.coordinates.join(",") + ";";
 
-                // Checking is there is any via route
+                // ? Checking is there is any via route
                 if (this.journey[0].via.length) {
                     let viaRoutes = this.journey[0].via;
 
@@ -1990,6 +1954,35 @@ export default {
                     // Because last two words of this string are "," & " "
                     if (this.journey[0].viaRouteNames.length) {
                         this.journey[0].viaRouteNames = this.journey[0].viaRouteNames.slice(
+                            0,
+                            -2
+                        );
+                    }
+                }
+
+                // ? Checking is there is any return via route
+                if (this.journey[0].returnVia.length) {
+                    let returnViaRoutes = this.journey[0].returnVia;
+
+                    for (let i = 0; i < returnViaRoutes.length; i++) {
+                        // Checking if user adds a route field and input something or not
+                        if (_.isEmpty(returnViaRoutes[i].route)) continue;
+
+                        // Storing via route names so that we can show those name later
+                        this.journey[0].returnViaRouteNames +=
+                            returnViaRoutes[i].route.text + ", ";
+
+                        // If there is any via route then concate it with mapData.fullRoutes
+                        this.mapData.fullRoutes +=
+                            returnViaRoutes[i].route.geometry.coordinates.join(
+                                ","
+                            ) + ";";
+                    }
+
+                    // Checking if via routes are there and if so then delete last two words
+                    // Because last two words of this string are "," & " "
+                    if (this.journey[0].returnViaRouteNames.length) {
+                        this.journey[0].returnViaRouteNames = this.journey[0].returnViaRouteNames.slice(
                             0,
                             -2
                         );
@@ -2071,6 +2064,12 @@ export default {
 
                             this.quoteDetails.destinationName = this.journey[0].destination.text;
                             this.quoteDetails.viaRouteNames = this.journey[0].viaRouteNames;
+
+                            if (this.journey[0].return == true) {
+                                this.quoteDetails.returnFrom = this.journey[0].returnFrom.text;
+                                this.quoteDetails.returnTo = this.journey[0].returnTo.text;
+                                this.quoteDetails.returnVia = this.journey[0].returnVia;
+                            }
                             resolve(true);
                         }
                     })
@@ -2117,6 +2116,13 @@ export default {
                 "";
             this.mapData.coordinates = this.mapData.center = [];
             this.journey[0].viaRouteNames = "";
+
+            // Return
+            // if (this.journey[0].return == true) {
+            //     this.journey[0].returnFrom = "";
+            //     this.journey[0].returnTo = "";
+            //     this.journey[0].returnViaRouteNames = "";
+            // }
 
             this.quoteDetails.originName = "";
             this.quoteDetails.originType = "";
@@ -2169,9 +2175,9 @@ export default {
             return date < new Date().setHours(0, 0, 0, 0);
         },
 
-        notBeforeJourneyDate(date) {
-            return date < new Date(this.quoteDetails.journeyDate);
-        },
+        // notBeforeJourneyDate(date) {
+        //     return date < new Date(this.quoteDetails.journeyDate);
+        // },
 
         payNow() {
             this.data = {
@@ -2182,10 +2188,16 @@ export default {
                 via: this.quoteDetails.viaRouteNames,
                 to: this.quoteDetails.destinationName,
                 journey_date: this.quoteDetails.journeyDate,
+
+                returnFrom: this.quoteDetails.returnFrom,
+                returnTo: this.quoteDetails.returnTo,
+                returnVia: this.journey[0].returnViaRouteNames,
+                // return_journey_date: this.quoteDetails.returnDate,
+
                 passengers: this.quoteDetails.passengers,
                 luggage: this.quoteDetails.luggage,
                 // coupon_id: this.quoteDetails.coupon_id,
-                price_id: this.journey[0].priceId,
+                price_id: this.quoteDetails.priceId,
                 discount: this.quoteDetails.discount,
                 total_price: parseFloat(this.quoteDetails.fare),
                 passport: this.quoteDetails.passport,
@@ -2202,7 +2214,7 @@ export default {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                window.location = "/";
+                // window.location = "/";
             });
         },
         validateArrayObject(...arr) {

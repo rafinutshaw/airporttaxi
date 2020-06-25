@@ -18,6 +18,7 @@
                                     <h3 class="card-title text-dark">Booking Details</h3>
                                 </div>
                                 <div class="card-body">
+                                    <form>
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Customer Name</label>
                                             <div class="col-sm-7">
@@ -62,7 +63,7 @@
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->journey_date }}">
                                             </div>
                                         </div>
-
+                                        
                                         {{-- Return Booking --}}
                                          @if (!empty($booking->returnFrom))  
                                             <div class="form-group row">
@@ -112,8 +113,8 @@
                                                     <input type="text" readonly class="form-control-plaintext" value="{{ $booking->coupon->code }}">
                                                 </div>
                                             </div>
-                                        @endif
-                                        @if (!empty($booking->price_id))    
+                                        @endif --}}
+                                        {{-- @if (!empty($booking->price->price))    
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Price</label>
                                             <div class="col-sm-7">
@@ -168,8 +169,8 @@
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->bookingStatus->status }}">
                                             </div>
                                         </div>
-                                    <a href="{{ route(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName()) }}" class="btn btn-outline-primary">Back to List</a>
-                                    {{-- <a href="{{ route(app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName()) }}" class="btn btn-outline-primary">Back to List</a> --}}
+                                    </form>
+                                    <a href="{{ route('customer.booking-history') }}" class="btn btn-outline-secondary">Back to List</a>
                                 </div>
                             </div>
                         </div>
