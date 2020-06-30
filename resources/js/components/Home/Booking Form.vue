@@ -231,45 +231,35 @@
 
                     <!-- Pick-up Date & Time -->
                     <div
-                        class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0 mt-3"
+                        class="row d-flex text-left justify-content-between ml-0 mr-0 mt-3"
                     >
                         <div class="width-100">
-                            <div class="mb-2">
-                                <label>Pick-up Date & Time</label>
-                                <div class="form-row align-items-center">
-                                    <div class="col">
-                                        <div class="input-group mb-2">
-                                            <date-picker
-                                                class="width-100"
-                                                readonly
-                                                placeholder="---"
-                                                v-model="
-                                                    quoteDetails.journeyDate
-                                                "
-                                                type="datetime"
-                                                format="YYYY-MM-DD HH:mm"
-                                                value-type="YYYY-MM-DD HH:mm:ss"
-                                                :disabled-date="notBeforeToday"
-                                                :editable="false"
-                                            >
-                                            </date-picker>
+                            <!-- <label>Pick-up Date & Time</label> -->
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="far fa-calendar-alt"
+                                                ></i>
+                                            </div>
                                         </div>
+
+                                        <date-picker
+                                            class="form-control d-flex flex-column justify-content-center"
+                                            readonly
+                                            placeholder="Pick-up Date & Time"
+                                            v-model="quoteDetails.journeyDate"
+                                            type="datetime"
+                                            format="YYYY-MM-DD HH:mm"
+                                            value-type="YYYY-MM-DD HH:mm:ss"
+                                            :disabled-date="notBeforeToday"
+                                            :editable="false"
+                                        >
+                                        </date-picker>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- /**
-                            * ? Pickup Date Guidance
-                            */ -->
-                            <div
-                                v-show="pickupDate"
-                                class="form-information-guidance"
-                            >
-                                <small>
-                                    <strong>Pick-up Date</strong> and
-                                    <strong>Pick-up Time</strong> is the date
-                                    and time the driver needs to collect you.
-                                </small>
                             </div>
                         </div>
                     </div>
@@ -604,7 +594,7 @@
             "
             class="first-journey text-left"
         >
-            <ul class="list-unstyled origin">
+            <ul class="list-unstyled origin mb-1">
                 <li>
                     <span class="d-flex">
                         <p class="mb-0 mr-1"><strong>Start: </strong></p>
@@ -625,7 +615,7 @@
                         {{ journey[0].destination.text }}
                     </span>
                 </li>
-                <div v-if="journey[0].return">
+                <div v-if="journey[0].return" class="mt-2">
                     <h6>Return Journey</h6>
                     <li>
                         <span class="d-flex">
@@ -665,7 +655,7 @@
         >
             <div id="map">
                 <Mapbox
-                    access-token="pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg"
+                    access-token="pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2J6NTM4dDkwOGVzMzJtcnlvNnU0c2t2In0.Qpmm_jb0gzc16AN-UqIENA"
                     :map-options="{
                         container: 'map',
                         style: 'mapbox://styles/mapbox/streets-v11',
@@ -712,7 +702,7 @@
                                     type="radio"
                                     name="vehicle"
                                     :value="priceList[0].id"
-                                    v-model="journey[0].priceId"
+                                    v-model="journey[0].fare"
                                 />
                             </label>
                         </div>
@@ -722,7 +712,7 @@
                 <!-- <div class="group vehicle row d-flex align-items-center" @click.prevent="selectOnlyThis(priceList[0].id)"> -->
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[0].id)"
+                    @click="selectOnlyThis(priceList[0].price)"
                 >
                     <div
                         class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
@@ -766,8 +756,8 @@
                             type="radio"
                             name="vehicle"
                             class="ml-2 price-list"
-                            :value="priceList[0].id"
-                            v-model="journey[0].priceId"
+                            :value="priceList[0].price"
+                            v-model="journey[0].fare"
                         />
                     </div>
                 </div>
@@ -797,8 +787,8 @@
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[1].id"
-                                    v-model="journey[0].priceId"
+                                    :value="priceList[1].price"
+                                    v-model="journey[0].fare"
                                 />
                             </label>
                         </div>
@@ -807,7 +797,7 @@
 
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[1].id)"
+                    @click="selectOnlyThis(priceList[1].price)"
                 >
                     <div
                         class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
@@ -846,8 +836,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                :value="priceList[1].id"
-                                v-model="journey[0].priceId"
+                                :value="priceList[1].price"
+                                v-model="journey[0].fare"
                             />
                         </label>
                     </div>
@@ -878,8 +868,8 @@
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[2].id"
-                                    v-model="journey[0].priceId"
+                                    :value="priceList[2].price"
+                                    v-model="journey[0].fare"
                                 />
                             </label>
                         </div>
@@ -888,7 +878,7 @@
 
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[2].id)"
+                    @click="selectOnlyThis(priceList[2].price)"
                 >
                     <div
                         class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
@@ -927,8 +917,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                :value="priceList[2].id"
-                                v-model="journey[0].priceId"
+                                :value="priceList[2].price"
+                                v-model="journey[0].fare"
                             />
                         </label>
                     </div>
@@ -959,8 +949,8 @@
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[3].id"
-                                    v-model="journey[0].priceId"
+                                    :value="priceList[3].price"
+                                    v-model="journey[0].fare"
                                 />
                             </label>
                         </div>
@@ -969,7 +959,7 @@
 
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[3].id)"
+                    @click="selectOnlyThis(priceList[3].price)"
                 >
                     <div
                         class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
@@ -1008,8 +998,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                :value="priceList[3].id"
-                                v-model="journey[0].priceId"
+                                :value="priceList[3].price"
+                                v-model="journey[0].fare"
                             />
                         </label>
                     </div>
@@ -1040,8 +1030,8 @@
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[4].id"
-                                    v-model="journey[0].priceId"
+                                    :value="priceList[4].price"
+                                    v-model="journey[0].fare"
                                 />
                             </label>
                         </div>
@@ -1050,7 +1040,7 @@
 
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[4].id)"
+                    @click="selectOnlyThis(priceList[4].price)"
                 >
                     <div
                         class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
@@ -1089,8 +1079,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                :value="priceList[4].id"
-                                v-model="journey[0].priceId"
+                                :value="priceList[4].price"
+                                v-model="journey[0].fare"
                             />
                         </label>
                     </div>
@@ -1121,8 +1111,8 @@
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[5].id"
-                                    v-model="journey[0].priceId"
+                                    :value="priceList[5].price"
+                                    v-model="journey[0].fare"
                                 />
                             </label>
                         </div>
@@ -1131,7 +1121,7 @@
 
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[5].id)"
+                    @click="selectOnlyThis(priceList[5].price)"
                 >
                     <div
                         class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
@@ -1170,8 +1160,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                :value="priceList[5].id"
-                                v-model="journey[0].priceId"
+                                :value="priceList[5].price"
+                                v-model="journey[0].fare"
                             />
                         </label>
                     </div>
@@ -1202,8 +1192,8 @@
                                 <input
                                     type="radio"
                                     name="vehicle"
-                                    :value="priceList[6].id"
-                                    v-model="journey[0].priceId"
+                                    :value="priceList[6].price"
+                                    v-model="journey[0].fare"
                                 />
                             </label>
                         </div>
@@ -1212,7 +1202,7 @@
 
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[6].id)"
+                    @click="selectOnlyThis(priceList[6].price)"
                 >
                     <div
                         class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
@@ -1251,8 +1241,8 @@
                                 type="radio"
                                 name="vehicle"
                                 class="ml-2 price-list"
-                                :value="priceList[6].id"
-                                v-model="journey[0].priceId"
+                                :value="priceList[6].price"
+                                v-model="journey[0].fare"
                             />
                         </label>
                     </div>
@@ -1276,7 +1266,7 @@
                         type="button"
                         class="btn btn-primary"
                         @click="submitFare"
-                        :disabled="journey[0].priceId === null"
+                        :disabled="journey[0].fare === null"
                     >
                         Select Fare
                         <i
@@ -1307,13 +1297,6 @@
                 <div>
                     <h5>Passenger Details</h5>
                 </div>
-                <div>
-                    <i
-                        @click="passengerGuidance = !passengerGuidance"
-                        class="fas fa-info-circle"
-                        style="color: #5865f5; font-size: 22px"
-                    ></i>
-                </div>
             </div>
 
             <div
@@ -1343,18 +1326,30 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        v-show="passengerGuidance"
-                        class="form-information-guidance"
-                    >
-                        <small>
-                            Our driver will need to know the
-                            <strong>Head Passenger Name</strong> and
-                            <strong>Passenger Mobile</strong> telesmallhone
-                            number. If you're booking for someone else and don't
-                            know this information yet, please use a dash ( - )
-                            instead.
-                        </small>
+
+                    <div class="mt-2 width-100">
+                        <label class="text-black"
+                            >Enter Your Email to get e-ticekt</label
+                        >
+                        <div class="form-row align-items-center">
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        required
+                                        class="form-control"
+                                        placeholder="Ex: john@example.com"
+                                        v-model="quoteDetails.email"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-2">
                         <label>Passenger Mobile</label>
@@ -1370,7 +1365,7 @@
                                         </div>
                                     </div>
                                     <input
-                                        type="text"
+                                        type="tel"
                                         class="form-control"
                                         placeholder="---"
                                         v-model="quoteDetails.mobile"
@@ -1465,7 +1460,6 @@
             * ? Journey Details
             */ -->
             <div class="journey-details">
-
                 <!-- /**
                 * ? Back to Fares Button & Continue to Basket Button
                  */ -->
@@ -1542,31 +1536,6 @@
                     </div>
                 </div>
 
-                <div class="mt-2 width-100">
-                    <label class="text-black"
-                        >Enter Your Email to get e-ticekt</label
-                    >
-                    <div class="form-row align-items-center">
-                        <div class="col">
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                </div>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    required
-                                    class="form-control"
-                                    placeholder="Ex: john@example.com"
-                                    v-model="quoteDetails.email"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="d-flex passenger-details ml-0 mr-0 mt-2">
                     <div class="" style="font-size: 12px">
                         I have read and agree to the
@@ -1626,7 +1595,7 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
 import DatePicker from "vue2-datepicker";
-import "vue2-datepicker/index.css";
+// import "vue2-datepicker/index.css";
 
 import _ from "lodash";
 
@@ -1686,6 +1655,7 @@ export default {
                 destinationName: "",
                 viaRouteNames: "",
                 journeyDate: null,
+                distance: null,
 
                 // Return Values
                 returnFrom: "",
@@ -1703,8 +1673,8 @@ export default {
                 flightNumber: "",
                 flightOrigin: "",
                 meetAndGreetService: "",
-                passengers: null,
-                luggage: "",
+                passengers: 1,
+                luggage: "None",
 
                 coupon_id: "",
                 price_id: "",
@@ -1722,19 +1692,13 @@ export default {
             ],
             // Ending Journey Details Form
 
-            // Starting Journey Guidance
-            passengerGuidance: false,
-            pickupDate: false,
-            // Ending Journey Guidance
-
             options: [],
 
             mapBox: {
                 mapStyle: "mapbox://styles/mapbox/streets-v11",
                 accessToken:
-                    "pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg",
-                postUrl:
-                    "https://api.mapbox.com/directions/v5/mapbox/driving?access_token=pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg"
+                    "pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2J6NTM4dDkwOGVzMzJtcnlvNnU0c2t2In0.Qpmm_jb0gzc16AN-UqIENA",
+                postUrl: null
             },
 
             mapData: {
@@ -1747,7 +1711,7 @@ export default {
                 start: "",
                 end: "",
                 responseCode: "",
-                errors: ""
+                errors: "",
             }
         };
     },
@@ -1827,7 +1791,7 @@ export default {
             if (search.length > 0) {
                 axios
                     .get(
-                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2FmaWw1enIwY3prMnJwbncyd2drdHFkIn0.PaCcWFNkUB6qq0M2aCHRrg&country=gb&language=en&limit=5&types=address,poi`
+                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${vm.mapBox.accessToken}&country=gb&language=en&limit=5&types=address,poi`
                     )
                     .then(response => {
                         vm.options = response.data.features;
@@ -2065,6 +2029,17 @@ export default {
                             this.quoteDetails.destinationName = this.journey[0].destination.text;
                             this.quoteDetails.viaRouteNames = this.journey[0].viaRouteNames;
 
+                            // Distance of the Journey in meters
+                            this.quoteDetails.distance =
+                                response.data.routes[0].distance;
+
+                            // Calculating Price
+                            this.priceList.map(item => {
+                                item.price = parseFloat(
+                                    item.price * (this.quoteDetails.distance / 1000)
+                                ).toFixed(2);
+                            });
+
                             if (this.journey[0].return == true) {
                                 this.quoteDetails.returnFrom = this.journey[0].returnFrom.text;
                                 this.quoteDetails.returnTo = this.journey[0].returnTo.text;
@@ -2137,15 +2112,15 @@ export default {
             this.formStage[0].journeyFare = false;
             this.formStage[0].details = true;
 
-            this.quoteDetails.priceId = this.journey[0].priceId;
+            this.quoteDetails.fare = this.journey[0].fare;
 
-            axios
-                .post("/get-price", {
-                    price_id: this.journey[0].priceId
-                })
-                .then(response => {
-                    this.quoteDetails.fare = response.data;
-                });
+            // axios
+            //     .post("/get-price", {
+            //         price_id: this.journey[0].fare
+            //     })
+            //     .then(response => {
+            //         this.quoteDetails.fare = response.data;
+            //     });
 
             $("html,body").scrollTop(0);
         },
@@ -2197,7 +2172,7 @@ export default {
                 passengers: this.quoteDetails.passengers,
                 luggage: this.quoteDetails.luggage,
                 // coupon_id: this.quoteDetails.coupon_id,
-                price_id: this.quoteDetails.priceId,
+                // price_id: this.quoteDetails.priceId,
                 discount: this.quoteDetails.discount,
                 total_price: parseFloat(this.quoteDetails.fare),
                 passport: this.quoteDetails.passport,
@@ -2230,6 +2205,9 @@ export default {
             }
             return check;
         }
+    },
+    created() {
+        this.mapBox.postUrl = `https://api.mapbox.com/directions/v5/mapbox/driving?access_token=${this.mapBox.accessToken}`;
     },
     computed: {
         viaRouteChange(index) {
@@ -2362,6 +2340,7 @@ img {
 }
 /* Ending V-Select */
 .booking-form-icon {
+    transform: translateX(1px);
     font-size: 20px;
     color: #2b2b2b;
     padding-right: 15px;
@@ -2514,7 +2493,7 @@ label {
 
 /* First Journey */
 .origin li {
-    padding: 10px 10px 10px 10px;
+    padding: 5px 10px 5px 10px;
     color: black;
     background-color: #a8c5ec;
     border-radius: 5px;
@@ -2648,8 +2627,8 @@ div.vehicle {
 
 /* Starting Passenger Details */
 .passenger-details {
-    background-color: #f0f0f0;
-    box-shadow: 1px 5px 8px 2px #a1a5a8;
+    background-color: #f0f0f0a1;
+    box-shadow: 1px 5px 8px 2px #929292;
     padding: 10px;
     border-radius: 5px;
     width: 100%;

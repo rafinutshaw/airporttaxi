@@ -92,7 +92,7 @@ class BookingController extends Controller
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
                 // 'coupon_id' => $request['coupon_id'],
-                'price_id' => $request['price_id'],
+                // 'price_id' => $request['price_id'],
                 'discount' => $request['discount'],
                 'total_price' => $request['total_price'],
                 'passport' => $request['passport'],

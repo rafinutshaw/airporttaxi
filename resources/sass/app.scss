@@ -10,13 +10,21 @@
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
 // .mx-calendar {
 //   width: 375px !important;
 // }
-
+// .mx-input {
+//     height: 38px;
+// }
+// .mx-icon-calendar {
+//     right: 17px !important;
+// }
 // @import '~vue2-datepicker/scss/index.scss';
+
+@import './datepicker.scss';
 
 .fa:hover,
 .fas:hover,

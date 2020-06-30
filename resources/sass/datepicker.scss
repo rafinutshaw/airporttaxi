@@ -1,0 +1,13 @@
+@import '~vue2-datepicker/scss/index.scss';
+.mx-input {
+    height: 38px;
+    border: none !important;
+    padding: 6px 7px;
+}
+.mx-icon-calendar {
+    // right: 17px !important;
+    display: none;
+}
+.mx-datepicker {
+    border-radius: 0px;
+}
