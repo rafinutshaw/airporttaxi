@@ -1711,7 +1711,7 @@ export default {
                 start: "",
                 end: "",
                 responseCode: "",
-                errors: "",
+                errors: ""
             }
         };
     },
@@ -1924,8 +1924,15 @@ export default {
                     }
                 }
 
+                // Storing the ending point
+                this.mapData.fullRoutes += this.journey[0].destination.geometry.coordinates.join(
+                    ","
+                );
+
                 // ? Checking is there is any return via route
                 if (this.journey[0].returnVia.length) {
+                    this.mapData.fullRoutes += ";";
+
                     let returnViaRoutes = this.journey[0].returnVia;
 
                     for (let i = 0; i < returnViaRoutes.length; i++) {
@@ -1943,6 +1950,10 @@ export default {
                             ) + ";";
                     }
 
+                    this.mapData.fullRoutes += this.journey[0].origin.geometry.coordinates.join(
+                        ","
+                    );
+
                     // Checking if via routes are there and if so then delete last two words
                     // Because last two words of this string are "," & " "
                     if (this.journey[0].returnViaRouteNames.length) {
@@ -1957,11 +1968,6 @@ export default {
                 if (this.journey[0].origin.properties.maki) {
                     this.journey[0].originType = this.journey[0].origin.properties.maki;
                 }
-
-                // Storing the ending point
-                this.mapData.fullRoutes += this.journey[0].destination.geometry.coordinates.join(
-                    ","
-                );
 
                 const data = qs.stringify({
                     // coordinates:
@@ -2034,9 +2040,24 @@ export default {
                                 response.data.routes[0].distance;
 
                             // Calculating Price
+                            // If there is return journey then multiply the result
+                            // if(this.journey[0].returnViaRouteNames.length) {
+                            //     this.priceList.map(item => {
+                            //         item.price = parseFloat(
+                            //             item.price * (this.quoteDetails.distance / 1000) * 2
+                            //         ).toFixed(2);
+                            //     });
+                            // } else {
+                            //     this.priceList.map(item => {
+                            //         item.price = parseFloat(
+                            //             item.price * (this.quoteDetails.distance / 1000)
+                            //         ).toFixed(2);
+                            //     });
+                            // }
                             this.priceList.map(item => {
                                 item.price = parseFloat(
-                                    item.price * (this.quoteDetails.distance / 1000)
+                                    item.price *
+                                        (this.quoteDetails.distance / 1000)
                                 ).toFixed(2);
                             });
 
@@ -2093,11 +2114,11 @@ export default {
             this.journey[0].viaRouteNames = "";
 
             // Return
-            // if (this.journey[0].return == true) {
-            //     this.journey[0].returnFrom = "";
-            //     this.journey[0].returnTo = "";
-            //     this.journey[0].returnViaRouteNames = "";
-            // }
+            if (this.journey[0].return == true) {
+                // this.journey[0].returnFrom = "";
+                // this.journey[0].returnTo = "";
+                this.journey[0].returnViaRouteNames = "";
+            }
 
             this.quoteDetails.originName = "";
             this.quoteDetails.originType = "";
