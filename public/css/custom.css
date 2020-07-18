@@ -140,3 +140,25 @@ a:hover {
 .vs--disabled .vs__selected {
     background-color: white !important;
 }
+
+/* Booking form bigger text problem */
+.vs__search, .vs__search:focus {
+    /* position: absolute; */
+    margin: 0px !important;
+}
+.selected.d-center {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 180px;
+    position: absolute;
+    z-index: 2 !important;
+}
+.vs__selected {
+    z-index: 2 !important;
+}
+@media only screen and (max-width: 450px) {
+    .selected.d-center {
+        max-width: 75px;
+    }
+}

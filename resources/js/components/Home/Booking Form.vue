@@ -7,7 +7,7 @@
         <div
             class="origin-destination-place-form"
             style="text-align: left;"
-            v-if="formStage[0].place && formStage[0].journeyFare == false"
+            v-if="formStage.place && formStage.journeyFare == false"
         >
             <div id="bookingForm">
                 <div v-for="(item, index) in journey" :key="index">
@@ -250,7 +250,7 @@
                                             class="form-control d-flex flex-column justify-content-center"
                                             readonly
                                             placeholder="Pick-up Date & Time"
-                                            v-model="quoteDetails.journeyDate"
+                                            v-model="quoteDetails.journeyDate.Details"
                                             type="datetime"
                                             format="YYYY-MM-DD HH:mm"
                                             value-type="YYYY-MM-DD HH:mm:ss"
@@ -575,6 +575,21 @@
                         ></span>
                     </button>
                 </div>
+                <!-- <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
+                    <button
+                        class="btn btn-block btn-primary mt-2"
+                        style="border-radius: 0px; width: 100%"
+                        @click.prevent="downloadAndSendEmail"
+                    >
+                        Download
+                        <span
+                            ><i
+                                class="fa fa-arrow-right ml-1"
+                                aria-hidden="true"
+                            ></i
+                        ></span>
+                    </button>
+                </div> -->
             </div>
         </div>
         <!-- /**
@@ -586,11 +601,11 @@
         * TODO:     Stage 2
         * ? Starting First Journey
         */ -->
-        <div
+        <!-- <div
             v-if="
-                formStage[0].details ||
-                    formStage[0].journeyFare ||
-                    formStage[0].basket
+                formStage.details ||
+                    formStage.journeyFare ||
+                    formStage.basket
             "
             class="first-journey text-left"
         >
@@ -639,7 +654,7 @@
                     </li>
                 </div>
             </ul>
-        </div>
+        </div> -->
         <!-- /**
         * TODO:     Stage 2
         * ? Ending First Journey
@@ -650,9 +665,62 @@
         * ? Starting Journey Fares
         */ -->
         <div
-            v-if="formStage[0].details == false && formStage[0].journeyFare"
+            v-if="formStage.details == false && formStage.journeyFare"
             class="row d-flex justify-content-between text-left form-information-heading ml-0 mr-0"
         >
+            <div class="first-journey text-left width-100">
+                <ul class="list-unstyled origin mb-1">
+                    <li>
+                        <span class="d-flex">
+                            <p class="mb-0 mr-1"><strong>Start: </strong></p>
+                            {{ journey[0].origin.text }}
+                        </span>
+                    </li>
+                    <div v-if="journey[0].via.length > 0">
+                        <li>
+                            <span class="d-flex">
+                                <p class="mb-0 mr-1"><strong>Via: </strong></p>
+                                {{ journey[0].viaRouteNames }}
+                            </span>
+                        </li>
+                    </div>
+                    <li>
+                        <span class="d-flex">
+                            <p class="mb-0 mr-2"><strong>End: </strong></p>
+                            {{ journey[0].destination.text }}
+                        </span>
+                    </li>
+                    <div v-if="journey[0].return" class="mt-2">
+                        <h6>Return Journey</h6>
+                        <li>
+                            <span class="d-flex">
+                                <p class="mb-0 mr-1">
+                                    <strong>Start: </strong>
+                                </p>
+                                {{ journey[0].returnFrom.text }}
+                            </span>
+                        </li>
+                        <div v-if="journey[0].returnVia.length > 0">
+                            <li>
+                                <span class="d-flex">
+                                    <p class="mb-0 mr-1">
+                                        <strong>Via: </strong>
+                                    </p>
+                                    {{ journey[0].returnViaRouteNames }}
+                                </span>
+                            </li>
+                        </div>
+                        <li>
+                            <span class="d-flex">
+                                <p class="mb-0 mr-2"><strong>End: </strong></p>
+                                {{ journey[0].returnTo.text }}
+                            </span>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+
+            <!-- Map -->
             <div id="map">
                 <Mapbox
                     access-token="pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2J6NTM4dDkwOGVzMzJtcnlvNnU0c2t2In0.Qpmm_jb0gzc16AN-UqIENA"
@@ -673,579 +741,54 @@
                     @map-load="loaded"
                 />
             </div>
-            <!-- <div class="group-vehicle row d-flex ml-0 mr-0"
-                v-for="price in priceList[0]" :key="price.id"> -->
-            <div class="group-vehicle row d-flex ml-0 mr-0">
-                <!-- Saloon Car -->
-                <!-- <div class="group vehicle">
-                    <h4>Saloon Car</h4>
 
-                    <div class="vehicle-content">
-                        <div class="detail">
-                            <img
-                                src="../../../../public/img/Cars/Cars SVG/Black Color/Saloon Car black.svg"
-                                alt="Saloon Car"
-                            />
-
-                            <br />
-                            <p class="mb-0">
-                                Up to 3 passengers plus 3 suitcases (20kg max)
-                                or 4 passengers plus hand luggage. Any more
-                                luggage than this will require a larger vehicle.
-                            </p>
-                        </div>
-
-                        <div class="labels">
-                            <label class="single">
-                                Fare £{{ priceList[0].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[0].id"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- <div class="group vehicle row d-flex align-items-center" @click.prevent="selectOnlyThis(priceList[0].id)"> -->
+            <!-- Prices -->
+            <div class="width-100" v-for="price in priceList" :key="price.id">
+                <input
+                    type="radio"
+                    name="price"
+                    :value="price.price"
+                    v-model="journey[0].fare"
+                />
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[0].price)"
+                    @click="selectedPrice(price)"
                 >
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                    <label
+                        class="width-100 d-flex price-section align-items-center"
                     >
-                        <img
-                            class="mr-0 ml-1"
-                            src="../../../../public/img/Cars/Cars SVG/Black Color/Saloon Car black.svg"
-                            alt="Saloon Car"
-                            style="max-width: 5.5rem;"
-                        />
-                    </div>
-                    <div
-                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
-                    >
-                        <div class="row container-fluid">
-                            <h6>Saloon Car</h6>
+                        <div
+                            class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                        >
+                            <img
+                                class="mr-0 ml-1"
+                                :src="price.image"
+                                style="max-width: 5.5rem;"
+                            />
                         </div>
-                        <div class="row container-fluid">
-                            <p>
+                        <div class="container pl-0 pr-0">
+                            <h6 class="mb-0">{{ price.type }}</h6>
+                        </div>
+                        <div class="container pl-0 pr-0">
+                            <p class="mb-0">
                                 <span class="pr-2"
                                     ><i
                                         class="fas fa-male pull-right icon-chevron-right"
                                         style="font"
                                     ></i>
-                                    x3
+                                    x{{ price.max_passengers }}
                                 </span>
                                 <span
-                                    ><i class="fas fa-suitcase pr-1"></i
-                                    >x3</span
+                                    ><i class="fas fa-suitcase pr-1"></i>x{{
+                                        price.luggage
+                                    }}</span
                                 >
                             </p>
                         </div>
-                    </div>
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
-                    >
-                        <label class="single">
-                            £{{ priceList[0].price }}
-                        </label>
-                        <input
-                            type="radio"
-                            name="vehicle"
-                            class="ml-2 price-list"
-                            :value="priceList[0].price"
-                            v-model="journey[0].fare"
-                        />
-                    </div>
-                </div>
-
-                <!-- Estate Car -->
-                <!-- <div class="group vehicle">
-                    <h4>Estate Car</h4>
-
-                    <div class="vehicle-content">
-                        <div class="detail">
-                            <img
-                                src="../../../../public/img/Cars/Cars SVG/Black Color/Estate Car black.svg"
-                                alt="Estate Car"
-                            />
-
-                            <br />
-                            <p class="mb-0">
-                                Up to 4 passengers plus 4 suitcases (20kg max).
-                                Any more luggage than this will require a larger
-                                vehicle.
-                            </p>
+                        <div class="container pl-0 pr-0">
+                            <p class="mb-0">£ {{ price.price }}</p>
                         </div>
-
-                        <div class="labels">
-                            <label class="single">
-                                Fare £{{ priceList[1].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[1].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div
-                    class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[1].price)"
-                >
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
-                    >
-                        <img
-                            class="mr-0 ml-1"
-                            src="../../../../public/img/Cars/Cars SVG/Black Color/Estate Car black.svg"
-                            alt="Estate Car"
-                            style="max-width: 5.5rem;"
-                        />
-                    </div>
-                    <div
-                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
-                    >
-                        <div class="row container-fluid">
-                            <h6>Estate Car</h6>
-                        </div>
-                        <div class="row container-fluid">
-                            <p>
-                                <span class="pr-2"
-                                    ><i class="fas fa-male pr-1"></i>x4</span
-                                >
-                                <span
-                                    ><i class="fas fa-suitcase pr-1"></i
-                                    >x4</span
-                                >
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
-                    >
-                        <label class="single">
-                            £{{ priceList[1].price }}
-                            <input
-                                type="radio"
-                                name="vehicle"
-                                class="ml-2 price-list"
-                                :value="priceList[1].price"
-                                v-model="journey[0].fare"
-                            />
-                        </label>
-                    </div>
-                </div>
-
-                <!-- People Carrier -->
-                <!-- <div class="group vehicle">
-                    <h4>People Carrier</h4>
-
-                    <div class="vehicle-content">
-                        <div class="detail">
-                            <img
-                                src="../../../../public/img/Cars/Cars SVG/Black Color/People Carrier black.svg"
-                                alt="People Carrier"
-                            />
-
-                            <br />
-                            <p class="mb-0">
-                                Up to 5 passengers plus 5 suitcases (20kg max)
-                                or 6 passengers plus hand luggage. Any more
-                                luggage than this will require a larger vehicle.
-                            </p>
-                        </div>
-
-                        <div class="labels">
-                            <label class="single">
-                                Fare £{{ priceList[2].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[2].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div
-                    class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[2].price)"
-                >
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
-                    >
-                        <img
-                            class="mr-0 ml-1"
-                            src="../../../../public/img/Cars/Cars SVG/Black Color/People Carrier black.svg"
-                            alt="People Carrier"
-                            style="max-width: 5.5rem;"
-                        />
-                    </div>
-                    <div
-                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
-                    >
-                        <div class="row container-fluid">
-                            <h6>People Carrier</h6>
-                        </div>
-                        <div class="row container-fluid">
-                            <p>
-                                <span class="pr-2"
-                                    ><i class="fas fa-male pr-1"></i>x5</span
-                                >
-                                <span
-                                    ><i class="fas fa-suitcase pr-1"></i
-                                    >x5</span
-                                >
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
-                    >
-                        <label class="single">
-                            £{{ priceList[2].price }}
-                            <input
-                                type="radio"
-                                name="vehicle"
-                                class="ml-2 price-list"
-                                :value="priceList[2].price"
-                                v-model="journey[0].fare"
-                            />
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Executive Car -->
-                <!-- <div class="group vehicle">
-                    <h4>Executive Car</h4>
-
-                    <div class="vehicle-content">
-                        <div class="detail">
-                            <img
-                                src="../../../../public/img/Cars/Cars SVG/Black Color/Executive Car black.svg"
-                                alt="Executive Car"
-                            />
-
-                            <br />
-                            <p class="mb-0">
-                                Up to 3 passengers plus 3 suitcases (20kg max)
-                                or 4 passengers plus hand luggage. Any more
-                                luggage than this will require a larger vehicle.
-                            </p>
-                        </div>
-
-                        <div class="labels">
-                            <label class="single">
-                                Fare £{{ priceList[3].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[3].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div
-                    class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[3].price)"
-                >
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
-                    >
-                        <img
-                            class="mr-0 ml-1"
-                            src="../../../../public/img/Cars/Cars SVG/Black Color/Executive Car black.svg"
-                            alt="Executive Car"
-                            style="max-width: 5.5rem;"
-                        />
-                    </div>
-                    <div
-                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
-                    >
-                        <div class="row container-fluid">
-                            <h6>Executive Car</h6>
-                        </div>
-                        <div class="row container-fluid">
-                            <p>
-                                <span class="pr-2"
-                                    ><i class="fas fa-male pr-1"></i>x3</span
-                                >
-                                <span
-                                    ><i class="fas fa-suitcase pr-1"></i
-                                    >x3</span
-                                >
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
-                    >
-                        <label class="single">
-                            £{{ priceList[3].price }}
-                            <input
-                                type="radio"
-                                name="vehicle"
-                                class="ml-2 price-list"
-                                :value="priceList[3].price"
-                                v-model="journey[0].fare"
-                            />
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Executive People Carrier -->
-                <!-- <div class="group vehicle">
-                    <h4>Executive People Carrier</h4>
-
-                    <div class="vehicle-content">
-                        <div class="detail">
-                            <img
-                                src="../../../../public/img/Cars/Cars SVG/Black Color/Executive People Carrier black.svg"
-                                alt="Executive People Carrier"
-                            />
-
-                            <br />
-                            <p class="mb-0">
-                                Up to 5 passengers plus 5 suitcases (20kg max)
-                                or 6 passengers plus hand luggage. Any more
-                                luggage than this will require a larger vehicle.
-                            </p>
-                        </div>
-
-                        <div class="labels">
-                            <label class="single">
-                                Fare £{{ priceList[4].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[4].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div
-                    class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[4].price)"
-                >
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
-                    >
-                        <img
-                            class="mr-0 ml-1"
-                            src="../../../../public/img/Cars/Cars SVG/Black Color/Executive People Carrier black.svg"
-                            alt="Executive People Carrier"
-                            style="max-width: 5.5rem;"
-                        />
-                    </div>
-                    <div
-                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
-                    >
-                        <div class="row container-fluid">
-                            <h6>Executive People Carrier</h6>
-                        </div>
-                        <div class="row container-fluid">
-                            <p>
-                                <span class="pr-2"
-                                    ><i class="fas fa-male pr-1"></i>x5</span
-                                >
-                                <span
-                                    ><i class="fas fa-suitcase pr-1"></i
-                                    >x5</span
-                                >
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
-                    >
-                        <label class="single">
-                            £{{ priceList[4].price }}
-                            <input
-                                type="radio"
-                                name="vehicle"
-                                class="ml-2 price-list"
-                                :value="priceList[4].price"
-                                v-model="journey[0].fare"
-                            />
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 8 Seater Minibus -->
-                <!-- <div class="group vehicle">
-                    <h4>8 Seater Minibus</h4>
-
-                    <div class="vehicle-content">
-                        <div class="detail">
-                            <img
-                                src="../../../../public/img/Cars/Cars SVG/Black Color/8 Seater Minibus black.svg"
-                                alt="8 Seater Minibus"
-                            />
-
-                            <br />
-                            <p class="mb-0">
-                                8 passengers plus up to 8 suitcases (20kg max).
-                                Any more luggage than this will require a larger
-                                vehicle.
-                            </p>
-                        </div>
-
-                        <div class="labels">
-                            <label class="single">
-                                Fare £{{ priceList[5].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[5].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div
-                    class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[5].price)"
-                >
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
-                    >
-                        <img
-                            class="mr-0 ml-1"
-                            src="../../../../public/img/Cars/Cars SVG/Black Color/8 Seater Minibus black.svg"
-                            alt="8 Seater Minibus"
-                            style="max-width: 5.5rem;"
-                        />
-                    </div>
-                    <div
-                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
-                    >
-                        <div class="row container-fluid">
-                            <h6>8 Seater Minibus</h6>
-                        </div>
-                        <div class="row container-fluid">
-                            <p>
-                                <span class="pr-2"
-                                    ><i class="fas fa-male pr-1"></i>x8</span
-                                >
-                                <span
-                                    ><i class="fas fa-suitcase pr-1"></i
-                                    >x8</span
-                                >
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
-                    >
-                        <label class="single">
-                            £{{ priceList[5].price }}
-                            <input
-                                type="radio"
-                                name="vehicle"
-                                class="ml-2 price-list"
-                                :value="priceList[5].price"
-                                v-model="journey[0].fare"
-                            />
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 14 Seater Minibus -->
-                <!-- <div class="group vehicle">
-                    <h4>14 Seater Minibus</h4>
-
-                    <div class="vehicle-content">
-                        <div class="detail">
-                            <img
-                                src="../../../../public/img/Cars/Cars SVG/Black Color/14 Seater Minibus black.svg"
-                                alt="14 Seater Minibus"
-                            />
-
-                            <br />
-                            <p class="mb-0">
-                                Up to 3 passengers plus 3 suitcases (20kg max)
-                                or 4 passengers plus hand luggage. Any more
-                                luggage than this will require a larger vehicle.
-                            </p>
-                        </div>
-
-                        <div class="labels">
-                            <label class="single">
-                                Fare £{{ priceList[6].price }}
-                                <input
-                                    type="radio"
-                                    name="vehicle"
-                                    :value="priceList[6].price"
-                                    v-model="journey[0].fare"
-                                />
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div
-                    class="group vehicle row d-flex align-items-center"
-                    @click="selectOnlyThis(priceList[6].price)"
-                >
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
-                    >
-                        <img
-                            class="mr-0 ml-1"
-                            src="../../../../public/img/Cars/Cars SVG/Black Color/14 Seater Minibus black.svg"
-                            alt="14 Seater Minibus"
-                            style="max-width: 5.5rem;"
-                        />
-                    </div>
-                    <div
-                        class="d-flex flex-column align-items-center col-sm-6 pl-2 pr-0 price-section car-details"
-                    >
-                        <div class="row container-fluid">
-                            <h6>14 Seater Minibus</h6>
-                        </div>
-                        <div class="row container-fluid">
-                            <p>
-                                <span class="pr-2"
-                                    ><i class="fas fa-male pr-1"></i>x14</span
-                                >
-                                <span
-                                    ><i class="fas fa-suitcase pr-1"></i
-                                    >x8</span
-                                >
-                            </p>
-                        </div>
-                    </div>
-                    <div
-                        class="d-flex justify-content-center col-sm-3 pl-0 pr-0 price-section fare-price"
-                    >
-                        <label class="single">
-                            £{{ priceList[6].price }}
-                            <input
-                                type="radio"
-                                name="vehicle"
-                                class="ml-2 price-list"
-                                :value="priceList[6].price"
-                                v-model="journey[0].fare"
-                            />
-                        </label>
-                    </div>
+                    </label>
                 </div>
             </div>
             <div
@@ -1287,7 +830,7 @@
         * ? Starting Journey Details
         */ -->
         <div
-            v-if="formStage[0].journeyFare == false && formStage[0].details"
+            v-if="formStage.journeyFare == false && formStage.details"
             class="journey-details"
         >
             <!-- /**
@@ -1429,10 +972,12 @@
                                 required
                                 v-model="quoteDetails.passengers"
                             >
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
+                                <option
+                                    v-for="passengers in journey[0]
+                                        .max_passengers"
+                                >
+                                    {{ passengers }}
+                                </option>
                             </select>
                         </div>
                         <div class="col-md-7 mb-3">
@@ -1443,8 +988,9 @@
                                 v-model="quoteDetails.luggage"
                             >
                                 <option>None</option>
-                                <option>Hand Luggage</option>
-                                <option>Suitcases</option>
+                                <option v-for="luggage in journey[0].luggage">
+                                    {{ luggage }} Luggage
+                                </option>
                             </select>
                         </div>
                         <small class="form-text text-muted pl-2"
@@ -1505,46 +1051,203 @@
         * TODO:     Stage 5
         * ? Starting Basket
         */ -->
-        <div
-            class="basket"
-            style="text-align: left;"
-            v-if="formStage[0].basket"
-        >
+
+        <div class="basket" v-if="formStage.basket" 
+            style="text-align: left;">
             <div class="row continue-to-basket ml-0 mr-0">
-                <div
-                    class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0 mt-2"
-                >
-                    <div class="width-100">
-                        <div>
-                            <p class="mb-0">
-                                Pick up at {{ quoteDetails.journeyDate }} for
-                                {{ quoteDetails.passengers }} Passenger with
-                                {{ quoteDetails.luggage }}
-                            </p>
+                <div class="row continue-to-basket ml-0 mr-0 mt-2 width-100">
+                    <div
+                        class="d-flex after-successfull-booking-details ml-0 mr-0 mt-2"
+                    >
+                        <div class="width-100" style="font-size: 13px">
+                            <h5 class="text-black text-left mt-2 mb-2">
+                                Trip Details
+                            </h5>
+                            <div class="table-responsive-sm">
+                                <table
+                                    class="table table-striped table-sm table-hover table-bordered"
+                                >
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Pickup</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.originName
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr v-if="journey[0].viaRouteNames">
+                                            <th scope="row">Via</th>
+                                            <td>
+                                                {{
+                                                    journey[0].viaRouteNames
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Dropoff</th>
+                                            <td>
+                                                {{
+                                                    journey[0].return ? 
+                                                    quoteDetails.returnTo :
+                                                    quoteDetails.destinationName
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            v-if="
+                                                journey[0].returnViaRouteNames
+                                            "
+                                        >
+                                            <th scope="row">Return Via</th>
+                                            <td>
+                                                {{
+                                                    journey[0]
+                                                        .returnViaRouteNames
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Booking Type</th>
+                                            <td>
+                                                {{
+                                                    journey[0].return ? "Return" : "One way"
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Vehicle Type</th>
+                                            <td>
+                                                {{
+                                                    journey[0].vehicle.type
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Pick up Date</th>
+                                            <td>
+                                                {{
+                                                    (quoteDetails.journeyDate.Day + ",")
+                                                }}
+                                                {{
+                                                    quoteDetails.journeyDate.Date
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Pick up Time</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.journeyDate.Time
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                Passenger
+                                                <span
+                                                    v-if="
+                                                        quoteDetails.luggage !==
+                                                            'None'
+                                                    "
+                                                >
+                                                    & Luggage
+                                                </span>
+                                            </th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.passengers
+                                                        ? quoteDetails.passengers
+                                                        : 1
+                                                }}
+                                                Passenger
+                                                <span
+                                                    v-if="
+                                                        quoteDetails.luggage !==
+                                                            'None'
+                                                    "
+                                                >
+                                                    & {{ quoteDetails.luggage }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th
+                                                class="table-primary"
+                                                scope="row"
+                                            >
+                                                Total Fare
+                                            </th>
+                                            <td class="table-primary">
+                                                £{{
+                                                    quoteDetails.fare
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h5 class="text-black text-left mb-2">
+                                Passenger Details
+                            </h5>
+                            <div class="table-responsive-sm mt-3">
+                                <table
+                                    class="table table-striped table-sm table-hover table-bordered"
+                                >
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Passenger Name</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.name
+                                                        ? quoteDetails.name
+                                                        : "Sezan"
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Email</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.email
+                                                        ? quoteDetails.email
+                                                        : "sezansarker@gmail.com"
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Phone</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.mobile
+                                                        ? quoteDetails.mobile
+                                                        : "+8801687407370"
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div
-                    class="row d-flex flex-fill justify-content-between passenger-details ml-0 mr-0 mt-2"
-                >
-                    <div class="">
-                        <strong>Total Fare</strong>
-                    </div>
-                    <div class="">
-                        <strong>£{{ quoteDetails.fare }}</strong>
-                    </div>
-                </div>
-
                 <div class="d-flex passenger-details ml-0 mr-0 mt-2">
-                    <div class="" style="font-size: 12px">
+                    <div style="font-size: 12px">
                         I have read and agree to the
                         <a href="http://" target="_blank">privacy policy</a> &
                         <a href="http://" target="_blank">terms</a> of booking
                         with OTS.
                     </div>
                     <div class="d-flex align-self-center">
-                        <input type="checkbox" class="ml-2" />
+                        <input
+                            type="checkbox"
+                            class="ml-2"
+                            @click="
+                                quoteDetails.agreedWithTerms = !quoteDetails.agreedWithTerms
+                            "
+                        />
                     </div>
                 </div>
                 <!-- Buttons -->
@@ -1569,7 +1272,7 @@
                             type="button"
                             class="btn btn-primary"
                             @click="payNow"
-                            :disabled="quoteDetails.email === ''"
+                            :disabled="quoteDetails.agreedWithTerms === false"
                         >
                             Pay Now
                             <i
@@ -1584,6 +1287,250 @@
         <!-- /**
         * TODO:     Stage 5
         * ? Ending Basket
+        */ -->
+
+        <!-- /**
+        * TODO:     Stage 6
+        * ? Starting After Booking Submission
+        */ -->
+        <div class="basket" v-if="formStage.submittedStatus"
+            style="text-align: left;">
+            <div class="row continue-to-basket ml-0 mr-0">
+                <div class="d-flex after-successfull-booking ml-0 mr-0 mt-2">
+                    <div style="font-size: 13px">
+                        <h5 class="text-black text-center">
+                            Booking <b>successful</b>
+                            <i class="fas fa-check text-primary ml-1"></i>
+                        </h5>
+                        <p class="text-black-50 text-center mb-1">
+                            A copy of this e-ticket has been mailed to you.
+                            Please keep a copy of your e-ticket during travel.
+                        </p>
+                        <div class="d-flex justify-content-center mt-2">
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-primary"
+                                @click="downloadBookingTicket"
+                            >
+                                Download Ticket
+                                <i
+                                    class="fas fa-ticket-alt ml-1"
+                                    style="font-size: 13px"
+                                ></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row continue-to-basket ml-0 mr-0 mt-2">
+                <div
+                    class="d-flex after-successfull-booking-details ml-0 mr-0 mt-2"
+                >
+                    <div style="font-size: 13px">
+                        <p class="text-black-50 text-center mb-1">
+                            Your request to book a transport for your trip in UK
+                            Airport Taxi was <b>successful</b>. Below are the
+                            booking details. <br />
+                            Thank you.
+                        </p>
+
+                        <div class="width-100" style="font-size: 13px">
+                            <h5 class="text-black text-left mt-2 mb-2">
+                                Trip Details
+                            </h5>
+                            <div class="table-responsive-sm">
+                                <table
+                                    class="table table-striped table-sm table-hover table-bordered"
+                                >
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Pickup</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.originName
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr v-if="journey[0].viaRouteNames">
+                                            <th scope="row">Via</th>
+                                            <td>
+                                                {{
+                                                    journey[0].viaRouteNames
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Dropoff</th>
+                                            <td>
+                                                {{
+                                                    journey[0].return ? 
+                                                    quoteDetails.returnTo :
+                                                    quoteDetails.destinationName
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            v-if="
+                                                journey[0].returnViaRouteNames
+                                            "
+                                        >
+                                            <th scope="row">Return Via</th>
+                                            <td>
+                                                {{
+                                                    journey[0]
+                                                        .returnViaRouteNames
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Booking Type</th>
+                                            <td>
+                                                {{
+                                                    journey[0].return ? "Return" : "One way"
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Vehicle Type</th>
+                                            <td>
+                                                {{
+                                                    journey[0].vehicle.type
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Pick up Date</th>
+                                            <td>
+                                                {{
+                                                    (quoteDetails.journeyDate.Day + ",")
+                                                }}
+                                                {{
+                                                    quoteDetails.journeyDate.Date
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Pick up Time</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.journeyDate.Time
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                Passenger
+                                                <span
+                                                    v-if="
+                                                        quoteDetails.luggage !==
+                                                            'None'
+                                                    "
+                                                >
+                                                    & Luggage
+                                                </span>
+                                            </th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.passengers
+                                                        ? quoteDetails.passengers
+                                                        : 1
+                                                }}
+                                                Passenger
+                                                <span
+                                                    v-if="
+                                                        quoteDetails.luggage !==
+                                                            'None'
+                                                    "
+                                                >
+                                                    & {{ quoteDetails.luggage }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th
+                                                class="table-primary"
+                                                scope="row"
+                                            >
+                                                Total Fare
+                                            </th>
+                                            <td class="table-primary">
+                                                £{{
+                                                    quoteDetails.fare
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h5 class="text-black text-left mb-2">
+                                Passenger Details
+                            </h5>
+                            <div class="table-responsive-sm mt-3">
+                                <table
+                                    class="table table-striped table-sm table-hover table-bordered"
+                                >
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Passenger Name</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.name
+                                                        ? quoteDetails.name
+                                                        : "Sezan"
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Email</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.email
+                                                        ? quoteDetails.email
+                                                        : "sezansarker@gmail.com"
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Phone</th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.mobile
+                                                        ? quoteDetails.mobile
+                                                        : "+8801687407370"
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Buttons -->
+                <div
+                    class="container d-flex flex-row justify-content-between mt-3 pl-0 pr-0"
+                >
+                    <div class="mr-2">
+                        <button
+                            @click="windowReload"
+                            type="button"
+                            class="btn btn-secondary"
+                        >
+                            <i
+                                class="fa fa-angle-left mr-1"
+                                aria-hidden="true"
+                            ></i>
+                            Book again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /**
+        * TODO:     Stage 6
+        * ? Ending After Booking Submission
         */ -->
     </div>
 </template>
@@ -1603,19 +1550,7 @@ import mapboxgl from "mapbox-gl";
 import Mapbox from "mapbox-gl-vue";
 import qs from "qs";
 
-function onlyOne(checkbox) {
-    var checkboxes = document.getElementsByClassName("group vehicle");
-    checkboxes.forEach(item => {
-        if (item !== checkbox) item.checked = false;
-    });
-}
-// function selectOnlyThis(id) {
-//     var myRadioButton = document.getElementsByClassName("group vehicle");
-//     Array.prototype.forEach.call(myRadioButton, function(el) {
-//         el.checked = false;
-//     });
-//     id.checked = true;
-// }
+import moment from "moment";
 
 export default {
     components: {
@@ -1636,15 +1571,22 @@ export default {
                     pickupDate: null,
                     via: [],
                     viaRouteNames: "",
+                    return: false,
                     returnFrom: "",
                     returnTo: "",
                     returnVia: [],
                     returnViaRouteNames: "",
-                    return: false,
                     priceId: null,
-                    fare: null
+                    fare: null,
+                    vehicle: {
+                        type: "Saloon"
+                    },
+                    max_passengers: [],
+                    luggage: []
                 }
             ],
+
+            originShortName: "",
 
             priceList: [],
 
@@ -1654,7 +1596,14 @@ export default {
                 originType: "",
                 destinationName: "",
                 viaRouteNames: "",
-                journeyDate: null,
+
+                journeyDate: {
+                    Details: "",
+                    Day: "",
+                    Date: "",
+                    Time: ""
+                },
+
                 distance: null,
 
                 // Return Values
@@ -1676,20 +1625,18 @@ export default {
                 passengers: 1,
                 luggage: "None",
 
-                coupon_id: "",
-                price_id: "",
-                discount: null,
-                totalPrice: null
+                agreedWithTerms: false,
+
+                afterSubmittedBookingId: null
             },
 
-            formStage: [
-                {
+            formStage: {
                     place: true,
                     details: false,
                     journeyFare: false,
-                    basket: false
-                }
-            ],
+                    basket: false,
+                    submittedStatus: false
+                },
             // Ending Journey Details Form
 
             options: [],
@@ -1730,6 +1677,10 @@ export default {
         });
     },
     methods: {
+        selectedPrice(price) {
+            this.journey[0].vehicle = price;
+            this.journey[0].fare = price.price;
+        },
         selectOnlyThis(id) {
             var myRadioButton = document.getElementsByClassName(
                 "group vehicle"
@@ -2040,20 +1991,6 @@ export default {
                                 response.data.routes[0].distance;
 
                             // Calculating Price
-                            // If there is return journey then multiply the result
-                            // if(this.journey[0].returnViaRouteNames.length) {
-                            //     this.priceList.map(item => {
-                            //         item.price = parseFloat(
-                            //             item.price * (this.quoteDetails.distance / 1000) * 2
-                            //         ).toFixed(2);
-                            //     });
-                            // } else {
-                            //     this.priceList.map(item => {
-                            //         item.price = parseFloat(
-                            //             item.price * (this.quoteDetails.distance / 1000)
-                            //         ).toFixed(2);
-                            //     });
-                            // }
                             this.priceList.map(item => {
                                 item.price = parseFloat(
                                     item.price *
@@ -2093,20 +2030,24 @@ export default {
 
         // After submitting MapBox Api request change formStage Value
         submitQuote() {
-            // this.submittedQuote().then(() => {
-            //     this.formStage[0].place = false;
-            //     this.formStage[0].journeyFare = true;
-            // });
-
             this.mapBoxPostRequest().then(() => {
-                this.formStage[0].place = false;
-                this.formStage[0].journeyFare = true;
+                this.formStage.place = false;
+                this.formStage.journeyFare = true;
+
+                let formateDate = moment(
+                    new Date(this.quoteDetails.journeyDate.Details)
+                ).format("dddd, MMMM Do YYYY, h:mm:ss a");
+                [
+                    this.quoteDetails.journeyDate.Day,
+                    this.quoteDetails.journeyDate.Date,
+                    this.quoteDetails.journeyDate.Time
+                ] = formateDate.split(",");
             });
         },
 
         backToBooking() {
-            this.formStage[0].place = true;
-            this.formStage[0].journeyFare = false;
+            this.formStage.place = true;
+            this.formStage.journeyFare = false;
 
             this.mapData.fullRoutes = this.mapData.start = this.mapData.end = this.mapData.responseCode = this.mapData.errors =
                 "";
@@ -2130,10 +2071,18 @@ export default {
         },
 
         submitFare() {
-            this.formStage[0].journeyFare = false;
-            this.formStage[0].details = true;
+            this.formStage.journeyFare = false;
+            this.formStage.details = true;
 
             this.quoteDetails.fare = this.journey[0].fare;
+
+            for (let i = 1; i <= this.journey[0].vehicle.max_passengers; i++) {
+                this.journey[0].max_passengers.push(i);
+            }
+
+            for (let i = 1; i <= this.journey[0].vehicle.luggage; i++) {
+                this.journey[0].luggage.push(i);
+            }
 
             // axios
             //     .post("/get-price", {
@@ -2147,33 +2096,36 @@ export default {
         },
 
         backToFare() {
-            this.formStage[0].journeyFare = true;
-            this.formStage[0].details = false;
+            this.formStage.journeyFare = true;
+            this.formStage.details = false;
 
             this.quoteDetails.priceId = null;
+
+            this.journey[0].max_passengers = [];
+            this.journey[0].luggage = [];
+
+            this.quoteDetails.passengers = 1;
+            this.quoteDetails.luggage = "None";
 
             $("html,body").scrollTop(0);
         },
 
         continueToBasket() {
-            this.formStage[0].details = false;
-            this.formStage[0].basket = true;
+            this.formStage.details = false;
+            this.formStage.basket = true;
             $("html,body").scrollTop(0);
         },
 
         backToBasket() {
-            this.formStage[0].details = true;
-            this.formStage[0].basket = false;
+            this.formStage.details = true;
+            this.formStage.basket = false;
+            this.quoteDetails.agreedWithTerms = false;
             $("html,body").scrollTop(0);
         },
 
         notBeforeToday(date) {
             return date < new Date().setHours(0, 0, 0, 0);
         },
-
-        // notBeforeJourneyDate(date) {
-        //     return date < new Date(this.quoteDetails.journeyDate);
-        // },
 
         payNow() {
             this.data = {
@@ -2183,7 +2135,7 @@ export default {
                 from: this.quoteDetails.originName,
                 via: this.quoteDetails.viaRouteNames,
                 to: this.quoteDetails.destinationName,
-                journey_date: this.quoteDetails.journeyDate,
+                journey_date: this.quoteDetails.journeyDate.Details,
 
                 returnFrom: this.quoteDetails.returnFrom,
                 returnTo: this.quoteDetails.returnTo,
@@ -2204,12 +2156,16 @@ export default {
             };
 
             axios.post("/submit-booking", this.data).then(response => {
-                Swal.fire({
-                    icon: "success",
-                    title: response.data,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                this.formStage.basket = false;
+                this.formStage.submittedStatus = true;
+                this.quoteDetails.afterSubmittedBookingId = response.data.bookingId;
+
+                // Swal.fire({
+                //     icon: "success",
+                //     title: response.data.success,
+                //     showConfirmButton: false,
+                //     timer: 2000
+                // });
                 // window.location = "/";
             });
         },
@@ -2225,7 +2181,65 @@ export default {
                 }
             }
             return check;
-        }
+        },
+
+        downloadBookingTicket() {
+            axios({
+                url: "/download-PDF",
+                method: "POST",
+                responseType: "blob",
+                data: {
+                    id: this.quoteDetails.afterSubmittedBookingId,
+                    email: this.quoteDetails.email
+                }
+            }).then(response => {
+                this.downloadFile(response.data, "booking-summery.pdf");
+            });
+        },
+
+        downloadFile(blob, fileName) {
+            // It is necessary to create a new blob object with mime-type explicitly set
+            // otherwise only Chrome works like it should
+            var newBlob = new Blob([blob], { type: "application/pdf" });
+
+            // IE doesn't allow using a blob object directly as link href
+            // instead it is necessary to use msSaveOrOpenBlob
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveOrOpenBlob(newBlob);
+                return;
+            }
+
+            // For other browsers:
+            // Create a link pointing to the ObjectURL containing the blob.
+            const data = window.URL.createObjectURL(newBlob);
+            var link = document.createElement("a");
+            link.href = data;
+            link.download = fileName;
+            link.click();
+            setTimeout(function() {
+                // For Firefox it is necessary to delay revoking the ObjectURL
+                window.URL.revokeObjectURL(data);
+            }, 100);
+        },
+
+        windowReload() {
+            window.location = "/";
+        },
+
+        // downloadAndSendEmail() {
+        //     axios({
+        //         url: "/send-email",
+        //         method: "POST",
+        //         responseType: "blob",
+        //         data: {
+        //             id: 76,
+        //             email: "sezansarker@gmail.com"
+        //         }
+        //     }).then(response => {
+        //         console.log(response.data);
+        //         // this.downloadFile(response.data, "booking-summery.pdf")
+        //     });
+        // }
     },
     created() {
         this.mapBox.postUrl = `https://api.mapbox.com/directions/v5/mapbox/driving?access_token=${this.mapBox.accessToken}`;
@@ -2249,13 +2263,13 @@ export default {
             //     //     console.log("viaroutechange");
             //     // }
             // });
-            console.log(index);
+            // console.log(index);
         },
         validateQuote() {
             if (
                 this.journey[0].origin &&
                 this.journey[0].destination &&
-                this.quoteDetails.journeyDate &&
+                this.quoteDetails.journeyDate.Details &&
                 this.validateArrayObject(this.journey[0].via)
             ) {
                 return true;
@@ -2275,7 +2289,7 @@ export default {
                     this.quoteDetails.flightOrigin === "" ||
                     this.quoteDetails.passengers === null ||
                     this.quoteDetails.luggage === "" ||
-                    this.quoteDetails.journeyDate === null
+                    this.quoteDetails.journeyDate.Details === null
                 )
                     return true;
                 else return false;
@@ -2285,7 +2299,7 @@ export default {
                     this.quoteDetails.mobile === "" ||
                     this.quoteDetails.passengers === null ||
                     this.quoteDetails.luggage === "" ||
-                    this.quoteDetails.journeyDate === null
+                    this.quoteDetails.journeyDate.Details === null
                 )
                     return true;
                 else return false;
@@ -2398,11 +2412,13 @@ img {
     }
     .price-section.car-details {
         flex-direction: column !important;
-        width: 50%;
+        /* width: 50%; */
+        width: max-content;
     }
     .price-section.car-details div.row {
         padding: 0px;
         margin: 0px;
+        width: max-content;
     }
     .price-section.fare-price {
         width: max-content !important;
@@ -2413,7 +2429,7 @@ img {
         padding-right: 8px !important;
     }
     .price-section.car-img img {
-        max-width: 2.5rem !important;
+        max-width: 3rem !important;
     }
 }
 
@@ -2530,7 +2546,7 @@ div.vehicle {
     border-radius: 5px;
     font-size: 12px;
     color: black;
-    background-color: #f0f0f0;
+    background-color: #f3f3f3;
     box-shadow: 1px 5px 8px 2px #a1a5a8;
     /* background-color: #282828;
     background: -webkit-linear-gradient(
@@ -2648,7 +2664,7 @@ div.vehicle {
 
 /* Starting Passenger Details */
 .passenger-details {
-    background-color: #f0f0f0a1;
+    background-color: #ffffffe3;
     box-shadow: 1px 5px 8px 2px #929292;
     padding: 10px;
     border-radius: 5px;
@@ -2656,4 +2672,45 @@ div.vehicle {
 }
 
 /* Ending Passenger Details */
+
+/* Starting After Booking Submission */
+.after-successfull-booking {
+    background-color: #ffffffe3;
+    box-shadow: 1px 5px 8px 2px #929292;
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    width: 100%;
+    color: black;
+    font-weight: 500;
+    border-left: 6px solid #3acae6;
+}
+
+.after-successfull-booking-details {
+    background-color: #ffffffe3;
+    box-shadow: 1px 5px 8px 2px #929292;
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    width: 100%;
+    color: black;
+    font-weight: 500;
+}
+/* HIDE RADIO */
+[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* IMAGE STYLES */
+[type="radio"] + div.group.vehicle,
+[type="radio"] + div.group.vehicle > label {
+    cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type="radio"]:checked + div.group {
+    border: 2px solid #3acae6;
+    background-color: white;
+}
 </style>

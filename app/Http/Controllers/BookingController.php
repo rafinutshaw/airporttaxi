@@ -2,39 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Price;
 use App\Booking;
 use App\Customer;
-use App\Price;
+use Carbon\Carbon;
+use App\BookingStatus;
+use App\Jobs\SendEmailJob;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\BookingSubmitted;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class BookingController extends Controller
 {
-    // public function registerGuestUser(array $data)
-    // {
-    //     $guest = Customer::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'mobile' => $data['mobile'],
-    //         'password' => Hash::make(Str::random(8)),
-    //         'status' => 0,
-    //     ]);
-
-    //     return $guest;
-    // }
-
     public function getPrice(Request $request)
     {
         $getPrice = Price::find($request['price_id']);
         return response()->json($getPrice->price, 200);
     }
 
-    public function guestBooking(Request $request)
+    /**
+    //  *  Creating a booking
+     */
+    public function create(Request $request)
     {
         $checkExistingUser = Customer::where('email', $request['email'])->first();
 
+        // * If user isn't exists 
         if (!empty($checkExistingUser)) {
+
             $booking = Booking::create([
                 'customer_id' => $checkExistingUser->id,
                 'name' => $checkExistingUser->name,
@@ -48,12 +47,10 @@ class BookingController extends Controller
                 'returnFrom' => $request['returnFrom'],
                 'returnVia' => $request['returnVia'],
                 'returnTo' => $request['returnTo'],
-                'return_journey_date' => $request['return_journey_date'],
 
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
                 // 'coupon_id' => $request['coupon_id'],
-                'price_id' => $request['price_id'],
                 'discount' => $request['discount'],
                 'total_price' => $request['total_price'],
                 'passport' => $request['passport'],
@@ -63,8 +60,13 @@ class BookingController extends Controller
                 'booking_status_id' => 1,
             ]);
 
-            return response()->json("Your Booking is submitted! Thank you!", 200);
+            //  * Sending an email
+            $this->sendEmail($booking);
+
+            return response()->json(["bookingId" => $booking->id], 200);
         } else {
+
+            //  * Creating a account for guest user
             $guest = Customer::create([
                 'name' => $request['name'],
                 // 'name' => 'Sezan',
@@ -73,7 +75,7 @@ class BookingController extends Controller
                 'password' => Hash::make(Str::random(8)),
                 'status' => 0,
             ]);
-
+            
             $booking = Booking::create([
                 'customer_id' => $guest->id,
                 'name' => $guest->name,
@@ -87,12 +89,9 @@ class BookingController extends Controller
                 'returnFrom' => $request['returnFrom'],
                 'returnVia' => $request['returnVia'],
                 'returnTo' => $request['returnTo'],
-                'return_journey_date' => $request['return_journey_date'],
 
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
-                // 'coupon_id' => $request['coupon_id'],
-                // 'price_id' => $request['price_id'],
                 'discount' => $request['discount'],
                 'total_price' => $request['total_price'],
                 'passport' => $request['passport'],
@@ -101,7 +100,77 @@ class BookingController extends Controller
                 'meet_and_greet_service' => $request['meet_and_greet_service'],
                 'booking_status_id' => 1,
             ]);
-            return response()->json("Your Booking is submitted! Thank you!", 200);
+
+            //  * Sending an email
+            $this->sendEmail($booking);
+
+            return response()->json(["bookingId" => $booking->id], 200);
         }
+    }
+
+    /**
+    //  * Send email after booking submission
+     */
+    public function sendEmail($booking)
+    {
+        $attachedPDF = $this->savePDF($booking);
+        SendEmailJob::dispatch($booking, $attachedPDF);
+
+        return response()->json('Email send', 200);
+    }
+
+    /**
+    //  * Saving a temporary PDF to storage
+    //  * so that we can attach this PDF to email
+     */
+    public function savePDF($booking)
+    {
+        if (isset($booking)) {
+            $data = $this->setPDF($booking);
+        }
+
+        $pdf = PDF::loadView(
+            'pdf-template.booking-summery',
+            compact('data')
+        );
+
+        $pdfFileName = "booking invoice " . $booking->id . ".pdf";
+        Storage::put('public/pdf/' . $pdfFileName, $pdf->output());
+        return $pdfFileName;
+    }
+
+    /**
+    //  * Download PDF after booking submission
+     */
+    public function downloadPDF(Request $request)
+    {
+        $booking = Booking::find($request->id);
+        if (isset($booking) && $booking->customer->email == $request->email) {
+            $data = $this->setPDF($booking);
+            $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
+            return $pdf->download('booking-summery.pdf');
+        }
+    }
+
+    private function setPDF($booking)
+    {
+        $data = [
+            'name' => $booking->name,
+            'mobile' => $booking->mobile,
+            'email' => $booking->customer->email,
+            'invoiceNo' => $booking->id,
+            'dateOfInvoice' => $booking->journey_date,
+            'from' => $booking->from,
+            'via' => $booking->via,
+            'to' => $booking->to,
+            'returnFrom' => $booking->returnFrom,
+            'returnTo' => $booking->returnTo,
+            'returnVia' => $booking->returnVia,
+            'journeyDate' => $booking->journey_date,
+            'passengers' => $booking->passengers,
+            'luggage' => $booking->luggage,
+            'totalPrice' => $booking->total_price,
+        ];
+        return $data;
     }
 }

@@ -15,6 +15,9 @@ return [
 
     // 'name' => env('APP_NAME', 'Laravel'),
     'name' => 'UK Airport Taxi',
+    'address' => '221B Baker Street, London, UK',
+    'mobile' => '00 (958) 9865 562',
+    'email' => 'info@ukairporttaxi.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +56,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    // 'url' => env('APP_URL', 'http://localhost'),
+    'url' => "http://www.uk-airporttaxi.com/",
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -181,6 +185,11 @@ return [
         */
         App\Providers\RepositoryServiceProvider::class,
 
+        /*
+         * Laravel DOM PDF 
+         */
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +242,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Laravel DOM PDF 
+         */
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

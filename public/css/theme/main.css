@@ -945,7 +945,7 @@ sup,
 sub,
 u,
 del {
-    color: #f9d700;
+    /* color: #f9d700; */
 }
 
 h1 {
