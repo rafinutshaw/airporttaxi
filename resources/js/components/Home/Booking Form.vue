@@ -276,7 +276,8 @@
                         </div> -->
                     </div>
                     <div class="row container-fluid justify-content-end mt-2">
-                        <div class="row" @click.prevent="returnBooking">
+                        <div class="row" @click.prevent="returnBooking"
+                            style="cursor: pointer;">
                             <p class="text-left mb-0 ml-2 text-black">
                                 Return Booking?
                             </p>
@@ -1842,6 +1843,7 @@ export default {
         // Posting a request to  MapBox Api
         mapBoxPostRequest() {
             return new Promise((resolve, reject) => {
+                this.mapData.fullRoutes = "";
                 // Storing the starting point
                 this.mapData.fullRoutes +=
                     this.journey[0].origin.geometry.coordinates.join(",") + ";";
@@ -1921,10 +1923,6 @@ export default {
                 }
 
                 const data = qs.stringify({
-                    // coordinates:
-                    //     this.journey[0].origin["center"].join(",") +
-                    //     ";" +
-                    //     this.journey[0].destination["center"].join(","),
                     coordinates: this.mapData.fullRoutes,
                     geometries: "geojson",
                     overview: "full",
@@ -1945,15 +1943,17 @@ export default {
                             response.status != 200 &&
                             (!this.journey[0].origin ||
                                 !this.journey[0].destination)
-                        )
+                        ) {
+                            
+                            this.mapBox.fullRoutes = "";
                             reject(false);
+                        }
                         else if (
                             response.data.code === "NoRoute" &&
                             response.status == 200
                         ) {
                             this.mapData.errors =
                                 "There was no route found for the given places.";
-                            console.log(this.mapData.errors);
                             reject(false);
                         } else if (
                             response.data.code === "NoSegment" &&
@@ -1961,7 +1961,8 @@ export default {
                         ) {
                             this.mapData.errors =
                                 "No road segment could be matched for one or more coordinates within the supplied radiuses. Check for coordinates that are too far away from a road.";
-                            console.log(this.mapData.errors);
+                            // console.log(this.mapData.errors);
+                            this.mapBox.fullRoutes = "";
                             reject(false);
                         } else {
                             // Getting sesponse code from mapbox api
@@ -2008,9 +2009,6 @@ export default {
                     })
                     .catch(error => {
                         this.mapData.errors = "The given input was not valid.";
-                        console.log(this.mapData.errors);
-                        console.log(error.status);
-
                         reject(false);
                     });
             });
