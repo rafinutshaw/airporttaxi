@@ -49273,11 +49273,6 @@ readers do not read off random characters that represent icons */
   width: 100% !important;
 }
 
-.btn:hover {
-  transition: all 0.2s ease-in-out;
-  transform: scale(1.05);
-}
-
 .btn-primary {
   background-color: #3acae6;
   border-color: #3acae6;

@@ -275,12 +275,24 @@
                             <p class="text-left">Return Booking?</p>
                         </div> -->
                     </div>
-                    <div class="row container-fluid justify-content-end mt-2">
-                        <div class="row" @click.prevent="returnBooking"
+                    <!-- <div class="row container-fluid justify-content-end mt-2"> -->
+                    
+                    /*
+                    *   Return Booking Toggle Button 
+                    */
+                    <div class="toggle-wrapper col-sm-7 offset-sm-5 mt-2 pr-0">
+                        <!-- <div class="row" @click.prevent="returnBooking"
                             style="cursor: pointer;">
                             <p class="text-left mb-0 ml-2 text-black">
                                 Return Booking?
                             </p>
+                        </div> -->
+
+                        <div class="can-toggle">
+                            <input id="a" type="checkbox" v-model="journey[0].return">
+                            <label for="a">
+                                <div class="can-toggle__switch" data-checked="Return Trip" data-unchecked="One Way"></div>
+                            </label>
                         </div>
                     </div>
 
@@ -1678,6 +1690,9 @@ export default {
         });
     },
     methods: {
+        clicked(pass){
+            console.log(pass);
+        },
         selectedPrice(price) {
             this.journey[0].vehicle = price;
             this.journey[0].fare = price.price;
@@ -2710,5 +2725,173 @@ div.vehicle {
 [type="radio"]:checked + div.group {
     border: 2px solid #3acae6;
     background-color: white;
+}
+
+/*
+*   Return Booking Toggle Button
+*/
+.can-toggle {
+  position: relative;
+}
+.can-toggle *, .can-toggle *:before, .can-toggle *:after {
+  box-sizing: border-box;
+}
+.can-toggle input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.can-toggle input[type="checkbox"][disabled] ~ label {
+  pointer-events: none;
+}
+.can-toggle input[type="checkbox"][disabled] ~ label .can-toggle__switch {
+  opacity: 0.4;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:before {
+  content: attr(data-unchecked);
+  left: 0;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  content: attr(data-checked);
+  left: 27px;
+}
+.can-toggle label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+    justify-content: flex-end;
+}
+.can-toggle label .can-toggle__switch {
+  position: relative;
+}
+.can-toggle label .can-toggle__switch:before {
+  content: attr(data-checked);
+  position: absolute;
+  top: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+.can-toggle label .can-toggle__switch:after {
+  content: attr(data-unchecked);
+  position: absolute;
+  z-index: 5;
+  text-transform: uppercase;
+  text-align: center;
+  background: white;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.can-toggle input[type="checkbox"][disabled] ~ label {
+  color: rgba(119, 119, 119, 0.5);
+}
+.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch, .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch {
+  background-color: #777;
+}
+.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after, .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+  color: #3acae6;
+}
+.can-toggle input[type="checkbox"]:hover ~ label {
+  color: #6a6a6a;
+}
+.can-toggle input[type="checkbox"]:checked ~ label:hover {
+  color: #6a6a6a;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch {
+  background-color: #6a6a6a;
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  color: #3acae6;
+}
+.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch, .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch {
+  background-color: #777;
+}
+.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after, .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch:after {
+  color: #3acae6;
+}
+.can-toggle label .can-toggle__switch {
+  -webkit-transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
+  transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
+  background: #848484;
+}
+.can-toggle label .can-toggle__switch:before {
+  color: rgba(255, 255, 255, 0.5);
+}
+.can-toggle label .can-toggle__switch:after {
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1), -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  color: #3acae6;
+}
+.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after, .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+}
+.can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  -webkit-transform: translate3d(65px, 0, 0);
+          transform: translate3d(65px, 0, 0);
+}
+.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after, .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch:after {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+}
+.can-toggle label {
+  font-size: 14px;
+}
+.can-toggle label .can-toggle__switch {
+  height: 36px;
+  /* -webkit-box-flex: 0;
+          flex: 0 0 134px; */
+  -webkit-box-flex: 0;
+          flex: 0 0 205px;
+  border-radius: 25px;
+}
+.can-toggle label .can-toggle__switch:before {
+  left: 97px;
+  font-size: 12px;
+  line-height: 36px;
+  width: max-content;
+  padding: 0 20px;
+}
+.can-toggle label .can-toggle__switch:after {
+  top: 2px;
+  left: 2px;
+  border-radius: 25px;
+  width: max-content;
+  line-height: 32px;
+  font-size: 12px;
+  padding: 0 20px 0;
+}
+.can-toggle label .can-toggle__switch:hover:after {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+}
+
+@media only screen and (max-width: 450px) {
+    .can-toggle label .can-toggle__switch {
+        flex: 0 0 250px;
+    }
+    .can-toggle label .can-toggle__switch:before {
+        left: 125px;
+    }
+    .can-toggle label .can-toggle__switch:after {
+        padding: 0 35px 0;
+    }
+    .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:before {
+        left: 20px;
+    }
+    .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+        transform: translate3d(80px, 0, 0);
+    }
+}
+
+@media only screen and (max-width: 385px) {
+    .toggle-wrapper {
+        padding-left: 0px !important;
+    }
 }
 </style>
