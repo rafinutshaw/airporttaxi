@@ -9,6 +9,9 @@ Thanks for your registration.
 Start your journey
 @endcomponent
 
-Thanks,<br>
+Regards,<br>
 {{ config('app.name') }}
+___
+
+If you’re having trouble clicking the "Start your journey" button, copy and paste the URL below into your web browser: <{{ config('app.url') }}>
 @endcomponent

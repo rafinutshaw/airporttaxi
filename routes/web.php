@@ -1,14 +1,6 @@
 <?php
 
-use App\Price;
-use App\Booking;
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
-use App\Mail\WelcomeCustomer;
 use App\Vehicle;
-use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -21,64 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/pdf', function () {
-//     $data = [
-//         'name' => 'sezan',
-//         'mobile' => '01687407370',
-//         'email' => 'sezansarker@gmail.com',
-//         'invoiceNo' => 123,
-//         'dateOfInvoice' => Carbon::now()->format('d-m-Y'),
-//         'from' => 'London Airport',
-//         'via' => '221B Baker Street',
-//         'to' => 'Liverpool Airport',
-//         'returnFrom' => 'Liverpool Airport',
-//         'returnTo' => 'London Airport',
-//         'returnVia' => 'Liverpool Stadium',
-//         'journeyDate' => Carbon::now()->format('d-m-Y'),
-//         'passengers' => 2,
-//         'luggage' => 'Hand Luggage',
-//         'totalPrice' => 530.52,
-//     ];
-//     // return view('pdf-template.booking-summery', compact('data'));
-//     $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-//     // return $pdf->stream();
-//     return $pdf->download('booking-summery.pdf');
-// });
-
-// Route::post('/download-PDF', function (Request $request) {
-//     // return $request;
-
-//     $booking = Booking::find($request->id);
-//     if (isset($booking)) {
-//         if ($booking->customer->email == $request->email) {
-//             $data = [
-//                 'name' => $booking->name,
-//                 'mobile' => $booking->mobile,
-//                 'email' => $booking->customer->email,
-//                 'invoiceNo' => $booking->id,
-//                 'dateOfInvoice' => $booking->journey_date,
-//                 'from' => $booking->from,
-//                 'via' => $booking->via,
-//                 'to' => $booking->to,
-//                 'returnFrom' => $booking->returnFrom,
-//                 'returnTo' => $booking->returnTo,
-//                 'returnVia' => $booking->returnVia,
-//                 'journeyDate' => $booking->journey_date,
-//                 'passengers' => $booking->passengers,
-//                 'luggage' => $booking->luggage,
-//                 'totalPrice' => $booking->total_price,
-//             ];
-
-//             $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-//             // return $pdf->stream();
-//             return $pdf->download('booking-summery.pdf');
-//         }
-//     }
-// });
-
 Route::get('/', function () {
     return view('layouts.master');
 });
+
 Auth::routes();
 
 Route::get('/price-list', function () {
