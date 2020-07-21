@@ -43,14 +43,6 @@
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->from }}">
                                             </div>
                                         </div>
-                                        @if (!empty($booking->via))    
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Via Route</label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" readonly class="form-control-plaintext" value="{{ $booking->via }}">
-                                                </div>
-                                            </div>
-                                        @endif
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">To</label>
                                             <div class="col-sm-7">
@@ -63,37 +55,18 @@
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->journey_date }}">
                                             </div>
                                         </div>
-                                        
-                                        {{-- Return Booking --}}
-                                         @if (!empty($booking->returnFrom))  
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Return From</label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" readonly class="form-control-plaintext" value="{{ $booking->returnFrom }}">
-                                                </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Journey Type</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="{{ $booking->journey_type }}">
                                             </div>
-                                            @if (!empty($booking->returnVia))    
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Return Via Route</label>
-                                                    <div class="col-sm-7">
-                                                        <input type="text" readonly class="form-control-plaintext" value="{{ $booking->returnVia }}">
-                                                    </div>
-                                                </div>
-                                            @endif
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Return To</label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" readonly class="form-control-plaintext" value="{{ $booking->returnTo }}">
-                                                </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Distance</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="{{ $booking->distance . " km"}}">
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Return Journey Date</label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" readonly class="form-control-plaintext" value="{{ $booking->return_journey_date }}">
-                                                </div>
-                                            </div>
-                                        @endif
-
+                                        </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Passengers</label>
                                             <div class="col-sm-7">
@@ -106,22 +79,6 @@
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->luggage }}">
                                             </div>
                                         </div>
-                                        {{-- @if (!empty($booking->coupon_id) )    
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Coupon</label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" readonly class="form-control-plaintext" value="{{ $booking->coupon->code }}">
-                                                </div>
-                                            </div>
-                                        @endif --}}
-                                        {{-- @if (!empty($booking->price->price))    
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Price</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="{{ '₤ '. $booking->price->price }}">
-                                            </div>
-                                        </div>
-                                        @endif --}}
 
                                         @if (!empty($booking->discount))
                                             <div class="form-group row">
@@ -156,12 +113,6 @@
                                                     <input type="text" readonly class="form-control-plaintext" value="{{ $booking->flight_origin }}">
                                                 </div>
                                             </div>
-                                            {{-- <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Meet & Greet Service</label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" readonly class="form-control-plaintext" value="{{ $booking->meet_and_greet_service }}">
-                                                </div>
-                                            </div> --}}
                                         @endif
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Booking Status</label>

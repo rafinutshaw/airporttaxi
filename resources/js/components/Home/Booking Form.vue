@@ -277,9 +277,9 @@
                     </div>
                     <!-- <div class="row container-fluid justify-content-end mt-2"> -->
                     
-                    /*
+                    <!-- /*
                     *   Return Booking Toggle Button 
-                    */
+                    */ -->
                     <div class="toggle-wrapper col-sm-7 offset-sm-5 mt-2 pr-0">
                         <!-- <div class="row" @click.prevent="returnBooking"
                             style="cursor: pointer;">
@@ -756,16 +756,20 @@
             </div>
 
             <!-- Prices -->
-            <div class="width-100" v-for="price in priceList" :key="price.id">
+            <div
+                class="width-100"
+                v-for="vehicle in vehicles"
+                :key="vehicle.id"
+            >
                 <input
                     type="radio"
                     name="price"
-                    :value="price.price"
+                    :value="vehicle.price"
                     v-model="journey[0].fare"
                 />
                 <div
                     class="group vehicle row d-flex align-items-center"
-                    @click="selectedPrice(price)"
+                    @click="selectedPrice(vehicle)"
                 >
                     <label
                         class="width-100 d-flex price-section align-items-center"
@@ -775,12 +779,12 @@
                         >
                             <img
                                 class="mr-0 ml-1"
-                                :src="price.image"
+                                :src="vehicle.image"
                                 style="max-width: 5.5rem;"
                             />
                         </div>
                         <div class="container pl-0 pr-0">
-                            <h6 class="mb-0">{{ price.type }}</h6>
+                            <h6 class="mb-0">{{ vehicle.type }}</h6>
                         </div>
                         <div class="container pl-0 pr-0">
                             <p class="mb-0">
@@ -789,17 +793,17 @@
                                         class="fas fa-male pull-right icon-chevron-right"
                                         style="font"
                                     ></i>
-                                    x{{ price.max_passengers }}
+                                    x{{ vehicle.max_passengers }}
                                 </span>
                                 <span
                                     ><i class="fas fa-suitcase pr-1"></i>x{{
-                                        price.luggage
+                                        vehicle.luggage
                                     }}</span
                                 >
                             </p>
                         </div>
                         <div class="container pl-0 pr-0">
-                            <p class="mb-0">£ {{ price.price }}</p>
+                            <p class="mb-0">£ {{ vehicle.totalPrice }}</p>
                         </div>
                     </label>
                 </div>
@@ -1601,7 +1605,7 @@ export default {
 
             originShortName: "",
 
-            priceList: [],
+            vehicles: [],
 
             quoteDetails: {
                 // Journey Details
@@ -1686,7 +1690,7 @@ export default {
 
         // Getting the price list from database
         axios.get("/price-list").then(response => {
-            this.priceList = response.data;
+            this.vehicles = response.data;
         });
     },
     methods: {
@@ -2003,14 +2007,14 @@ export default {
                             this.quoteDetails.viaRouteNames = this.journey[0].viaRouteNames;
 
                             // Distance of the Journey in meters
-                            this.quoteDetails.distance =
-                                response.data.routes[0].distance;
+                            this.quoteDetails.distance = parseFloat(response.data.routes[0].distance / 1000).toFixed(2);
+                            
+                            if (this.journey[0].return == true)
+                                this.quoteDetails.distance *= 2;
 
-                            // Calculating Price
-                            this.priceList.map(item => {
-                                item.price = parseFloat(
-                                    item.price *
-                                        (this.quoteDetails.distance / 1000)
+                            this.vehicles.map((item) => {
+                                item.totalPrice = parseFloat(
+                                    item.price * this.quoteDetails.distance
                                 ).toFixed(2);
                             });
 
