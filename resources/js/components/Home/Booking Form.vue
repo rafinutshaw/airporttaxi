@@ -15,7 +15,7 @@
                         <div class="row pl-3 pr-3">
                             <div
                                 class="form-group input-group col-sm-12 pl-0 pr-0"
-                                style="background-color: white"
+                                style="background-color: white;"
                             >
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
@@ -53,19 +53,26 @@
                                     <template #spinner="{ loading }">
                                         <div
                                             v-if="loading"
-                                            style="border-left-color: rgba(88,151,251,0.71)"
+                                            style="
+                                                border-left-color: rgba(
+                                                    88,
+                                                    151,
+                                                    251,
+                                                    0.71
+                                                );
+                                            "
                                             class="vs__spinner"
                                         ></div>
                                     </template>
                                 </v-select>
                                 <div
                                     class="pl-0 pr-0 align-self-center booking-form-icon-wrapper"
-                                    style="background-color: white"
+                                    style="background-color: white;"
                                 >
                                     <i
                                         class="fa fa-plus-circle d-flex justify-content-center booking-form-icon"
                                         aria-hidden="true"
-                                        style=";"
+                                        style=""
                                         @click.prevent="add"
                                     ></i>
                                 </div>
@@ -140,7 +147,14 @@
                                                 >
                                                     <div
                                                         v-if="loading"
-                                                        style="border-left-color: rgba(88,151,251,0.71)"
+                                                        style="
+                                                            border-left-color: rgba(
+                                                                88,
+                                                                151,
+                                                                251,
+                                                                0.71
+                                                            );
+                                                        "
                                                         class="vs__spinner"
                                                     ></div>
                                                 </template>
@@ -201,7 +215,14 @@
                                     <template #spinner="{ loading }">
                                         <div
                                             v-if="loading"
-                                            style="border-left-color: rgba(88,151,251,0.71)"
+                                            style="
+                                                border-left-color: rgba(
+                                                    88,
+                                                    151,
+                                                    251,
+                                                    0.71
+                                                );
+                                            "
                                             class="vs__spinner"
                                         ></div>
                                     </template>
@@ -250,7 +271,9 @@
                                             class="form-control d-flex flex-column justify-content-center"
                                             readonly
                                             placeholder="Pick-up Date & Time"
-                                            v-model="quoteDetails.journeyDate.Details"
+                                            v-model="
+                                                quoteDetails.journeyDate.Details
+                                            "
                                             type="datetime"
                                             format="YYYY-MM-DD HH:mm"
                                             value-type="YYYY-MM-DD HH:mm:ss"
@@ -276,10 +299,8 @@
                         </div> -->
                     </div>
                     <!-- <div class="row container-fluid justify-content-end mt-2"> -->
-                    
-                    <!-- /*
-                    *   Return Booking Toggle Button 
-                    */ -->
+
+                    <!-- Return Booking Toggle Button  -->
                     <div class="toggle-wrapper col-sm-7 offset-sm-5 mt-2 pr-0">
                         <!-- <div class="row" @click.prevent="returnBooking"
                             style="cursor: pointer;">
@@ -289,293 +310,25 @@
                         </div> -->
 
                         <div class="can-toggle">
-                            <input id="a" type="checkbox" v-model="journey[0].return">
+                            <input
+                                id="a"
+                                type="checkbox"
+                                v-model="journey[0].return"
+                            />
                             <label for="a">
-                                <div class="can-toggle__switch" data-checked="Return Trip" data-unchecked="One Way"></div>
+                                <div
+                                    class="can-toggle__switch"
+                                    data-checked="Return Trip"
+                                    data-unchecked="One Way"
+                                ></div>
                             </label>
                         </div>
-                    </div>
-
-                    <!-- /*
-                    ? Return Booking
-                    */ -->
-                    <div
-                        v-if="journey[0].return && validateQuote"
-                        class="mt-2 mb-3"
-                    >
-                        <div class="mb-2 pickup-point">
-                            <div class="row pl-3 pr-3">
-                                <div
-                                    class="form-group input-group col-sm-12 pl-0 pr-0"
-                                    style="background-color: white"
-                                >
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i
-                                                class="fas fa-map-marker-alt"
-                                            ></i>
-                                        </div>
-                                    </div>
-                                    <v-select
-                                        label="text_en"
-                                        placeholder="Enter your pickup point"
-                                        class="form-control d-flex flex-column justify-content-center style-chooser"
-                                        v-model="item.destination"
-                                        :filterable="false"
-                                        :options="options"
-                                        :disabled="true"
-                                        :closeOnSelect="true"
-                                    >
-                                        <template slot="no-options">
-                                            type to search Places..
-                                        </template>
-                                        <template
-                                            slot="option"
-                                            slot-scope="option"
-                                        >
-                                            <div class="d-center">
-                                                {{ option.text_en }}
-                                            </div>
-                                        </template>
-                                        <template
-                                            slot="selected-option"
-                                            slot-scope="option"
-                                        >
-                                            <div class="selected d-center">
-                                                {{ option.text_en }}
-                                            </div>
-                                        </template>
-
-                                        <!-- Loading Spinner -->
-                                        <template #spinner="{ loading }">
-                                            <div
-                                                v-if="loading"
-                                                style="border-left-color: rgba(88,151,251,0.71)"
-                                                class="vs__spinner"
-                                            ></div>
-                                        </template>
-                                    </v-select>
-                                    <div
-                                        class="pl-0 pr-0 align-self-center booking-form-icon-wrapper"
-                                        style="background-color: white"
-                                    >
-                                        <i
-                                            class="fa fa-plus-circle d-flex justify-content-center booking-form-icon"
-                                            aria-hidden="true"
-                                            style=";"
-                                            @click.prevent="addReturnVia"
-                                        ></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="form-group input-group via-route"
-                            v-show="!index && item.returnVia.length > 0"
-                        >
-                            <draggable
-                                tag="div"
-                                :list="item.returnVia"
-                                class="form-group"
-                                handle=".handle"
-                            >
-                                <div
-                                    v-for="(viaItem,
-                                    viaIndex) in item.returnVia"
-                                    :key="viaIndex"
-                                >
-                                    <div class="mb-2 mt-2">
-                                        <div
-                                            class="row pl-3 pr-3 justify-content-end"
-                                        >
-                                            <div
-                                                class="form-group input-group col-sm-11 pl-0 pr-0 bg-white"
-                                            >
-                                                <div
-                                                    class="input-group-prepend grab"
-                                                >
-                                                    <div
-                                                        class="input-group-text"
-                                                    >
-                                                        <i
-                                                            class="fa fa-align-justify handle"
-                                                        ></i>
-                                                    </div>
-                                                </div>
-                                                <v-select
-                                                    label="text_en"
-                                                    placeholder="Enter your Via Route point"
-                                                    class="form-control d-flex flex-column justify-content-center style-chooser"
-                                                    v-model="viaItem.route"
-                                                    :filterable="false"
-                                                    :options="options"
-                                                    @search="onSearch"
-                                                    :closeOnSelect="true"
-                                                >
-                                                    <template slot="no-options">
-                                                        type to search Places..
-                                                    </template>
-                                                    <template
-                                                        slot="option"
-                                                        slot-scope="option"
-                                                    >
-                                                        <div class="d-center">
-                                                            {{ option.text_en }}
-                                                        </div>
-                                                    </template>
-                                                    <template
-                                                        slot="selected-option"
-                                                        slot-scope="option"
-                                                    >
-                                                        <div
-                                                            class="selected d-center"
-                                                        >
-                                                            {{ option.text_en }}
-                                                        </div>
-                                                    </template>
-
-                                                    <!-- Loading Spinner -->
-                                                    <template
-                                                        #spinner="{ loading }"
-                                                    >
-                                                        <div
-                                                            v-if="loading"
-                                                            style="border-left-color: rgba(88,151,251,0.71)"
-                                                            class="vs__spinner"
-                                                        ></div>
-                                                    </template>
-                                                </v-select>
-                                                <div
-                                                    class="col-sm-1 pl-0 pr-0 align-self-center booking-form-icon-wrapper"
-                                                >
-                                                    <i
-                                                        class="fas fa-times-circle d-flex justify-content-center booking-form-icon"
-                                                        aria-hidden="true"
-                                                        @click.prevent="
-                                                            removeReturnVia(
-                                                                viaIndex
-                                                            )
-                                                        "
-                                                    ></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </draggable>
-                        </div>
-                        <div class="row">
-                            <div class="mt-2 dropoff-point col-sm-12">
-                                <div class="form-group input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i
-                                                class="fas fa-map-marker-alt"
-                                            ></i>
-                                        </div>
-                                    </div>
-                                    <v-select
-                                        label="text_en"
-                                        placeholder="Enter your Drop off point"
-                                        class="form-control d-flex flex-column justify-content-center style-chooser"
-                                        v-model="item.origin"
-                                        :filterable="false"
-                                        :options="options"
-                                        :disabled="true"
-                                        :clearSearchOnSelect="true"
-                                    >
-                                        <template slot="no-options">
-                                            type to search Places..
-                                        </template>
-                                        <template
-                                            slot="option"
-                                            slot-scope="option"
-                                        >
-                                            <div class="d-center">
-                                                {{ option.text_en }}
-                                            </div>
-                                        </template>
-                                        <template
-                                            slot="selected-option"
-                                            slot-scope="option"
-                                        >
-                                            <div class="selected d-center">
-                                                {{ option.text_en }}
-                                            </div>
-                                        </template>
-
-                                        <!-- Loading Spinner -->
-                                        <template #spinner="{ loading }">
-                                            <div
-                                                v-if="loading"
-                                                style="border-left-color: rgba(88,151,251,0.71)"
-                                                class="vs__spinner"
-                                            ></div>
-                                        </template>
-                                    </v-select>
-                                </div>
-
-                                <!-- Starting Map Error -->
-                                <div v-if="mapData.errors.length > 0">
-                                    <div
-                                        class="mt-4 alert alert-danger alert-dismissible fade show"
-                                        role="alert"
-                                    >
-                                        {{ mapData.errors }}
-                                        <button
-                                            type="button"
-                                            class="close"
-                                            data-dismiss="alert"
-                                            aria-label="Close"
-                                        >
-                                            <span aria-hidden="true"
-                                                >&times;</span
-                                            >
-                                        </button>
-                                    </div>
-                                </div>
-                                <!-- Ending Map Error -->
-                            </div>
-                        </div>
-
-                        <!-- Return Pick-up Date & Time -->
-                        <!-- <div
-                            class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0 mt-3"
-                        >
-                            <div class="width-100">
-                                <div class="mb-2">
-                                    <label>Pick-up Date & Time</label>
-                                    <div class="form-row align-items-center">
-                                        <div class="col">
-                                            <div class="input-group mb-2">
-                                                <date-picker
-                                                    class="width-100"
-                                                    readonly
-                                                    placeholder="---"
-                                                    v-model="
-                                                        quoteDetails.returnDate
-                                                    "
-                                                    type="datetime"
-                                                    format="YYYY-MM-DD HH:mm"
-                                                    value-type="YYYY-MM-DD HH:mm:ss"
-                                                    :disabled-date="
-                                                        notBeforeJourneyDate
-                                                    "
-                                                    :editable="false"
-                                                >
-                                                </date-picker>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
                 <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
                     <button
                         class="btn btn-block btn-primary mt-2"
-                        style="border-radius: 0px; width: 100%"
+                        style="border-radius: 0px; width: 100%;"
                         :disabled="!validateQuote"
                         @click.prevent="submitQuote"
                     >
@@ -685,51 +438,38 @@
                 <ul class="list-unstyled origin mb-1">
                     <li>
                         <span class="d-flex">
-                            <p class="mb-0 mr-1"><strong>Start: </strong></p>
+                            <p class="mb-0" style="min-width: 45px;">
+                                <strong>Start: </strong>
+                            </p>
                             {{ journey[0].origin.text }}
                         </span>
                     </li>
                     <div v-if="journey[0].via.length > 0">
                         <li>
                             <span class="d-flex">
-                                <p class="mb-0 mr-1"><strong>Via: </strong></p>
+                                <p class="mb-0" style="min-width: 45px;">
+                                    <strong>Via: </strong>
+                                </p>
                                 {{ journey[0].viaRouteNames }}
                             </span>
                         </li>
                     </div>
                     <li>
                         <span class="d-flex">
-                            <p class="mb-0 mr-2"><strong>End: </strong></p>
+                            <p class="mb-0" style="min-width: 45px;">
+                                <strong>End: </strong>
+                            </p>
                             {{ journey[0].destination.text }}
                         </span>
                     </li>
-                    <div v-if="journey[0].return" class="mt-2">
-                        <h6>Return Journey</h6>
-                        <li>
-                            <span class="d-flex">
-                                <p class="mb-0 mr-1">
-                                    <strong>Start: </strong>
-                                </p>
-                                {{ journey[0].returnFrom.text }}
-                            </span>
-                        </li>
-                        <div v-if="journey[0].returnVia.length > 0">
-                            <li>
-                                <span class="d-flex">
-                                    <p class="mb-0 mr-1">
-                                        <strong>Via: </strong>
-                                    </p>
-                                    {{ journey[0].returnViaRouteNames }}
-                                </span>
-                            </li>
-                        </div>
-                        <li>
-                            <span class="d-flex">
-                                <p class="mb-0 mr-2"><strong>End: </strong></p>
-                                {{ journey[0].returnTo.text }}
-                            </span>
-                        </li>
-                    </div>
+                    <li>
+                        <span class="d-flex">
+                            <p class="mb-0" style="min-width: 45px;">
+                                <strong>Type: </strong>
+                            </p>
+                            {{ journey[0].return ? "Return Trip" : "One Way" }}
+                        </span>
+                    </li>
                 </ul>
             </div>
 
@@ -741,15 +481,15 @@
                         container: 'map',
                         style: 'mapbox://styles/mapbox/streets-v11',
                         center: mapData.center,
-                        zoom: 13
+                        zoom: 13,
                     }"
                     :geolocate-control="{
                         show: true,
-                        position: 'top-left'
+                        position: 'top-left',
                     }"
                     :fullscreen-control="{
                         show: true,
-                        position: 'top-left'
+                        position: 'top-left',
                     }"
                     @map-load="loaded"
                 />
@@ -826,7 +566,7 @@
                         type="button"
                         class="btn btn-primary"
                         @click="submitFare"
-                        :disabled="journey[0].fare === null"
+                        :disabled="quoteDetails.fare === null"
                     >
                         Select Fare
                         <i
@@ -937,7 +677,7 @@
                     <div
                         v-show="
                             journey[0].originType == 'airport' ||
-                                journey[0].originType == 'terminal'
+                            journey[0].originType == 'terminal'
                         "
                     >
                         <label>Passport Details</label>
@@ -1069,14 +809,13 @@
         * ? Starting Basket
         */ -->
 
-        <div class="basket" v-if="formStage.basket" 
-            style="text-align: left;">
+        <div class="basket" v-if="formStage.basket" style="text-align: left;">
             <div class="row continue-to-basket ml-0 mr-0">
                 <div class="row continue-to-basket ml-0 mr-0 mt-2 width-100">
                     <div
                         class="d-flex after-successfull-booking-details ml-0 mr-0 mt-2"
                     >
-                        <div class="width-100" style="font-size: 13px">
+                        <div class="width-100" style="font-size: 13px;">
                             <h5 class="text-black text-left mt-2 mb-2">
                                 Trip Details
                             </h5>
@@ -1088,39 +827,20 @@
                                         <tr>
                                             <th scope="row">Pickup</th>
                                             <td>
-                                                {{
-                                                    quoteDetails.originName
-                                                }}
+                                                {{ quoteDetails.originName }}
                                             </td>
                                         </tr>
                                         <tr v-if="journey[0].viaRouteNames">
                                             <th scope="row">Via</th>
                                             <td>
-                                                {{
-                                                    journey[0].viaRouteNames
-                                                }}
+                                                {{ journey[0].viaRouteNames }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Dropoff</th>
                                             <td>
                                                 {{
-                                                    journey[0].return ? 
-                                                    quoteDetails.returnTo :
                                                     quoteDetails.destinationName
-                                                }}
-                                            </td>
-                                        </tr>
-                                        <tr
-                                            v-if="
-                                                journey[0].returnViaRouteNames
-                                            "
-                                        >
-                                            <th scope="row">Return Via</th>
-                                            <td>
-                                                {{
-                                                    journey[0]
-                                                        .returnViaRouteNames
                                                 }}
                                             </td>
                                         </tr>
@@ -1128,16 +848,16 @@
                                             <th scope="row">Booking Type</th>
                                             <td>
                                                 {{
-                                                    journey[0].return ? "Return" : "One way"
+                                                    journey[0].return
+                                                        ? "Return Trip"
+                                                        : "One way"
                                                 }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Vehicle Type</th>
                                             <td>
-                                                {{
-                                                    journey[0].vehicle.type
-                                                }}
+                                                {{ journey[0].vehicle.type }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -1147,7 +867,8 @@
                                                     (quoteDetails.journeyDate.Day + ",")
                                                 }}
                                                 {{
-                                                    quoteDetails.journeyDate.Date
+                                                    quoteDetails.journeyDate
+                                                        .Date
                                                 }}
                                             </td>
                                         </tr>
@@ -1155,7 +876,8 @@
                                             <th scope="row">Pick up Time</th>
                                             <td>
                                                 {{
-                                                    quoteDetails.journeyDate.Time
+                                                    quoteDetails.journeyDate
+                                                        .Time
                                                 }}
                                             </td>
                                         </tr>
@@ -1165,7 +887,7 @@
                                                 <span
                                                     v-if="
                                                         quoteDetails.luggage !==
-                                                            'None'
+                                                        'None'
                                                     "
                                                 >
                                                     & Luggage
@@ -1181,7 +903,7 @@
                                                 <span
                                                     v-if="
                                                         quoteDetails.luggage !==
-                                                            'None'
+                                                        'None'
                                                     "
                                                 >
                                                     & {{ quoteDetails.luggage }}
@@ -1196,9 +918,7 @@
                                                 Total Fare
                                             </th>
                                             <td class="table-primary">
-                                                £{{
-                                                    quoteDetails.fare
-                                                }}
+                                                £{{ quoteDetails.fare }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -1251,7 +971,7 @@
                 </div>
 
                 <div class="d-flex passenger-details ml-0 mr-0 mt-2">
-                    <div style="font-size: 12px">
+                    <div style="font-size: 12px;">
                         I have read and agree to the
                         <a href="http://" target="_blank">privacy policy</a> &
                         <a href="http://" target="_blank">terms</a> of booking
@@ -1294,7 +1014,7 @@
                             Pay Now
                             <i
                                 class="fas fa-credit-card ml-1"
-                                style="font-size: 13px"
+                                style="font-size: 13px;"
                             ></i>
                         </button>
                     </div>
@@ -1310,11 +1030,14 @@
         * TODO:     Stage 6
         * ? Starting After Booking Submission
         */ -->
-        <div class="basket" v-if="formStage.submittedStatus"
-            style="text-align: left;">
+        <div
+            class="basket"
+            v-if="formStage.submittedStatus"
+            style="text-align: left;"
+        >
             <div class="row continue-to-basket ml-0 mr-0">
                 <div class="d-flex after-successfull-booking ml-0 mr-0 mt-2">
-                    <div style="font-size: 13px">
+                    <div style="font-size: 13px;">
                         <h5 class="text-black text-center">
                             Booking <b>successful</b>
                             <i class="fas fa-check text-primary ml-1"></i>
@@ -1332,7 +1055,7 @@
                                 Download Ticket
                                 <i
                                     class="fas fa-ticket-alt ml-1"
-                                    style="font-size: 13px"
+                                    style="font-size: 13px;"
                                 ></i>
                             </button>
                         </div>
@@ -1344,7 +1067,7 @@
                 <div
                     class="d-flex after-successfull-booking-details ml-0 mr-0 mt-2"
                 >
-                    <div style="font-size: 13px">
+                    <div style="font-size: 13px;">
                         <p class="text-black-50 text-center mb-1">
                             Your request to book a transport for your trip in UK
                             Airport Taxi was <b>successful</b>. Below are the
@@ -1352,7 +1075,7 @@
                             Thank you.
                         </p>
 
-                        <div class="width-100" style="font-size: 13px">
+                        <div class="width-100" style="font-size: 13px;">
                             <h5 class="text-black text-left mt-2 mb-2">
                                 Trip Details
                             </h5>
@@ -1364,39 +1087,20 @@
                                         <tr>
                                             <th scope="row">Pickup</th>
                                             <td>
-                                                {{
-                                                    quoteDetails.originName
-                                                }}
+                                                {{ quoteDetails.originName }}
                                             </td>
                                         </tr>
                                         <tr v-if="journey[0].viaRouteNames">
                                             <th scope="row">Via</th>
                                             <td>
-                                                {{
-                                                    journey[0].viaRouteNames
-                                                }}
+                                                {{ journey[0].viaRouteNames }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Dropoff</th>
                                             <td>
                                                 {{
-                                                    journey[0].return ? 
-                                                    quoteDetails.returnTo :
                                                     quoteDetails.destinationName
-                                                }}
-                                            </td>
-                                        </tr>
-                                        <tr
-                                            v-if="
-                                                journey[0].returnViaRouteNames
-                                            "
-                                        >
-                                            <th scope="row">Return Via</th>
-                                            <td>
-                                                {{
-                                                    journey[0]
-                                                        .returnViaRouteNames
                                                 }}
                                             </td>
                                         </tr>
@@ -1404,16 +1108,16 @@
                                             <th scope="row">Booking Type</th>
                                             <td>
                                                 {{
-                                                    journey[0].return ? "Return" : "One way"
+                                                    journey[0].return
+                                                        ? "Return Trip"
+                                                        : "One way"
                                                 }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Vehicle Type</th>
                                             <td>
-                                                {{
-                                                    journey[0].vehicle.type
-                                                }}
+                                                {{ journey[0].vehicle.type }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -1423,7 +1127,8 @@
                                                     (quoteDetails.journeyDate.Day + ",")
                                                 }}
                                                 {{
-                                                    quoteDetails.journeyDate.Date
+                                                    quoteDetails.journeyDate
+                                                        .Date
                                                 }}
                                             </td>
                                         </tr>
@@ -1431,7 +1136,8 @@
                                             <th scope="row">Pick up Time</th>
                                             <td>
                                                 {{
-                                                    quoteDetails.journeyDate.Time
+                                                    quoteDetails.journeyDate
+                                                        .Time
                                                 }}
                                             </td>
                                         </tr>
@@ -1441,7 +1147,7 @@
                                                 <span
                                                     v-if="
                                                         quoteDetails.luggage !==
-                                                            'None'
+                                                        'None'
                                                     "
                                                 >
                                                     & Luggage
@@ -1457,7 +1163,7 @@
                                                 <span
                                                     v-if="
                                                         quoteDetails.luggage !==
-                                                            'None'
+                                                        'None'
                                                     "
                                                 >
                                                     & {{ quoteDetails.luggage }}
@@ -1472,9 +1178,7 @@
                                                 Total Fare
                                             </th>
                                             <td class="table-primary">
-                                                £{{
-                                                    quoteDetails.fare
-                                                }}
+                                                £{{ quoteDetails.fare }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -1575,7 +1279,7 @@ export default {
         vSelect,
         DatePicker,
         mapboxgl,
-        Mapbox
+        Mapbox,
     },
     data() {
         return {
@@ -1596,11 +1300,11 @@ export default {
                     priceId: null,
                     fare: null,
                     vehicle: {
-                        type: "Saloon"
+                        type: "",
                     },
                     max_passengers: [],
-                    luggage: []
-                }
+                    luggage: [],
+                },
             ],
 
             originShortName: "",
@@ -1613,22 +1317,16 @@ export default {
                 originType: "",
                 destinationName: "",
                 viaRouteNames: "",
+                journeyType: "",
 
                 journeyDate: {
                     Details: "",
                     Day: "",
                     Date: "",
-                    Time: ""
+                    Time: "",
                 },
 
                 distance: null,
-
-                // Return Values
-                returnFrom: "",
-                returnTo: "",
-                returnVia: "",
-                // returnDate: null,
-
                 fare: null,
 
                 // Passenger Details
@@ -1638,22 +1336,21 @@ export default {
                 passport: "",
                 flightNumber: "",
                 flightOrigin: "",
-                meetAndGreetService: "",
                 passengers: 1,
                 luggage: "None",
 
                 agreedWithTerms: false,
 
-                afterSubmittedBookingId: null
+                afterSubmittedBookingId: null,
             },
 
             formStage: {
-                    place: true,
-                    details: false,
-                    journeyFare: false,
-                    basket: false,
-                    submittedStatus: false
-                },
+                place: true,
+                details: false,
+                journeyFare: false,
+                basket: false,
+                submittedStatus: false,
+            },
             // Ending Journey Details Form
 
             options: [],
@@ -1662,7 +1359,7 @@ export default {
                 mapStyle: "mapbox://styles/mapbox/streets-v11",
                 accessToken:
                     "pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2J6NTM4dDkwOGVzMzJtcnlvNnU0c2t2In0.Qpmm_jb0gzc16AN-UqIENA",
-                postUrl: null
+                postUrl: null,
             },
 
             mapData: {
@@ -1675,8 +1372,8 @@ export default {
                 start: "",
                 end: "",
                 responseCode: "",
-                errors: ""
-            }
+                errors: "",
+            },
         };
     },
     mounted() {
@@ -1689,26 +1386,15 @@ export default {
         }
 
         // Getting the price list from database
-        axios.get("/price-list").then(response => {
+        axios.get("/price-list").then((response) => {
             this.vehicles = response.data;
         });
     },
     methods: {
-        clicked(pass){
-            console.log(pass);
-        },
-        selectedPrice(price) {
-            this.journey[0].vehicle = price;
-            this.journey[0].fare = price.price;
-        },
-        selectOnlyThis(id) {
-            var myRadioButton = document.getElementsByClassName(
-                "group vehicle"
-            );
-            // Array.prototype.forEach.call(myRadioButton, element => {
-            //     element.lastElementChild.lastElementChild.checked = false;
-            // });
-            // myRadioButton[id-1].lastElementChild.lastElementChild.checked = true;
+        selectedPrice(vehicle) {
+            this.journey[0].vehicle = vehicle;
+            this.journey[0].fare = vehicle.price;
+            this.quoteDetails.fare = vehicle.totalPrice;
         },
         // Adding a via route
         add() {
@@ -1720,36 +1406,6 @@ export default {
         // Remove a via route
         removeVia(index) {
             this.journey[0].via.splice(index, 1);
-        },
-
-        // Adding a Return via route
-        addReturnVia() {
-            this.journey[0].returnVia.push({});
-        },
-
-        // Remove a Return via route
-        removeReturnVia(index) {
-            console.log(this.journey[0].returnVia[index]);
-
-            this.journey[0].returnVia.splice(index, 1);
-        },
-
-        returnBooking() {
-            this.journey[0].return = !this.journey[0].return;
-            if (this.validateArrayObject(this.journey[0].via)) {
-                // console.log(`Via:`);
-                // console.log(this.journey[0].via);
-
-                this.journey[0].returnFrom = this.journey[0].destination;
-                this.journey[0].returnTo = this.journey[0].origin;
-                this.journey[0].returnVia = [];
-
-                for (var i = this.journey[0].via.length - 1; i >= 0; i--) {
-                    this.journey[0].returnVia.push(this.journey[0].via[i]);
-                }
-                // console.log(`Reverse Via:`);
-                // console.log(this.journey[0].returnVia);
-            }
         },
         // Function to search a place
         onSearch(search, loading) {
@@ -1764,7 +1420,7 @@ export default {
                     .get(
                         `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${vm.mapBox.accessToken}&country=gb&language=en&limit=5&types=address,poi`
                     )
-                    .then(response => {
+                    .then((response) => {
                         vm.options = response.data.features;
                     });
             }
@@ -1782,11 +1438,11 @@ export default {
                             properties: {},
                             geometry: {
                                 type: "LineString",
-                                coordinates: this.mapData.coordinates
-                            }
-                        }
-                    ]
-                }
+                                coordinates: this.mapData.coordinates,
+                            },
+                        },
+                    ],
+                },
             });
             map.addLayer({
                 id: "route",
@@ -1794,12 +1450,12 @@ export default {
                 source: "route",
                 layout: {
                     "line-join": "round",
-                    "line-cap": "round"
+                    "line-cap": "round",
                 },
                 paint: {
                     "line-color": "#888",
-                    "line-width": 8
-                }
+                    "line-width": 8,
+                },
             });
             new mapboxgl.Marker()
                 .setLngLat(this.mapData.coordinates[0])
@@ -1819,31 +1475,31 @@ export default {
                     {
                         type: "Feature",
                         properties: {
-                            description: this.mapData.start
+                            description: this.mapData.start,
                         },
                         geometry: {
                             type: "Point",
-                            coordinates: this.mapData.coordinates[0]
-                        }
+                            coordinates: this.mapData.coordinates[0],
+                        },
                     },
                     {
                         type: "Feature",
                         properties: {
-                            description: this.mapData.end
+                            description: this.mapData.end,
                         },
                         geometry: {
                             type: "Point",
                             coordinates: this.mapData.coordinates[
                                 this.mapData.coordinates.length - 1
-                            ]
-                        }
-                    }
-                ]
+                            ],
+                        },
+                    },
+                ],
             };
 
             map.addSource("places", {
                 type: "geojson",
-                data: places
+                data: places,
             });
             map.addLayer({
                 id: "poi-labels",
@@ -1854,8 +1510,8 @@ export default {
                     "text-variable-anchor": ["top", "bottom", "left", "right"],
                     "text-radial-offset": 0.5,
                     "text-justify": "auto",
-                    "icon-image": ["concat", ["get", "icon"], "-15"]
-                }
+                    "icon-image": ["concat", ["get", "icon"], "-15"],
+                },
             });
         },
 
@@ -1901,41 +1557,6 @@ export default {
                     ","
                 );
 
-                // ? Checking is there is any return via route
-                if (this.journey[0].returnVia.length) {
-                    this.mapData.fullRoutes += ";";
-
-                    let returnViaRoutes = this.journey[0].returnVia;
-
-                    for (let i = 0; i < returnViaRoutes.length; i++) {
-                        // Checking if user adds a route field and input something or not
-                        if (_.isEmpty(returnViaRoutes[i].route)) continue;
-
-                        // Storing via route names so that we can show those name later
-                        this.journey[0].returnViaRouteNames +=
-                            returnViaRoutes[i].route.text + ", ";
-
-                        // If there is any via route then concate it with mapData.fullRoutes
-                        this.mapData.fullRoutes +=
-                            returnViaRoutes[i].route.geometry.coordinates.join(
-                                ","
-                            ) + ";";
-                    }
-
-                    this.mapData.fullRoutes += this.journey[0].origin.geometry.coordinates.join(
-                        ","
-                    );
-
-                    // Checking if via routes are there and if so then delete last two words
-                    // Because last two words of this string are "," & " "
-                    if (this.journey[0].returnViaRouteNames.length) {
-                        this.journey[0].returnViaRouteNames = this.journey[0].returnViaRouteNames.slice(
-                            0,
-                            -2
-                        );
-                    }
-                }
-
                 // Getting the origin / pickup point type
                 if (this.journey[0].origin.properties.maki) {
                     this.journey[0].originType = this.journey[0].origin.properties.maki;
@@ -1945,7 +1566,7 @@ export default {
                     coordinates: this.mapData.fullRoutes,
                     geometries: "geojson",
                     overview: "full",
-                    steps: false
+                    steps: false,
                 });
 
                 axios({
@@ -1953,21 +1574,19 @@ export default {
                     url: this.mapBox.postUrl,
                     data,
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    }
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
                 })
-                    .then(response => {
+                    .then((response) => {
                         if (
                             response.data.code != "Ok" &&
                             response.status != 200 &&
                             (!this.journey[0].origin ||
                                 !this.journey[0].destination)
                         ) {
-                            
                             this.mapBox.fullRoutes = "";
                             reject(false);
-                        }
-                        else if (
+                        } else if (
                             response.data.code === "NoRoute" &&
                             response.status == 200
                         ) {
@@ -2007,41 +1626,27 @@ export default {
                             this.quoteDetails.viaRouteNames = this.journey[0].viaRouteNames;
 
                             // Distance of the Journey in meters
-                            this.quoteDetails.distance = parseFloat(response.data.routes[0].distance / 1000).toFixed(2);
+                            this.quoteDetails.distance = parseFloat(response.data.routes[0].distance / 1000);
                             
+                            // Convert string to number
+                            this.quoteDetails.distance = +this.quoteDetails.distance.toFixed(2);
+
                             if (this.journey[0].return == true)
                                 this.quoteDetails.distance *= 2;
 
+                            // Calculating Price
                             this.vehicles.map((item) => {
                                 item.totalPrice = parseFloat(
                                     item.price * this.quoteDetails.distance
                                 ).toFixed(2);
                             });
-
-                            if (this.journey[0].return == true) {
-                                this.quoteDetails.returnFrom = this.journey[0].returnFrom.text;
-                                this.quoteDetails.returnTo = this.journey[0].returnTo.text;
-                                this.quoteDetails.returnVia = this.journey[0].returnVia;
-                            }
                             resolve(true);
                         }
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         this.mapData.errors = "The given input was not valid.";
                         reject(false);
                     });
-            });
-        },
-
-        // Used before
-        submittedQuote() {
-            return new Promise((resolve, reject) => {
-                // setTimeout(() => {
-                //     if (!this.journey[0].origin || !this.journey[0].destination)
-                //         reject(false);
-                //     else resolve(true);
-                // }, 1000);
-                this.mapBoxPostRequest(resolve, reject);
             });
         },
 
@@ -2057,7 +1662,7 @@ export default {
                 [
                     this.quoteDetails.journeyDate.Day,
                     this.quoteDetails.journeyDate.Date,
-                    this.quoteDetails.journeyDate.Time
+                    this.quoteDetails.journeyDate.Time,
                 ] = formateDate.split(",");
             });
         },
@@ -2071,18 +1676,16 @@ export default {
             this.mapData.coordinates = this.mapData.center = [];
             this.journey[0].viaRouteNames = "";
 
-            // Return
-            if (this.journey[0].return == true) {
-                // this.journey[0].returnFrom = "";
-                // this.journey[0].returnTo = "";
-                this.journey[0].returnViaRouteNames = "";
-            }
-
             this.quoteDetails.originName = "";
             this.quoteDetails.originType = "";
 
             this.quoteDetails.destinationName = "";
             this.quoteDetails.viaRouteNames = "";
+
+            this.quoteDetails.distance = null;
+            this.vehicles.forEach((item) => {
+                item.totalPrice = null;
+            });
 
             $("html,body").scrollTop(0);
         },
@@ -2091,7 +1694,7 @@ export default {
             this.formStage.journeyFare = false;
             this.formStage.details = true;
 
-            this.quoteDetails.fare = this.journey[0].fare;
+            // this.quoteDetails.fare = this.journey[0].fare;
 
             for (let i = 1; i <= this.journey[0].vehicle.max_passengers; i++) {
                 this.journey[0].max_passengers.push(i);
@@ -2100,14 +1703,6 @@ export default {
             for (let i = 1; i <= this.journey[0].vehicle.luggage; i++) {
                 this.journey[0].luggage.push(i);
             }
-
-            // axios
-            //     .post("/get-price", {
-            //         price_id: this.journey[0].fare
-            //     })
-            //     .then(response => {
-            //         this.quoteDetails.fare = response.data;
-            //     });
 
             $("html,body").scrollTop(0);
         },
@@ -2145,6 +1740,10 @@ export default {
         },
 
         payNow() {
+            this.journey[0].return == true
+                ? (this.quoteDetails.journeyType = "Return Trip")
+                : (this.quoteDetails.journeyType = "One Way");
+
             this.data = {
                 name: this.quoteDetails.name,
                 email: this.quoteDetails.email,
@@ -2154,28 +1753,25 @@ export default {
                 to: this.quoteDetails.destinationName,
                 journey_date: this.quoteDetails.journeyDate.Details,
 
-                returnFrom: this.quoteDetails.returnFrom,
-                returnTo: this.quoteDetails.returnTo,
-                returnVia: this.journey[0].returnViaRouteNames,
-                // return_journey_date: this.quoteDetails.returnDate,
+                journey_type: this.quoteDetails.journeyType,
+                distance: this.quoteDetails.distance,
 
                 passengers: this.quoteDetails.passengers,
                 luggage: this.quoteDetails.luggage,
-                // coupon_id: this.quoteDetails.coupon_id,
-                // price_id: this.quoteDetails.priceId,
+
                 discount: this.quoteDetails.discount,
                 total_price: parseFloat(this.quoteDetails.fare),
                 passport: this.quoteDetails.passport,
                 flight_number: this.quoteDetails.flightNumber,
                 flight_origin: this.quoteDetails.flightOrigin,
-                meet_and_greet_service: this.quoteDetails.meetAndGreetService,
-                booking_status_id: 0
+                booking_status_id: 0,
             };
 
-            axios.post("/submit-booking", this.data).then(response => {
+            axios.post("/submit-booking", this.data).then((response) => {
                 this.formStage.basket = false;
                 this.formStage.submittedStatus = true;
-                this.quoteDetails.afterSubmittedBookingId = response.data.bookingId;
+                this.quoteDetails.afterSubmittedBookingId =
+                    response.data.bookingId;
 
                 // Swal.fire({
                 //     icon: "success",
@@ -2207,9 +1803,9 @@ export default {
                 responseType: "blob",
                 data: {
                     id: this.quoteDetails.afterSubmittedBookingId,
-                    email: this.quoteDetails.email
-                }
-            }).then(response => {
+                    email: this.quoteDetails.email,
+                },
+            }).then((response) => {
                 this.downloadFile(response.data, "booking-summery.pdf");
             });
         },
@@ -2233,7 +1829,7 @@ export default {
             link.href = data;
             link.download = fileName;
             link.click();
-            setTimeout(function() {
+            setTimeout(function () {
                 // For Firefox it is necessary to delay revoking the ObjectURL
                 window.URL.revokeObjectURL(data);
             }, 100);
@@ -2242,46 +1838,11 @@ export default {
         windowReload() {
             window.location = "/";
         },
-
-        // downloadAndSendEmail() {
-        //     axios({
-        //         url: "/send-email",
-        //         method: "POST",
-        //         responseType: "blob",
-        //         data: {
-        //             id: 76,
-        //             email: "sezansarker@gmail.com"
-        //         }
-        //     }).then(response => {
-        //         console.log(response.data);
-        //         // this.downloadFile(response.data, "booking-summery.pdf")
-        //     });
-        // }
     },
     created() {
         this.mapBox.postUrl = `https://api.mapbox.com/directions/v5/mapbox/driving?access_token=${this.mapBox.accessToken}`;
     },
     computed: {
-        viaRouteChange(index) {
-            // if (this.journey[0].via[index].route && this.journey[0].return) {
-            //     let length = this.journey[0].via.length();
-            //     this.journey[0].returnVia[length - index - 1] = this.journey[0].via[index];
-            // }
-            // this.journey[0].via.forEach((element, index) => {
-            //     if (element.route && this.journey[0].return && viaIndex == index) {
-            //         console.log(this.journey[0].via[index]);
-
-            //     }
-            //     // if (element.route && this.journey[0].return) {
-            //     //     // this.journey[0].returnVia = [];
-            //     //     // for (var i = this.journey[0].via.length - 1; i >= 0; i--) {
-            //     //     //     this.journey[0].returnVia.push(this.journey[0].via[i]);
-            //     //     // }
-            //     //     console.log("viaroutechange");
-            //     // }
-            // });
-            // console.log(index);
-        },
         validateQuote() {
             if (
                 this.journey[0].origin &&
@@ -2321,20 +1882,15 @@ export default {
                     return true;
                 else return false;
             }
-        }
+        },
     },
     watch: {
         journey() {
             for (var i = this.journey[0].via.length - 1; i >= 0; i--) {
                 this.journey[0].returnVia.push(this.journey[0].via[i]);
             }
-        }
-        // viaRouteChange() {
-        //     this.journey[0].via.forEach(element => {
-        //         console.log(element);
-        //     });
-        // },
-    }
+        },
+    },
 };
 </script>
 
@@ -2735,144 +2291,165 @@ div.vehicle {
 *   Return Booking Toggle Button
 */
 .can-toggle {
-  position: relative;
+    position: relative;
 }
-.can-toggle *, .can-toggle *:before, .can-toggle *:after {
-  box-sizing: border-box;
+.can-toggle *,
+.can-toggle *:before,
+.can-toggle *:after {
+    box-sizing: border-box;
 }
 .can-toggle input[type="checkbox"] {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .can-toggle input[type="checkbox"][disabled] ~ label {
-  pointer-events: none;
+    pointer-events: none;
 }
 .can-toggle input[type="checkbox"][disabled] ~ label .can-toggle__switch {
-  opacity: 0.4;
+    opacity: 0.4;
 }
 .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:before {
-  content: attr(data-unchecked);
-  left: 0;
+    content: attr(data-unchecked);
+    left: 0;
 }
 .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
-  content: attr(data-checked);
-  left: 27px;
+    content: attr(data-checked);
+    left: 27px;
 }
 .can-toggle label {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  position: relative;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-          align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
     justify-content: flex-end;
 }
 .can-toggle label .can-toggle__switch {
-  position: relative;
+    position: relative;
 }
 .can-toggle label .can-toggle__switch:before {
-  content: attr(data-checked);
-  position: absolute;
-  top: 0;
-  text-transform: uppercase;
-  text-align: center;
+    content: attr(data-checked);
+    position: absolute;
+    top: 0;
+    text-transform: uppercase;
+    text-align: center;
 }
 .can-toggle label .can-toggle__switch:after {
-  content: attr(data-unchecked);
-  position: absolute;
-  z-index: 5;
-  text-transform: uppercase;
-  text-align: center;
-  background: white;
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
+    content: attr(data-unchecked);
+    position: absolute;
+    z-index: 5;
+    text-transform: uppercase;
+    text-align: center;
+    background: white;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 .can-toggle input[type="checkbox"][disabled] ~ label {
-  color: rgba(119, 119, 119, 0.5);
+    color: rgba(119, 119, 119, 0.5);
 }
-.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch, .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch {
-  background-color: #777;
+.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch,
+.can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch {
+    background-color: #777;
 }
-.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after, .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
-  color: #3acae6;
+.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after,
+.can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+    color: #3acae6;
 }
 .can-toggle input[type="checkbox"]:hover ~ label {
-  color: #6a6a6a;
+    color: #6a6a6a;
 }
 .can-toggle input[type="checkbox"]:checked ~ label:hover {
-  color: #6a6a6a;
+    color: #6a6a6a;
 }
 .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch {
-  background-color: #6a6a6a;
+    background-color: #6a6a6a;
 }
 .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
-  color: #3acae6;
+    color: #3acae6;
 }
-.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch, .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch {
-  background-color: #777;
+.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch,
+.can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch {
+    background-color: #777;
 }
-.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after, .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch:after {
-  color: #3acae6;
+.can-toggle
+    input[type="checkbox"]:checked:focus
+    ~ label
+    .can-toggle__switch:after,
+.can-toggle
+    input[type="checkbox"]:checked:hover
+    ~ label
+    .can-toggle__switch:after {
+    color: #3acae6;
 }
 .can-toggle label .can-toggle__switch {
-  -webkit-transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
-  transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
-  background: #848484;
+    -webkit-transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
+    transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
+    background: #848484;
 }
 .can-toggle label .can-toggle__switch:before {
-  color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
 }
 .can-toggle label .can-toggle__switch:after {
-  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
-  transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
-  transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
-  transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1), -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
-  color: #3acae6;
+    -webkit-transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+    transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+    transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+    transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1),
+        -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+    color: #3acae6;
 }
-.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after, .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+.can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after,
+.can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
 }
 .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
-  -webkit-transform: translate3d(65px, 0, 0);
-          transform: translate3d(65px, 0, 0);
+    -webkit-transform: translate3d(65px, 0, 0);
+    transform: translate3d(65px, 0, 0);
 }
-.can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after, .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch:after {
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+.can-toggle
+    input[type="checkbox"]:checked:focus
+    ~ label
+    .can-toggle__switch:after,
+.can-toggle
+    input[type="checkbox"]:checked:hover
+    ~ label
+    .can-toggle__switch:after {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
 }
 .can-toggle label {
-  font-size: 14px;
+    font-size: 14px;
 }
 .can-toggle label .can-toggle__switch {
-  height: 36px;
-  /* -webkit-box-flex: 0;
+    height: 36px;
+    /* -webkit-box-flex: 0;
           flex: 0 0 134px; */
-  -webkit-box-flex: 0;
-          flex: 0 0 205px;
-  border-radius: 25px;
+    -webkit-box-flex: 0;
+    flex: 0 0 205px;
+    border-radius: 25px;
 }
 .can-toggle label .can-toggle__switch:before {
-  left: 97px;
-  font-size: 12px;
-  line-height: 36px;
-  width: max-content;
-  padding: 0 20px;
+    left: 97px;
+    font-size: 12px;
+    line-height: 36px;
+    width: max-content;
+    padding: 0 20px;
 }
 .can-toggle label .can-toggle__switch:after {
-  top: 2px;
-  left: 2px;
-  border-radius: 25px;
-  width: max-content;
-  line-height: 32px;
-  font-size: 12px;
-  padding: 0 20px 0;
+    top: 2px;
+    left: 2px;
+    border-radius: 25px;
+    width: max-content;
+    line-height: 32px;
+    font-size: 12px;
+    padding: 0 20px 0;
 }
 .can-toggle label .can-toggle__switch:hover:after {
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
 }
 
 @media only screen and (max-width: 450px) {
@@ -2885,10 +2462,16 @@ div.vehicle {
     .can-toggle label .can-toggle__switch:after {
         padding: 0 35px 0;
     }
-    .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:before {
+    .can-toggle
+        input[type="checkbox"]:checked
+        ~ label
+        .can-toggle__switch:before {
         left: 20px;
     }
-    .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+    .can-toggle
+        input[type="checkbox"]:checked
+        ~ label
+        .can-toggle__switch:after {
         transform: translate3d(80px, 0, 0);
     }
 }

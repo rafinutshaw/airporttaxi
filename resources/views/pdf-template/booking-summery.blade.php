@@ -303,26 +303,19 @@
                     </td>
                 </tr>
 
-                {{-- If there is any return option --}}
-                @isset($data['returnFrom'])
+                <tr>
+                    <td class="no">Type</td>
+                    <td class="desc" colspan="4">
+                        {{ $data['journeyType'] }}
+                    </td>
+                </tr>
 
-                    {{-- If there is any return via route option --}}
-                    @isset($data['returnVia'])
-                        <tr>
-                            <td class="no">Return via</td>
-                            <td class="desc" colspan="4">
-                                {{ $data['returnVia'] }}
-                            </td>
-                        </tr>
-                    @endisset
-
-                    <tr>
-                        <td class="no">Final Drop off</td>
-                        <td class="desc" colspan="4">
-                            {{ $data['returnTo'] }}
-                        </td>
-                    </tr>
-                @endisset
+                <tr>
+                    <td class="no">Distance</td>
+                    <td class="desc" colspan="4">
+                        {{ $data['distance'] . ' km'}}
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="no">Pickup at</td>

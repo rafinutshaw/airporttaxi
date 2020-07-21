@@ -43,20 +43,17 @@ class BookingController extends Controller
                 'via' => $request['via'],
                 'to' => $request['to'],
                 'journey_date' => $request['journey_date'],
+                'journey_type' => $request['journey_type'],
 
-                'returnFrom' => $request['returnFrom'],
-                'returnVia' => $request['returnVia'],
-                'returnTo' => $request['returnTo'],
+                'distance' => $request['distance'],
 
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
-                // 'coupon_id' => $request['coupon_id'],
                 'discount' => $request['discount'],
                 'total_price' => $request['total_price'],
                 'passport' => $request['passport'],
                 'flight_number' => $request['flight_number'],
                 'flight_origin' => $request['flight_origin'],
-                'meet_and_greet_service' => $request['meet_and_greet_service'],
                 'booking_status_id' => 1,
             ]);
 
@@ -85,10 +82,9 @@ class BookingController extends Controller
                 'via' => $request['via'],
                 'to' => $request['to'],
                 'journey_date' => $request['journey_date'],
+                'journey_type' => $request['journey_type'],
 
-                'returnFrom' => $request['returnFrom'],
-                'returnVia' => $request['returnVia'],
-                'returnTo' => $request['returnTo'],
+                'distance' => $request['distance'],
 
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
@@ -97,7 +93,6 @@ class BookingController extends Controller
                 'passport' => $request['passport'],
                 'flight_number' => $request['flight_number'],
                 'flight_origin' => $request['flight_origin'],
-                'meet_and_greet_service' => $request['meet_and_greet_service'],
                 'booking_status_id' => 1,
             ]);
 
@@ -163,10 +158,9 @@ class BookingController extends Controller
             'from' => $booking->from,
             'via' => $booking->via,
             'to' => $booking->to,
-            'returnFrom' => $booking->returnFrom,
-            'returnTo' => $booking->returnTo,
-            'returnVia' => $booking->returnVia,
             'journeyDate' => $booking->journey_date,
+            'journeyType' => $booking->journey_type,
+            'distance' => $booking->distance,
             'passengers' => $booking->passengers,
             'luggage' => $booking->luggage,
             'totalPrice' => $booking->total_price,
