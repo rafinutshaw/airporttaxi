@@ -325,6 +325,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
                     <button
                         class="btn btn-block btn-primary mt-2"
@@ -494,7 +495,6 @@
                     @map-load="loaded"
                 />
             </div>
-
             <!-- Prices -->
             <div
                 class="width-100"
@@ -511,11 +511,11 @@
                     class="group vehicle row d-flex align-items-center"
                     @click="selectedPrice(vehicle)"
                 >
-                    <label
+                    <div
                         class="width-100 d-flex price-section align-items-center"
                     >
                         <div
-                            class="d-flex justify-content-center col-sm-3 pl-0 pr-2 price-section car-img"
+                            class="d-flex justify-content-center col-sm-3 pl-0 pr-0 mr-2 price-section car-img"
                         >
                             <img
                                 class="mr-0 ml-1"
@@ -524,28 +524,21 @@
                             />
                         </div>
                         <div class="container pl-0 pr-0">
-                            <h6 class="mb-0">{{ vehicle.type }}</h6>
+                            <h6 class="mb-0 text-center">{{ vehicle.type }}</h6>
                         </div>
-                        <div class="container pl-0 pr-0">
-                            <p class="mb-0">
-                                <span class="pr-2"
-                                    ><i
-                                        class="fas fa-male pull-right icon-chevron-right"
-                                        style="font"
-                                    ></i>
-                                    x{{ vehicle.max_passengers }}
-                                </span>
-                                <span
-                                    ><i class="fas fa-suitcase pr-1"></i>x{{
-                                        vehicle.luggage
-                                    }}</span
-                                >
-                            </p>
-                        </div>
-                        <div class="container pl-0 pr-0">
-                            <p class="mb-0">£ {{ vehicle.totalPrice }}</p>
-                        </div>
-                    </label>
+                        <p class="passengers-luggage-icon-wrapper">
+                            <span class="pr-2">
+                                <i class="fas fa-male pull-right icon-chevron-right"></i>x
+                                {{ vehicle.max_passengers }}
+                            </span>
+                            <span>
+                                <i class="fas fa-suitcase"></i>x
+                                {{ vehicle.luggage }}
+                            </span
+                            >
+                        </p>
+                        <p class="mb-0 text-center width-100" style="font-size: 0.9rem; font-weight: 500;">£ {{ vehicle.totalPrice }}</p>
+                    </div>
                 </div>
             </div>
             <div
@@ -1293,11 +1286,6 @@ export default {
                     via: [],
                     viaRouteNames: "",
                     return: false,
-                    returnFrom: "",
-                    returnTo: "",
-                    returnVia: [],
-                    returnViaRouteNames: "",
-                    priceId: null,
                     fare: null,
                     vehicle: {
                         type: "",
@@ -1884,13 +1872,6 @@ export default {
             }
         },
     },
-    watch: {
-        journey() {
-            for (var i = this.journey[0].via.length - 1; i >= 0; i--) {
-                this.journey[0].returnVia.push(this.journey[0].via[i]);
-            }
-        },
-    },
 };
 </script>
 
@@ -2054,7 +2035,16 @@ label {
 @media only screen and (max-width: 450px) {
     .header-right {
         min-width: 320px !important;
-        max-width: 320px !important;
+        max-width: 380px !important;
+    }
+    .passengers-luggage-icon-wrapper {
+        flex-direction: column;
+    }
+    .passengers-luggage-icon-wrapper + p {
+        padding-right: 5px;
+    }
+    div.vehicle {
+        padding: 8px 0 8px 4px !important;
     }
 }
 @media only screen and (max-width: 375px) {
@@ -2480,5 +2470,16 @@ div.vehicle {
     .toggle-wrapper {
         padding-left: 0px !important;
     }
+}
+.passengers-luggage-icon-wrapper {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 0;
+}
+.passengers-luggage-icon-wrapper > span {
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 </style>
