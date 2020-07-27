@@ -1,6 +1,6 @@
 @component('mail::message')
 
-# Dear {{ $booking->name }},
+# Dear {{ $booking->customer->name }},
 
 Your request to book a transport for your trip in {{ config('app.name') }} was successful.
 

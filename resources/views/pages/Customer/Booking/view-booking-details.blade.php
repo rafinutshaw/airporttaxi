@@ -26,12 +26,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Name</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="{{ $booking->name }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Mobile</label>
                                             <div class="col-sm-7">
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->mobile }}">
@@ -59,12 +53,6 @@
                                             <label class="col-sm-3 col-form-label">Journey Type</label>
                                             <div class="col-sm-7">
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->journey_type }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Distance</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="{{ $booking->distance . " km"}}">
                                             </div>
                                         </div>
                                         <div class="form-group row">

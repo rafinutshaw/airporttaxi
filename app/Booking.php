@@ -9,7 +9,7 @@ class Booking extends Model
 {
     protected $fillable = [
         'customer_id', 'name', 'mobile', 'from', 'via', 'to', 'journey_date',
-        'journey_type', 'distance', 'passengers', 'luggage', 'discount',
+        'journey_type', 'passengers', 'luggage', 'discount',
         'total_price', 'passport', 'flight_number', 'flight_origin',
         'booking_status_id',
     ];

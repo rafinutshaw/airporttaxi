@@ -1733,7 +1733,6 @@ export default {
                 : (this.quoteDetails.journeyType = "One Way");
 
             this.data = {
-                name: this.quoteDetails.name,
                 email: this.quoteDetails.email,
                 mobile: this.quoteDetails.mobile,
                 from: this.quoteDetails.originName,
@@ -1742,7 +1741,6 @@ export default {
                 journey_date: this.quoteDetails.journeyDate.Details,
 
                 journey_type: this.quoteDetails.journeyType,
-                distance: this.quoteDetails.distance,
 
                 passengers: this.quoteDetails.passengers,
                 luggage: this.quoteDetails.luggage,

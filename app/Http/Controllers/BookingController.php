@@ -36,7 +36,6 @@ class BookingController extends Controller
 
             $booking = Booking::create([
                 'customer_id' => $checkExistingUser->id,
-                'name' => $checkExistingUser->name,
                 'mobile' => $request['mobile'],
 
                 'from' => $request['from'],
@@ -44,8 +43,6 @@ class BookingController extends Controller
                 'to' => $request['to'],
                 'journey_date' => $request['journey_date'],
                 'journey_type' => $request['journey_type'],
-
-                'distance' => $request['distance'],
 
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
@@ -75,7 +72,6 @@ class BookingController extends Controller
             
             $booking = Booking::create([
                 'customer_id' => $guest->id,
-                'name' => $guest->name,
                 'mobile' => $guest->mobile,
 
                 'from' => $request['from'],
@@ -83,8 +79,6 @@ class BookingController extends Controller
                 'to' => $request['to'],
                 'journey_date' => $request['journey_date'],
                 'journey_type' => $request['journey_type'],
-
-                'distance' => $request['distance'],
 
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
@@ -150,7 +144,7 @@ class BookingController extends Controller
     private function setPDF($booking)
     {
         $data = [
-            'name' => $booking->name,
+            'name' => $booking->customer->name,
             'mobile' => $booking->mobile,
             'email' => $booking->customer->email,
             'invoiceNo' => $booking->id,
@@ -160,7 +154,6 @@ class BookingController extends Controller
             'to' => $booking->to,
             'journeyDate' => $booking->journey_date,
             'journeyType' => $booking->journey_type,
-            'distance' => $booking->distance,
             'passengers' => $booking->passengers,
             'luggage' => $booking->luggage,
             'totalPrice' => $booking->total_price,
