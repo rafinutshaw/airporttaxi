@@ -84,3 +84,31 @@
 //   border-color: #5856d6;
 //   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 // }
+
+
+// Pagination
+.pagination > .page-item > .page-link {
+    color: $black;
+    cursor: pointer;
+    background-color: $white;
+    border: 1px solid $gray-300;
+}
+.pagination > .page-item > .page-link:hover {
+    color: $primary;
+    background-color: $primary-light;
+    border: 1px solid $primary-light;
+}
+.pagination > .page-item.disabled > .page-link {
+    color: $black;
+    pointer-events: none;
+    cursor: auto;
+    background-color: $white;
+    border: 1px solid $gray-300;
+}
+.pagination > .page-item.active > .page-link {
+    color: $primary;
+    pointer-events: none;
+    cursor: auto;
+    background-color: $primary-light;
+    border-color: $primary-light;
+}

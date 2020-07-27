@@ -49288,3 +49288,32 @@ readers do not read off random characters that represent icons */
   cursor: not-allowed;
 }
 
+.pagination > .page-item > .page-link {
+  color: #000;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #eceeef;
+}
+
+.pagination > .page-item > .page-link:hover {
+  color: #3acae6;
+  background-color: #c0e0e669;
+  border: 1px solid #c0e0e669;
+}
+
+.pagination > .page-item.disabled > .page-link {
+  color: #000;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #fff;
+  border: 1px solid #eceeef;
+}
+
+.pagination > .page-item.active > .page-link {
+  color: #3acae6;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #c0e0e669;
+  border-color: #c0e0e669;
+}
+

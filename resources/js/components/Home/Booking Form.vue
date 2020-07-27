@@ -1,5 +1,6 @@
 <template>
     <div class="header-right">
+        <loader :is-loading="isLoading"></loader>
         <!-- /**
         * TODO:     Stage 1
         * ? Starting Origin-Destination Place Form
@@ -325,7 +326,7 @@
                         </div>
                     </div>
                 </div>
-
+            
                 <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
                     <button
                         class="btn btn-block btn-primary mt-2"
@@ -495,6 +496,7 @@
                     @map-load="loaded"
                 />
             </div>
+            
             <!-- Prices -->
             <div
                 class="width-100"
@@ -511,33 +513,25 @@
                     class="group vehicle row d-flex align-items-center"
                     @click="selectedPrice(vehicle)"
                 >
-                    <div
-                        class="width-100 d-flex price-section align-items-center"
-                    >
-                        <div
-                            class="d-flex justify-content-center col-sm-3 pl-0 pr-0 mr-2 price-section car-img"
-                        >
-                            <img
-                                class="mr-0 ml-1"
-                                :src="vehicle.image"
-                                style="max-width: 5.5rem;"
-                            />
+                    <div class="vehicle-img-wrapper col-sm-7">
+                        <img :src="vehicle.image" />
+                        <h6>{{ vehicle.type }}</h6>
+                    </div>
+                    <div class="vehicle-icon-wrapper col-sm-5">
+                            <p class="passengers-luggage-icon-wrapper">
+                                <span class="mr-2">
+                                    <i class="fas fa-male pull-right icon-chevron-right mr-1"></i>x
+                                    {{ vehicle.max_passengers }}
+                                </span>
+                                <span>
+                                    <i class="fas fa-suitcase mr-1"></i>x
+                                    {{ vehicle.luggage }}
+                                </span
+                                >
+                            </p>
+                        <div class="vehicle-price row">
+                            <p>£ {{ vehicle.totalPrice }}</p>
                         </div>
-                        <div class="container pl-0 pr-0">
-                            <h6 class="mb-0 text-center">{{ vehicle.type }}</h6>
-                        </div>
-                        <p class="passengers-luggage-icon-wrapper">
-                            <span class="pr-2">
-                                <i class="fas fa-male pull-right icon-chevron-right"></i>x
-                                {{ vehicle.max_passengers }}
-                            </span>
-                            <span>
-                                <i class="fas fa-suitcase"></i>x
-                                {{ vehicle.luggage }}
-                            </span
-                            >
-                        </p>
-                        <p class="mb-0 text-center width-100" style="font-size: 0.9rem; font-weight: 500;">£ {{ vehicle.totalPrice }}</p>
                     </div>
                 </div>
             </div>
@@ -621,7 +615,7 @@
                     </div>
 
                     <div class="mt-2 width-100">
-                        <label class="text-black"
+                        <label
                             >Enter Your Email to get e-ticekt</label
                         >
                         <div class="form-row align-items-center">
@@ -743,7 +737,7 @@
                                 </option>
                             </select>
                         </div>
-                        <small class="form-text text-muted pl-2"
+                        <small class="form-text text-dark pl-2"
                             >If the desired amount of passengers and luggage
                             isn't available, you'll need to go back to your
                             fares and select a larger vehicle.</small
@@ -1266,6 +1260,8 @@ import qs from "qs";
 
 import moment from "moment";
 
+import loader from "../Loader";
+
 export default {
     components: {
         draggable,
@@ -1273,9 +1269,12 @@ export default {
         DatePicker,
         mapboxgl,
         Mapbox,
+        loader
     },
     data() {
         return {
+            isLoading: false,
+
             // Starting Journey Details Form
             journey: [
                 {
@@ -1728,6 +1727,7 @@ export default {
         },
 
         payNow() {
+            this.isLoading = true;
             this.journey[0].return == true
                 ? (this.quoteDetails.journeyType = "Return Trip")
                 : (this.quoteDetails.journeyType = "One Way");
@@ -1755,20 +1755,24 @@ export default {
                 booking_status_id: 0,
             };
 
-            axios.post("/submit-booking", this.data).then((response) => {
-                this.formStage.basket = false;
-                this.formStage.submittedStatus = true;
-                this.quoteDetails.afterSubmittedBookingId =
-                    response.data.bookingId;
+            axios.post("/submit-booking", this.data)
+                .then((response) => {
+                    this.formStage.basket = false;
+                    this.formStage.submittedStatus = true;
+                    this.quoteDetails.afterSubmittedBookingId =
+                        response.data.bookingId;
 
-                // Swal.fire({
-                //     icon: "success",
-                //     title: response.data.success,
-                //     showConfirmButton: false,
-                //     timer: 2000
-                // });
-                // window.location = "/";
-            });
+                    // Swal.fire({
+                    //     icon: "success",
+                    //     title: response.data.success,
+                    //     showConfirmButton: false,
+                    //     timer: 2000
+                    // });
+                    // window.location = "/";
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
         },
         validateArrayObject(...arr) {
             let check = true;
@@ -1829,6 +1833,7 @@ export default {
     },
     created() {
         this.mapBox.postUrl = `https://api.mapbox.com/directions/v5/mapbox/driving?access_token=${this.mapBox.accessToken}`;
+        
     },
     computed: {
         validateQuote() {
@@ -2102,15 +2107,16 @@ label {
 
 /* Starting Journey Fares */
 
-div.vehicle {
+.vehicle {
     display: block;
     margin: 10px 0 0 0;
-    padding: 8px 0 8px 10px;
+    padding: 8px 0 8px 0px;
     border-radius: 5px;
     font-size: 12px;
     color: black;
     background-color: #f3f3f3;
     box-shadow: 1px 5px 8px 2px #a1a5a8;
+    height: 75px;
     /* background-color: #282828;
     background: -webkit-linear-gradient(
         0deg,
@@ -2122,6 +2128,9 @@ div.vehicle {
         rgba(255, 255, 255, 0.25) 0%,
         rgba(255, 255, 255, 0.05) 100%
     ); */
+}
+.vehicle:hover {
+    background-color: white;
 }
 
 .group {
@@ -2141,7 +2150,64 @@ div.vehicle {
     width: 100%;
     position: relative;
 }
-
+.vehicle-img-wrapper {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    right: 20px;
+}
+.vehicle-img-wrapper > img {
+    margin: 0;
+    max-width: 5.5rem !important;
+}
+.vehicle-img-wrapper > h6 {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 12px;
+    text-align: center;
+}
+.vehicle-icon-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.vehicle-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.vehicle-price > p {
+    margin-bottom: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+@media only screen and (max-width: 575px) {
+    .vehicle-img-wrapper {
+        width: 50%;
+    }
+    .vehicle-icon-wrapper {
+        width: 50%;
+    }
+    .vehicle-img-wrapper > h6  {
+        font-size: 10px;
+        margin-top: 7px;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .passengers-luggage-icon-wrapper {
+        flex-direction: row;
+    }
+    .vehicle-img-wrapper {
+        padding-right: 0;
+        left: 5px;
+    }
+}
 .vehicle-content {
     display: -webkit-box;
     display: -moz-box;
@@ -2227,8 +2293,9 @@ div.vehicle {
 
 /* Starting Passenger Details */
 .passenger-details {
-    background-color: #ffffffe3;
-    box-shadow: 1px 5px 8px 2px #929292;
+    background-color: #fff0;
+    /* box-shadow: 1px 5px 8px 2px #929292; */
+    color: #5a5a5a;
     padding: 10px;
     border-radius: 5px;
     width: 100%;
@@ -2481,5 +2548,33 @@ div.vehicle {
 .passengers-luggage-icon-wrapper > span {
     font-size: 0.9rem;
     font-weight: 500;
+}
+.loader {
+  /* Loader Div Class */
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #eceaea;
+  /* background-image: url("~@/assets/ajax-loader.gif"); */
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 10000000;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.loaderImg {
+  vertical-align: middle;
+  max-height: 100px;
+  max-width: 160px;
 }
 </style>
