@@ -93,7 +93,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row mb-1">
                                         <div class="col-md-6 offset-md-4">
                                             <div class="checkbox">
                                                 <label>
@@ -105,6 +105,31 @@
                                                     Remember Me
                                                 </label>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Show the errors -->
+                                    <div v-if="form.errors.length > 0">
+                                        <div
+                                            class="col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show"
+                                            role="alert"
+                                            v-for="(error,
+                                            index) in form.errors"
+                                            :key="index"
+                                        >
+                                            <li v-if="error[0]">
+                                                {{ error }}
+                                            </li>
+                                            <button
+                                                type="button"
+                                                class="close"
+                                                data-dismiss="alert"
+                                                aria-label="Close"
+                                            >
+                                                <span aria-hidden="true"
+                                                    >&times;</span
+                                                >
+                                            </button>
                                         </div>
                                     </div>
 
@@ -131,29 +156,6 @@
                                     </div>
                                 </form>
                             </ValidationObserver>
-                        </div>
-                    </div>
-
-                    <!-- Show the errors -->
-                    <div v-if="form.errors.length > 0">
-                        <div
-                            class="mt-4 alert alert-danger alert-dismissible fade show"
-                            role="alert"
-                            v-for="(error, index) in form.errors"
-                            :key="index"
-                            v-bind="myAutoClose('.alert', 3000)"
-                        >
-                            <li v-if="error[0]">
-                                {{ error }}
-                            </li>
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="alert"
-                                aria-label="Close"
-                            >
-                                <span aria-hidden="true">&times;</span>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -229,13 +231,16 @@ export default {
                 .post("/login", { email, password })
                 .then(response => {
                     // console.log(response.data);
-                    
+
                     localStorage.setItem("loggedIn", true);
                     localStorage.setItem("authUsername", response.data.name);
                     localStorage.setItem("authEmail", response.data.email);
-                    
-                    if(response.data.mobile != null)
-                        localStorage.setItem("authMobile", response.data.mobile);
+
+                    if (response.data.mobile != null)
+                        localStorage.setItem(
+                            "authMobile",
+                            response.data.mobile
+                        );
 
                     window.location = "/";
                 })

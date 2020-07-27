@@ -210,6 +210,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -552,83 +554,142 @@ var render = function() {
                                 )
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "form-group row" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "col-md-6 offset-md-4" },
-                                  [
-                                    _c("div", { staticClass: "checkbox" }, [
-                                      _c("label", [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.form.remember,
-                                              expression: "form.remember"
-                                            }
-                                          ],
-                                          attrs: {
-                                            type: "checkbox",
-                                            name: "remember"
-                                          },
-                                          domProps: {
-                                            checked: Array.isArray(
-                                              _vm.form.remember
-                                            )
-                                              ? _vm._i(
-                                                  _vm.form.remember,
-                                                  null
-                                                ) > -1
-                                              : _vm.form.remember
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              var $$a = _vm.form.remember,
-                                                $$el = $event.target,
-                                                $$c = $$el.checked
-                                                  ? true
-                                                  : false
-                                              if (Array.isArray($$a)) {
-                                                var $$v = null,
-                                                  $$i = _vm._i($$a, $$v)
-                                                if ($$el.checked) {
-                                                  $$i < 0 &&
-                                                    _vm.$set(
-                                                      _vm.form,
-                                                      "remember",
-                                                      $$a.concat([$$v])
-                                                    )
+                              _c(
+                                "div",
+                                { staticClass: "form-group row mb-1" },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-md-6 offset-md-4" },
+                                    [
+                                      _c("div", { staticClass: "checkbox" }, [
+                                        _c("label", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.form.remember,
+                                                expression: "form.remember"
+                                              }
+                                            ],
+                                            attrs: {
+                                              type: "checkbox",
+                                              name: "remember"
+                                            },
+                                            domProps: {
+                                              checked: Array.isArray(
+                                                _vm.form.remember
+                                              )
+                                                ? _vm._i(
+                                                    _vm.form.remember,
+                                                    null
+                                                  ) > -1
+                                                : _vm.form.remember
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                var $$a = _vm.form.remember,
+                                                  $$el = $event.target,
+                                                  $$c = $$el.checked
+                                                    ? true
+                                                    : false
+                                                if (Array.isArray($$a)) {
+                                                  var $$v = null,
+                                                    $$i = _vm._i($$a, $$v)
+                                                  if ($$el.checked) {
+                                                    $$i < 0 &&
+                                                      _vm.$set(
+                                                        _vm.form,
+                                                        "remember",
+                                                        $$a.concat([$$v])
+                                                      )
+                                                  } else {
+                                                    $$i > -1 &&
+                                                      _vm.$set(
+                                                        _vm.form,
+                                                        "remember",
+                                                        $$a
+                                                          .slice(0, $$i)
+                                                          .concat(
+                                                            $$a.slice($$i + 1)
+                                                          )
+                                                      )
+                                                  }
                                                 } else {
-                                                  $$i > -1 &&
-                                                    _vm.$set(
-                                                      _vm.form,
-                                                      "remember",
-                                                      $$a
-                                                        .slice(0, $$i)
-                                                        .concat(
-                                                          $$a.slice($$i + 1)
-                                                        )
-                                                    )
+                                                  _vm.$set(
+                                                    _vm.form,
+                                                    "remember",
+                                                    $$c
+                                                  )
                                                 }
-                                              } else {
-                                                _vm.$set(
-                                                  _vm.form,
-                                                  "remember",
-                                                  $$c
-                                                )
                                               }
                                             }
-                                          }
-                                        }),
-                                        _vm._v(
-                                          "\n                                                Remember Me\n                                            "
-                                        )
+                                          }),
+                                          _vm._v(
+                                            "\n                                                Remember Me\n                                            "
+                                          )
+                                        ])
                                       ])
-                                    ])
-                                  ]
-                                )
-                              ]),
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.form.errors.length > 0
+                                ? _c(
+                                    "div",
+                                    _vm._l(_vm.form.errors, function(
+                                      error,
+                                      index
+                                    ) {
+                                      return _c(
+                                        "div",
+                                        {
+                                          key: index,
+                                          staticClass:
+                                            "col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show",
+                                          attrs: { role: "alert" }
+                                        },
+                                        [
+                                          error[0]
+                                            ? _c("li", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(error) +
+                                                    "\n                                        "
+                                                )
+                                              ])
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass: "close",
+                                              attrs: {
+                                                type: "button",
+                                                "data-dismiss": "alert",
+                                                "aria-label": "Close"
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "span",
+                                                {
+                                                  attrs: {
+                                                    "aria-hidden": "true"
+                                                  }
+                                                },
+                                                [_vm._v("×")]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    }),
+                                    0
+                                  )
+                                : _vm._e(),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -675,43 +736,7 @@ var render = function() {
               ],
               1
             )
-          ]),
-          _vm._v(" "),
-          _vm.form.errors.length > 0
-            ? _c(
-                "div",
-                _vm._l(_vm.form.errors, function(error, index) {
-                  return _c(
-                    "div",
-                    _vm._b(
-                      {
-                        key: index,
-                        staticClass:
-                          "mt-4 alert alert-danger alert-dismissible fade show",
-                        attrs: { role: "alert" }
-                      },
-                      "div",
-                      _vm.myAutoClose(".alert", 3000),
-                      false
-                    ),
-                    [
-                      error[0]
-                        ? _c("li", [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(error) +
-                                "\n                        "
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm._m(1, true)
-                    ]
-                  )
-                }),
-                0
-              )
-            : _vm._e()
+          ])
         ])
       ])
     ])
@@ -741,23 +766,6 @@ var staticRenderFns = [
         )
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
   }
 ]
 render._withStripped = true
