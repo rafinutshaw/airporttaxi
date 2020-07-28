@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/price-list', function () {
-    $prices = Vehicle::all(['id', 'type', 'price', 'max_passengers', 'luggage', 'image']);
+    $prices = Vehicle::all(['id', 'type', 'price', 'basePrice', 'maxPassenger', 'luggage', 'image']);
 
     return response()->json($prices, 200);
 });

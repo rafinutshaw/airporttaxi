@@ -326,7 +326,7 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
                     <button
                         class="btn btn-block btn-primary mt-2"
@@ -483,20 +483,20 @@
                         container: 'map',
                         style: 'mapbox://styles/mapbox/streets-v11',
                         center: mapData.center,
-                        zoom: 13,
+                        zoom: 13
                     }"
                     :geolocate-control="{
                         show: true,
-                        position: 'top-left',
+                        position: 'top-left'
                     }"
                     :fullscreen-control="{
                         show: true,
-                        position: 'top-left',
+                        position: 'top-left'
                     }"
                     @map-load="loaded"
                 />
             </div>
-            
+
             <!-- Prices -->
             <div
                 class="width-100"
@@ -518,17 +518,19 @@
                         <h6>{{ vehicle.type }}</h6>
                     </div>
                     <div class="vehicle-icon-wrapper col-sm-5">
-                            <p class="passengers-luggage-icon-wrapper">
-                                <span class="mr-2">
-                                    <i class="fas fa-male pull-right icon-chevron-right mr-1"></i>x
-                                    {{ vehicle.max_passengers }}
-                                </span>
-                                <span>
-                                    <i class="fas fa-suitcase mr-1"></i>x
-                                    {{ vehicle.luggage }}
-                                </span
-                                >
-                            </p>
+                        <p class="passengers-luggage-icon-wrapper">
+                            <span class="mr-2">
+                                <i
+                                    class="fas fa-male pull-right icon-chevron-right mr-1"
+                                ></i
+                                >x
+                                {{ vehicle.maxPassenger }}
+                            </span>
+                            <span>
+                                <i class="fas fa-suitcase mr-1"></i>x
+                                {{ vehicle.luggage }}
+                            </span>
+                        </p>
                         <div class="vehicle-price row">
                             <p>£ {{ vehicle.totalPrice }}</p>
                         </div>
@@ -615,9 +617,7 @@
                     </div>
 
                     <div class="mt-2 width-100">
-                        <label
-                            >Enter Your Email to get e-ticekt</label
-                        >
+                        <label>Enter Your Email to get e-ticekt</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
@@ -664,7 +664,7 @@
                     <div
                         v-show="
                             journey[0].originType == 'airport' ||
-                            journey[0].originType == 'terminal'
+                                journey[0].originType == 'terminal'
                         "
                     >
                         <label>Passport Details</label>
@@ -718,7 +718,7 @@
                             >
                                 <option
                                     v-for="passengers in journey[0]
-                                        .max_passengers"
+                                        .maxPassenger"
                                 >
                                     {{ passengers }}
                                 </option>
@@ -851,7 +851,8 @@
                                             <th scope="row">Pick up Date</th>
                                             <td>
                                                 {{
-                                                    (quoteDetails.journeyDate.Day + ",")
+                                                    quoteDetails.journeyDate
+                                                        .Day + ","
                                                 }}
                                                 {{
                                                     quoteDetails.journeyDate
@@ -874,7 +875,7 @@
                                                 <span
                                                     v-if="
                                                         quoteDetails.luggage !==
-                                                        'None'
+                                                            'None'
                                                     "
                                                 >
                                                     & Luggage
@@ -890,7 +891,7 @@
                                                 <span
                                                     v-if="
                                                         quoteDetails.luggage !==
-                                                        'None'
+                                                            'None'
                                                     "
                                                 >
                                                     & {{ quoteDetails.luggage }}
@@ -1111,7 +1112,8 @@
                                             <th scope="row">Pick up Date</th>
                                             <td>
                                                 {{
-                                                    (quoteDetails.journeyDate.Day + ",")
+                                                    quoteDetails.journeyDate
+                                                        .Day + ","
                                                 }}
                                                 {{
                                                     quoteDetails.journeyDate
@@ -1134,7 +1136,7 @@
                                                 <span
                                                     v-if="
                                                         quoteDetails.luggage !==
-                                                        'None'
+                                                            'None'
                                                     "
                                                 >
                                                     & Luggage
@@ -1150,7 +1152,7 @@
                                                 <span
                                                     v-if="
                                                         quoteDetails.luggage !==
-                                                        'None'
+                                                            'None'
                                                     "
                                                 >
                                                     & {{ quoteDetails.luggage }}
@@ -1287,11 +1289,11 @@ export default {
                     return: false,
                     fare: null,
                     vehicle: {
-                        type: "",
+                        type: ""
                     },
-                    max_passengers: [],
-                    luggage: [],
-                },
+                    maxPassenger: [],
+                    luggage: []
+                }
             ],
 
             originShortName: "",
@@ -1310,7 +1312,7 @@ export default {
                     Details: "",
                     Day: "",
                     Date: "",
-                    Time: "",
+                    Time: ""
                 },
 
                 distance: null,
@@ -1328,7 +1330,7 @@ export default {
 
                 agreedWithTerms: false,
 
-                afterSubmittedBookingId: null,
+                afterSubmittedBookingId: null
             },
 
             formStage: {
@@ -1336,7 +1338,7 @@ export default {
                 details: false,
                 journeyFare: false,
                 basket: false,
-                submittedStatus: false,
+                submittedStatus: false
             },
             // Ending Journey Details Form
 
@@ -1346,7 +1348,7 @@ export default {
                 mapStyle: "mapbox://styles/mapbox/streets-v11",
                 accessToken:
                     "pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2J6NTM4dDkwOGVzMzJtcnlvNnU0c2t2In0.Qpmm_jb0gzc16AN-UqIENA",
-                postUrl: null,
+                postUrl: null
             },
 
             mapData: {
@@ -1359,8 +1361,8 @@ export default {
                 start: "",
                 end: "",
                 responseCode: "",
-                errors: "",
-            },
+                errors: ""
+            }
         };
     },
     mounted() {
@@ -1373,7 +1375,7 @@ export default {
         }
 
         // Getting the price list from database
-        axios.get("/price-list").then((response) => {
+        axios.get("/price-list").then(response => {
             this.vehicles = response.data;
         });
     },
@@ -1407,7 +1409,7 @@ export default {
                     .get(
                         `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${vm.mapBox.accessToken}&country=gb&language=en&limit=5&types=address,poi`
                     )
-                    .then((response) => {
+                    .then(response => {
                         vm.options = response.data.features;
                     });
             }
@@ -1425,11 +1427,11 @@ export default {
                             properties: {},
                             geometry: {
                                 type: "LineString",
-                                coordinates: this.mapData.coordinates,
-                            },
-                        },
-                    ],
-                },
+                                coordinates: this.mapData.coordinates
+                            }
+                        }
+                    ]
+                }
             });
             map.addLayer({
                 id: "route",
@@ -1437,12 +1439,12 @@ export default {
                 source: "route",
                 layout: {
                     "line-join": "round",
-                    "line-cap": "round",
+                    "line-cap": "round"
                 },
                 paint: {
                     "line-color": "#888",
-                    "line-width": 8,
-                },
+                    "line-width": 8
+                }
             });
             new mapboxgl.Marker()
                 .setLngLat(this.mapData.coordinates[0])
@@ -1462,31 +1464,31 @@ export default {
                     {
                         type: "Feature",
                         properties: {
-                            description: this.mapData.start,
+                            description: this.mapData.start
                         },
                         geometry: {
                             type: "Point",
-                            coordinates: this.mapData.coordinates[0],
-                        },
+                            coordinates: this.mapData.coordinates[0]
+                        }
                     },
                     {
                         type: "Feature",
                         properties: {
-                            description: this.mapData.end,
+                            description: this.mapData.end
                         },
                         geometry: {
                             type: "Point",
                             coordinates: this.mapData.coordinates[
                                 this.mapData.coordinates.length - 1
-                            ],
-                        },
-                    },
-                ],
+                            ]
+                        }
+                    }
+                ]
             };
 
             map.addSource("places", {
                 type: "geojson",
-                data: places,
+                data: places
             });
             map.addLayer({
                 id: "poi-labels",
@@ -1497,8 +1499,8 @@ export default {
                     "text-variable-anchor": ["top", "bottom", "left", "right"],
                     "text-radial-offset": 0.5,
                     "text-justify": "auto",
-                    "icon-image": ["concat", ["get", "icon"], "-15"],
-                },
+                    "icon-image": ["concat", ["get", "icon"], "-15"]
+                }
             });
         },
 
@@ -1553,7 +1555,7 @@ export default {
                     coordinates: this.mapData.fullRoutes,
                     geometries: "geojson",
                     overview: "full",
-                    steps: false,
+                    steps: false
                 });
 
                 axios({
@@ -1561,10 +1563,10 @@ export default {
                     url: this.mapBox.postUrl,
                     data,
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
                 })
-                    .then((response) => {
+                    .then(response => {
                         if (
                             response.data.code != "Ok" &&
                             response.status != 200 &&
@@ -1613,24 +1615,28 @@ export default {
                             this.quoteDetails.viaRouteNames = this.journey[0].viaRouteNames;
 
                             // Distance of the Journey in meters
-                            this.quoteDetails.distance = parseFloat(response.data.routes[0].distance / 1000);
-                            
+                            this.quoteDetails.distance = parseFloat(
+                                response.data.routes[0].distance / 1000
+                            );
+
                             // Convert string to number
-                            this.quoteDetails.distance = +this.quoteDetails.distance.toFixed(2);
+                            this.quoteDetails.distance = +this.quoteDetails.distance.toFixed(
+                                2
+                            );
 
                             if (this.journey[0].return == true)
                                 this.quoteDetails.distance *= 2;
 
                             // Calculating Price
-                            this.vehicles.map((item) => {
+                            this.vehicles.map(item => {
                                 item.totalPrice = parseFloat(
-                                    item.price * this.quoteDetails.distance
+                                    item.price * this.quoteDetails.distance + item.basePrice
                                 ).toFixed(2);
                             });
                             resolve(true);
                         }
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         this.mapData.errors = "The given input was not valid.";
                         reject(false);
                     });
@@ -1649,7 +1655,7 @@ export default {
                 [
                     this.quoteDetails.journeyDate.Day,
                     this.quoteDetails.journeyDate.Date,
-                    this.quoteDetails.journeyDate.Time,
+                    this.quoteDetails.journeyDate.Time
                 ] = formateDate.split(",");
             });
         },
@@ -1670,7 +1676,7 @@ export default {
             this.quoteDetails.viaRouteNames = "";
 
             this.quoteDetails.distance = null;
-            this.vehicles.forEach((item) => {
+            this.vehicles.forEach(item => {
                 item.totalPrice = null;
             });
 
@@ -1683,8 +1689,8 @@ export default {
 
             // this.quoteDetails.fare = this.journey[0].fare;
 
-            for (let i = 1; i <= this.journey[0].vehicle.max_passengers; i++) {
-                this.journey[0].max_passengers.push(i);
+            for (let i = 1; i <= this.journey[0].vehicle.maxPassenger; i++) {
+                this.journey[0].maxPassenger.push(i);
             }
 
             for (let i = 1; i <= this.journey[0].vehicle.luggage; i++) {
@@ -1700,7 +1706,7 @@ export default {
 
             this.quoteDetails.priceId = null;
 
-            this.journey[0].max_passengers = [];
+            this.journey[0].maxPassenger = [];
             this.journey[0].luggage = [];
 
             this.quoteDetails.passengers = 1;
@@ -1750,11 +1756,12 @@ export default {
                 passport: this.quoteDetails.passport,
                 flight_number: this.quoteDetails.flightNumber,
                 flight_origin: this.quoteDetails.flightOrigin,
-                booking_status_id: 0,
+                booking_status_id: 0
             };
 
-            axios.post("/submit-booking", this.data)
-                .then((response) => {
+            axios
+                .post("/submit-booking", this.data)
+                .then(response => {
                     this.formStage.basket = false;
                     this.formStage.submittedStatus = true;
                     this.quoteDetails.afterSubmittedBookingId =
@@ -1793,9 +1800,9 @@ export default {
                 responseType: "blob",
                 data: {
                     id: this.quoteDetails.afterSubmittedBookingId,
-                    email: this.quoteDetails.email,
-                },
-            }).then((response) => {
+                    email: this.quoteDetails.email
+                }
+            }).then(response => {
                 this.downloadFile(response.data, "booking-summery.pdf");
             });
         },
@@ -1819,7 +1826,7 @@ export default {
             link.href = data;
             link.download = fileName;
             link.click();
-            setTimeout(function () {
+            setTimeout(function() {
                 // For Firefox it is necessary to delay revoking the ObjectURL
                 window.URL.revokeObjectURL(data);
             }, 100);
@@ -1827,11 +1834,10 @@ export default {
 
         windowReload() {
             window.location = "/";
-        },
+        }
     },
     created() {
         this.mapBox.postUrl = `https://api.mapbox.com/directions/v5/mapbox/driving?access_token=${this.mapBox.accessToken}`;
-        
     },
     computed: {
         validateQuote() {
@@ -1873,8 +1879,8 @@ export default {
                     return true;
                 else return false;
             }
-        },
-    },
+        }
+    }
 };
 </script>
 
@@ -2192,7 +2198,7 @@ label {
     .vehicle-icon-wrapper {
         width: 50%;
     }
-    .vehicle-img-wrapper > h6  {
+    .vehicle-img-wrapper > h6 {
         font-size: 10px;
         margin-top: 7px;
     }
@@ -2548,31 +2554,31 @@ label {
     font-weight: 500;
 }
 .loader {
-  /* Loader Div Class */
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 100%;
-  height: 100%;
-  background-color: #eceaea;
-  /* background-image: url("~@/assets/ajax-loader.gif"); */
-  background-size: 50px;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 10000000;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+    /* Loader Div Class */
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #eceaea;
+    /* background-image: url("~@/assets/ajax-loader.gif"); */
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10000000;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
 }
 
 .helper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
 }
 
 .loaderImg {
-  vertical-align: middle;
-  max-height: 100px;
-  max-width: 160px;
+    vertical-align: middle;
+    max-height: 100px;
+    max-width: 160px;
 }
 </style>
