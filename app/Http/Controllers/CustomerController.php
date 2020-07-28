@@ -18,11 +18,10 @@ class CustomerController extends Controller
 
     public function index()
     {
-
         $upcomingBookings = Booking::where(
             [
                 // ['journey_date', '>', Carbon::now()],
-                ['booking_status_id', '!=', '4'],
+                ['booking_status_id', '=', '1'],
             ]
         )->orderBy('journey_date', 'ASC')->paginate(10);
         
@@ -167,7 +166,7 @@ class CustomerController extends Controller
         $bookingHistory = Booking::where(
             [
                 // ['journey_date', '<', Carbon::now()],
-                ['booking_status_id', '!=', '4'],
+                ['booking_status_id', '!=', '1'],
             ]
         )->orderBy('journey_date', 'ASC')->paginate(10);
 
