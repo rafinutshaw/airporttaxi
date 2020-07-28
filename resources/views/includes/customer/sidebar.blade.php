@@ -71,12 +71,6 @@
                                 <p>Booking History</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('customer.upcoming-booking') }}" class="nav-link">
-                                <i class="fas fa-calendar-plus nav-icon"></i>
-                                <p>Upcoming Booking</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 {{-- Ending Booking --}}

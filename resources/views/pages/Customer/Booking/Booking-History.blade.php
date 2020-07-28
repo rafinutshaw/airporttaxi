@@ -31,6 +31,12 @@
                                                                 rowspan="1" colspan="1"
                                                                 aria-label="Name: activate to sort column ascending"
                                                                 style="width: 130px;">
+                                                                Id
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example1"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Name: activate to sort column ascending"
+                                                                style="width: 130px;">
                                                                 Customer
                                                             </th>
                                                             <th class="sorting" tabindex="0" aria-controls="example1"
@@ -80,6 +86,7 @@
                                                     <tbody>
                                                         @foreach ($bookingHistory as $indexKey => $booking)
                                                         <tr key={{ $indexKey }} role="row" class="odd">
+                                                            <td>{{ $booking->id }}</td>
                                                             <td>{{ $booking->customer->name }}</td>
                                                             <td>{{ $booking->mobile }}</td>
                                                             <td>{{ $booking->from }}</td>

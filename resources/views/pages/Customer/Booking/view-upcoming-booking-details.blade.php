@@ -20,6 +20,12 @@
                                 <div class="card-body">
                                     <form>
                                         <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Id</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="{{ $booking->id }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Customer Name</label>
                                             <div class="col-sm-7">
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->customer->name }}">
@@ -76,12 +82,6 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Total price</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext" value="{{ '₤ '. $booking->total_price }}">
-                                            </div>
-                                        </div>
                                         @if (!empty($booking->passport))
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Passport</label>
@@ -108,8 +108,14 @@
                                                 <input type="text" readonly class="form-control-plaintext" value="{{ $booking->bookingStatus->status }}">
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Total price</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" readonly class="form-control-plaintext" value="{{ '₤ '. $booking->total_price }}">
+                                            </div>
+                                        </div>
                                     </form>
-                                    <a href="{{ route('customer.upcoming-booking') }}" class="btn btn-outline-secondary">Back to List</a>
+                                    <a href="{{ route('customer.dashboard') }}" class="btn btn-outline-secondary">Back to Dashboard</a>
                                 </div>
                             </div>
                         </div>

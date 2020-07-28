@@ -15,14 +15,18 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-    public function settings()
-    {
-        return view('pages.customer.settings');
-    }
 
     public function index()
     {
-        return view('pages.customer.dashboard');
+
+        $upcomingBookings = Booking::where(
+            [
+                // ['journey_date', '>', Carbon::now()],
+                ['booking_status_id', '!=', '4'],
+            ]
+        )->orderBy('journey_date', 'ASC')->paginate(10);
+        
+        return view('pages.customer.dashboard', compact('upcomingBookings'));
     }
 
     public function profile()
@@ -30,11 +34,23 @@ class CustomerController extends Controller
         return view('pages.customer.profile');
     }
 
+    public function settings()
+    {
+        return view('pages.customer.settings');
+    }
+
     public function uploadImage(Request $request)
     {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        $request->validate(
+            [
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
+            ],
+            [
+                'image.max' => "The :attribute can't be getter than 1 Mb.",
+                'image.image' => "The file must be an image type.",
+            ]
+        );
+
         if ($request->hasFile('image')) {
 
             // ? Making new file name for the image
@@ -150,31 +166,12 @@ class CustomerController extends Controller
 
         $bookingHistory = Booking::where(
             [
-                ['journey_date', '<', Carbon::now()]
-            ]
-        )->paginate(10);
-
-        return view('pages.customer.booking.booking-history', compact('bookingHistory'));
-    }
-
-    public function upcomingBooking()
-    {
-        // $upcomingBookings = Booking::where(
-        //     [
-        //         ['customer_id', Auth::id()],
-        //         ['journey_date', '>', Carbon::now()],
-        //         ['booking_status_id', '!=', '4'],
-        //     ]
-        // )->paginate(10);
-
-        $upcomingBookings = Booking::where(
-            [
-                ['journey_date', '>', Carbon::now()],
+                // ['journey_date', '<', Carbon::now()],
                 ['booking_status_id', '!=', '4'],
             ]
-        )->paginate(10);
+        )->orderBy('journey_date', 'ASC')->paginate(10);
 
-        return view('pages.customer.booking.upcoming-booking', compact('upcomingBookings'));
+        return view('pages.customer.booking.booking-history', compact('bookingHistory'));
     }
 
     public function viewBooking(Request $request)

@@ -10,10 +10,22 @@
                         <div class="row">
                             {{-- Starting Profile Image Section --}}
                             <div class="col-md-5">
+
+                                {{-- Success Message --}}
+                                <div class="container pl-5 pr-5 mt-3">
+                                    @if ($message = Session::get('success'))
+                                    <div class="alert alert-success alert-dismissible fade show">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                    {{-- <img src="{{ Session::get('image') }}"> --}}
+                                    @endif
+                                </div>
+
                                 <div class="profile-img d-flex-row">
                                     {{-- <img class="profile-user-img img-responsive rounder"
                                         src="{{ asset('storage/'.Auth::user()->image ) }}" alt="User profile picture"
-                                        style="max-width: 250px; min-width: 250px; max-height: 270px;"> --}}
+                                    style="max-width: 250px; min-width: 250px; max-height: 270px;"> --}}
 
                                     <?php 
                                         $userProfileImage = 'images/' . Auth::user()->image;
@@ -23,9 +35,9 @@
                                             $userProfileImagePath = 'images/customer-profile-image/default.png';
                                         }
                                     ?>
-                                    <img class="profile-user-img img-responsive rounder"
+                                    <img class="profile-user-img img-circle img-responsive rounder"
                                         src="{{ asset($userProfileImagePath) }}" alt="User profile picture"
-                                        style="max-width: 250px; min-width: 250px; max-height: 270px; object-fit: cover">
+                                        style="width: 200px; height: 200px; object-fit: cover">
                                 </div>
                                 <form class="d-flex-row" action="{{ route('customer.upload-image') }}" method="post"
                                     enctype="multipart/form-data">
@@ -48,37 +60,29 @@
                                 </form>
                                 <div class="d-flex-row pl-5 pr-5 container">
                                     <button type="button"
-                                        class="btn btn-outline-primary btn-md btn-block change-password" 
+                                        class="btn btn-outline-primary btn-md btn-block change-password"
                                         onclick="window.location = ('{{ route('customer.password.change')}}')">
                                         Change Password
                                         <span><i class="pl-2 fas fa-key"></i></span>
                                     </button>
-                                </div>
-
-                                {{-- Success Message --}}
-                                <div class="container pl-5 pr-5 mt-3">
-                                    @if ($message = Session::get('success'))
-                                    <div class="alert alert-success alert-dismissible fade show">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                                    {{-- <img src="{{ Session::get('image') }}"> --}}
-                                    @endif
                                 </div>
                             </div>
                             {{-- Ending Profile Image Section --}}
 
                             {{-- Starting Profile Section --}}
                             <div class="col-md-6">
-                                <div class="profile-head d-flex-row justify-content-center">
-                                    <h5 class="text-center">
-                                        {{ Auth::user()->name }}
-                                    </h5>
-                                    <h6 class="text-center">
-                                        {{ Auth::user()->mobile }}
-                                    </h6>
-                                </div>
                                 <div class="col-md-11 mt-4 pl-0 edit-profile">
+
+                                    {{-- Success Message --}}
+                                    <div class="mt-3">
+                                        @if ($message = Session::get('successfully-profile-updated'))
+                                        <div class="alert alert-success alert-dismissible fade show">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                        @endif
+                                    </div>
+
                                     <h4 class="profile-username text-left mb-4">Change Profile Details</h4>
 
                                     <form method="POST"
@@ -129,16 +133,6 @@
                                         </div>
                                         <button class="btn btn-primary" type="submit">Update Profile</button>
                                     </form>
-
-                                    {{-- Success Message --}}
-                                    <div class="mt-3">
-                                        @if ($message = Session::get('successfully-profile-updated'))
-                                        <div class="alert alert-success alert-dismissible fade show">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                        @endif
-                                    </div>
                                 </div>
                                 {{-- Ending Profile Section --}}
                             </div>

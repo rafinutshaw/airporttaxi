@@ -40,7 +40,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // ? Booking
     Route::group(['prefix' => 'booking'], function () {
         Route::get('/booking-history', 'CustomerController@bookingHistory')->name('customer.booking-history');
-        Route::get('/upcoming-booking', 'CustomerController@upcomingBooking')->name('customer.upcoming-booking');
         Route::get('/{id}/view-booking/', 'CustomerController@viewBooking')->name('customer.view-booking');
 
         Route::get('/{id}/view-upcoming-booking-details', 'CustomerController@viewUpcomingBookingDetails')->name('customer.upcoming.booking.details');
