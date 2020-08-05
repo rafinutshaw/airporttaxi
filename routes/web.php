@@ -39,12 +39,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
     // ? Booking
     Route::group(['prefix' => 'booking'], function () {
-        Route::get('/booking-history', 'CustomerController@bookingHistory')->name('customer.booking-history');
-        Route::get('/{id}/view-booking/', 'CustomerController@viewBooking')->name('customer.view-booking');
+        Route::get('/booking-history', 'CustomerController@bookingHistory')->name('customer.booking.history');
+        Route::get('/{id}/show-booking-details', 'CustomerController@viewBooking')->name('customer.booking.details');
 
         Route::get('/{id}/view-upcoming-booking-details', 'CustomerController@viewUpcomingBookingDetails')->name('customer.upcoming.booking.details');
 
-        // Route::get('/{id}/show-booking-details', 'CustomerController@viewCustomerBookingDetails')->name('customer.view-booking');
+        // Route::get('/{id}/show-booking-details', 'CustomerController@viewCustomerBookingDetails')->name('customer.booking.details');
     });
 
     Route::get('/profile', 'CustomerController@profile')->name('customer.profile');
@@ -58,9 +58,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/{any}', 'CustomerController@index')->where('any', '.*');
 });
 
-Route::get('/{any}', function () {
-    return view('index');
-})->where('any', '.*');
+// Route::get('/{any}', function () {
+//     return view('index');
+// })->where('any', '.*');
 
 // Route::get("{path}", "WelcomeController@index")->where("path", "([A-z\d-\/_.]+)?");
 

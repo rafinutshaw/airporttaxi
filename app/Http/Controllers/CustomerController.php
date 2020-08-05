@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
+use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -15,17 +16,47 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
-
     public function index()
     {
-        $upcomingBookings = Booking::where(
-            [
-                // ['journey_date', '>', Carbon::now()],
-                ['booking_status_id', '=', '1'],
-            ]
-        )->orderBy('journey_date', 'ASC')->paginate(10);
-        
-        return view('pages.customer.dashboard', compact('upcomingBookings'));
+        if (request()->ajax()) {
+
+            $query = Booking::with('customer', 'bookingStatus')
+                ->where(
+                    [
+                        ['booking_status_id', '=', '1']
+                    ]
+                );
+
+            return DataTables::of($query)
+                ->editColumn('action', function ($row) {
+                    $buttonActions = [
+                        'view' => [
+                            'visible' => true,
+                            'routeName' => 'customer.booking.details'
+                        ],
+                    ];
+                    return view('includes.customer.datatablesAction', compact('buttonActions', 'row'));
+                })
+                ->rawColumns(['action'])
+                ->editColumn('customer', function ($booking) {
+                    return $booking->customer->name;
+                })
+                ->editColumn('booking_status', function ($booking) {
+                    return $booking->bookingStatus->status;
+                })
+                ->editColumn('journey_date', function ($booking) {
+                    return $booking->journey_date->format('Y-m-d h:i A');
+                })
+                ->filterColumn('journey_date', function ($query, $keyword) {
+                    $query->whereRaw("DATE_FORMAT(journey_date,'%Y-%m-%d') like ?", ["%$keyword%"]);
+                })
+                ->orderColumn('id', function ($query) {
+                    $query->orderBy('journey_date', 'ASC');
+                })
+                ->toJson();
+        }
+
+        return view('pages.customer.dashboard');
     }
 
     public function profile()
@@ -154,23 +185,66 @@ class CustomerController extends Controller
         return redirect()->back()->with("successfully-password-updated", "Password changed successfully !");
     }
 
+    // public function bookingHistory()
+    // {
+    //     // $bookingHistory = Booking::where(
+    //     //     [
+    //     //         ['customer_id', Auth::id()],
+    //     //         ['journey_date', '<', Carbon::now()]
+    //     //     ]
+    //     // )->paginate(10);
+
+    //     $bookingHistory = Booking::where(
+    //         [
+    //             // ['journey_date', '<', Carbon::now()],
+    //             ['booking_status_id', '!=', '1'],
+    //         ]
+    //     )->orderBy('journey_date', 'ASC')->paginate(10);
+
+    //     return view('pages.customer.booking.booking-history', compact('bookingHistory'));
+    // }
+
     public function bookingHistory()
     {
-        // $bookingHistory = Booking::where(
-        //     [
-        //         ['customer_id', Auth::id()],
-        //         ['journey_date', '<', Carbon::now()]
-        //     ]
-        // )->paginate(10);
+        if (request()->ajax()) {
 
-        $bookingHistory = Booking::where(
-            [
-                // ['journey_date', '<', Carbon::now()],
-                ['booking_status_id', '!=', '1'],
-            ]
-        )->orderBy('journey_date', 'ASC')->paginate(10);
+            $query = Booking::with('customer', 'bookingStatus')
+                ->where(
+                    [
+                        ['booking_status_id', '!=', '1']
+                    ]
+                );
 
-        return view('pages.customer.booking.booking-history', compact('bookingHistory'));
+            return DataTables::of($query)
+                ->editColumn('action', function ($row) {
+                    $buttonActions = [
+                        'view' => [
+                            'visible' => true,
+                            'routeName' => 'customer.booking.details'
+                        ],
+                    ];
+                    return view('includes.customer.datatablesAction', compact('buttonActions', 'row'));
+                })
+                ->rawColumns(['action'])
+                ->editColumn('customer', function ($booking) {
+                    return $booking->customer->name;
+                })
+                ->editColumn('booking_status', function ($booking) {
+                    return $booking->bookingStatus->status;
+                })
+                ->editColumn('journey_date', function ($booking) {
+                    return $booking->journey_date->format('Y-m-d h:i A');
+                })
+                ->filterColumn('journey_date', function ($query, $keyword) {
+                    $query->whereRaw("DATE_FORMAT(journey_date,'%Y-%m-%d') like ?", ["%$keyword%"]);
+                })
+                ->orderColumn('id', function ($query) {
+                    $query->orderBy('journey_date', 'ASC');
+                })
+                ->toJson();
+        }
+
+        return view('pages.customer.booking.booking-history');
     }
 
     public function viewBooking(Request $request)
@@ -187,25 +261,5 @@ class CustomerController extends Controller
 
         // return view('pages.customer.booking.view-booking', compact('booking'));
         return view('pages.customer.booking.view-upcoming-booking-details', compact('booking'));
-    }
-
-    public function create()
-    {
-    }
-
-    public function store(Request $request)
-    {
-    }
-
-    public function show(Customer $customer)
-    {
-    }
-
-    public function edit(Customer $customer)
-    {
-    }
-
-    public function destroy(Customer $customer)
-    {
     }
 }

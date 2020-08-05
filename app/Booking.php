@@ -14,6 +14,12 @@ class Booking extends Model
         'booking_status_id',
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'journey_date'
+    ];
+
     // Creating global scope for Booking model so that every customer can only view their own bookings
     public static function booted()
     {

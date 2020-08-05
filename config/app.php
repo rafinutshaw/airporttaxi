@@ -190,6 +190,17 @@ return [
          */
         Barryvdh\DomPDF\ServiceProvider::class,
 
+        /*
+         * Laravel Data Table
+         */
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
+
+        /*
+         * Laravel Debugger
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
+
     ],
 
     /*

@@ -2,8 +2,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    {{-- <script src="{{ asset("js/theme/jquery.min.js") }}"></script> --}}
-
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @yield('style')
     
@@ -24,6 +22,8 @@
         {{-- Additional Scripts --}}
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
+    @stack('scripts')
+    
     @yield('scripts')
 </body>
 

@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('customer.booking-history') }}" class="nav-link">
+                            <a href="{{ route('customer.booking.history') }}" class="nav-link">
                                 <i class="fas fa-history nav-icon"></i>
                                 <p>Booking History</p>
                             </a>
