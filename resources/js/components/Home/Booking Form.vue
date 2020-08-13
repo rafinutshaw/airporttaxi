@@ -616,7 +616,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-2 width-100">
+                    <div v-if="!loggedIn" class="mt-2 width-100">
                         <label>Enter Your Email to get e-ticekt</label>
                         <div class="form-row align-items-center">
                             <div class="col">
@@ -1276,6 +1276,7 @@ export default {
     data() {
         return {
             isLoading: false,
+            loggedIn: false,
 
             // Starting Journey Details Form
             journey: [
@@ -1367,6 +1368,7 @@ export default {
     },
     mounted() {
         if (localStorage.getItem("loggedIn") !== null) {
+            this.loggedIn = localStorage.getItem("loggedIn");
             this.quoteDetails.name = localStorage.getItem("authUsername");
             this.quoteDetails.email = localStorage.getItem("authEmail");
 
@@ -1696,6 +1698,8 @@ export default {
             for (let i = 1; i <= this.journey[0].vehicle.luggage; i++) {
                 this.journey[0].luggage.push(i);
             }
+
+
 
             $("html,body").scrollTop(0);
         },
