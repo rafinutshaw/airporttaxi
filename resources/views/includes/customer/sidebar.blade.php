@@ -12,9 +12,11 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 {{-- <img src={{ asset(Auth::user()->image) }} class="img-circle elevation-2" alt="User Image"> --}}
-                {{-- <img src={{ asset('storage/'.Auth::user()->image ) }} class="img-circle elevation-2" alt="User Image"> --}}
-                {{-- <img src={{ asset('images/' . Auth::user()->image) }} class="img-circle elevation-2" alt="User Image"> --}}
-                
+                {{-- <img src={{ asset('storage/'.Auth::user()->image ) }} class="img-circle elevation-2" alt="User
+                Image"> --}}
+                {{-- <img src={{ asset('images/' . Auth::user()->image) }} class="img-circle elevation-2" alt="User
+                Image"> --}}
+
                 {{-- Checking if image is exists? If so then show it, if not then show the default one --}}
                 <?php 
                     $userProfileImage = 'images/' . Auth::user()->image;
@@ -24,10 +26,11 @@
                         $userProfileImagePath = 'images/customer-profile-image/default.png';
                     }
                 ?>
-                <img src={{ asset($userProfileImagePath) }} class="img-circle elevation-2" alt="User Image">
+                <img  src={{ asset($userProfileImagePath) }} class="user-panel-image img-circle elevation-2"
+                    alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="{{ route('customer.settings') }}" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -60,12 +63,6 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-plus nav-icon"></i>
-                                <p>Make Booking</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{ route('customer.booking.history') }}" class="nav-link">
                                 <i class="fas fa-history nav-icon"></i>
                                 <p>Booking History</p>
@@ -75,23 +72,19 @@
                 </li>
                 {{-- Ending Booking --}}
 
-                {{-- Starting Profile --}}
-                <li class="nav-item">
-                    <a href="{{ route('customer.settings') }}" class="nav-link">
-                        <i class="fas fa-user-cog nav-icon"></i>
-                        <p>Settings</p>
-                    </a>
-                </li>
-                {{-- Ending Profile --}}
-
                 <li class="nav-item">
                     {{-- <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        <i class="nav-icon fas fa-power-off red"></i>
-                        <p> Logout </p>
+                    document.getElementById('logout-form').submit();">
+                    <i class="nav-icon fas fa-power-off red"></i>
+                    <p> Logout </p>
                     </a> --}}
-                    
-                    <a class="nav-link" href="{{ route('logout') }}" id="logout">
+
+                    <a class="nav-link" href="{{ route('logout') }}" id="logout" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();
+                            localStorage.removeItem('loggedIn');
+                            localStorage.removeItem('authUsername');
+                            localStorage.removeItem('authEmail');
+                            localStorage.removeItem('authMobile');">
                         <i class="nav-icon fas fa-power-off red"></i>
                         <p> Logout </p>
                     </a>
@@ -106,7 +99,26 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+@section('style')
+<style>
+    .user-panel-image {
+        height: 40px !important;
+        width: 40px !important;
+        object-fit: cover !important;
+    }
 
+</style>
+@endsection
+@section('style')
+<style>
+    .user-panel-image {
+        height: 40px !important;
+        width: 40px !important;
+        object-fit: cover !important;
+    }
+
+</style>
+@endsection
 @section('scripts')
 <script type="application/javascript">
     $(document).ready(function () {
@@ -117,14 +129,14 @@
             }
         });
 
-        $("#logout").click(function (e) { 
-            e.preventDefault();
-            document.getElementById('logout-form').submit();
-            localStorage.removeItem('loggedIn');
-            localStorage.removeItem('authUsername');
-            localStorage.removeItem("authEmail");
-            localStorage.removeItem("authMobile");
-        });
+        // $("#logout").click(function (e) {
+        //     e.preventDefault();
+        //     document.getElementById('logout-form').submit();
+        //     localStorage.removeItem('loggedIn');
+        //     localStorage.removeItem('authUsername');
+        //     localStorage.removeItem("authEmail");
+        //     localStorage.removeItem("authMobile");
+        // });
     });
 
 </script>

@@ -12,7 +12,7 @@ Find your e-ticket in the attachment.
 Thank You.
 
 If it does not concern you please ignore this email.
-This is an automatically generated email. Please do not repl    y to this message.
+This is an automatically generated email. Please do not reply to this email.
 
 Thank you.<br>
 

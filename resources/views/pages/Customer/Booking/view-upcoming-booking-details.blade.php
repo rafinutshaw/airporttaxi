@@ -115,7 +115,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <a href="{{ route('customer.dashboard') }}" class="btn btn-outline-secondary">Back to Dashboard</a>
+                                    <a href="{{ route('customer.dashboard') }}" class="btn btn-outline-primary">Back to Dashboard</a>
                                 </div>
                             </div>
                         </div>

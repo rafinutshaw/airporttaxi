@@ -959,7 +959,7 @@
                 </div>
 
                 <div class="d-flex passenger-details ml-0 mr-0 mt-2">
-                    <div style="font-size: 12px;">
+                    <div class="text-black" style="font-size: 12px;">
                         I have read and agree to the
                         <a href="http://" target="_blank">privacy policy</a> &
                         <a href="http://" target="_blank">terms</a> of booking
@@ -1739,6 +1739,7 @@ export default {
                 : (this.quoteDetails.journeyType = "One Way");
 
             this.data = {
+                name: this.quoteDetails.name,
                 email: this.quoteDetails.email,
                 mobile: this.quoteDetails.mobile,
                 from: this.quoteDetails.originName,

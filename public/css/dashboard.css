@@ -1,0 +1,6 @@
+
+.user-panel-image {
+    height: 40px !important;
+    width: 40px !important;
+    object-fit: cover !important;
+}

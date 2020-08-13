@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("/file", "HomeController@fileUpload")->name("file.upload");
+Route::post("/file/store", "HomeController@storeFile")->name("store.file");
+Route::get('/get-file/{path}', function ($path) {
+    $image = storage_path("app/career/" . $path);
+    if (!file_exists($image)) {
+        abort('404');
+    }
+    return response()->file($image);
+})->name('get.file');
+
 Route::get('/', function () {
     return view('layouts.master');
 });

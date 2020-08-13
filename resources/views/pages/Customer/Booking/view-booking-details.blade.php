@@ -17,9 +17,9 @@
                                 <div class="card-header">
                                     <h3 class="card-title text-dark">
                                         @if ($booking->bookingStatus->status == "Pending")
-                                        Upcoming Booking Details
+                                        Upcoming Booking Details #{{ $booking->id }}
                                         @else
-                                        Booking Details
+                                        Booking Details #{{ $booking->id }}
                                         @endif
                                     </h3>
                                 </div>
@@ -168,10 +168,10 @@
 
                                     @if ($booking->bookingStatus->status == "Pending")
                                         <a href="{{ route('customer.dashboard') }}"
-                                            class="btn btn-outline-secondary">Back to List</a>
+                                            class="btn btn-outline-primary">Back to List</a>
                                     @else
                                         <a href="{{ route('customer.booking.history') }}"
-                                            class="btn btn-outline-secondary">Back to List</a>
+                                            class="btn btn-outline-primary">Back to List</a>
                                     @endif
                                 </div>
                             </div>
