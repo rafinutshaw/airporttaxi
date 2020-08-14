@@ -37,6 +37,12 @@ class CustomerController extends Controller
                     ];
                     return view('includes.customer.datatablesAction', compact('buttonActions', 'row'));
                 })
+                /**
+                 * * You can add action button with that way (top) [use this when you want more than one button] or this way (bottom)
+                 */
+                // ->addColumn('action', function ($row) {
+                //     return '<a href="' . route('customer.booking.details', $row->id) . '" class="btn btn-sm btn-primary mt-1">' . __('View') . '</a>';
+                // })
                 ->rawColumns(['action'])
                 ->editColumn('customer', function ($booking) {
                     return $booking->customer->name;
@@ -216,14 +222,20 @@ class CustomerController extends Controller
                 );
 
             return DataTables::of($query)
-                ->editColumn('action', function ($row) {
-                    $buttonActions = [
-                        'view' => [
-                            'visible' => true,
-                            'routeName' => 'customer.booking.details'
-                        ],
-                    ];
-                    return view('includes.customer.datatablesAction', compact('buttonActions', 'row'));
+                // ->editColumn('action', function ($row) {
+                //     $buttonActions = [
+                //         'view' => [
+                //             'visible' => true,
+                //             'routeName' => 'customer.booking.details'
+                //         ],
+                //     ];
+                //     return view('includes.customer.datatablesAction', compact('buttonActions', 'row'));
+                // })
+                /**
+                 * * You can add action button with that way (top) [use this when you want more than one button] or this way (bottom)
+                 */
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . route('customer.booking.details', $row->id) . '" class="btn btn-sm btn-primary mt-1">' . __('View') . '</a>';
                 })
                 ->rawColumns(['action'])
                 ->editColumn('customer', function ($booking) {
