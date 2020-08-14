@@ -203,12 +203,6 @@
                                             fermentum.
                                         </p>
                                     </div>
-                                    <a
-                                        id="book-now"
-                                        class="primary-btn"
-                                        href="contact-page.html"
-                                        >Book Now</a
-                                    >
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -241,14 +235,6 @@
                                 Don’t worry. We provide very nice deals and the
                                 most competative price just for you!
                             </div>
-                        </div>
-                        <div class="col-md-4 d-flex justify-content-center">
-                            <a
-                                class="stunning-item-button limoking-info-font align-self-center"
-                                href="service-rates.html"
-                                style="color: #fff;background: #009fbd;"
-                                >Check Rates</a
-                            >
                         </div>
                     </div>
                     <!-- <div class="limoking-stunning-item-ux limoking-ux"></div> -->

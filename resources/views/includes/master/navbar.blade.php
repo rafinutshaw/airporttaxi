@@ -3,7 +3,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color:black">
     <div class="container">
         <router-link to="/" tag="a" class="navbar-brand"><img src="{{ asset("/images/logo.png") }}" alt=""
-                title="{{ config('app.name') }}" style="width: 40px; height: 40px" />
+                title="{{ config('app.name') }}" style="width: 100px;" />
         </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

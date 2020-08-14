@@ -70,7 +70,8 @@
             </div> --}}
             <p class="mt-80 mx-auto footer-text col-lg-12">
                 Copyright &copy; All rights reserved | This website is made with <i class="fas fa-heart"
-                    aria-hidden="true"></i> by <a href="#" target="_blank">Sezan & Utsha</a>
+                    aria-hidden="true"></i>
+                    {{--  by <a href="#" target="_blank">Sezan & Utsha</a> --}}
             </p>
         </div>
     </div>
