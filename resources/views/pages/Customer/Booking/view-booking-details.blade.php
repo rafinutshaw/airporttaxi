@@ -22,135 +22,87 @@
                                         Booking Details #{{ $booking->id }}
                                         @endif
                                     </h3>
+                                    <div class="card-tools">
+                                        <p class="mb-0 badge font-weight-bold" style="font-size: 1rem;">
+                                            Status: {{ $booking->bookingStatus->status }}
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="card-body">
-                                    <form>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Customer Name</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->customer->name }}">
-                                            </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">From</label>
+                                            <p class="booking-data">{{ $booking->from }}</p>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Mobile</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->mobile }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">From</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->from }}">
-                                            </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">To</label>
+                                            <p class="booking-data">{{ $booking->to }}</p>
                                         </div>
                                         @if (!empty($booking->via))
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Via Route</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->via }}">
-                                            </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">Via Route</label>
+                                            <p class="booking-data">{{ $booking->via }}</p>
                                         </div>
                                         @endif
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">To</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->to }}">
-                                            </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">Journey Date</label>
+                                            <p class="booking-data">{{ $booking->journey_date }}</p>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Journey Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->journey_date }}">
-                                            </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">Journey Type</label>
+                                            <p class="booking-data">{{ $booking->journey_type }}</p>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Journey Type</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->journey_type }}">
-                                            </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">Vehicle</label>
+                                            <p class="booking-data">{{ $booking->vehicle->type }}</p>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Vehicle</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->vehicle->type }}">
-                                            </div>
+                                    </div>
+
+                                    @if (!empty($booking->passport))
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">Passport</label>
+                                            <p class="booking-data">{{ $booking->passport }}</p>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Passengers</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->passengers }}">
-                                            </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">Flight Number</label>
+                                            <p class="booking-data">{{ $booking->flight_number }}</p>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Luggage</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->luggage }}">
-                                            </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="col-sm-6 col-form-label">Flight Origin</label>
+                                            <p class="booking-data">{{ $booking->flight_origin }}</p>
                                         </div>
-                                        @if (!empty($booking->discount))
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Discount</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ '₤ '. $booking->discount }}">
-                                            </div>
+                                    </div>
+                                    @endif
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label class="col-sm-6 col-form-label">Passengers</label>
+                                            <p class="booking-data">{{ $booking->passengers }}</p>
                                         </div>
-                                        @endif
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Total price</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ '₤ '. $booking->total_price }}">
-                                            </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="col-sm-6 col-form-label">Luggage</label>
+                                            <p class="booking-data">{{ $booking->luggage }}</p>
                                         </div>
-                                        @if (!empty($booking->passport))
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Passport</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->passport }}">
-                                            </div>
+                                    </div>
+
+                                    <hr>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12 text-right">
+                                            <label class="col-sm-6 col-form-label">Total price</label>
+                                            <p class="booking-data">{{ '₤ '. $booking->total_price }}</p>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Flight Number</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->flight_number }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Flight Origin</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->flight_origin }}">
-                                            </div>
-                                        </div>
-                                        @endif
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Booking Status</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->bookingStatus->status }}">
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
 
                                     @if ($booking->bookingStatus->status == "Pending")
-                                        <a href="{{ route('customer.dashboard') }}"
-                                            class="btn btn-outline-primary">Back to List</a>
+                                    <a href="{{ route('customer.dashboard') }}" class="btn btn-outline-primary">Back to
+                                        List</a>
                                     @else
-                                        <a href="{{ route('customer.booking.history') }}"
-                                            class="btn btn-outline-primary">Back to List</a>
+                                    <a href="{{ route('customer.booking.history') }}"
+                                        class="btn btn-outline-primary">Back to
+                                        List</a>
                                     @endif
                                 </div>
                             </div>
@@ -164,4 +116,20 @@
 </div>
 <!-- /.content-wrapper -->
 
+@endsection
+@section('style')
+<style>
+    .booking-data {
+        display: block;
+        width: 100%;
+        height: calc(1.6em + 0.75rem + 2px);
+        padding: 0.375rem 1rem;
+        font-size: 0.9rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: #5a5a5a;
+        background-color: #fff;
+    }
+
+</style>
 @endsection
