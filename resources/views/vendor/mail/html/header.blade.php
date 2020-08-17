@@ -9,8 +9,8 @@
             <img src="{{ asset('./images/logo.png') }}" class="logo" height="60px" width="60px">
             <p style="margin-left: 5px; margin-top: 20px">{{ $slot }}</p>
         @endif --}}
-            <img src="http://www.uk-airporttaxi.com/img/logo (3).png" class="logo" height="60px" width="60px">
-            <p style="margin-left: 5px; margin-top: 20px; display: inline;">{{ $slot }}</p>
+            <img src="http://www.uk-airporttaxi.com/images/logo.png" class="logo">
+            {{-- <p style="margin-left: 5px; margin-top: 20px; display: inline;">{{ $slot }}</p> --}}
         </a>
     </td>
 </tr>

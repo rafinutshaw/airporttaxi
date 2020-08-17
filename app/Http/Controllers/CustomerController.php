@@ -262,16 +262,12 @@ class CustomerController extends Controller
     public function viewBooking(Request $request)
     {
         $booking = Booking::findOrFail($request->id);
-
-        // return view('pages.customer.booking.view-booking', compact('booking'));
         return view('pages.customer.booking.view-booking-details', compact('booking'));
     }
 
     public function viewUpcomingBookingDetails(Request $request)
     {
         $booking = Booking::findOrFail($request->id);
-
-        // return view('pages.customer.booking.view-booking', compact('booking'));
         return view('pages.customer.booking.view-upcoming-booking-details', compact('booking'));
     }
 }

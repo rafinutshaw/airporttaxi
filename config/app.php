@@ -17,7 +17,7 @@ return [
     'name' => 'UK Airport Taxi',
     'address' => '221B Baker Street, London, UK',
     'mobile' => '00 (958) 9865 562',
-    'email' => 'info@ukairporttaxi.com',
+    'email' => 'noreply@uk-airporttaxi.com',
 
     /*
     |--------------------------------------------------------------------------

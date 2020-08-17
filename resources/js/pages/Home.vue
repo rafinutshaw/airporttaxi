@@ -514,21 +514,14 @@
 
 <script>
 import BookingForm from "../components/Home/Booking Form";
-import FindCarModal from "../components/Home/Find Car Modal";
 import FindCarByType from "../components/Home/Find Cars By Type";
 import About from "../pages/About";
 export default {
     components: {
         BookingForm,
-        FindCarModal,
         FindCarByType,
         About
     },
-    methods: {
-        suitableCarModal() {
-            this.$root.$emit("findCarModal");
-        }
-    }
 };
 </script>
 

@@ -24,7 +24,7 @@ trait BookingInvoiceTrait
 
         $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
 
-        $pdfFileName = "booking invoice " . $booking->id . ".pdf";
+        $pdfFileName = "booking invoice " . uniqid() . ".pdf";
         Storage::put('public/pdf/' . $pdfFileName, $pdf->output());
         return $pdfFileName;
     }
@@ -41,7 +41,7 @@ trait BookingInvoiceTrait
         if (!empty($booking)) {
             $data = $this->setInvoiceData($booking);
             $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-            return $pdf->download('booking-summery ' . $booking->id . '.pdf');
+            return $pdf->download('booking-summery ' . uniqid() . '.pdf');
         }
     }
 
@@ -67,6 +67,7 @@ trait BookingInvoiceTrait
             'passengers' => $booking->passengers,
             'luggage' => $booking->luggage,
             'totalPrice' => $booking->total_price,
+            'vehicle' => $booking->vehicle->type
         ];
         return $data;
     }

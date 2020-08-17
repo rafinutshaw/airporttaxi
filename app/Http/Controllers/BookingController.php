@@ -7,6 +7,7 @@ use App\Booking;
 use App\Customer;
 use Carbon\Carbon;
 use App\BookingStatus;
+use App\Http\Controllers\Traits\BookingInvoiceTrait;
 use App\Jobs\SendEmailJob;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Storage;
 
 class BookingController extends Controller
 {
+    use BookingInvoiceTrait;
+
     public function getPrice(Request $request)
     {
         $getPrice = Price::find($request['price_id']);
@@ -51,6 +54,7 @@ class BookingController extends Controller
                 'passport' => $request['passport'],
                 'flight_number' => $request['flight_number'],
                 'flight_origin' => $request['flight_origin'],
+                'vehicle_id' => $request['vehicle_id'],
                 'booking_status_id' => 1,
             ]);
 
@@ -87,6 +91,7 @@ class BookingController extends Controller
                 'passport' => $request['passport'],
                 'flight_number' => $request['flight_number'],
                 'flight_origin' => $request['flight_origin'],
+                'vehicle_id' => $request['vehicle_id'],
                 'booking_status_id' => 1,
             ]);
 
@@ -102,9 +107,7 @@ class BookingController extends Controller
      */
     public function sendEmail($booking)
     {
-        $attachedPDF = $this->savePDF($booking);
-        SendEmailJob::dispatch($booking, $attachedPDF);
-
+        SendEmailJob::dispatch($booking, $this->saveInvoice($booking));
         return response()->json('Email send', 200);
     }
 
@@ -118,12 +121,9 @@ class BookingController extends Controller
             $data = $this->setPDF($booking);
         }
 
-        $pdf = PDF::loadView(
-            'pdf-template.booking-summery',
-            compact('data')
-        );
+        $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
 
-        $pdfFileName = "booking invoice " . $booking->id . ".pdf";
+        $pdfFileName = "booking invoice " . uniqid() . ".pdf";
         Storage::put('public/pdf/' . $pdfFileName, $pdf->output());
         return $pdfFileName;
     }
@@ -134,30 +134,8 @@ class BookingController extends Controller
     public function downloadPDF(Request $request)
     {
         $booking = Booking::find($request->id);
-        if (isset($booking) && $booking->customer->email == $request->email) {
-            $data = $this->setPDF($booking);
-            $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-            return $pdf->download('booking-summery.pdf');
+        if (!empty($booking) && $booking->customer->email == $request->email) {
+            return $this->downloadInvoice($booking->id);
         }
-    }
-
-    private function setPDF($booking)
-    {
-        $data = [
-            'name' => $booking->customer->name,
-            'mobile' => $booking->mobile,
-            'email' => $booking->customer->email,
-            'invoiceNo' => $booking->id,
-            'dateOfInvoice' => $booking->journey_date,
-            'from' => $booking->from,
-            'via' => $booking->via,
-            'to' => $booking->to,
-            'journeyDate' => $booking->journey_date,
-            'journeyType' => $booking->journey_type,
-            'passengers' => $booking->passengers,
-            'luggage' => $booking->luggage,
-            'totalPrice' => $booking->total_price,
-        ];
-        return $data;
     }
 }

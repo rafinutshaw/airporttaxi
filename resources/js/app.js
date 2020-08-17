@@ -46,7 +46,7 @@ Object.keys(rules).forEach(rule => {
 Vue.component("ValidationObserver", ValidationObserver);
 Vue.component("ValidationProvider", ValidationProvider);
 
-Vue.component("pagination", require("laravel-vue-pagination"));
+// Vue.component("pagination", require("laravel-vue-pagination"));
 
 const app = new Vue({
     el: "#app",

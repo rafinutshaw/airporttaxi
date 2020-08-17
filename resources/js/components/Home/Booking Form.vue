@@ -366,69 +366,6 @@
         */ -->
 
         <!-- /**
-        * TODO:     Stage 2
-        * ? Starting First Journey
-        */ -->
-        <!-- <div
-            v-if="
-                formStage.details ||
-                    formStage.journeyFare ||
-                    formStage.basket
-            "
-            class="first-journey text-left"
-        >
-            <ul class="list-unstyled origin mb-1">
-                <li>
-                    <span class="d-flex">
-                        <p class="mb-0 mr-1"><strong>Start: </strong></p>
-                        {{ journey[0].origin.text }}
-                    </span>
-                </li>
-                <div v-if="journey[0].via.length > 0">
-                    <li>
-                        <span class="d-flex">
-                            <p class="mb-0 mr-1"><strong>Via: </strong></p>
-                            {{ journey[0].viaRouteNames }}
-                        </span>
-                    </li>
-                </div>
-                <li>
-                    <span class="d-flex">
-                        <p class="mb-0 mr-2"><strong>End: </strong></p>
-                        {{ journey[0].destination.text }}
-                    </span>
-                </li>
-                <div v-if="journey[0].return" class="mt-2">
-                    <h6>Return Journey</h6>
-                    <li>
-                        <span class="d-flex">
-                            <p class="mb-0 mr-1"><strong>Start: </strong></p>
-                            {{ journey[0].returnFrom.text }}
-                        </span>
-                    </li>
-                    <div v-if="journey[0].returnVia.length > 0">
-                        <li>
-                            <span class="d-flex">
-                                <p class="mb-0 mr-1"><strong>Via: </strong></p>
-                                {{ journey[0].returnViaRouteNames }}
-                            </span>
-                        </li>
-                    </div>
-                    <li>
-                        <span class="d-flex">
-                            <p class="mb-0 mr-2"><strong>End: </strong></p>
-                            {{ journey[0].returnTo.text }}
-                        </span>
-                    </li>
-                </div>
-            </ul>
-        </div> -->
-        <!-- /**
-        * TODO:     Stage 2
-        * ? Ending First Journey
-        */ -->
-
-        <!-- /**
         * TODO:     Stage 3
         * ? Starting Journey Fares
         */ -->
@@ -1318,6 +1255,7 @@ export default {
 
                 distance: null,
                 fare: null,
+                vehicleId: null,
 
                 // Passenger Details
                 name: "",
@@ -1382,11 +1320,6 @@ export default {
         });
     },
     methods: {
-        selectedPrice(vehicle) {
-            this.journey[0].vehicle = vehicle;
-            this.journey[0].fare = vehicle.price;
-            this.quoteDetails.fare = vehicle.totalPrice;
-        },
         // Adding a via route
         add() {
             this.journey[0].via.push({
@@ -1685,6 +1618,13 @@ export default {
             $("html,body").scrollTop(0);
         },
 
+        selectedPrice(vehicle) {
+            this.journey[0].vehicle = vehicle;
+            this.journey[0].fare = vehicle.price;
+            this.quoteDetails.fare = vehicle.totalPrice;
+            this.quoteDetails.vehicleId = vehicle.id;
+        },
+
         submitFare() {
             this.formStage.journeyFare = false;
             this.formStage.details = true;
@@ -1755,6 +1695,7 @@ export default {
 
                 passengers: this.quoteDetails.passengers,
                 luggage: this.quoteDetails.luggage,
+                vehicle_id: this.quoteDetails.vehicleId,
 
                 discount: this.quoteDetails.discount,
                 total_price: parseFloat(this.quoteDetails.fare),
@@ -1771,14 +1712,16 @@ export default {
                     this.formStage.submittedStatus = true;
                     this.quoteDetails.afterSubmittedBookingId =
                         response.data.bookingId;
-
-                    // Swal.fire({
-                    //     icon: "success",
-                    //     title: response.data.success,
-                    //     showConfirmButton: false,
-                    //     timer: 2000
-                    // });
-                    // window.location = "/";
+                })
+                .catch(error => {
+                    if (error.response.status === 404) {
+                        error.response.data.message = "Something went wrong!";
+                    }
+                    Swal.fire({
+                        icon: 'error',
+                        title: `Oops... Error ` + error.response.status,
+                        text: error.response.data.message,
+                    })
                 })
                 .finally(() => {
                     this.isLoading = false;

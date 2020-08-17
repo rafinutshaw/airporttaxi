@@ -6,6 +6,10 @@
 </head>
 <body>
 <style>
+.logo {
+    width: 200px !important;
+    height: 100px !important;
+}
 @media only screen and (max-width: 600px) {
 .inner-body {
 width: 100% !important;

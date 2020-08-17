@@ -4,3 +4,6 @@
     width: 40px !important;
     object-fit: cover !important;
 }
+.brand-link .brand-image {
+    margin-left: 0 !important;
+}

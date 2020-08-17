@@ -8,9 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     protected $fillable = [
-        'customer_id', 'name', 'mobile', 'from', 'via', 'to', 'journey_date',
-        'journey_type', 'passengers', 'luggage', 'discount',
-        'total_price', 'passport', 'flight_number', 'flight_origin',
+        'customer_id',
+        'mobile',
+        'from',
+        'via',
+        'to',
+        'journey_date',
+        'journey_type',
+        'passengers',
+        'luggage',
+        'discount',
+        'total_price',
+        'passport',
+        'flight_number',
+        'flight_origin',
+        'vehicle_id',
         'booking_status_id',
     ];
 
@@ -43,5 +55,10 @@ class Booking extends Model
     public function bookingStatus()
     {
         return $this->belongsTo('App\BookingStatus');
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_id', 'id');
     }
 }

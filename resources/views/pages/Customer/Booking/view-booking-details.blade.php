@@ -69,41 +69,20 @@
                                                     value="{{ $booking->journey_date }}">
                                             </div>
                                         </div>
-
-                                        {{-- Return Booking --}}
-                                        @if (!empty($booking->returnFrom))
                                         <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Return From</label>
+                                            <label class="col-sm-3 col-form-label">Journey Type</label>
                                             <div class="col-sm-7">
                                                 <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->returnFrom }}">
-                                            </div>
-                                        </div>
-                                        @if (!empty($booking->returnVia))
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Return Via Route</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->returnVia }}">
-                                            </div>
-                                        </div>
-                                        @endif
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Return To</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->returnTo }}">
+                                                    value="{{ $booking->journey_type }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Return Journey Date</label>
+                                            <label class="col-sm-3 col-form-label">Vehicle</label>
                                             <div class="col-sm-7">
                                                 <input type="text" readonly class="form-control-plaintext"
-                                                    value="{{ $booking->return_journey_date }}">
+                                                    value="{{ $booking->vehicle->type }}">
                                             </div>
                                         </div>
-                                        @endif
-
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Passengers</label>
                                             <div class="col-sm-7">

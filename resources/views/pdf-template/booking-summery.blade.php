@@ -311,6 +311,13 @@
                 </tr>
 
                 <tr>
+                    <td class="no">Vechile</td>
+                    <td class="desc" colspan="4">
+                        {{ $data['vehicle'] }}
+                    </td>
+                </tr>
+
+                <tr>
                     <td class="no">Pickup at</td>
                     <td class="desc" colspan="4">
                         {{ $data['journeyDate'] }}
