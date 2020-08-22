@@ -1,6 +1,9 @@
 <?php
 
 use App\Vehicle;
+use App\Events\MyEvent;
+use App\Events\BookingSubmittedEvent;
+use App\Notifications\BookingSubmittedNotification;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +15,26 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/demo', function () {
+
+    // event(new MyEvent(auth()->user()->unreadNotifications->count(), auth()->user()));
+    $booking = App\Booking::findOrFail(2);
+    $user = App\User::findOrFail(1);
+    $user->notify(new BookingSubmittedNotification($booking->id, 'booking-submitted'));
+    // event(new MyEvent($booking->id, 'booking-submitted'));
+    // Notification::send(Auth::user(), new BookingSubmittedNotification);
+    // Notification::send(Auth::user(), new BookingSubmittedNotification);
+    return "Done";
+});
+
+Route::get("/notify", function () {
+    // $booking = App\Booking::findOrFail(1);
+    // $users = App\User::all();
+    // foreach($users as $user) {
+    //     $user->notify(new BookingSubmittedNotification($booking->id, 'booking-submitted');
+    // };
+});
 
 Route::get("/file", "HomeController@fileUpload")->name("file.upload");
 Route::post("/file/store", "HomeController@storeFile")->name("store.file");

@@ -33,14 +33,14 @@ class Booking extends Model
     ];
 
     // Creating global scope for Booking model so that every customer can only view their own bookings
-    public static function booted()
-    {
-        static::addGlobalScope('booking_created_customer', function (Builder $builder) {
-            if (auth()->check()) {
-                return $builder->where('customer_id', auth()->id());
-            }
-        });
-    }
+    // public static function booted()
+    // {
+    //     static::addGlobalScope('booking_created_customer', function (Builder $builder) {
+    //         if (auth()->check()) {
+    //             return $builder->where('customer_id', auth()->id());
+    //         }
+    //     });
+    // }
 
     public function customer()
     {
