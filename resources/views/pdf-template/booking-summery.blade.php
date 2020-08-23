@@ -9,7 +9,6 @@
             display: table;
             clear: both;
         }
-
         a {
             color: #0087C3;
             text-decoration: none;
@@ -37,7 +36,7 @@
 
         #logo {
             float: left;
-            margin-top: 8px;
+            /* margin-top: 8px; */
         }
 
         #logo img {
@@ -57,7 +56,7 @@
 
 
         #details {
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
 
         #client {
@@ -200,8 +199,8 @@
         footer {
             color: #777777;
             width: 100%;
-            height: 30px;
-            position: absolute;
+            height: 180px;
+            position: fixed;
             bottom: 0;
             border-top: 1px solid #AAAAAA;
             padding: 8px 0;
@@ -228,6 +227,15 @@
             padding-right: 0;
         }
 
+        .contact h6 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .footertable tr td {
+            text-align: left !important;
+        }
+
     </style>
 </head>
 
@@ -243,10 +251,9 @@
                     </td>
                     <td colspan="2" class="bg-white pr-0">
                         <div id="" style="text-align: right">
-                            <h2 class="name">UK Airport Taxi</h2>
-                            <div>221B Baker Street, London, UK</div>
-                            <div>00 (958) 9865 562</div>
-                            <div><a href="mailto:info@ukairporttaxi.com">info@ukairporttaxi.com</a></div>
+                            <h2 class="name">{{ config('app.name') }}</h2>
+                            <div>{{ config('app.slogan') }}</div>
+                            <div>{{ config('app.website') }}</div>
                         </div>
                     </td>
                 </tr>
@@ -318,7 +325,7 @@
                 </tr>
 
                 <tr>
-                    <td class="no">Pickup at</td>
+                    <td class="no">Time & Date</td>
                     <td class="desc" colspan="4">
                         {{ $data['journeyDate'] }}
                     </td>
@@ -353,12 +360,26 @@
                 </tr>
             </tfoot>
         </table>
-        {{-- <div id="notices">
-            <div>NOTICE:</div>
-            <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-        </div> --}}
     </main>
     <footer>
+        <table class="footertable" border="0" width="100%">
+            <tr>
+                <td width="50%"><big>Contact</big>
+                    <br><br>
+                    <strong>Tel :</strong> {{ config('app.mobile') }} <br>
+                    <strong>Mail :</strong> <a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a>
+                    <br>
+                    <strong>Address :</strong> {{ config('app.address') }}<br>
+                    <strong>Website :</strong> {{ config('app.website') }}
+                </td>
+                <td width="50%"><big>We are licensed by</big>
+                    <br> <br>
+                    <img src="./images/southcambridge-black.png" alt="south cambridgeshire district council">
+                </td>
+            </tr>
+        </table>
+        {{-- <div id="details" class="clearfix">
+        </div> --}}
         Invoice was created on a computer and is valid without the signature and seal.
     </footer>
 </body>

@@ -17,6 +17,43 @@
         </section>
         <!-- End banner Area -->
 
+        <!-- Start CEO Area -->
+        <section class="services-area pb-50 pt-50 mt-5">
+            <div class="container">
+                <!-- Bootstrap Card -->
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-deck border-0 transform-on-hover">
+                            <div class="ceo-card card">
+                                <img
+                                    src="../../../public/img/Cars/Saloon Car.jpeg"
+                                    class="card-img"
+                                    alt="..."
+                                />
+                                <!-- <div class="card-body">
+                                    <h5 class="card-title">Saloon Car</h5>
+                                    <p class="card-text">
+                                        Ford Mondeo, VW Passat or similar. These
+                                        can accommodate up to 3 passengers plus
+                                        3 suitcases (20kg max) or 4 passengers
+                                        plus hand luggage. Any more luggage than
+                                        this will require a larger vehicle.
+                                    </p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-8">
+                        <h3>Mr. X</h3>
+                        <p>We aim to be No.1 company in customer satisfaction by striving to create 
+                            'inspiring the next' with pursuit of creativity and technical expertise. </p>
+                    </div>
+                </div>
+                <!-- Bootstrap Card -->
+            </div>
+        </section>
+        <!-- End CEO Area -->
+
         <!-- Start home-about Area -->
         <about></about>
         <!-- End home-about Area -->
@@ -521,11 +558,15 @@ export default {
         BookingForm,
         FindCarByType,
         About
-    },
+    }
 };
 </script>
 
 <style scoped>
+.ceo-card {
+    min-height: 250px !important;
+    max-height: 250px !important;
+}
 h1.text-uppercase {
     color: #e2e1ff;
 }

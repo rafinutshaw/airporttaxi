@@ -15,9 +15,11 @@ return [
 
     // 'name' => env('APP_NAME', 'Laravel'),
     'name' => 'UK Airport Taxi',
-    'address' => '221B Baker Street, London, UK',
-    'mobile' => '00 (958) 9865 562',
-    'email' => 'noreply@uk-airporttaxi.com',
+    'website' => 'www.uk-airporttaxi.com',
+    'slogan' => 'Exclusive Airport Transport',
+    'address' => '572 Newmarket Road, Cambridge Cambridgeshire CB5 8LL',
+    'mobile' => '+44-7538950903',
+    'email' => 'info@unicab-cambridge.co.uk',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +178,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 

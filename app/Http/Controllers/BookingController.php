@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Price;
 use App\Booking;
 use App\Customer;
 use Carbon\Carbon;
 use App\BookingStatus;
-use App\Http\Controllers\Traits\BookingInvoiceTrait;
 use App\Jobs\SendEmailJob;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -16,6 +16,8 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\BookingSubmittedNotification;
+use App\Http\Controllers\Traits\BookingInvoiceTrait;
 
 class BookingController extends Controller
 {
@@ -57,11 +59,6 @@ class BookingController extends Controller
                 'vehicle_id' => $request['vehicle_id'],
                 'booking_status_id' => 1,
             ]);
-
-            //  * Sending an email
-            $this->sendEmail($booking);
-
-            return response()->json(["bookingId" => $booking->id], 200);
         } else {
 
             //  * Creating a account for guest user
@@ -94,12 +91,17 @@ class BookingController extends Controller
                 'vehicle_id' => $request['vehicle_id'],
                 'booking_status_id' => 1,
             ]);
-
-            //  * Sending an email
-            $this->sendEmail($booking);
-
-            return response()->json(["bookingId" => $booking->id], 200);
         }
+
+        //  * Sending an email
+        $this->sendEmail($booking);
+
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->notify(new BookingSubmittedNotification($booking->id));
+        }
+
+        return response()->json(["bookingId" => $booking->id], 200);
     }
 
     /**

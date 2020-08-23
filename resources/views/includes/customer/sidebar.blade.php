@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="{{ route('customer.dashboard') }}" class="brand-link">
         <img src="{{ asset("images/logo.png") }}" alt="Company Logo" class="brand-image" />
         <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
     </a>
@@ -109,16 +109,6 @@
 
 </style>
 @endsection
-@section('style')
-<style>
-    .user-panel-image {
-        height: 40px !important;
-        width: 40px !important;
-        object-fit: cover !important;
-    }
-
-</style>
-@endsection
 @section('scripts')
 <script type="application/javascript">
     $(document).ready(function () {
@@ -128,16 +118,6 @@
                 $(this).addClass("active");
             }
         });
-
-        // $("#logout").click(function (e) {
-        //     e.preventDefault();
-        //     document.getElementById('logout-form').submit();
-        //     localStorage.removeItem('loggedIn');
-        //     localStorage.removeItem('authUsername');
-        //     localStorage.removeItem("authEmail");
-        //     localStorage.removeItem("authMobile");
-        // });
     });
-
 </script>
 @endsection

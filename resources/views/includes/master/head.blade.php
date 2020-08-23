@@ -42,7 +42,7 @@
 
     
     {{-- <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script> --}}
-    {{-- <script src="{{ asset("js/theme/jquery.min.js") }}"></script> --}}
+
     
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
@@ -70,6 +70,7 @@
     <script src="{{ asset("js/theme/mail-script.js") }}"></script> --}}
     {{-- <script src="{{ asset("js/theme/main.js") }}"></script> --}}
 
+    {{-- <script src="{{ asset("js/theme/jquery.min.js") }}"></script> --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/theme.js') }}"></script> --}}
 
