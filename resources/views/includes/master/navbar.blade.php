@@ -53,16 +53,31 @@
                         </a>
 
                         {{-- <a id="logout" class="dropdown-item" href="{{ route('logout') }}" onclick="logout(event)">
-                            {{ __('Logout') }}
+                        {{ __('Logout') }}
                         </a> --}}
 
-                        {{-- <a class="dropdown-item" href="{{ route('logout') }}" id="logout">
-                            {{ __('Logout') }}
+                        {{-- <a class="dropdown-item" href="{{ route('logout') }}" id="logout"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form> --}}
+
+                        <a class="dropdown-item" href="{{ route('logout') }}" id="logout" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();
+                            localStorage.removeItem('loggedIn');
+                            localStorage.removeItem('authUsername');
+                            localStorage.removeItem('authEmail');
+                            localStorage.removeItem('authMobile');">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </li>
                 @endguest
@@ -73,15 +88,26 @@
 @section('navbar-scripts')
 
 <script type="application/javascript">
-    function logout(e) {
-        e.preventDefault();
-        document.getElementById('logout-form').submit();
-        localStorage.removeItem('loggedIn');
-        localStorage.removeItem('authUsername');
-        localStorage.removeItem("authEmail");
-        localStorage.removeItem("authMobile");
-        window.location = "/";
-    };
+    $(document).ready(function () {
+        // auto logout script
+        const timeout = 7200000; // 7200000 ms = 120 minutes
+        var idleTimer = null;
+        $("*").bind(
+            "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
+            function () {
+                clearTimeout(idleTimer);
+    
+                idleTimer = setTimeout(function () {
+                    localStorage.removeItem('loggedIn');
+                    localStorage.removeItem('authUsername');
+                    localStorage.removeItem("authEmail");
+                    localStorage.removeItem("authMobile");
+                    document.getElementById("logout-form").submit();
+                }, timeout);
+            }
+        );
+        $("body").trigger("mousemove");
+    });
 
 </script>
 

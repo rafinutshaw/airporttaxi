@@ -2,14 +2,13 @@
 
 namespace App\Notifications;
 
-use App\Events\MyEvent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 
-class BookingSubmittedNotification extends Notification
+class ContactUsNotification extends Notification
 {
     use Queueable;
 
@@ -32,8 +31,9 @@ class BookingSubmittedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
-        // return ['broadcast'];
+        return ['broadcast'];
+        // return ['database', 'broadcast'];
+        // return ['mail', 'database', 'broadcast'];
     }
 
     /**
@@ -60,7 +60,7 @@ class BookingSubmittedNotification extends Notification
     {
         return [
             'model_id' => $this->model_id,
-            'title' => 'A booking with id #' . $this->model_id . ' has been submitted',
+            'title' => 'A Contact Us with id #' . $this->model_id . ' has been submitted',
         ];
     }
     public function toBroadcast($notifiable)
@@ -71,7 +71,7 @@ class BookingSubmittedNotification extends Notification
             'read_at' => null,
             'data' => [
                 'model_id' => $this->model_id,
-                'title' => 'A booking with id #' . $this->model_id . ' has been submitted',
+                'title' => 'A Contact Us with id #' . $this->model_id . ' has been submitted',
             ],
         ]);
     }

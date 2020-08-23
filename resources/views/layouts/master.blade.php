@@ -16,4 +16,5 @@
         @yield('customer-sidebar-script')
     </div>
 </body>
+
 </html>

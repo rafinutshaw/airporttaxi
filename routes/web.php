@@ -4,6 +4,7 @@ use App\Vehicle;
 use App\Events\MyEvent;
 use App\Events\BookingSubmittedEvent;
 use App\Notifications\BookingSubmittedNotification;
+use App\Notifications\CareerNotification;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -16,35 +17,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/demo', function () {
+// Route::get('/demo', function () {
 
-    // event(new MyEvent(auth()->user()->unreadNotifications->count(), auth()->user()));
-    $booking = App\Booking::findOrFail(2);
-    $user = App\User::findOrFail(1);
-    $user->notify(new BookingSubmittedNotification($booking->id, 'booking-submitted'));
-    // event(new MyEvent($booking->id, 'booking-submitted'));
-    // Notification::send(Auth::user(), new BookingSubmittedNotification);
-    // Notification::send(Auth::user(), new BookingSubmittedNotification);
-    return "Done";
-});
+//     // event(new MyEvent(auth()->user()->unreadNotifications->count(), auth()->user()));
+//     $booking = App\Booking::findOrFail(2);
+//     $user = App\User::findOrFail(1);
+//     $user->notify(new BookingSubmittedNotification($booking->id));
+//     // $user->notify(new CareerNotification(5));
+//     // event(new MyEvent($booking->id, 'booking-submitted'));
+//     // Notification::send(Auth::user(), new BookingSubmittedNotification);
+//     // Notification::send(Auth::user(), new BookingSubmittedNotification);
+//     return "Done";
+// });
 
-Route::get("/notify", function () {
-    // $booking = App\Booking::findOrFail(1);
-    // $users = App\User::all();
-    // foreach($users as $user) {
-    //     $user->notify(new BookingSubmittedNotification($booking->id, 'booking-submitted');
-    // };
-});
-
-Route::get("/file", "HomeController@fileUpload")->name("file.upload");
-Route::post("/file/store", "HomeController@storeFile")->name("store.file");
-Route::get('/get-file/{path}', function ($path) {
-    $image = storage_path("app/career/" . $path);
-    if (!file_exists($image)) {
-        abort('404');
-    }
-    return response()->file($image);
-})->name('get.file');
+// Route::get("/file", "HomeController@fileUpload")->name("file.upload");
+// Route::post("/file/store", "HomeController@storeFile")->name("store.file");
+// Route::get('/get-file/{path}', function ($path) {
+//     $image = storage_path("app/career/" . $path);
+//     if (!file_exists($image)) {
+//         abort('404');
+//     }
+//     return response()->file($image);
+// })->name('get.file');
 
 Route::get('/', function () {
     return view('layouts.master');
