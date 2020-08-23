@@ -33,23 +33,23 @@
             });
 
             // auto logout script
-            const timeout = 7200000; // 7200000 ms = 120 minutes
-            var idleTimer = null;
-            $("*").bind(
-                "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
-                function () {
-                    clearTimeout(idleTimer);
+            // const timeout = 7200000; // 7200000 ms = 120 minutes
+            // var idleTimer = null;
+            // $("*").bind(
+            //     "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
+            //     function () {
+            //         clearTimeout(idleTimer);
 
-                    idleTimer = setTimeout(function () {
-                        localStorage.removeItem('loggedIn');
-                        localStorage.removeItem('authUsername');
-                        localStorage.removeItem("authEmail");
-                        localStorage.removeItem("authMobile");
-                        document.getElementById("logout-form").submit();
-                    }, timeout);
-                }
-            );
-            $("body").trigger("mousemove");
+            //         idleTimer = setTimeout(function () {
+            //             localStorage.removeItem('loggedIn');
+            //             localStorage.removeItem('authUsername');
+            //             localStorage.removeItem("authEmail");
+            //             localStorage.removeItem("authMobile");
+            //             document.getElementById("logout-form").submit();
+            //         }, timeout);
+            //     }
+            // );
+            // $("body").trigger("mousemove");
         });
 
     </script>

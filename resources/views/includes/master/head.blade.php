@@ -70,7 +70,7 @@
     <script src="{{ asset("js/theme/mail-script.js") }}"></script> --}}
     {{-- <script src="{{ asset("js/theme/main.js") }}"></script> --}}
 
-    <script src="{{ asset("js/theme/jquery.min.js") }}"></script>
+    {{-- <script src="{{ asset("js/theme/jquery.min.js") }}"></script> --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/theme.js') }}"></script> --}}
 

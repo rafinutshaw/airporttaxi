@@ -88,26 +88,88 @@
 @section('navbar-scripts')
 
 <script type="application/javascript">
-    $(document).ready(function () {
-        // auto logout script
-        const timeout = 7200000; // 7200000 ms = 120 minutes
-        var idleTimer = null;
-        $("*").bind(
-            "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
-            function () {
-                clearTimeout(idleTimer);
-    
-                idleTimer = setTimeout(function () {
-                    localStorage.removeItem('loggedIn');
-                    localStorage.removeItem('authUsername');
-                    localStorage.removeItem("authEmail");
-                    localStorage.removeItem("authMobile");
-                    document.getElementById("logout-form").submit();
-                }, timeout);
-            }
-        );
-        $("body").trigger("mousemove");
-    });
+    // var timeout = 10000; // 7200000 ms = 120 minutes
+    // var idleTimer = null;
+
+    // var events = [
+    //     'mousemove', 'click', 'mouseup', 'mousedown', 'keydown', 'keypress',
+    //     'keyup', 'submit', 'change', 'mouseenter', 'scroll', 'resize', 'dblclick'
+    // ];
+
+    // events.forEach(element => {
+    //     document.getElementsByTagName("html")[0].addEventListener(element,
+    //         function () {
+    //             removeLocalStorageItems();
+    //         });
+    // });
+
+    // function removeLocalStorageItems() {
+    //     clearTimeout(idleTimer);
+
+    //     idleTimer = setTimeout(function () {
+    //         localStorage.removeItem('loggedIn');
+    //         localStorage.removeItem('authUsername');
+    //         localStorage.removeItem("authEmail");
+    //         localStorage.removeItem("authMobile");
+    //         document.getElementById("logout-form").submit();
+    //     }, timeout);
+    // };
+
+    // document.getElementsByTagName("*").bind(
+    //     "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
+    //     function () {
+    //         clearTimeout(idleTimer);
+
+    //         idleTimer = setTimeout(function () {
+    //             console.log("Click");
+    //             // localStorage.removeItem('loggedIn');
+    //             // localStorage.removeItem('authUsername');
+    //             // localStorage.removeItem("authEmail");
+    //             // localStorage.removeItem("authMobile");
+    //             // document.getElementById("logout-form").submit();
+    //         }, timeout);
+    //     }
+    // );
+    // var body = document.getElementsByTagName("body");
+    // body.fireEvent("mousemove");
+    // document.getElementsByTagName("body").fireEvent("mousemove");
+    // $(document).ready(function () {
+    //     // auto logout script
+    //     const timeout = 10000; // 7200000 ms = 120 minutes
+    //     var idleTimer = null;
+    //     document.getElementsByTagName("*").bind(
+    //         "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
+    //         function () {
+    //             clearTimeout(idleTimer);
+
+    //             idleTimer = setTimeout(function () {
+    //                 console.log("Click");
+    //                 // localStorage.removeItem('loggedIn');
+    //                 // localStorage.removeItem('authUsername');
+    //                 // localStorage.removeItem("authEmail");
+    //                 // localStorage.removeItem("authMobile");
+    //                 // document.getElementById("logout-form").submit();
+    //             }, timeout);
+    //         }
+    //     );
+    //     document.getElementsByTagName("body").fireEvent("mousemove");
+
+    //     // $("*").bind(
+    //     //     "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
+    //     //     function () {
+    //     //         clearTimeout(idleTimer);
+
+    //     //         idleTimer = setTimeout(function () {
+    //     //             localStorage.removeItem('loggedIn');
+    //     //             localStorage.removeItem('authUsername');
+    //     //             localStorage.removeItem("authEmail");
+    //     //             localStorage.removeItem("authMobile");
+    //     //             document.getElementById("logout-form").submit();
+    //     //         }, timeout);
+    //     //     }
+    //     // );
+    //     // $("body").trigger("mousemove");
+    // });
 
 </script>
 
