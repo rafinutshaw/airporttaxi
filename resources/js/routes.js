@@ -53,8 +53,12 @@ const routes = [
     {
         path: "/reset-password",
         name: "Reset Password",
-        // component: () => import("./pages/Auth/Password/Email")
-        component: Register
+        component: () => import("./pages/Auth/Password/Forgot Password")
+    },
+    {
+        path: "/password/reset/:token",
+        name: "reset-password-form",
+        component: () => import("./pages/Auth/Password/Reset Password")
     }
 ];
 

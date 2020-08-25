@@ -19,17 +19,29 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>First Name</label>
-                        <input type="text" class="form-control" placeholder="Ex: Harry"/>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Ex: Harry"
+                        />
                     </div>
                     <div class="form-group col-md-6">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" placeholder="Ex: Potter"/>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Ex: Potter"
+                        />
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Mobile No.</label>
-                        <input type="text" class="form-control" placeholder="Ex: +44 7911 123456"/>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Ex: +44 7911 123456"
+                        />
                     </div>
                     <div class="form-group col-md-6">
                         <label>Passport No.</label>
@@ -72,7 +84,11 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label>Zip</label>
-                        <input type="text" class="form-control" placeholder="Ex: 72046"/>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Ex: 72046"
+                        />
                     </div>
                 </div>
                 <button type="button" class="btn btn-outline-secondary mr-2">
@@ -85,7 +101,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+    created() {
+        $("html,body").scrollTop(0);
+    }
+};
 </script>
 
 <style scoped>

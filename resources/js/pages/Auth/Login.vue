@@ -199,8 +199,8 @@
 
 <script>
 import axios from "axios";
-import { autoClose } from "../../tools/tools";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+// import { autoClose } from "../../tools/tools";
+// import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
     name: "login",
     data() {
@@ -291,10 +291,13 @@ export default {
             //             );
             //         }
             //     });
-        },
-        myAutoClose(target, time) {
-            autoClose(target, time);
         }
+        // myAutoClose(target, time) {
+        //     autoClose(target, time);
+        // }
+    },
+    created() {
+        $("html,body").scrollTop(0);
     }
 };
 </script>

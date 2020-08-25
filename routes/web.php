@@ -85,9 +85,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     Route::get('/{any}', 'CustomerController@index')->where('any', '.*');
 });
 
-// Route::get('/{any}', function () {
-//     return view('index');
-// })->where('any', '.*');
+Route::get('/{any}', function () {
+    return view('index');
+})->where('any', '.*');
 
 // Route::get("{path}", "WelcomeController@index")->where("path", "([A-z\d-\/_.]+)?");
 

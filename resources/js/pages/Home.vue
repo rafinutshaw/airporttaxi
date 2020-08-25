@@ -45,8 +45,11 @@
                     </div>
                     <div class="col-md-6 col-lg-8">
                         <h3>Mr. X</h3>
-                        <p>We aim to be No.1 company in customer satisfaction by striving to create 
-                            'inspiring the next' with pursuit of creativity and technical expertise. </p>
+                        <p>
+                            We aim to be No.1 company in customer satisfaction
+                            by striving to create 'inspiring the next' with
+                            pursuit of creativity and technical expertise.
+                        </p>
                     </div>
                 </div>
                 <!-- Bootstrap Card -->
@@ -558,6 +561,9 @@ export default {
         BookingForm,
         FindCarByType,
         About
+    },
+    created() {
+        $("html,body").scrollTop(0);
     }
 };
 </script>

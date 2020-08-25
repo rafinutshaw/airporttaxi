@@ -354,6 +354,9 @@ export default {
         myAutoClose(target, time) {
             autoClose(target, time);
         }
+    },
+    created() {
+        $("html,body").scrollTop(0);
     }
 };
 </script>
