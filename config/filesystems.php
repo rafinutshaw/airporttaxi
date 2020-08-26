@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'career' => [
+            'driver' => 'local',
+            'root' => storage_path('app/career'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'private',
+        ],
+
         'images' => [
             'driver' => 'local',
             'root' => storage_path('../public/images/'),

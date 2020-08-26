@@ -1,268 +1,258 @@
 <template>
-    <div class="mt-50">
-        <!-- Start services Area -->
-        <section class="our-services">
-            <div
-                class="limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-dark-skin pb-40"
-                id="limoking-parallax-wrapper-3"
-                data-bgspeed="0"
-                style="background-image: url('img/asset 47.jpeg'); padding-top: 70px; "
-            >
-                <div class="container">
-                    <div class="limoking-title-item">
-                        <div
-                            class="limoking-item-title-wrapper limoking-item  limoking-center-divider limoking-medium "
-                        >
-                            <div
-                                class="limoking-item-title-container container"
-                            >
-                                <div class="limoking-item-title-head-inner">
-                                    <div
-                                        class="limoking-item-title-center-divider limoking-left"
-                                        style="display: block; margin-right: 126.5px;"
-                                    ></div>
-                                    <h3
-                                        class="limoking-item-title limoking-skin-title limoking-skin-border"
-                                    >
-                                        Our Services
-                                    </h3>
-                                    <div
-                                        class="limoking-item-title-center-divider limoking-right"
-                                        style="display: block; margin-left: 126.5px;"
-                                    ></div>
-                                </div>
+    <!-- Start services Area -->
+    <section class="our-services">
+        <div
+            class="limoking-parallax-wrapper limoking-background-image gdlr-show-all limoking-skin-dark-skin pb-40"
+            id="limoking-parallax-wrapper-3"
+            data-bgspeed="0"
+            style="background-image: url('img/asset 47.jpeg'); padding-top: 70px; "
+        >
+            <div class="container">
+                <div class="limoking-title-item">
+                    <div
+                        class="limoking-item-title-wrapper limoking-item  limoking-center-divider limoking-medium "
+                    >
+                        <div class="limoking-item-title-container container">
+                            <div class="limoking-item-title-head-inner">
                                 <div
-                                    class="limoking-item-title-caption limoking-skin-info"
+                                    class="limoking-item-title-center-divider limoking-left"
+                                    style="display: block; margin-right: 126.5px;"
+                                ></div>
+                                <h3
+                                    class="limoking-item-title limoking-skin-title limoking-skin-border"
                                 >
-                                    What Services we offer to our clients
-                                </div>
+                                    Our Services
+                                </h3>
+                                <div
+                                    class="limoking-item-title-center-divider limoking-right"
+                                    style="display: block; margin-left: 126.5px;"
+                                ></div>
+                            </div>
+                            <div
+                                class="limoking-item-title-caption limoking-skin-info"
+                            >
+                                What Services we offer to our clients
                             </div>
                         </div>
                     </div>
-                    <div class="clear"></div>
-                    <div class="clear"></div>
                 </div>
+                <div class="clear"></div>
+                <div class="clear"></div>
             </div>
-            <div
-                class="limoking-color-wrapper  gdlr-show-all no-skin d-flex justify-content-center"
-                style="background-color: #ffffff; padding-top: 70px; padding-bottom: 20px; "
-            >
-                <div class="container row">
-                    <div class="four columns col-md-4 col-12">
-                        <div class="limoking-ux column-service-ux">
-                            <div
-                                class="limoking-item limoking-column-service-item limoking-medium"
-                                style="margin-bottom: 40px;"
-                            >
-                                <div class="column-service-image">
-                                    <img
-                                        src="img/asset 18.png"
-                                        alt=""
-                                        width="41"
-                                        height="46"
-                                    />
-                                </div>
-                                <div class="column-service-content-wrapper">
-                                    <h3 class="column-service-title">
-                                        Night Parties
-                                    </h3>
-                                    <div
-                                        class="column-service-content limoking-skin-content"
-                                    >
-                                        <p>
-                                            Limos King offers superb lim service
-                                            in New York and Manhatatan. &nbsp;We
-                                            are the most popular and has been
-                                            chosen by many important people. We
-                                            also provide premier service to the
-                                            airport, wedding, casino, sport
-                                            event, proms etc.
-                                        </p>
-                                    </div>
+        </div>
+        <div
+            class="limoking-color-wrapper  gdlr-show-all no-skin d-flex justify-content-center"
+            style="background-color: #ffffff; padding-top: 70px; padding-bottom: 20px; "
+        >
+            <div class="container row">
+                <div class="four columns col-md-4 col-12">
+                    <div class="limoking-ux column-service-ux">
+                        <div
+                            class="limoking-item limoking-column-service-item limoking-medium"
+                            style="margin-bottom: 40px;"
+                        >
+                            <div class="column-service-image">
+                                <img
+                                    src="img/asset 18.png"
+                                    alt=""
+                                    width="41"
+                                    height="46"
+                                />
+                            </div>
+                            <div class="column-service-content-wrapper">
+                                <h3 class="column-service-title">
+                                    Night Parties
+                                </h3>
+                                <div
+                                    class="column-service-content limoking-skin-content"
+                                >
+                                    <p>
+                                        Limos King offers superb lim service in
+                                        New York and Manhatatan. &nbsp;We are
+                                        the most popular and has been chosen by
+                                        many important people. We also provide
+                                        premier service to the airport, wedding,
+                                        casino, sport event, proms etc.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="four columns col-md-4 col-12">
-                        <div class="limoking-ux column-service-ux">
-                            <div
-                                class="limoking-item limoking-column-service-item limoking-medium"
-                                style="margin-bottom: 40px;"
-                            >
-                                <div class="column-service-image">
-                                    <img
-                                        src="img/asset 19.png"
-                                        alt=""
-                                        width="41"
-                                        height="46"
-                                    />
-                                </div>
-                                <div class="column-service-content-wrapper">
-                                    <h3 class="column-service-title">
-                                        Weddings
-                                    </h3>
-                                    <div
-                                        class="column-service-content limoking-skin-content"
-                                    >
-                                        <p>
-                                            Limos King offers superb lim service
-                                            in New York and Manhatatan. &nbsp;We
-                                            are the most popular and has been
-                                            chosen by many important people. We
-                                            also provide premier service to the
-                                            airport, wedding, casino, sport
-                                            event, proms etc.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="four columns col-md-4 col-12">
-                        <div class="limoking-ux column-service-ux">
-                            <div
-                                class="limoking-item limoking-column-service-item limoking-medium"
-                                style="margin-bottom: 40px;"
-                            >
-                                <div class="column-service-image">
-                                    <img
-                                        src="img/asset 20.png"
-                                        alt=""
-                                        width="41"
-                                        height="46"
-                                    />
-                                </div>
-                                <div class="column-service-content-wrapper">
-                                    <h3 class="column-service-title">
-                                        Casinos
-                                    </h3>
-                                    <div
-                                        class="column-service-content limoking-skin-content"
-                                    >
-                                        <p>
-                                            Limos King offers superb lim service
-                                            in New York and Manhatatan. We are
-                                            the most popular and has been chosen
-                                            by many important people. We also
-                                            provide premier service to the
-                                            airport, wedding, casino, sport
-                                            event, proms etc.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="four columns col-md-4 col-12">
-                        <div class="limoking-ux column-service-ux">
-                            <div
-                                class="limoking-item limoking-column-service-item limoking-medium"
-                                style="margin-bottom: 40px;"
-                            >
-                                <div class="column-service-image">
-                                    <img
-                                        src="img/asset 21.png"
-                                        alt=""
-                                        width="41"
-                                        height="46"
-                                    />
-                                </div>
-                                <div class="column-service-content-wrapper">
-                                    <h3 class="column-service-title">
-                                        Birthdays
-                                    </h3>
-                                    <div
-                                        class="column-service-content limoking-skin-content"
-                                    >
-                                        <p>
-                                            Limos King offers superb lim service
-                                            in New York and Manhatatan. &nbsp;We
-                                            are the most popular and has been
-                                            chosen by many important people. We
-                                            also provide premier service to the
-                                            airport, wedding, casino, sport
-                                            event, proms etc.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="four columns col-md-4 col-12">
-                        <div class="limoking-ux column-service-ux">
-                            <div
-                                class="limoking-item limoking-column-service-item limoking-medium"
-                                style="margin-bottom: 40px;"
-                            >
-                                <div class="column-service-image">
-                                    <img
-                                        src="img/asset 22.png"
-                                        alt=""
-                                        width="41"
-                                        height="46"
-                                    />
-                                </div>
-                                <div class="column-service-content-wrapper">
-                                    <h3 class="column-service-title">Proms</h3>
-                                    <div
-                                        class="column-service-content limoking-skin-content"
-                                    >
-                                        <p>
-                                            Limos King offers superb lim service
-                                            in New York and Manhatatan. &nbsp;We
-                                            are the most popular and has been
-                                            chosen by many important people. We
-                                            also provide premier service to the
-                                            airport, wedding, casino, sport
-                                            event, proms etc.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="four columns col-md-4 col-12">
-                        <div class="limoking-ux column-service-ux">
-                            <div
-                                class="limoking-item limoking-column-service-item limoking-medium"
-                                style="margin-bottom: 40px;"
-                            >
-                                <div class="column-service-image">
-                                    <img
-                                        src="img/asset 23.png"
-                                        alt=""
-                                        width="41"
-                                        height="46"
-                                    />
-                                </div>
-                                <div class="column-service-content-wrapper">
-                                    <h3 class="column-service-title">
-                                        Airport Transfers
-                                    </h3>
-                                    <div
-                                        class="column-service-content limoking-skin-content"
-                                    >
-                                        <p>
-                                            Limos King offers superb lim service
-                                            in New York and Manhatatan. &nbsp;We
-                                            are the most popular and has been
-                                            chosen by many important people. We
-                                            also provide premier service to the
-                                            airport, wedding, casino, sport
-                                            event, proms etc.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
                 </div>
+                <div class="four columns col-md-4 col-12">
+                    <div class="limoking-ux column-service-ux">
+                        <div
+                            class="limoking-item limoking-column-service-item limoking-medium"
+                            style="margin-bottom: 40px;"
+                        >
+                            <div class="column-service-image">
+                                <img
+                                    src="img/asset 19.png"
+                                    alt=""
+                                    width="41"
+                                    height="46"
+                                />
+                            </div>
+                            <div class="column-service-content-wrapper">
+                                <h3 class="column-service-title">
+                                    Weddings
+                                </h3>
+                                <div
+                                    class="column-service-content limoking-skin-content"
+                                >
+                                    <p>
+                                        Limos King offers superb lim service in
+                                        New York and Manhatatan. &nbsp;We are
+                                        the most popular and has been chosen by
+                                        many important people. We also provide
+                                        premier service to the airport, wedding,
+                                        casino, sport event, proms etc.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="four columns col-md-4 col-12">
+                    <div class="limoking-ux column-service-ux">
+                        <div
+                            class="limoking-item limoking-column-service-item limoking-medium"
+                            style="margin-bottom: 40px;"
+                        >
+                            <div class="column-service-image">
+                                <img
+                                    src="img/asset 20.png"
+                                    alt=""
+                                    width="41"
+                                    height="46"
+                                />
+                            </div>
+                            <div class="column-service-content-wrapper">
+                                <h3 class="column-service-title">
+                                    Casinos
+                                </h3>
+                                <div
+                                    class="column-service-content limoking-skin-content"
+                                >
+                                    <p>
+                                        Limos King offers superb lim service in
+                                        New York and Manhatatan. We are the most
+                                        popular and has been chosen by many
+                                        important people. We also provide
+                                        premier service to the airport, wedding,
+                                        casino, sport event, proms etc.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="four columns col-md-4 col-12">
+                    <div class="limoking-ux column-service-ux">
+                        <div
+                            class="limoking-item limoking-column-service-item limoking-medium"
+                            style="margin-bottom: 40px;"
+                        >
+                            <div class="column-service-image">
+                                <img
+                                    src="img/asset 21.png"
+                                    alt=""
+                                    width="41"
+                                    height="46"
+                                />
+                            </div>
+                            <div class="column-service-content-wrapper">
+                                <h3 class="column-service-title">
+                                    Birthdays
+                                </h3>
+                                <div
+                                    class="column-service-content limoking-skin-content"
+                                >
+                                    <p>
+                                        Limos King offers superb lim service in
+                                        New York and Manhatatan. &nbsp;We are
+                                        the most popular and has been chosen by
+                                        many important people. We also provide
+                                        premier service to the airport, wedding,
+                                        casino, sport event, proms etc.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="four columns col-md-4 col-12">
+                    <div class="limoking-ux column-service-ux">
+                        <div
+                            class="limoking-item limoking-column-service-item limoking-medium"
+                            style="margin-bottom: 40px;"
+                        >
+                            <div class="column-service-image">
+                                <img
+                                    src="img/asset 22.png"
+                                    alt=""
+                                    width="41"
+                                    height="46"
+                                />
+                            </div>
+                            <div class="column-service-content-wrapper">
+                                <h3 class="column-service-title">Proms</h3>
+                                <div
+                                    class="column-service-content limoking-skin-content"
+                                >
+                                    <p>
+                                        Limos King offers superb lim service in
+                                        New York and Manhatatan. &nbsp;We are
+                                        the most popular and has been chosen by
+                                        many important people. We also provide
+                                        premier service to the airport, wedding,
+                                        casino, sport event, proms etc.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="four columns col-md-4 col-12">
+                    <div class="limoking-ux column-service-ux">
+                        <div
+                            class="limoking-item limoking-column-service-item limoking-medium"
+                            style="margin-bottom: 40px;"
+                        >
+                            <div class="column-service-image">
+                                <img
+                                    src="img/asset 23.png"
+                                    alt=""
+                                    width="41"
+                                    height="46"
+                                />
+                            </div>
+                            <div class="column-service-content-wrapper">
+                                <h3 class="column-service-title">
+                                    Airport Transfers
+                                </h3>
+                                <div
+                                    class="column-service-content limoking-skin-content"
+                                >
+                                    <p>
+                                        Limos King offers superb lim service in
+                                        New York and Manhatatan. &nbsp;We are
+                                        the most popular and has been chosen by
+                                        many important people. We also provide
+                                        premier service to the airport, wedding,
+                                        casino, sport event, proms etc.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
             </div>
-        </section>
-        <!-- End services Area -->
-    </div>
+        </div>
+    </section>
+    <!-- End services Area -->
 </template>
 
 <script>

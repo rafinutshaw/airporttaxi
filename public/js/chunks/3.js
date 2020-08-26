@@ -95,6 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -287,6 +288,7 @@ var render = function() {
                         type: "password",
                         id: "password",
                         placeholder: "",
+                        autofocus: "",
                         required: ""
                       },
                       domProps: { value: _vm.password },

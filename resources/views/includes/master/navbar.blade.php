@@ -1,6 +1,6 @@
 {{-- <header id="header" class="" style="position: sticky;">
 </header> --}}
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color:black">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <router-link to="/" tag="a" class="navbar-brand"><img src="{{ asset("/images/logo.png") }}" alt=""
                 title="{{ config('app.name') }}" style="width: 100px;" />

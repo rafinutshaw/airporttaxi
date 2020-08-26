@@ -2,10 +2,11 @@
 
 use App\Vehicle;
 use App\Events\MyEvent;
+use Illuminate\Http\Request;
 use App\Events\BookingSubmittedEvent;
-use App\Notifications\BookingSubmittedNotification;
-use App\Notifications\CareerNotification;
 use Illuminate\Support\Facades\Route;
+use App\Notifications\CareerNotification;
+use App\Notifications\BookingSubmittedNotification;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,15 +31,19 @@ use Illuminate\Support\Facades\Route;
 //     return "Done";
 // });
 
-// Route::get("/file", "HomeController@fileUpload")->name("file.upload");
-// Route::post("/file/store", "HomeController@storeFile")->name("store.file");
-// Route::get('/get-file/{path}', function ($path) {
-//     $image = storage_path("app/career/" . $path);
-//     if (!file_exists($image)) {
-//         abort('404');
-//     }
-//     return response()->file($image);
-// })->name('get.file');
+Route::get("/file", "HomeController@fileUpload")->name("file.upload");
+Route::post("/file/store", "HomeController@storeFile")->name("store.file");
+Route::get('/get-file/{path}', function ($path) {
+    $image = storage_path("app/career/" . $path);
+    if (!file_exists($image)) {
+        abort('404');
+    }
+    return response()->file($image);
+})->name('get.file');
+
+Route::post('career', function (Request $request) {
+    return $request;
+});
 
 Route::get('/', function () {
     return view('layouts.master');

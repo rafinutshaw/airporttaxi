@@ -49,6 +49,7 @@
                                                     name="name"
                                                     class="form-control"
                                                     required
+                                                    autofocus
                                                 />
                                                 <span class="text-danger">
                                                     {{ errors[0] }}

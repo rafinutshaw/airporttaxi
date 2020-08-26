@@ -28,6 +28,7 @@
                                     id="password"
                                     class="form-control"
                                     placeholder=""
+                                    autofocus
                                     v-model="password"
                                     required
                                 />

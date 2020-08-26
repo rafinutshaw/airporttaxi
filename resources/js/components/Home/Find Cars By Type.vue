@@ -1,5 +1,5 @@
 <template>
-    <div class="banner-content col-lg-6 col-md-10 col-sm-12">
+    <div class="banner-content col-lg-7 col-md-12">
         <div class="row justify-content-center">
             <h2 class="text-white font-weight-bold">
                 Find Cars by type
@@ -120,7 +120,7 @@ export default {};
 <style scoped>
 
 .banner-content {
-    right: 8%;
+    /* right: 8%; */
     margin-top: 10%;
     margin-bottom: 5%;
 }
@@ -128,20 +128,20 @@ export default {};
     width: 80%;
 }
 @media only screen and (max-width: 1700px) {
-    .banner-content {
+    /* .banner-content {
         right: 5%;
-    }
+    } */
 }
 
 @media only screen and (max-width: 1400px) {
-    .banner-content {
+    /* .banner-content {
         right: 5%;
-    }
+    } */
 }
 
 @media only screen and (max-width: 1025px) {
     .banner-content {
-        right: 2%;
+        /* right: 2%; */
         margin-top: 12%;
         margin-bottom: 5%;
     }
@@ -149,8 +149,8 @@ export default {};
 
 @media only screen and (max-width: 990px) {
     .banner-content {
-        right: 0%;
-        left: 8%;
+        /* right: 0%;
+        left: 8%; */
         margin-top: 2%;
     }
 }
@@ -163,7 +163,7 @@ export default {};
     }
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 768px) {
     .banner-content {
         display: flex;
         flex-direction: column;

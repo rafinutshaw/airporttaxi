@@ -1915,7 +1915,7 @@ img {
         padding-left: 5rem !important;
     }
     .header-right {
-        min-width: 430px !important;
+        /* min-width: 430px !important; */
     }
     .price-section.car-img {
         flex-direction: column !important;
@@ -1978,20 +1978,20 @@ label {
     /* box-shadow: 0px 4px 8px #999999a3; */
     box-shadow: 0px 2px 10px #999999a3;
     border-radius: 8px;
-    max-width: 450px;
+    /* max-width: 450px; */
     padding: 35px;
     margin-top: 100px;
     margin-bottom: 50px;
 }
 
 @media only screen and (max-width: 575px) {
-    .header-right {
+    /* .header-right {
         min-width: 430px !important;
-    }
+    } */
 }
 @media only screen and (max-width: 450px) {
     .header-right {
-        min-width: 320px !important;
+        /* min-width: 320px !important; */
         max-width: 380px !important;
     }
     .passengers-luggage-icon-wrapper {
@@ -2006,7 +2006,7 @@ label {
 }
 @media only screen and (max-width: 375px) {
     .header-right {
-        min-width: 270px !important;
+        /* min-width: 270px !important; */
         max-width: 270px !important;
     }
 }
@@ -2043,7 +2043,7 @@ label {
         flex-direction: column-reverse;
     }
     .header-right {
-        min-width: 320px !important;
+        /* min-width: 320px !important; */
         max-width: 320px !important;
     }
 }
@@ -2462,27 +2462,27 @@ label {
 }
 
 @media only screen and (max-width: 450px) {
-    .can-toggle label .can-toggle__switch {
+    /* .can-toggle label .can-toggle__switch {
         flex: 0 0 250px;
-    }
-    .can-toggle label .can-toggle__switch:before {
+    } */
+    /* .can-toggle label .can-toggle__switch:before {
         left: 125px;
-    }
-    .can-toggle label .can-toggle__switch:after {
+    } */
+    /* .can-toggle label .can-toggle__switch:after {
         padding: 0 35px 0;
-    }
-    .can-toggle
+    } */
+    /* .can-toggle
         input[type="checkbox"]:checked
         ~ label
         .can-toggle__switch:before {
         left: 20px;
-    }
-    .can-toggle
+    } */
+    /* .can-toggle
         input[type="checkbox"]:checked
         ~ label
         .can-toggle__switch:after {
         transform: translate3d(80px, 0, 0);
-    }
+    } */
 }
 
 @media only screen and (max-width: 385px) {

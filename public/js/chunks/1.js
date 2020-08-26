@@ -210,6 +210,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
  // import { autoClose } from "../../tools/tools";
 // import { mapGetters, mapMutations, mapActions } from "vuex";
 
@@ -436,6 +437,7 @@ var render = function() {
                                                   attrs: {
                                                     type: "email",
                                                     name: "email",
+                                                    autofocus: "",
                                                     placeholder:
                                                       "Ex: john@example.com",
                                                     required: ""

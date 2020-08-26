@@ -39,6 +39,7 @@
                                                     v-model="form.email"
                                                     type="email"
                                                     name="email"
+                                                    autofocus
                                                     class="form-control"
                                                     @blur="
                                                         inputFieldFocused.email = true

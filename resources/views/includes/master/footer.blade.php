@@ -2,7 +2,7 @@
 <footer class="footer-area section-gap">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 d-flex justify-content-center">
+            <div class="col-sm-5 offset-1">
                 <div class="single-footer-widget">
                     <h6>Quick links</h6>
                     <ul>
@@ -13,7 +13,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-6 d-flex justify-content-center">
+            <div class="col-sm-6 contact-wrapper">
                 <div class="single-footer-widget">
                     <h6>Contact</h6>
                     {{-- <p>Let us be social</p> --}}
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <p class="mt-80 mx-auto footer-text col-lg-12">
+            <p class="mx-auto footer-text col-lg-12">
                 Copyright &copy; All rights reserved |
                 <a href="#"><i class="ml-1 fab fa-facebook"></i></a>
                 <a href="#"><i class="ml-1 fab fa-twitter"></i></a>

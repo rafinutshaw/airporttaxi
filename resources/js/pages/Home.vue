@@ -8,7 +8,7 @@
                 <div
                     class="row fullscreen d-flex align-items-center justify-content-between"
                 >
-                    <div class="col-lg-5 col-md-6 booking-form-div pl-0 pr-0">
+                    <div class="col-lg-5 col-md-12 booking-form-div">
                         <booking-form></booking-form>
                     </div>
                     <find-car-by-type></find-car-by-type>
@@ -18,38 +18,28 @@
         <!-- End banner Area -->
 
         <!-- Start CEO Area -->
-        <section class="services-area pb-50 pt-50 mt-5">
+        <section class="services-area pb-50 pt-50">
             <div class="container">
                 <!-- Bootstrap Card -->
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
-                        <div class="card-deck border-0 transform-on-hover">
-                            <div class="ceo-card card">
-                                <img
-                                    src="../../../public/img/Cars/Saloon Car.jpeg"
-                                    class="card-img"
+                        <div class="card-deck border-0 transform-on-hover justify-content-center">
+                            <img
+                                    src="../../../public/img/owner.jpg"
+                                    class="card-img ceo-img"
                                     alt="..."
                                 />
-                                <!-- <div class="card-body">
-                                    <h5 class="card-title">Saloon Car</h5>
-                                    <p class="card-text">
-                                        Ford Mondeo, VW Passat or similar. These
-                                        can accommodate up to 3 passengers plus
-                                        3 suitcases (20kg max) or 4 passengers
-                                        plus hand luggage. Any more luggage than
-                                        this will require a larger vehicle.
-                                    </p>
-                                </div> -->
-                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-8">
-                        <h3>Mr. X</h3>
-                        <p>
-                            We aim to be No.1 company in customer satisfaction
-                            by striving to create 'inspiring the next' with
-                            pursuit of creativity and technical expertise.
-                        </p>
+                    <div class="col-md-6 col-lg-8 d-flex align-items-center">
+                        <div>
+                            <h3>Mr. Tony</h3>
+                            <p>
+                                We aim to be No.1 company in customer satisfaction
+                                by striving to create 'inspiring the next' with
+                                pursuit of creativity and technical expertise.
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <!-- Bootstrap Card -->
@@ -571,7 +561,12 @@ export default {
 <style scoped>
 .ceo-card {
     min-height: 250px !important;
+    min-width: 250px !important;
     max-height: 250px !important;
+    max-width: 250px !important;
+}
+.ceo-img {
+    width: 250px !important;
 }
 h1.text-uppercase {
     color: #e2e1ff;
@@ -739,12 +734,13 @@ img.card-img-top {
 }
 
 .card-img {
-    min-height: 300px;
-    min-width: 206px;
+    height: 250px;
+    /* width: 250px; */
     /* height: 250px;
     width: 348px; */
     border-radius: 5px;
-    background-size: cover;
+    /* background-size: cover; */
+    object-fit: cover;
     background-position: center center;
     position: relative;
     background-color: #f9f9f9;
@@ -978,73 +974,76 @@ img.card-img-top {
 .col-md-9.text-white strong {
     color: white !important;
 }
-.booking-form-div {
+/* .booking-form-div {
     left: 8%;
-}
+} */
 .fullscreen {
     height: auto;
 }
 @media only screen and (max-width: 1700px) {
-    .booking-form-div {
+    /* .booking-form-div {
         left: 5%;
-    }
+    } */
 }
 
 @media only screen and (max-width: 1400px) {
-    .booking-form-div {
+    /* .booking-form-div {
         left: 2%;
-    }
+    } */
 }
 
 @media only screen and (max-width: 1025px) {
-    .booking-form-div {
+    /* .booking-form-div {
         left: 2%;
-    }
+    } */
 }
 
 @media only screen and (max-width: 990px) {
-    .booking-form-div {
+    /* .booking-form-div {
         left: 22%;
         min-width: 500px;
-    }
-    .header-right {
+    } */
+    /* .header-right {
         min-width: 450px;
-    }
+    } */
 }
 
 @media only screen and (max-width: 840px) {
     .booking-form-div {
-        left: 17%;
+        /* left: 17%; */
     }
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 768px) {
     .booking-form-div {
         left: 0px;
         display: flex;
         justify-content: center;
     }
+    .header-right {
+        width: 100%;
+    }
 }
 @media only screen and (max-width: 540px) {
     .header-right {
-        min-width: 350px;
+        /* min-width: 350px; */
         margin-right: 0px;
         margin-left: 0px;
     }
     .booking-form-div {
-        min-width: 350px;
+        /* min-width: 350px; */
         padding: 0px;
     }
 }
 @media only screen and (max-width: 400px) {
     .header-right {
-        min-width: 200px;
-        max-width: 290px;
+        /* min-width: 200px; */
+        /* max-width: 290px; */
     }
     .booking-form-div {
-        min-width: 200px;
-        max-width: 290px;
-        margin-left: 15px;
+        /* min-width: 200px; */
+        /* max-width: 290px; */
+        /* margin-left: 15px; */
     }
 }
 /* End Section Banner */

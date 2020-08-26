@@ -111,7 +111,142 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+$(document).ready(function () {
+  $(".custom-file-input").change(function () {
+    var fileName = $(this).val();
+
+    if (fileName.length) {
+      fileName = fileName.replace("C:\\fakepath\\", "");
+
+      if (fileName.length > 14) {
+        fileName = fileName.substring(0, 14) + "...";
+      }
+
+      $(this).next(".custom-file-label").html(fileName);
+    } else {
+      $(this).next(".custom-file-label").html("Choose Image");
+    }
+  });
+});
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: {
+        firstName: null,
+        lastName: null,
+        email: null,
+        mobile: null,
+        address: null,
+        drivingLicense: null,
+        privateHireCertificate: null,
+        proofOfAddress: null,
+        insuranceDocument: null,
+        photo: null
+      },
+      tempFile: null,
+      errors: null
+    };
+  },
+  methods: {
+    onDrivingLicenseChange: function onDrivingLicenseChange(e) {
+      this.form.drivingLicense = e.target.files[0];
+    },
+    onPrivateHireCertificateChange: function onPrivateHireCertificateChange(e) {
+      this.form.privateHireCertificate = e.target.files[0];
+    },
+    onProofOfAddressChange: function onProofOfAddressChange(e) {
+      this.form.proofOfAddress = e.target.files[0];
+    },
+    onInsuranceDocumentChange: function onInsuranceDocumentChange(e) {
+      this.form.insuranceDocument = e.target.files[0];
+    },
+    onPhotoChange: function onPhotoChange(e) {
+      this.form.photo = e.target.files[0];
+    },
+    onSubmit: function onSubmit() {
+      this.errors = null;
+      var config = {
+        headers: {
+          "content-type": "multipart/form-data"
+        }
+      }; // this.form.drivingLicense = new FormData();
+      // this.form.drivingLicense.append("file", this.tempFile);
+      // axios
+      //     .post("/file/store", this.form, config)
+      //     .then(response => {
+      //         console.log(response);
+      //     })
+      //     .catch(errors => {});
+
+      var data = new FormData();
+      data.append("drivingLicense", this.form.drivingLicense);
+      data.append("privateHireCertificate", this.form.privateHireCertificate);
+      data.append("proofOfAddress", this.form.proofOfAddress);
+      data.append("insuranceDocument", this.form.insuranceDocument);
+      data.append("photo", this.form.photo);
+      axios.post("/file/store", data);
+    }
+  },
   created: function created() {
     $("html,body").scrollTop(0);
   }
@@ -184,164 +319,299 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("section", { staticClass: "container col-md-6 mt-5 mb-5" }, [
+      _c(
+        "form",
+        {
+          attrs: { method: "post", enctype: "multipart/form-data" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.onSubmit($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "container" }, [
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", [_vm._v("First Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.firstName,
+                      expression: "form.firstName"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Ex: Harry",
+                    autofocus: ""
+                  },
+                  domProps: { value: _vm.form.firstName },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "firstName", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", [_vm._v("Last Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.lastName,
+                      expression: "form.lastName"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Ex: Potter" },
+                  domProps: { value: _vm.form.lastName },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "lastName", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.email,
+                      expression: "form.email"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "email", placeholder: "Ex: john@example.com" },
+                  domProps: { value: _vm.form.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "email", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", [_vm._v("Mobile No.")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.mobile,
+                      expression: "form.mobile"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Ex: +44 7911 123456" },
+                  domProps: { value: _vm.form.mobile },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "mobile", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Address ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.address,
+                    expression: "form.address"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  placeholder: "Apartment, studio, or floor"
+                },
+                domProps: { value: _vm.form.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "address", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", [_vm._v("Driving License")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    staticClass: "custom-file-input",
+                    attrs: { type: "file", name: "drivingLicense" },
+                    on: { change: _vm.onDrivingLicenseChange }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "custom-file-label" }, [
+                    _vm._v("Select an img/pdf file")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", [_vm._v("Private Hire Certificate")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    staticClass: "custom-file-input",
+                    attrs: { type: "file", name: "privateHireCertificate" },
+                    on: { change: _vm.onPrivateHireCertificateChange }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "custom-file-label" }, [
+                    _vm._v("Select an img/pdf file")
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", [_vm._v("Proof of Address")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    staticClass: "custom-file-input",
+                    attrs: { type: "file", name: "proofOfAddress" },
+                    on: { change: _vm.onProofOfAddressChange }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "custom-file-label" }, [
+                    _vm._v("Select an img/pdf file")
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", [_vm._v("Insurance Document")]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    staticClass: "custom-file-input",
+                    attrs: { type: "file", name: "insuranceDocument" },
+                    on: { change: _vm.onInsuranceDocumentChange }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "custom-file-label" }, [
+                    _vm._v("Select an img/pdf file")
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", [_vm._v("Personal Photo (Ratio 1:1)")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  staticClass: "custom-file-input",
+                  attrs: { type: "file", name: "photo" },
+                  on: { change: _vm.onPhotoChange }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "custom-file-label" }, [
+                  _vm._v("Select an img file")
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-secondary mr-2",
+                attrs: { type: "button" }
+              },
+              [_vm._v("\n                    Cancel\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+              [_vm._v("\n                    Submit\n                ")]
+            )
+          ])
+        ]
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "section",
-        { staticClass: "banner-area relative join-us", attrs: { id: "home" } },
-        [
-          _c("div", { staticClass: "overlay overlay-bg" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "container" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "row d-flex align-items-center justify-content-center"
-              },
-              [
-                _c("div", { staticClass: "about-content col-lg-12" }, [
-                  _c("h1", { staticClass: "text-white" }, [
-                    _vm._v(
-                      "\n                        Join Us\n                    "
-                    )
-                  ])
-                ])
-              ]
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("section", { staticClass: "container col-md-6 mt-5 mb-5" }, [
+    return _c(
+      "section",
+      { staticClass: "banner-area relative join-us", attrs: { id: "home" } },
+      [
+        _c("div", { staticClass: "overlay overlay-bg" }),
+        _vm._v(" "),
         _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", [_vm._v("First Name")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Ex: Harry" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", [_vm._v("Last Name")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Ex: Potter" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", [_vm._v("Mobile No.")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Ex: +44 7911 123456" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", [_vm._v("Passport No.")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", [_vm._v("Driving License")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", [_vm._v("Work Permit")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Address ")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                placeholder: "Apartment, studio, or floor"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", { attrs: { for: "inputCity" } }, [_vm._v("City")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Ex: Bath" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-4" }, [
-              _c("label", [_vm._v("State")]),
-              _vm._v(" "),
-              _c("select", { staticClass: "form-control" }, [
-                _c("option", { attrs: { selected: "" } }, [
-                  _vm._v("Choose...")
-                ]),
-                _vm._v(" "),
-                _c("option", [_vm._v("...")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-2" }, [
-              _c("label", [_vm._v("Zip")]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text", placeholder: "Ex: 72046" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
           _c(
-            "button",
+            "div",
             {
-              staticClass: "btn btn-outline-secondary mr-2",
-              attrs: { type: "button" }
+              staticClass:
+                "row d-flex align-items-center justify-content-center"
             },
-            [_vm._v("\n                Cancel\n            ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("Submit")]
+            [
+              _c("div", { staticClass: "about-content col-lg-12" }, [
+                _c("h1", { staticClass: "text-white" }, [
+                  _vm._v(
+                    "\n                        Join Us\n                    "
+                  )
+                ])
+              ])
+            ]
           )
         ])
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
