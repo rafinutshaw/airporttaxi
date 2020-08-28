@@ -8,6 +8,7 @@ trait MediaUploadingTrait
 {
     public function storeMedia(Request $request, string $storagePath = "app/uploads", string $fileName = 'file')
     {
+        // $allowedFileExtension = ['pdf', 'jpeg', 'png', 'jpg', 'gif', 'svg', 'docx', 'doc', 'xls', 'xlsx', 'csv', 'ppt'];
         // Validates file size
         if (request()->has('size')) {
             $this->validate(request(), [
@@ -36,9 +37,9 @@ trait MediaUploadingTrait
             return $e;
         }
 
-        $file = $request->file($fileName);
-
+        // $file = $request->file('file');
         // $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $file = $request->file($fileName);
         $name = uniqid() . '.' . $file->extension();
 
         $file->move($path, $name);
