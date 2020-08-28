@@ -899,7 +899,7 @@
                     <div class="text-black" style="font-size: 12px;">
                         I have read and agree to the
                         <a href="http://" target="_blank">privacy policy</a> &
-                        <a href="http://" target="_blank">terms</a> of booking
+                        <router-link to="/terms-and-conditions" tag="a" target="_blank">terms & conditions</router-link> of booking
                         with OTS.
                     </div>
                     <div class="d-flex align-self-center">

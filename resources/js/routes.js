@@ -59,6 +59,11 @@ const routes = [
         path: "/password/reset/:token",
         name: "reset-password-form",
         component: () => import("./pages/Auth/Password/Reset Password")
+    },
+    {
+        path: "/terms-and-conditions",
+        name: "terms-and-conditions",
+        component: () => import("./pages/Terms & Conditions")
     }
 ];
 

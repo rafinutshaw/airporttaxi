@@ -10,7 +10,7 @@
                             {{-- <router-link to="/career" tag="a">Career</router-link> --}}
                             <a target="_blank" href="http://127.0.0.1:900/career/">Career</a>
                         </li>
-                        <li><a href="#">Terms of Service</a></li>
+                        <li><router-link to="/terms-and-conditions" tag="a">Terms & Contitions</router-link></li>
                     </ul>
                 </div>
             </div>
