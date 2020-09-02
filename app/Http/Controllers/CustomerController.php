@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Booking;
 use App\Customer;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -13,9 +14,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class CustomerController extends Controller
 {
+    use MediaUploadingTrait;
+    // private string $profileImagePath = 'app/images/customer-profile-image/';
+    
     public function index()
     {
         if (request()->ajax()) {
@@ -74,6 +79,55 @@ class CustomerController extends Controller
     {
         return view('pages.customer.settings');
     }
+
+    // public function uploadImage(Request $request)
+    // {
+    //     $request->validate(
+    //         [
+    //             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
+    //         ],
+    //         [
+    //             'image.max' => "The :attribute can't be getter than 1 Mb.",
+    //             'image.image' => "The file must be an image type.",
+    //         ]
+    //     );
+
+    //     $imageName = $this->storeMedia($request, $this->profileImagePath, 'image')->original['name'];
+    //     // $fullPath = $this->profileImagePath . $imageName;
+    //     if (auth()->user()->image !=  "default.png") {
+    //         Storage::disk('profile-images')->delete(auth()->user()->image);
+    //     }
+    //     // dd(Storage::disk('profile-images'), $imageName);
+    //     // dd($fullPath);
+    //     // dd(Storage::exists($fullPath));
+    //     // dd(is_file($fullPath));
+    //     // File::delete($fullPath);
+    //     // dd($fullPath);
+
+    //     // if ($request->hasFile('image')) {
+
+    //     //     // ? Making new file name for the image
+    //     //     $fileName = time() . '.' . $request->image->extension();
+
+    //     //     // ? Storing the image and getting the file path
+    //     //     // $path = $request->image->storeAs('images/customer-profile-image', $fileName, 'public');
+    //     //     $path = $request->image->storeAs('customer-profile-image', $fileName, 'images');
+    //     // }
+
+    //     // $this->deleteOldImage();
+
+    //     Customer::find(auth()->user()->id)->update(['image' => $imageName]);
+
+    //     return redirect()->back()->with('success', 'You have successfully upload image.');
+    // }
+    // public function deleteOldImage()
+    // {
+    //     if (auth()->user()->image !=  "default.png") {
+    //         // Storage::delete('public/' . auth()->user()->image);
+    //         // File::delete(Storage::url($fullPath));
+    //         Storage::disk('privateImage')->delete(auth()->user()->image);
+    //     }
+    // }
 
     public function uploadImage(Request $request)
     {

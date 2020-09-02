@@ -23,10 +23,8 @@ trait BookingInvoiceTrait
         }
 
         $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-
-        $pdfFileName = "booking invoice " . uniqid() . ".pdf";
-        Storage::put('public/pdf/' . $pdfFileName, $pdf->output());
-        return $pdfFileName;
+        Storage::put('public/pdf/' . $this->setPDFName($booking->id), $pdf->output());
+        return $this->setPDFName($booking->id);
     }
 
     /**
@@ -41,7 +39,7 @@ trait BookingInvoiceTrait
         if (!empty($booking)) {
             $data = $this->setInvoiceData($booking);
             $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-            return $pdf->download('booking-summery ' . uniqid() . '.pdf');
+            return $pdf->download($this->setPDFName($booking->id));
         }
     }
 
@@ -70,5 +68,15 @@ trait BookingInvoiceTrait
             'vehicle' => $booking->vehicle->type
         ];
         return $data;
+    }
+
+    /**
+     * Set name for PDF
+     * 
+     * @param booking id
+     * @return string name
+     */
+    private function setPDFName($id) {
+        return 'booking id#' . $id . ' ' . uniqid() . '.pdf';
     }
 }

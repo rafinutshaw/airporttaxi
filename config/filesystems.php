@@ -62,6 +62,13 @@ return [
             'visibility' => 'private',
         ],
 
+        'profile-images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/images/customer-profile-image/'),
+            'url' => env('APP_URL') . 'profile-images',
+            'visibility' => 'private',
+        ],
+
         'images' => [
             'driver' => 'local',
             'root' => storage_path('../public/images/'),

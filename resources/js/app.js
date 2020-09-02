@@ -36,6 +36,14 @@ extend("required", {
     },
     message: "{_field_} field is required"
 });
+extend("confirmed", {
+    validate: (value, confirmed) => {
+        if (value === confirmed) {
+            return true;
+        }
+    },
+    message: "Passwords don't match"
+});
 
 // install Vee-Validate rules and localization
 Object.keys(rules).forEach(rule => {

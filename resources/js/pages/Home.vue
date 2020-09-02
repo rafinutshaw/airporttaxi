@@ -6,7 +6,7 @@
             <div class="overlay overlay-bg"></div>
             <div class="container-fluid pl-5 pr-5">
                 <div
-                    class="row fullscreen d-flex align-items-center justify-content-between"
+                    class="row fullscreen d-flex justify-content-between"
                 >
                     <div class="col-lg-5 col-md-12 booking-form-div">
                         <booking-form></booking-form>

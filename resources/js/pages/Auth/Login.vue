@@ -45,6 +45,8 @@
                                                         inputFieldFocused.email = true
                                                     "
                                                     placeholder="Ex: john@example.com"
+                                                    onfocus="this.placeholder = ''"
+                                                    onblur="this.placeholder = 'Ex: john@example.com'"
                                                     required
                                                 />
                                                 <!-- <span
@@ -81,6 +83,8 @@
                                                     "
                                                     required
                                                     placeholder="Enter Password"
+                                                    onfocus="this.placeholder = ''"
+                                                    onblur="this.placeholder = 'Enter Password'"
                                                     ref="password"
                                                 />
                                                 <!-- <span
@@ -110,29 +114,28 @@
                                     </div>
 
                                     <!-- Show the errors -->
-                                    <div v-if="form.errors.length > 0">
-                                        <div
-                                            class="col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show"
-                                            role="alert"
-                                            v-for="(error,
-                                            index) in form.errors"
-                                            :key="index"
+                                    <div
+                                        class="col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show"
+                                        role="alert"
+                                        v-for="(error, index) in form.errors"
+                                        :key="index"
+                                    >
+                                        <li v-if="error[0]">
+                                            {{ error }}
+                                        </li>
+                                        <button
+                                            type="button"
+                                            class="close"
+                                            data-dismiss="alert"
+                                            aria-label="Close"
                                         >
-                                            <li v-if="error[0]">
-                                                {{ error }}
-                                            </li>
-                                            <button
-                                                type="button"
-                                                class="close"
-                                                data-dismiss="alert"
-                                                aria-label="Close"
+                                            <span aria-hidden="true"
+                                                >&times;</span
                                             >
-                                                <span aria-hidden="true"
-                                                    >&times;</span
-                                                >
-                                            </button>
-                                        </div>
+                                        </button>
                                     </div>
+                                    <!-- <div v-if="form.errors.length > 0">
+                                    </div> -->
 
                                     <div class="col-md-6 offset-md-4">
                                         <button
@@ -224,6 +227,7 @@ export default {
         // ...mapActions(["login"]),
         onSubmit() {
             this.loginErrors = [];
+            this.form.errors = [];
 
             let email = this.form.email;
             let password = this.form.password;

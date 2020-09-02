@@ -247,6 +247,7 @@
                     <td colspan="2" class="bg-white pl-0">
                         <div id="logo">
                             <img src="./images/logo.png">
+                            {{-- <img src="{{ asset('/images/logo.png') }}"> --}}
                         </div>
                     </td>
                     <td colspan="2" class="bg-white pr-0">

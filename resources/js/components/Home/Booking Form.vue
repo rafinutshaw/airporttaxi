@@ -413,7 +413,7 @@
             </div>
 
             <!-- Map -->
-            <div id="map">
+            <div class="mapbox-wrapper">
                 <Mapbox
                     access-token="pk.eyJ1IjoicmFmaW4wMCIsImEiOiJja2J6NTM4dDkwOGVzMzJtcnlvNnU0c2t2In0.Qpmm_jb0gzc16AN-UqIENA"
                     :map-options="{
@@ -899,8 +899,13 @@
                     <div class="text-black" style="font-size: 12px;">
                         I have read and agree to the
                         <a href="http://" target="_blank">privacy policy</a> &
-                        <router-link to="/terms-and-conditions" tag="a" target="_blank">terms & conditions</router-link> of booking
-                        with OTS.
+                        <router-link
+                            to="/terms-and-conditions"
+                            tag="a"
+                            target="_blank"
+                            >terms & conditions</router-link
+                        >
+                        of booking with OTS.
                     </div>
                     <div class="d-flex align-self-center">
                         <input
@@ -1565,7 +1570,8 @@ export default {
                             // Calculating Price
                             this.vehicles.map(item => {
                                 item.totalPrice = parseFloat(
-                                    item.price * this.quoteDetails.distance + item.basePrice
+                                    item.price * this.quoteDetails.distance +
+                                        item.basePrice
                                 ).toFixed(2);
                             });
                             resolve(true);
@@ -1580,19 +1586,24 @@ export default {
 
         // After submitting MapBox Api request change formStage Value
         submitQuote() {
-            this.mapBoxPostRequest().then(() => {
-                this.formStage.place = false;
-                this.formStage.journeyFare = true;
+            this.isLoading = true;
+            this.mapBoxPostRequest()
+                .then(() => {
+                    this.formStage.place = false;
+                    this.formStage.journeyFare = true;
 
-                let formateDate = moment(
-                    new Date(this.quoteDetails.journeyDate.Details)
-                ).format("dddd, MMMM Do YYYY, h:mm:ss a");
-                [
-                    this.quoteDetails.journeyDate.Day,
-                    this.quoteDetails.journeyDate.Date,
-                    this.quoteDetails.journeyDate.Time
-                ] = formateDate.split(",");
-            });
+                    let formateDate = moment(
+                        new Date(this.quoteDetails.journeyDate.Details)
+                    ).format("dddd, MMMM Do YYYY, h:mm:ss a");
+                    [
+                        this.quoteDetails.journeyDate.Day,
+                        this.quoteDetails.journeyDate.Date,
+                        this.quoteDetails.journeyDate.Time
+                    ] = formateDate.split(",");
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
         },
 
         backToBooking() {
@@ -1638,8 +1649,6 @@ export default {
             for (let i = 1; i <= this.journey[0].vehicle.luggage; i++) {
                 this.journey[0].luggage.push(i);
             }
-
-
 
             $("html,body").scrollTop(0);
         },
@@ -1718,10 +1727,10 @@ export default {
                         error.response.data.message = "Something went wrong!";
                     }
                     Swal.fire({
-                        icon: 'error',
+                        icon: "error",
                         title: `Oops... Error ` + error.response.status,
-                        text: error.response.data.message,
-                    })
+                        text: error.response.data.message
+                    });
                 })
                 .finally(() => {
                     this.isLoading = false;
@@ -1836,11 +1845,16 @@ export default {
 .row.container-fluid p {
     margin-bottom: 0px !important;
 }
+.mapbox-wrapper {
+    width: -webkit-fill-available;
+    width: -moz-available;
+}
 #map {
     position: relative;
     top: 0;
     bottom: 0;
-    width: 376px;
+    /* width: 376px; */
+    width: 100%;
     height: 250px;
     margin-bottom: 5px;
 }
@@ -1973,15 +1987,15 @@ label {
 }
 
 .header-right {
-    /* background-color: #f3f3f3eb; */
     background-color: #ffffff8f;
-    /* box-shadow: 0px 4px 8px #999999a3; */
     box-shadow: 0px 2px 10px #999999a3;
     border-radius: 8px;
-    /* max-width: 450px; */
     padding: 35px;
-    margin-top: 100px;
     margin-bottom: 50px;
+    margin-top: 120px;
+    /* background-color: #f3f3f3eb; */
+    /* box-shadow: 0px 4px 8px #999999a3; */
+    /* max-width: 450px; */
 }
 
 @media only screen and (max-width: 575px) {

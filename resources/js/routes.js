@@ -35,11 +35,11 @@ const routes = [
         name: "Contact",
         component: () => import("./pages/Contact")
     },
-    {
-        path: "/career",
-        name: "Career",
-        component: () => import("./pages/Career")
-    },
+    // {
+    //     path: "/career",
+    //     name: "Career",
+    //     component: () => import("./pages/Career")
+    // },
     {
         path: "/login",
         name: "Login",

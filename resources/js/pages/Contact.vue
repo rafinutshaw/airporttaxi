@@ -1,5 +1,6 @@
 <template>
     <div>
+        <loader :is-loading="isLoading"></loader>
         <section class="banner-area relative about-banner" id="home">
             <div class="overlay overlay-bg"></div>
             <div class="container">
@@ -18,7 +19,7 @@
         <section class="contact-page-area section-gap">
             <div class="container">
                 <div class="row">
-                    <div
+                    <!-- <div
                         class="map-wrap"
                         style="width: 100%; height: 445px; position: relative; overflow: hidden;"
                         id="map"
@@ -762,16 +763,16 @@
                                 </tr>
                             </table>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-lg-4 d-flex flex-column address-wrap">
                         <div class="single-contact-address d-flex flex-row">
                             <div class="icon">
                                 <span class="lnr lnr-home"></span>
                             </div>
                             <div class="contact-details">
-                                <h5>Binghamton, New York</h5>
                                 <p>
-                                    4343 Hinkle Deegan Lake Road
+                                    572 Newmarket Road, Cambridge Cambridgeshire
+                                    CB5 8LL
                                 </p>
                             </div>
                         </div>
@@ -780,7 +781,7 @@
                                 <span class="lnr lnr-phone-handset"></span>
                             </div>
                             <div class="contact-details">
-                                <h5>00 (958) 9865 562</h5>
+                                <h5>+44-7538950903</h5>
                                 <p>Mon to Fri 9am to 6 pm</p>
                             </div>
                         </div>
@@ -789,7 +790,9 @@
                                 <span class="lnr lnr-envelope"></span>
                             </div>
                             <div class="contact-details">
-                                <h5>support@colorlib.com</h5>
+                                <a href="mailto:info@unicab-cambridge.co.uk"
+                                    >info@unicab-cambridge.co.uk</a
+                                >
                                 <p>Send us your query anytime!</p>
                             </div>
                         </div>
@@ -797,14 +800,14 @@
                     <div class="col-lg-8">
                         <form
                             class="form-area text-right"
-                            id="myForm"
-                            action="mail.php"
+                            @submit.prevent="onSubmit"
                             method="post"
                         >
                             <div class="row">
                                 <div class="col-lg-6 form-group">
                                     <input
                                         name="name"
+                                        v-model="form.name"
                                         placeholder="Enter your name"
                                         onfocus="this.placeholder = ''"
                                         onblur="this.placeholder = 'Enter your name'"
@@ -813,29 +816,21 @@
                                         type="text"
                                     />
                                     <input
-                                        name="name"
-                                        placeholder="Enter your name"
+                                        name="email"
+                                        v-model="form.email"
+                                        placeholder="Enter your email"
                                         onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Enter your name'"
+                                        onblur="this.placeholder = 'Enter your email'"
                                         class="mb-20 form-control"
                                         required=""
-                                        type="text"
+                                        type="email"
                                     />
-
-                                    <!-- <input name="email" placeholder="Enter email address"
-                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
-                                        onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Enter email address'"
-                                        class="form-control mb-20" required="" type="email">
-
-                                    <input name="subject" placeholder="Enter subject" onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Enter subject'"
-                                        class="form-control mb-20" required="" type="text"> -->
                                 </div>
                                 <div class="col-lg-6 form-group">
                                     <textarea
                                         class="common-textarea form-control"
                                         name="message"
+                                        v-model="form.message"
                                         placeholder="Enter Messege"
                                         onfocus="this.placeholder = ''"
                                         onblur="this.placeholder = 'Enter Messege'"
@@ -848,7 +843,7 @@
                                         style="text-align: left;"
                                     ></div>
                                     <button
-                                        class="primary-btn"
+                                        class="btn btn-primary"
                                         style="float: right;"
                                     >
                                         Send Message
@@ -864,7 +859,51 @@
 </template>
 
 <script>
+import loader from "../components/Loader";
 export default {
+    components: {
+        loader
+    },
+    data() {
+        return {
+            isLoading: false,
+            form: {
+                name: null,
+                email: null,
+                message: null,
+            }
+        };
+    },
+    methods: {
+        onSubmit() {
+            this.isLoading = true;
+            let data = {
+                name: this.form.name,
+                email: this.form.email,
+                message: this.form.message
+            };
+
+            axios
+                .post("/contact-us", data)
+                .then(response => {
+                    Swal.fire({
+                        icon: "success",
+                        title: `Thank you`,
+                        text: response.data.message
+                    });
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: "error",
+                        title: `Oops... Error ` + error.response.status,
+                        text: error.response.data.message
+                    });
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
+        }
+    },
     created() {
         $("html,body").scrollTop(0);
     }

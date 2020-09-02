@@ -121,7 +121,7 @@ export default {};
 
 .banner-content {
     /* right: 8%; */
-    margin-top: 10%;
+    margin-top: 5%;
     margin-bottom: 5%;
 }
 .car-img {

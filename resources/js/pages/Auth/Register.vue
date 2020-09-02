@@ -48,6 +48,9 @@
                                                     type="text"
                                                     name="name"
                                                     class="form-control"
+                                                    placeholder="Enter name"
+                                                    onfocus="this.placeholder = ''"
+                                                    onblur="this.placeholder = 'Enter name'"
                                                     required
                                                     autofocus
                                                 />
@@ -80,6 +83,8 @@
                                                         inputFieldFocused.email = true
                                                     "
                                                     placeholder="Ex: john@example.com"
+                                                    onfocus="this.placeholder = ''"
+                                                    onblur="this.placeholder = 'Ex: john@example.com'"
                                                     required
                                                 />
                                                 <span
@@ -117,6 +122,8 @@
                                                     "
                                                     required
                                                     placeholder="Enter Password"
+                                                    onfocus="this.placeholder = ''"
+                                                    onblur="this.placeholder = 'Enter Password'"
                                                     ref="password"
                                                 />
 
@@ -156,6 +163,8 @@
                                                     type="password"
                                                     class="form-control"
                                                     placeholder="Rewrite your password"
+                                                    onfocus="this.placeholder = ''"
+                                                    onblur="this.placeholder = 'Rewrite your password'"
                                                     v-model="
                                                         form.password_confirmation
                                                     "

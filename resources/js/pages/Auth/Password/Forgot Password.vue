@@ -72,34 +72,26 @@
 
                                 <!-- Show the errors -->
                                 <div
-                                    v-if="form.errors"
+                                    v-for="(error, index) in form.errors"
                                     class="col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show mt-3"
-                                    role="alert"
+                                    :key="index"
                                 >
                                     <div
-                                        v-for="(error, index) in form.errors"
+                                        v-for="(singleError, index) in error"
                                         :key="index"
                                     >
-                                        <div
-                                            v-for="(singleError,
-                                            index) in error"
-                                            :key="index"
-                                        >
-                                            <li>
-                                                {{ singleError }}
-                                            </li>
-                                        </div>
-                                        <button
-                                            type="button"
-                                            class="close"
-                                            data-dismiss="alert"
-                                            aria-label="Close"
-                                        >
-                                            <span aria-hidden="true"
-                                                >&times;</span
-                                            >
-                                        </button>
+                                        <li>
+                                            {{ singleError }}
+                                        </li>
                                     </div>
+                                    <button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="alert"
+                                        aria-label="Close"
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             </form>
                         </ValidationObserver>
@@ -133,7 +125,7 @@ export default {
     methods: {
         onSubmit() {
             this.isLoading = true;
-            this.loginErrors = [];
+            this.form.errors = null;
 
             let email = this.form.email;
 
@@ -143,6 +135,7 @@ export default {
                     this.form.success = response.data.message;
                 })
                 .catch(errors => {
+                    console.log(errors.response.data.errors);
                     this.form.errors = errors.response.data.errors;
                 })
                 .finally(() => {
@@ -153,7 +146,7 @@ export default {
     created() {
         if (localStorage.getItem("loggedIn")) {
             this.$router.push({ name: "Home" });
-        };
+        }
         $("html,body").scrollTop(0);
     }
 };

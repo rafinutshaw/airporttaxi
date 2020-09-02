@@ -3,10 +3,16 @@
 use App\Vehicle;
 use App\Events\MyEvent;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
 use App\Events\BookingSubmittedEvent;
+use App\Mail\ContactUs;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Notifications\CareerNotification;
 use App\Notifications\BookingSubmittedNotification;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,8 +24,6 @@ use App\Notifications\BookingSubmittedNotification;
 |
 */
 
-Route::get("/file", "HomeController@fileUpload")->name("file.upload");
-Route::post("/file/store", "HomeController@storeFile")->name("store.file");
 Route::get('/get-file/{path}', function ($path) {
     $image = storage_path("app/career/new/" . $path);
     if (!file_exists($image)) {
@@ -28,15 +32,40 @@ Route::get('/get-file/{path}', function ($path) {
     return response()->file($image);
 })->name('get.file')->middleware('auth');
 
-Route::post('career', function (Request $request) {
-    return $request;
-});
+// Route::get('/get-file/{filename}', function ($filename) {
+
+//     $path = storage_path("/app/images/customer-profile-image/" . $filename);
+//     if (!file_exists($path)) {
+//         abort('404');
+//     }
+//     $file = File::get($path);
+//     $type = File::mimeType($path);
+//     $response = Response::make($file, 200);
+//     $response->header("Content-Type", $type);
+//     return $response;
+
+//     // return response()->file($path);
+// })->name('get.file')->middleware('auth');
 
 Route::get('/', function () {
     return view('layouts.master');
 });
 
 Auth::routes();
+
+Route::post('contact-us', function (Request $request) {
+    $data = [
+        'name' => $request->name,
+        'email' => $request->email,
+        'message' => $request->message,
+    ];
+    try {
+        Mail::to(config('app.email'))->send(new ContactUs($data));
+        return response()->json(['message' => 'Your request has been received. We will contact with you shortly.'], 200);
+    } catch (\Throwable $th) {
+        return response()->json(['message' => 'Something went wrong.'], 500);
+    }
+});
 
 Route::get('/price-list', function () {
     $prices = Vehicle::all(['id', 'type', 'price', 'basePrice', 'maxPassenger', 'luggage', 'image']);

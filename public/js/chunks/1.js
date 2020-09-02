@@ -211,6 +211,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
  // import { autoClose } from "../../tools/tools";
 // import { mapGetters, mapMutations, mapActions } from "vuex";
 
@@ -237,6 +240,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.loginErrors = [];
+      this.form.errors = [];
       var email = this.form.email;
       var password = this.form.password;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/login", {
@@ -440,6 +444,10 @@ var render = function() {
                                                     autofocus: "",
                                                     placeholder:
                                                       "Ex: john@example.com",
+                                                    onfocus:
+                                                      "this.placeholder = ''",
+                                                    onblur:
+                                                      "this.placeholder = 'Ex: john@example.com'",
                                                     required: ""
                                                   },
                                                   domProps: {
@@ -521,7 +529,11 @@ var render = function() {
                                                     type: "password",
                                                     required: "",
                                                     placeholder:
-                                                      "Enter Password"
+                                                      "Enter Password",
+                                                    onfocus:
+                                                      "this.placeholder = ''",
+                                                    onblur:
+                                                      "this.placeholder = 'Enter Password'"
                                                   },
                                                   domProps: {
                                                     value: _vm.form.password
@@ -639,60 +651,47 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _vm.form.errors.length > 0
-                                ? _c(
-                                    "div",
-                                    _vm._l(_vm.form.errors, function(
-                                      error,
-                                      index
-                                    ) {
-                                      return _c(
-                                        "div",
-                                        {
-                                          key: index,
-                                          staticClass:
-                                            "col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show",
-                                          attrs: { role: "alert" }
-                                        },
-                                        [
-                                          error[0]
-                                            ? _c("li", [
-                                                _vm._v(
-                                                  "\n                                            " +
-                                                    _vm._s(error) +
-                                                    "\n                                        "
-                                                )
-                                              ])
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _c(
-                                            "button",
-                                            {
-                                              staticClass: "close",
-                                              attrs: {
-                                                type: "button",
-                                                "data-dismiss": "alert",
-                                                "aria-label": "Close"
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "span",
-                                                {
-                                                  attrs: {
-                                                    "aria-hidden": "true"
-                                                  }
-                                                },
-                                                [_vm._v("×")]
-                                              )
-                                            ]
+                              _vm._l(_vm.form.errors, function(error, index) {
+                                return _c(
+                                  "div",
+                                  {
+                                    key: index,
+                                    staticClass:
+                                      "col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show",
+                                    attrs: { role: "alert" }
+                                  },
+                                  [
+                                    error[0]
+                                      ? _c("li", [
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(error) +
+                                              "\n                                    "
                                           )
-                                        ]
-                                      )
-                                    }),
-                                    0
-                                  )
-                                : _vm._e(),
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "close",
+                                        attrs: {
+                                          type: "button",
+                                          "data-dismiss": "alert",
+                                          "aria-label": "Close"
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          { attrs: { "aria-hidden": "true" } },
+                                          [_vm._v("×")]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              }),
                               _vm._v(" "),
                               _c(
                                 "div",
@@ -729,7 +728,8 @@ var render = function() {
                                 ],
                                 1
                               )
-                            ]
+                            ],
+                            2
                           )
                         ]
                       }
