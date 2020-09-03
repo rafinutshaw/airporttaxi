@@ -13,8 +13,8 @@ trait BookingInvoiceTrait
     //  * Saving a temporary PDF to storage
     //  * so that we can attach this PDF to email
     
-    *   @param \App\Booking $booking
-    *   @return string
+     *   @param \App\Booking $booking
+     *   @return string
      */
     public function saveInvoice(Booking $booking)
     {
@@ -23,8 +23,10 @@ trait BookingInvoiceTrait
         }
 
         $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-        Storage::put('public/pdf/' . $this->setPDFName($booking->id), $pdf->output());
-        return $this->setPDFName($booking->id);
+
+        $pdfFileName = "booking invoice " . uniqid() . ".pdf";
+        Storage::put('public/pdf/' . $pdfFileName, $pdf->output());
+        return $pdfFileName;
     }
 
     /**
@@ -39,7 +41,7 @@ trait BookingInvoiceTrait
         if (!empty($booking)) {
             $data = $this->setInvoiceData($booking);
             $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-            return $pdf->download($this->setPDFName($booking->id));
+            return $pdf->download('booking-summery ' . uniqid() . '.pdf');
         }
     }
 
@@ -68,15 +70,5 @@ trait BookingInvoiceTrait
             'vehicle' => $booking->vehicle->type
         ];
         return $data;
-    }
-
-    /**
-     * Set name for PDF
-     * 
-     * @param booking id
-     * @return string name
-     */
-    private function setPDFName($id) {
-        return 'booking id#' . $id . ' ' . uniqid() . '.pdf';
     }
 }

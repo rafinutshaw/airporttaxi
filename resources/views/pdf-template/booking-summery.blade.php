@@ -246,7 +246,7 @@
                 <tr>
                     <td colspan="2" class="bg-white pl-0">
                         <div id="logo">
-                            <img src="./images/logo.png">
+                            <img src="./images/logo.jpg">
                             {{-- <img src="{{ asset('/images/logo.png') }}"> --}}
                         </div>
                     </td>
@@ -375,7 +375,7 @@
                 </td>
                 <td width="50%"><big>We are licensed by</big>
                     <br> <br>
-                    <img src="./images/southcambridge-black.png" alt="south cambridgeshire district council">
+                    <img src="./images/southcambridge-black.jpg" alt="south cambridgeshire district council">
                 </td>
             </tr>
         </table>

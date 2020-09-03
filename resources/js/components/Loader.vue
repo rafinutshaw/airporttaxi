@@ -6,7 +6,6 @@
             <div></div>
             <div></div>
         </div>
-        <div>Loading...</div>
         <span class="text" v-html="text"></span>
     </div>
 </template>
