@@ -24,6 +24,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon"/>
     <!--
                 CSS
                 ============================================= -->

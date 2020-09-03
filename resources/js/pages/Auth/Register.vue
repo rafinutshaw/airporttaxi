@@ -206,7 +206,6 @@
                             role="alert"
                             v-for="(error, index) in form.errors"
                             :key="index"
-                            v-bind="myAutoClose('.alert', 3000)"
                         >
                             <li v-if="error.email">
                                 {{ error.email[0] }}

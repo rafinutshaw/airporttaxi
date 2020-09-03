@@ -95,21 +95,6 @@
                 vehicle.
             </div>
         </div>
-        <!-- 14 Seater Minibus -->
-        <div class="row mt-3 car-div">
-            <div class="col-md-3 d-flex justify-content-center mb-2">
-                <img
-                    class="car-img"
-                    src="../../../../public/img/Cars/Cars SVG/14 Seater Minibus.svg"
-                    alt=""
-                />
-            </div>
-            <div class="col-md-9 text-white" style="text-align: justify;">
-                <strong>14 Seater Minibus:</strong> 12 passengers plus up to 12
-                suitcases (20kg max) or 16 passengers with hand luggage. Any
-                more luggage than this will require a larger vehicle.
-            </div>
-        </div>
     </div>
 </template>
 
