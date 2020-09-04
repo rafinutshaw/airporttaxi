@@ -1,5 +1,6 @@
 <template>
     <div>
+        <loader :is-loading="isLoading"></loader>
         <section class="banner-area relative login">
             <div class="overlay overlay-bg"></div>
             <div class="container">
@@ -151,12 +152,6 @@
                                         >
                                             Forgot Your Password?
                                         </router-link>
-                                        <!-- <a
-                                            href="/password/reset"
-                                            class="btn btn-link"
-                                        >
-                                            Forgot Your Password?
-                                        </a> -->
                                     </div>
                                 </form>
                             </ValidationObserver>
@@ -203,12 +198,15 @@
 
 <script>
 import axios from "axios";
-// import { autoClose } from "../../tools/tools";
-// import { mapGetters, mapMutations, mapActions } from "vuex";
+import loader from "../../components/Loader";
 export default {
     name: "login",
+    components: {
+        loader
+    },
     data() {
         return {
+            isLoading: false,
             // Create a new form instance
             form: {
                 email: "",
@@ -224,8 +222,8 @@ export default {
         };
     },
     methods: {
-        // ...mapActions(["login"]),
         onSubmit() {
+            this.isLoading = true;
             this.loginErrors = [];
             this.form.errors = [];
 
@@ -267,42 +265,14 @@ export default {
                             "Something went wrong, please try again later."
                         );
                     }
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
-
-            // this.$store
-            //     .dispatch("login", { email, password })
-            //     .then(() => {
-            //         // this.$router.push("/home");
-            //         // axios.get("/home");
-            //         // window.location.reload();
-            //         window.location = "/";
-            //     })
-            //     .catch(error => {
-            //         if (error.response.status == 422) {
-            //             this.form.errors.push(
-            //                 "Sorry, email or password was incorrect."
-            //             );
-            //         } else if (error.response.status == 404) {
-            //             this.form.errros.push(
-            //                 "404 not found! Please try again later."
-            //             );
-            //         } else if (error.response.status == 429) {
-            //             this.form.errors.push(
-            //                 "Too many login attempts. Please try again in 58 seconds."
-            //             );
-            //         } else {
-            //             this.form.errors.push(
-            //                 "Something went wrong, please try again later."
-            //             );
-            //         }
-            //     });
+        },
+        created() {
+            $("html,body").scrollTop(0);
         }
-        // myAutoClose(target, time) {
-        //     autoClose(target, time);
-        // }
-    },
-    created() {
-        $("html,body").scrollTop(0);
     }
 };
 </script>

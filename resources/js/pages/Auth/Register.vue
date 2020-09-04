@@ -1,5 +1,6 @@
 <template>
     <div>
+        <loader :is-loading="isLoading"></loader>
         <section class="banner-area relative register">
             <div class="overlay overlay-bg"></div>
             <div class="container">
@@ -266,11 +267,15 @@
 <script>
 import { extend } from "vee-validate";
 import { autoClose } from "../../tools/tools";
-// import { log } from "util";
+import loader from "../../components/Loader";
 
 export default {
+    components: {
+        loader
+    },
     data() {
         return {
+            isLoading: false,
             csrf: document
                 .querySelector('meta[name="csrf-token"]')
                 .getAttribute("content"),
@@ -293,6 +298,7 @@ export default {
     },
     methods: {
         onSubmit() {
+            this.isLoading = true;
             this.form.errors = [];
 
             let name = this.form.name;
@@ -333,32 +339,10 @@ export default {
                             "Something errors happend, please try again later"
                         );
                     }
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
-
-            // this.$store
-            //     .dispatch("register", {
-            // name, email, password, password_confirmation, remember;
-            //     })
-            //     .then(response => {
-            //         // this.$router.push("/home");
-            //         window.location = "/home";
-            //     })
-            //     .catch(error => {
-            //         if (error.response.status == 422) {
-            //             // To set Server Side Error Message for a form value
-            //             // this.$refs.form.setErrors({
-            //             //     email: ["The email has already taken."]
-            //             // });
-
-            //             this.form.errors.push(error.response.data.errors);
-            //         } else if (error.response.status == 404) {
-            //             this.form.errors.push("404 Not Found");
-            //         } else {
-            //             this.form.errors.push(
-            //                 "Something errors happend, please try again later"
-            //             );
-            //         }
-            //     });
         },
         myAutoClose(target, time) {
             autoClose(target, time);
