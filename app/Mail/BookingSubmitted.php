@@ -7,11 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
-use PhpParser\Node\Stmt\TryCatch;
 
-use function GuzzleHttp\Psr7\try_fopen;
-
-class BookingSubmitted extends Mailable
+class BookingSubmitted extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

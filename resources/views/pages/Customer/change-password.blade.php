@@ -7,7 +7,6 @@
             <div class="row mt-4 justify-content-center">
                 <div class="col-md-8 justify-content-center">
 
-                    <h3 class="mt-3 text-center">{{ Auth::user()->name }}</h3>
                     <div class="row d-flex justify-content-center">
 
                         {{-- Starting Password Update Section --}}
@@ -70,28 +69,3 @@
 </div>
 @endsection
 
-@section('style')
-<style>
-    .profile-image-button {
-        width: 70%;
-    }
-
-    .box-body.box-profile.d-flex-column {
-        background-color: #f3f3f3eb;
-        box-shadow: 0px 2px 10px #999999a3;
-        background-color: #fdfdfd96;
-        border-radius: 5px;
-        padding-top: 25px;
-        padding-bottom: 25px;
-    }
-
-    .edit-profile {
-        background-color: #f3f3f3eb;
-        box-shadow: 0px 2px 10px #999999a3;
-        background-color: #fdfdfd96;
-        border-radius: 5px;
-        padding: 30px 50px;
-    }
-
-</style>
-@endsection

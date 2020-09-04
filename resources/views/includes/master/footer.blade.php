@@ -7,7 +7,6 @@
                     <h6>Quick links</h6>
                     <ul>
                         <li>
-                            {{-- <router-link to="/career" tag="a">Career</router-link> --}}
                             <a target="_blank" href="http://127.0.0.1:900/career/">Career</a>
                         </li>
                         <li><router-link to="/terms-and-conditions" tag="a">Terms & Contitions</router-link></li>
@@ -44,10 +43,5 @@
             </p>
         </div>
     </div>
-    {{-- <img class="footer-bottom" src="{{ asset("img/footer-bottom.png") }}" alt=""> --}}
 </footer>
 <!-- End footer Area -->
-
-{{-- <script src="js/vendor/jquery-2.2.4.min.js"></script> --}}
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> --}}
-{{-- <script src="js/vendor/bootstrap.min.js"></script>			 --}}

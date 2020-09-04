@@ -38,12 +38,6 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    {{-- <router-link to="/dashboard" class="nav-link">
-                        <i class="nav-icon fas fa-border-all orange"></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </router-link> --}}
                     <a href="{{ route('customer.dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-border-all orange"></i>
                         <p>
@@ -73,12 +67,6 @@
                 {{-- Ending Booking --}}
 
                 <li class="nav-item">
-                    {{-- <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                    <i class="nav-icon fas fa-power-off red"></i>
-                    <p> Logout </p>
-                    </a> --}}
-
                     <a class="nav-link" href="{{ route('logout') }}" id="logout" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();
                             localStorage.removeItem('loggedIn');

@@ -117,7 +117,6 @@
                             </div>
                         </div>
                         {{-- Ending Profile Section --}}
-
                         {{-- Starting Password Update Section --}}
                         <div class="col-md-10 mt-5 mb-5 edit-profile">
                             <h3 class="profile-username text-center mb-4">Change Password</h3>
@@ -150,20 +149,20 @@
                             {{-- Success Message --}}
                             <div class="mt-3">
                                 @if ($message = Session::get('successfully-password-updated'))
-                                    <div class="alert alert-success alert-dismissible fade show">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <strong>{{ $message }}</strong>
-                                    </div>
+                                <div class="alert alert-success alert-dismissible fade show">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>{{ $message }}</strong>
+                                </div>
                                 @endif
                             </div>
 
                             {{-- Error Message --}}
                             <div class="mt-3">
                                 @if (session('error'))
-                                    <div class="alert alert-danger alert-dismissible fade show">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        {{ session('error') }}
-                                    </div>
+                                <div class="alert alert-danger alert-dismissible fade show">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {{ session('error') }}
+                                </div>
                                 @endif
                             </div>
                         </div>
@@ -198,36 +197,7 @@
                 $(this).next('.custom-file-label').html("Choose Image");
             }
         });
-        // setTimeout(function () {
-        //     $(".alert").alert('close');
-        // }, 3000);
     });
 
 </script>
-@endsection
-
-@section('style')
-<style>
-    .profile-image-button {
-        width: 70%;
-    }
-
-    .box-body.box-profile.d-flex-column {
-        background-color: #f3f3f3eb;
-        box-shadow: 0px 2px 10px #999999a3;
-        background-color: #fdfdfd96;
-        border-radius: 5px;
-        padding-top: 25px;
-        padding-bottom: 25px;
-    }
-
-    .edit-profile {
-        background-color: #f3f3f3eb;
-        box-shadow: 0px 2px 10px #999999a3;
-        background-color: #fdfdfd96;
-        border-radius: 5px;
-        padding: 30px 50px;
-    }
-
-</style>
 @endsection

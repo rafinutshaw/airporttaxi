@@ -58,6 +58,9 @@
                                         </div>
                                     </div>
                                 </form>
+                                <div class="container">
+                                    <hr>
+                                </div>
                                 <div class="d-flex-row pl-5 pr-5 container">
                                     <button type="button"
                                         class="btn btn-outline-primary btn-md btn-block change-password"
@@ -168,9 +171,6 @@
                 $(this).next('.custom-file-label').html("Choose Image");
             }
         });
-        // setTimeout(function () {
-        //     $(".alert").alert('close');
-        // }, 3000);
     });
 
 </script>
@@ -178,9 +178,6 @@
 
 @section('style')
 <style>
-    /* .content-wrapper {
-        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
-    } */
     .input-group.profile-image-button {
         width: 80% !important;
     }

@@ -43,28 +43,9 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        {{-- <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();
-                        localStorage.removeItem('loggedIn');>
-                        {{ __('Logout') }}
-                        </a> --}}
                         <a class="dropdown-item" href="{{ route('customer.dashboard') }}">
                             {{ __('Dashboard') }}
                         </a>
-
-                        {{-- <a id="logout" class="dropdown-item" href="{{ route('logout') }}" onclick="logout(event)">
-                        {{ __('Logout') }}
-                        </a> --}}
-
-                        {{-- <a class="dropdown-item" href="{{ route('logout') }}" id="logout"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form> --}}
 
                         <a class="dropdown-item" href="{{ route('logout') }}" id="logout" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();
@@ -85,92 +66,3 @@
         </div>
     </div>
 </nav>
-@section('navbar-scripts')
-
-<script type="application/javascript">
-    // var timeout = 10000; // 7200000 ms = 120 minutes
-    // var idleTimer = null;
-
-    // var events = [
-    //     'mousemove', 'click', 'mouseup', 'mousedown', 'keydown', 'keypress',
-    //     'keyup', 'submit', 'change', 'mouseenter', 'scroll', 'resize', 'dblclick'
-    // ];
-
-    // events.forEach(element => {
-    //     document.getElementsByTagName("html")[0].addEventListener(element,
-    //         function () {
-    //             removeLocalStorageItems();
-    //         });
-    // });
-
-    // function removeLocalStorageItems() {
-    //     clearTimeout(idleTimer);
-
-    //     idleTimer = setTimeout(function () {
-    //         localStorage.removeItem('loggedIn');
-    //         localStorage.removeItem('authUsername');
-    //         localStorage.removeItem("authEmail");
-    //         localStorage.removeItem("authMobile");
-    //         document.getElementById("logout-form").submit();
-    //     }, timeout);
-    // };
-
-    // document.getElementsByTagName("*").bind(
-    //     "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
-    //     function () {
-    //         clearTimeout(idleTimer);
-
-    //         idleTimer = setTimeout(function () {
-    //             console.log("Click");
-    //             // localStorage.removeItem('loggedIn');
-    //             // localStorage.removeItem('authUsername');
-    //             // localStorage.removeItem("authEmail");
-    //             // localStorage.removeItem("authMobile");
-    //             // document.getElementById("logout-form").submit();
-    //         }, timeout);
-    //     }
-    // );
-    // var body = document.getElementsByTagName("body");
-    // body.fireEvent("mousemove");
-    // document.getElementsByTagName("body").fireEvent("mousemove");
-    // $(document).ready(function () {
-    //     // auto logout script
-    //     const timeout = 10000; // 7200000 ms = 120 minutes
-    //     var idleTimer = null;
-    //     document.getElementsByTagName("*").bind(
-    //         "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
-    //         function () {
-    //             clearTimeout(idleTimer);
-
-    //             idleTimer = setTimeout(function () {
-    //                 console.log("Click");
-    //                 // localStorage.removeItem('loggedIn');
-    //                 // localStorage.removeItem('authUsername');
-    //                 // localStorage.removeItem("authEmail");
-    //                 // localStorage.removeItem("authMobile");
-    //                 // document.getElementById("logout-form").submit();
-    //             }, timeout);
-    //         }
-    //     );
-    //     document.getElementsByTagName("body").fireEvent("mousemove");
-
-    //     // $("*").bind(
-    //     //     "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
-    //     //     function () {
-    //     //         clearTimeout(idleTimer);
-
-    //     //         idleTimer = setTimeout(function () {
-    //     //             localStorage.removeItem('loggedIn');
-    //     //             localStorage.removeItem('authUsername');
-    //     //             localStorage.removeItem("authEmail");
-    //     //             localStorage.removeItem("authMobile");
-    //     //             document.getElementById("logout-form").submit();
-    //     //         }, timeout);
-    //     //     }
-    //     // );
-    //     // $("body").trigger("mousemove");
-    // });
-
-</script>
-
-@endsection
