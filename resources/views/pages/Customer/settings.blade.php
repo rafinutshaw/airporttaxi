@@ -39,7 +39,7 @@
                                         src="{{ asset($userProfileImagePath) }}" alt="User profile picture"
                                         style="width: 200px; height: 200px; object-fit: cover">
                                 </div>
-                                <form class="d-flex-row" action="{{ route('customer.upload-image') }}" method="post"
+                                <form id="uploadImage" class="d-flex-row" action="{{ route('customer.upload-image') }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="d-flex justify-content-center mb-3 mt-3">
@@ -49,7 +49,7 @@
                                                 <label class="custom-file-label">Change Image</label>
                                             </div>
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-primary" type="submit">Upload</button>
+                                                <button class="btn btn-outline-primary" type="submit" onclick="showLoading('uploadImage')">Upload</button>
                                             </div>
                                             @if ($errors->first('image'))
                                             <span class="invalid-feedback"
@@ -149,31 +149,6 @@
     </section>
     <!-- /.content -->
 </div>
-@endsection
-
-@section('scripts')
-<script type="application/javascript">
-    function submit(e) {
-        e.preventDefault();
-        console.log(document.getElementsByName('Gender')[0].value);
-    }
-
-    $(document).ready(function () {
-        $('.custom-file-input').change(function () {
-            var fileName = $(this).val();
-            if (fileName.length) {
-                fileName = fileName.replace("C:\\fakepath\\", "");
-                if (fileName.length > 14) {
-                    fileName = fileName.substring(0, 14) + "...";
-                }
-                $(this).next('.custom-file-label').html(fileName);
-            } else {
-                $(this).next('.custom-file-label').html("Choose Image");
-            }
-        });
-    });
-
-</script>
 @endsection
 
 @section('style')

@@ -11,6 +11,9 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div id="app" class="wrapper">
+        {{-- Loader --}}
+        @include('includes.customer.loader')
+        
         <header>
             @include('includes.customer.navbar')
         </header>
@@ -24,19 +27,7 @@
         {{-- Additional Scripts --}}
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $(".nav-link").click(function () {
-                if (!$(this).hasClass("active")) {
-                    $(".nav-link").removeClass("active");
-                    $(this).addClass("active");
-                }
-            });
-        });
-
-    </script>
-    @stack('scripts')
-
+    <script src="{{ asset('js/custom.js') }}"></script>
     @yield('scripts')
 </body>
 
