@@ -12,7 +12,7 @@
     "devDependencies": {
         "axios": "^0.19",
         "bootstrap": "^4.5.0",
-        "cross-env": "^5.1",
+        "cross-env": "^5.2.1",
         "jquery": "^3.5.1",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.15",
@@ -26,6 +26,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.12.0",
         "@riophae/vue-treeselect": "^0.4.0",
+        "@stripe/stripe-js": "^1.9.0",
         "admin-lte": "^3.0.2",
         "laravel-echo": "^1.8.1",
         "laravel-vue-pagination": "^2.3.1",
@@ -37,9 +38,11 @@
         "qs": "^6.9.4",
         "sweetalert2": "^9.11.0",
         "vee-validate": "^3.2.1",
+        "vue-flatpickr-component": "^8.1.6",
         "vue-multiselect": "^2.1.6",
         "vue-router": "^3.2.0",
         "vue-select": "^3.10.3",
+        "vue-stripe-elements-plus": "^0.3.2",
         "vue2-datepicker": "^3.5.0",
         "vuedraggable": "^2.23.2",
         "vuex": "^3.1.2",

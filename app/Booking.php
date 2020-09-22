@@ -19,7 +19,7 @@ class Booking extends Model
         'luggage',
         'discount',
         'total_price',
-        'passport',
+        'stripe_payment_intent_id',
         'flight_number',
         'flight_origin',
         'vehicle_id',
@@ -32,12 +32,18 @@ class Booking extends Model
         'journey_date'
     ];
 
-    // Creating global scope for Booking model so that every customer can only view their own bookings
+    // To initially make updated_at column null
+    const UPDATED_AT = null;
+
+    // Creating global scope for Booking model so that every customer can only view their own bookings except unpaid bookings
     public static function booted()
     {
         static::addGlobalScope('booking_created_customer', function (Builder $builder) {
             if (auth()->check()) {
-                return $builder->where('customer_id', auth()->id());
+                return $builder->where([
+                    ['customer_id', auth()->id()],
+                    ['booking_status_id', '!=', '1']
+                ]);
             }
         });
     }

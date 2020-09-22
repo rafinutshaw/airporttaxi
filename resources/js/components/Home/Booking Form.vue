@@ -13,6 +13,10 @@
             <div id="bookingForm">
                 <div v-for="(item, index) in journey" :key="index">
                     <div class="mb-2 pickup-point">
+                        <!-- <stripe-payment-intent
+                            class="mb-2"
+                        ></stripe-payment-intent> -->
+
                         <div class="row pl-3 pr-3">
                             <div
                                 class="form-group input-group col-sm-12 pl-0 pr-0"
@@ -261,14 +265,70 @@
                                 <div class="col">
                                     <div class="form-group input-group">
                                         <div class="input-group-prepend">
+                                            <button
+                                                class="input-group-text"
+                                                type="button"
+                                                title="Toggle"
+                                                data-toggle
+                                            >
+                                                <i class="far fa-calendar-alt">
+                                                    <span
+                                                        aria-hidden="true"
+                                                        class="sr-only"
+                                                        >Toggle</span
+                                                    >
+                                                </i>
+                                            </button>
+                                        </div>
+                                        <flat-pickr
+                                            v-model="
+                                                quoteDetails.journeyDate.Details
+                                            "
+                                            :config="config"
+                                            class="flat-datepicker"
+                                            placeholder="Select date (BST)"
+                                        >
+                                        </flat-pickr>
+                                        <div class="input-group-prepend">
+                                            <button
+                                                class="input-group-text"
+                                                type="button"
+                                                title="Clear"
+                                                data-clear
+                                            >
+                                                <i class="fas fa-times">
+                                                    <span
+                                                        aria-hidden="true"
+                                                        class="sr-only"
+                                                        >Clear</span
+                                                    >
+                                                </i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group input-group">
+                                        <!-- <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <i
                                                     class="far fa-calendar-alt"
                                                 ></i>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <date-picker
+                                        <!-- <div class="form-control d-flex flex-column justify-content-center">
+                                            <a class="input-group-prepend input-button" title="toggle" data-toggle>
+                                                <i class="far fa-calendar-alt"></i>
+                                            </a>
+
+                                            <flat-pickr :config="config" v-model="quoteDetails.journeyDate.Details"></flat-pickr>
+
+                                            <a class="input-button" title="clear" data-clear>
+                                                <i class="icon-close"></i>
+                                            </a>
+                                        </div> -->
+
+                                        <!-- <date-picker
                                             class="form-control d-flex flex-column justify-content-center"
                                             readonly
                                             placeholder="Pick-up Date & Time"
@@ -281,35 +341,14 @@
                                             :disabled-date="notBeforeToday"
                                             :editable="false"
                                         >
-                                        </date-picker>
+                                        </date-picker> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <!-- <div class="d-flex justify-content-end mt-2 col-sm-10 pr-0">
-                            <i class="fas fa-exchange-alt return-booking" style='font-size: 15px'> Return Booking?</i>
-                        </div> -->
-                        <!-- <div class="d-flex justify-content-end mt-2 col-sm-4 pr-0">
-                            <i class="fas fa-exchange-alt return-booking" style='font-size: 15px'></i>
-                        </div>
-                        <div class="d-flex justify-content-end mt-2 col-sm-4 pr-0">
-                            <p class="text-left">Return Booking?</p>
-                        </div> -->
-                    </div>
-                    <!-- <div class="row container-fluid justify-content-end mt-2"> -->
-
                     <!-- Return Booking Toggle Button  -->
-                    <div class="toggle-wrapper col-sm-7 offset-sm-5 mt-2 pr-0">
-                        <!-- <div class="row" @click.prevent="returnBooking"
-                            style="cursor: pointer;">
-                            <p class="text-left mb-0 ml-2 text-black">
-                                Return Booking?
-                            </p>
-                        </div> -->
-
+                    <!-- <div class="toggle-wrapper col-sm-7 offset-sm-5 mt-2 pr-0">
                         <div class="can-toggle">
                             <input
                                 id="a"
@@ -324,7 +363,7 @@
                                 ></div>
                             </label>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
@@ -366,7 +405,7 @@
         */ -->
 
         <!-- /**
-        * TODO:     Stage 3
+        * TODO:     Stage 2
         * ? Starting Journey Fares
         */ -->
         <div
@@ -440,21 +479,12 @@
                 v-for="vehicle in vehicles"
                 :key="vehicle.id"
             >
-                <input
-                    type="radio"
-                    name="price"
-                    :value="vehicle.price"
-                    v-model="journey[0].fare"
-                />
                 <div
-                    class="group vehicle row d-flex align-items-center"
-                    @click="selectedPrice(vehicle)"
+                    class="group vehicle row d-flex justify-content-center width-100 mb-3"
                 >
                     <div class="vehicle-img-wrapper col-sm-7">
                         <img :src="vehicle.image" />
                         <h6>{{ vehicle.type }}</h6>
-                    </div>
-                    <div class="vehicle-icon-wrapper col-sm-5">
                         <p class="passengers-luggage-icon-wrapper">
                             <span class="mr-2">
                                 <i
@@ -468,48 +498,43 @@
                                 {{ vehicle.luggage }}
                             </span>
                         </p>
-                        <div class="vehicle-price row">
-                            <p>£ {{ vehicle.totalPrice }}</p>
-                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-sm btn-block"
+                            @click="selectedPrice(vehicle, 1)"
+                        >
+                            Single ₤ {{ vehicle.totalPrice }}
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-sm btn-block"
+                            @click="selectedPrice(vehicle, 2)"
+                        >
+                            Return ₤ {{ vehicle.totalPrice * 2 }}
+                        </button>
                     </div>
                 </div>
             </div>
-            <div
-                class="container d-flex flex-row justify-content-between mt-3 pl-0 pr-0"
+
+            <button
+                @click="backToBooking"
+                type="button"
+                class="btn btn-secondary btn-block"
             >
-                <div class="">
-                    <button
-                        @click="backToBooking"
-                        type="button"
-                        class="btn btn-secondary"
-                    >
-                        <i class="fa fa-angle-left mr-1" aria-hidden="true"></i>
-                        Back
-                    </button>
-                </div>
-                <div class="">
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="submitFare"
-                        :disabled="quoteDetails.fare === null"
-                    >
-                        Select Fare
-                        <i
-                            class="fa fa-arrow-right ml-1"
-                            aria-hidden="true"
-                        ></i>
-                    </button>
-                </div>
-            </div>
+                <i class="fa fa-angle-left mr-1" aria-hidden="true"></i>
+                Back
+            </button>
         </div>
         <!-- /**
-        * TODO:     Stage 3
+        * TODO:     Stage 2
         * ? Ending Journey Fares
         */ -->
 
         <!-- /**
-        * TODO:     Stage 4
+        * TODO:     Stage 3
         * ? Starting Journey Details
         */ -->
         <div
@@ -604,25 +629,6 @@
                                 journey[0].originType == 'terminal'
                         "
                     >
-                        <label>Passport Details</label>
-                        <div class="form-row align-items-center">
-                            <div class="col">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-passport"></i>
-                                        </div>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="---"
-                                        v-model="quoteDetails.passport"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label>Flight Number</label>
@@ -674,11 +680,11 @@
                                 </option>
                             </select>
                         </div>
-                        <small class="form-text text-dark pl-2"
-                            >If the desired amount of passengers and luggage
+                        <div class="info-section">
+                            If the desired amount of passengers and luggage
                             isn't available, you'll need to go back to your
-                            fares and select a larger vehicle.</small
-                        >
+                            fares and select a larger vehicle.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -691,7 +697,7 @@
                 * ? Back to Fares Button & Continue to Basket Button
                  */ -->
                 <div
-                    class="container d-flex flex-row justify-content-between mt-3 pl-0 pr-0"
+                    class="container d-flex flex-row justify-content-between mt-1 pl-0 pr-0"
                 >
                     <div class="mr-2">
                         <button
@@ -724,12 +730,12 @@
             </div>
         </div>
         <!-- /**
-        * TODO:     Stage 4
+        * TODO:     Stage 3
         * ? Ending Journey Details
         */ -->
 
         <!-- /**
-        * TODO:     Stage 5
+        * TODO:     Stage 4
         * ? Starting Basket
         */ -->
 
@@ -895,10 +901,9 @@
                     </div>
                 </div>
 
-                <div class="d-flex passenger-details ml-0 mr-0 mt-2">
-                    <div class="text-black" style="font-size: 12px;">
+                <div class="info-section mt-2 mb-2">
+                    <div>
                         I have read and agree to the
-                        <a href="http://" target="_blank">privacy policy</a> &
                         <router-link
                             to="/terms-and-conditions"
                             tag="a"
@@ -919,11 +924,11 @@
                 </div>
                 <!-- Buttons -->
                 <div
-                    class="container d-flex flex-row justify-content-between mt-3 pl-0 pr-0"
+                    class="container d-flex flex-row justify-content-between mt-1 pl-0 pr-0"
                 >
                     <div class="mr-2">
                         <button
-                            @click="backToBasket"
+                            @click="backToJourneyDetails"
                             type="button"
                             class="btn btn-secondary"
                         >
@@ -951,9 +956,128 @@
                 </div>
             </div>
         </div>
+
+        <!-- /**
+        * TODO:     Stage 4
+        * ? Ending Basket
+        */ -->
+
         <!-- /**
         * TODO:     Stage 5
-        * ? Ending Basket
+        * ? Payment Information
+        */ -->
+
+        <form
+            id="payment-form"
+            @submit.prevent="confirmCardPayment()"
+            v-if="formStage.payment === true"
+        >
+            <div class="d-flex flex-column align-items-start form-group">
+                <label for="name_on_card">Name on Card</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="name_on_card"
+                    name="name_on_card"
+                    placeholder="Ex: John"
+                    onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Ex: John'"
+                    v-model="name_on_card"
+                />
+            </div>
+
+            <div class="d-flex flex-column align-items-start form-group">
+                <label for="receipt_email">Email Address</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    name="receipt_email"
+                    id="receipt_email"
+                    v-model="receipt_email"
+                    placeholder="Ex: john@example.com"
+                    onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Ex: john@example.com'"
+                />
+            </div>
+
+            <!-- CSRF Field -->
+            <input type="hidden" name="_token" :value="csrf" />
+
+            <div class="d-flex flex-column align-items-start form-group">
+                <label for="card-element">
+                    Credit or debit card
+                </label>
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+            </div>
+
+            <div class="info-section border-left-danger mt-1">
+                Payment is non refundable
+            </div>
+
+            <button id="payment-submit-button" :disabled="!validatePaymentForm">
+                <div class="spinner hidden" id="spinner"></div>
+                <span id="button-text"></span>
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-secondary btn-block mt-2"
+                @click="backToBasket"
+            >
+                <i class="fa fa-angle-left mr-1" aria-hidden="true"></i>
+                Back
+            </button>
+
+            <!-- Error Message -->
+            <div
+                id="card-error"
+                class="alert alert-danger alert-dismissible fade show"
+                role="alert"
+                v-if="cardPayment.error"
+            >
+                {{ cardPayment.errorText }} <br />
+                <a href="#" @click="tryAgain" style="color: black;">
+                    Try again.
+                </a>
+                <button
+                    type="button"
+                    class="close alert-button"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    @click="cardPayment.error = false"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Success Message -->
+            <div
+                id="card-success"
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+                v-if="cardPayment.success"
+            >
+                Payment succeeded.
+                <button
+                    type="button"
+                    class="close alert-button"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    @click="cardPayment.success = false"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </form>
+
+        <!-- /**
+        * TODO:     Stage 5
+        * ? Payment Information
         */ -->
 
         <!-- /**
@@ -1160,24 +1284,15 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Buttons -->
-                <div
-                    class="container d-flex flex-row justify-content-between mt-3 pl-0 pr-0"
+                <button
+                    @click="windowReload"
+                    type="button"
+                    class="btn btn-secondary btn-block mt-3"
                 >
-                    <div class="mr-2">
-                        <button
-                            @click="windowReload"
-                            type="button"
-                            class="btn btn-secondary"
-                        >
-                            <i
-                                class="fa fa-angle-left mr-1"
-                                aria-hidden="true"
-                            ></i>
-                            Book again
-                        </button>
-                    </div>
-                </div>
+                    Finish Booking
+                </button>
             </div>
         </div>
         <!-- /**
@@ -1193,8 +1308,10 @@ import draggable from "vuedraggable";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
-import DatePicker from "vue2-datepicker";
+// import DatePicker from "vue2-datepicker";
 // import "vue2-datepicker/index.css";
+import flatPickr from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
 
 import _ from "lodash";
 
@@ -1206,19 +1323,48 @@ import moment from "moment";
 
 import loader from "../Loader";
 
+// Payment Information
+import { loadStripe } from "@stripe/stripe-js";
+
+import stripePaymentIntent from "./Stripe Payment Intent";
+
 export default {
     components: {
         draggable,
         vSelect,
-        DatePicker,
+        // DatePicker,
+        flatPickr,
         mapboxgl,
         Mapbox,
-        loader
+        loader,
+        stripePaymentIntent
     },
     data() {
         return {
+            // FlatPickr Config
+            config: {
+                wrap: true, // set wrap to true only when using 'input-group'
+                altFormat: "M j, Y h:i K",
+                altInput: true,
+                enableTime: true,
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                closeOnSelect: true,
+                // onValueUpdate: function() {
+                //     this.close();
+                // }
+            },
             isLoading: false,
             loggedIn: false,
+
+            formStage: {
+                place: true,
+                details: false,
+                journeyFare: false,
+                basket: false,
+                payment: false,
+                submittedStatus: false
+            },
 
             // Starting Journey Details Form
             journey: [
@@ -1266,7 +1412,6 @@ export default {
                 name: "",
                 email: "",
                 mobile: "",
-                passport: "",
                 flightNumber: "",
                 flightOrigin: "",
                 passengers: 1,
@@ -1277,13 +1422,6 @@ export default {
                 afterSubmittedBookingId: null
             },
 
-            formStage: {
-                place: true,
-                details: false,
-                journeyFare: false,
-                basket: false,
-                submittedStatus: false
-            },
             // Ending Journey Details Form
 
             options: [],
@@ -1306,6 +1444,41 @@ export default {
                 end: "",
                 responseCode: "",
                 errors: ""
+            },
+
+            // Payment Information Data
+            csrf: document.head.querySelector('meta[name="csrf-token"]')
+                .content,
+            stripe: null,
+            elements: null,
+            card: null,
+            clientSecret: null,
+            stripeOptions: {
+                // see https://stripe.com/docs/stripe.js#element-options for details
+                style: {
+                    base: {
+                        color: "#32325d",
+                        fontFamily: '"Nunito", sans-serif',
+                        fontSmoothing: "antialiased",
+                        fontSize: "16px",
+                        "::placeholder": {
+                            color: "#aab7c4"
+                        }
+                    },
+                    invalid: {
+                        color: "#fa755a",
+                        iconColor: "#fa755a"
+                    }
+                },
+                hidePostalCode: true
+            },
+            name_on_card: null,
+            receipt_email: null,
+            address: null,
+            cardPayment: {
+                success: false,
+                error: false,
+                errorText: null
             }
         };
     },
@@ -1629,14 +1802,12 @@ export default {
             $("html,body").scrollTop(0);
         },
 
-        selectedPrice(vehicle) {
+        selectedPrice(vehicle, multiple = 1) {
             this.journey[0].vehicle = vehicle;
             this.journey[0].fare = vehicle.price;
-            this.quoteDetails.fare = vehicle.totalPrice;
+            this.quoteDetails.fare = vehicle.totalPrice * multiple;
             this.quoteDetails.vehicleId = vehicle.id;
-        },
 
-        submitFare() {
             this.formStage.journeyFare = false;
             this.formStage.details = true;
 
@@ -1674,7 +1845,7 @@ export default {
             $("html,body").scrollTop(0);
         },
 
-        backToBasket() {
+        backToJourneyDetails() {
             this.formStage.details = true;
             this.formStage.basket = false;
             this.quoteDetails.agreedWithTerms = false;
@@ -1686,6 +1857,21 @@ export default {
         },
 
         payNow() {
+            this.formStage.basket = false;
+            this.formStage.payment = true;
+            // get stripe when this component is mounted
+            this.getStripe();
+            $("html,body").scrollTop(0);
+        },
+
+        backToBasket() {
+            this.formStage.payment = false;
+            this.formStage.basket = true;
+            this.quoteDetails.agreedWithTerms = false;
+            $("html,body").scrollTop(0);
+        },
+
+        payment() {
             this.isLoading = true;
             this.journey[0].return == true
                 ? (this.quoteDetails.journeyType = "Return Trip")
@@ -1708,7 +1894,6 @@ export default {
 
                 discount: this.quoteDetails.discount,
                 total_price: parseFloat(this.quoteDetails.fare),
-                passport: this.quoteDetails.passport,
                 flight_number: this.quoteDetails.flightNumber,
                 flight_origin: this.quoteDetails.flightOrigin,
                 booking_status_id: 0
@@ -1736,6 +1921,190 @@ export default {
                     this.isLoading = false;
                 });
         },
+
+        // Payment Information
+        // Load Stripe element and post payment intent
+        async getStripe() {
+            loadStripe(
+                "pk_test_51HOzVPAQ30mnpxgSFDh78Spamz6dac0YkvBei15FGgEcpirejByzBRN4CtGeuJ30mYD5e5PKnxrJOxmPo7leoaqy00jvasWY5v"
+            ).then(response => {
+                this.stripe = response;
+
+                let bookingId = 3;
+
+                // Create Payment Intent
+                // (async () => {
+                //     const response = await axios.post("/paymentIntent", {
+                //         bookingId: bookingId
+                //     });
+                //     this.clientSecret = await response.data;
+                // })();
+
+                this.elements = this.stripe.elements();
+                this.card = this.elements.create("card", this.stripeOptions);
+
+                // Add an instance of the card Element into the `card-element` <div>.
+                this.card.mount("#card-element");
+                document.getElementById("button-text").innerText =
+                    "Pay £" + this.quoteDetails.fare;
+
+                // Handle real-time validation errors from the card Element.
+                this.card.on("change", function(event) {
+                    var displayError = document.getElementById("card-errors");
+                    if (event.error) {
+                        displayError.textContent = event.error.message;
+                    } else {
+                        displayError.textContent = "";
+                    }
+                });
+            });
+        },
+
+        // Confirm Card Payment
+        confirmCardPayment() {
+            var form = document.getElementById("payment-form");
+
+            this.loading(true);
+
+            this.isLoading = true;
+            this.journey[0].return == true
+                ? (this.quoteDetails.journeyType = "Return Trip")
+                : (this.quoteDetails.journeyType = "One Way");
+
+            this.data = {
+                name: this.quoteDetails.name,
+                email: this.quoteDetails.email,
+                mobile: this.quoteDetails.mobile,
+                from: this.quoteDetails.originName,
+                via: this.quoteDetails.viaRouteNames,
+                to: this.quoteDetails.destinationName,
+                journey_date: this.quoteDetails.journeyDate.Details,
+
+                journey_type: this.quoteDetails.journeyType,
+
+                passengers: this.quoteDetails.passengers,
+                luggage: this.quoteDetails.luggage,
+                vehicle_id: this.quoteDetails.vehicleId,
+
+                discount: this.quoteDetails.discount,
+                total_price: parseFloat(this.quoteDetails.fare),
+                flight_number: this.quoteDetails.flightNumber,
+                flight_origin: this.quoteDetails.flightOrigin,
+                booking_status_id: 0
+            };
+
+            axios
+                .post("/submit-booking", this.data)
+                // After successfully submitting booking
+                .then(response => {
+                    this.quoteDetails.afterSubmittedBookingId =
+                        response.data.bookingId;
+
+                    // Make a request to create payment intent
+                    axios
+                        .post("/paymentIntent", {
+                            bookingId: this.quoteDetails
+                                .afterSubmittedBookingId,
+                            receipt_email: this.receipt_email,
+                            name: this.name_on_card
+                        })
+                        // After creating payment intent
+                        .then(response => {
+                            this.clientSecret = response.data.client_secret;
+
+                            this.cardPayment = {
+                                success: false,
+                                error: false,
+                                errorText: null
+                            };
+
+                            // Make a stripe request to confirm payment
+                            this.stripe
+                                .confirmCardPayment(this.clientSecret, {
+                                    payment_method: {
+                                        card: this.card,
+                                        billing_details: {
+                                            email: this.receipt_email,
+                                            name: this.name_on_card
+                                        }
+                                    },
+                                    receipt_email: this.receipt_email
+                                })
+                                .then(result => {
+                                    if (result.error) {
+                                        // Show error to your customer (e.g., insufficient funds)
+                                        this.loading(false);
+                                        this.cardPayment.error = true;
+                                        this.cardPayment.errorText =
+                                            result.error.message;
+                                    } else {
+                                        // The payment has been processed!
+                                        if (
+                                            result.paymentIntent.status ===
+                                            "succeeded"
+                                        ) {
+                                            // Update booking status from unpaid to pending
+                                            axios.post("/confirmPayment", {
+                                                bookingId: this.quoteDetails
+                                                    .afterSubmittedBookingId,
+                                                paymentIntentId:
+                                                    result.paymentIntent.id
+                                            });
+                                            this.loading(false);
+                                            this.cardPayment.success = true;
+
+                                            this.formStage.payment = false;
+                                            this.formStage.submittedStatus = true;
+                                        }
+                                    }
+                                });
+                        });
+                })
+                .catch(error => {
+                    this.loading(false);
+                    console.log(error);
+                    Swal.fire({
+                        icon: "error",
+                        title: `Oops... Error ` + error.response.status,
+                        text: error.response.data.message
+                    });
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
+        },
+
+        // Payment button loading
+        loading(isLoading) {
+            if (isLoading) {
+                // Disable the button and show a spinner
+                document.querySelector(
+                    "#payment-submit-button"
+                ).disabled = true;
+                document.querySelector("#spinner").classList.remove("hidden");
+                document.querySelector("#button-text").classList.add("hidden");
+            } else {
+                document.querySelector(
+                    "#payment-submit-button"
+                ).disabled = false;
+                document.querySelector("#spinner").classList.add("hidden");
+                document
+                    .querySelector("#button-text")
+                    .classList.remove("hidden");
+            }
+        },
+
+        // Try again after failure
+        tryAgain() {
+            this.name_on_card = null;
+            this.receipt_email = null;
+            this.address = null;
+            this.getStripe();
+            this.cardPayment.error = false;
+        },
+
+        // Finishing Payment Information
+
         validateArrayObject(...arr) {
             let check = true;
 
@@ -1816,9 +2185,7 @@ export default {
                 if (
                     this.quoteDetails.name === "" ||
                     this.quoteDetails.mobile === "" ||
-                    this.quoteDetails.passport === "" ||
                     this.quoteDetails.flightNumber === "" ||
-                    this.quoteDetails.flightOrigin === "" ||
                     this.quoteDetails.passengers === null ||
                     this.quoteDetails.luggage === "" ||
                     this.quoteDetails.journeyDate.Details === null
@@ -1836,12 +2203,49 @@ export default {
                     return true;
                 else return false;
             }
+        },
+        validatePaymentForm() {
+            if (
+                this.name_on_card === null ||
+                this.receipt_email === null ||
+                this.card._complete === false
+            ) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 };
 </script>
 
 <style scoped>
+::v-deep .flat-datepicker {
+    font-size: 15px;
+    padding-left: 18px !important;
+    background-color: white;
+}
+::v-deep .flat-datepicker::placeholder {
+    color: black;
+}
+
+.info-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+    padding: 8px 8px 8px 8px;
+    border-left: 5px solid #60bbcc;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    color: black;
+    background-color: #f3f3f3;
+    box-shadow: 1px 5px 8px 2px #a1a5a8;
+}
+.border-left-danger {
+    border-left: 5px solid #ff7851 !important;
+}
 .row.container-fluid p {
     margin-bottom: 0px !important;
 }
@@ -1976,6 +2380,7 @@ img {
 
 label {
     margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
 }
 
 .fa.fas {
@@ -2028,6 +2433,8 @@ label {
     font-size: 15px;
     padding: 0.575rem 0.75rem;
     background-color: #ffff;
+    /* border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px; */
     /* background-color: #f3f3f3eb; */
     /* box-shadow: 0px 4px 8px #999999a3; */
     /* box-shadow: 0px 2px 10px #999999a3; */
@@ -2082,8 +2489,8 @@ label {
     color: black;
     background-color: #f3f3f3;
     box-shadow: 1px 5px 8px 2px #a1a5a8;
-    height: 75px;
-    /* background-color: #282828;
+    /* height: 75px;
+    background-color: #282828;
     background: -webkit-linear-gradient(
         0deg,
         rgba(255, 255, 255, 0.25) 0%,
@@ -2096,7 +2503,7 @@ label {
     ); */
 }
 .vehicle:hover {
-    background-color: white;
+    background-color: #b5f1fb;
 }
 
 .group {
@@ -2105,14 +2512,8 @@ label {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-box-align: end;
-    -moz-box-align: end;
-    -ms-flex-align: end;
-    -webkit-align-items: flex-end;
-    align-items: flex-end;
+    align-items: center;
     width: 100%;
     position: relative;
 }
@@ -2122,7 +2523,7 @@ label {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    right: 20px;
+    /* right: 20px; */
 }
 .vehicle-img-wrapper > img {
     margin: 0;
@@ -2542,5 +2943,216 @@ label {
     vertical-align: middle;
     max-height: 100px;
     max-width: 160px;
+}
+
+/* 
+* Payment Information 
+*/
+
+.form-group > label {
+    color: black;
+}
+
+#payment-form {
+    align-self: center;
+    /* width: 30vw;
+    min-width: 500px;
+    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+        0px 2px 5px 0px rgba(50, 50, 93, 0.1),
+        0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+    border-radius: 7px;
+    padding: 40px; */
+}
+/* input {
+    border-radius: 6px;
+    margin-bottom: 6px;
+    padding: 12px;
+    border: 1px solid rgba(50, 50, 93, 0.1);
+    height: 44px;
+    font-size: 16px;
+    width: 100%;
+    background: white;
+} */
+.result-message {
+    line-height: 22px;
+    font-size: 16px;
+}
+.result-message a {
+    color: rgb(89, 111, 214);
+    font-weight: 600;
+    text-decoration: none;
+}
+.hidden {
+    display: none;
+}
+#card-error {
+    color: rgb(105, 115, 134);
+    text-align: left;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 12px;
+}
+#card-success {
+    color: rgb(105, 115, 134);
+    text-align: left;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 12px;
+}
+#card-element {
+    border-radius: 4px;
+    padding: 0.575rem 0.75rem;
+    border: 1px solid rgba(50, 50, 93, 0.1);
+    /* height: 44px; */
+    width: 100%;
+    background: white;
+}
+#payment-request-button {
+    margin-bottom: 32px;
+}
+/* Buttons and links */
+/* button {
+    background: #5469d4;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    border-radius: 0 0 4px 4px;
+    border: 0;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    transition: all 0.2s ease;
+    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+    width: 100%;
+}
+button:hover {
+    filter: contrast(115%);
+}
+button:disabled {
+    opacity: 0.5;
+    cursor: default;
+} */
+
+#payment-submit-button {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    color: #ffffff;
+    background-color: #3acae6;
+    border-color: #3acae6;
+    box-shadow: none;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    border-radius: 0.4rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+#payment-submit-button:hover {
+    background-color: #06c4ea;
+    border-color: #06c4ea;
+    cursor: pointer;
+    /* box-shadow: -1px 1px 8px 0px #b7b7b7; */
+}
+#payment-submit-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    color: #fff;
+    background-color: #3acae6;
+    border-color: #3acae6;
+}
+/* spinner/processing state, errors */
+.spinner,
+.spinner:before,
+.spinner:after {
+    border-radius: 50%;
+}
+.spinner {
+    color: #ffffff;
+    font-size: 22px;
+    text-indent: -99999px;
+    margin: 0px auto;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    box-shadow: inset 0 0 0 2px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.spinner:before,
+.spinner:after {
+    position: absolute;
+    content: "";
+}
+.spinner:before {
+    width: 10.4px;
+    height: 20.4px;
+    background: #06c4ea;
+    border-radius: 20.4px 0 0 20.4px;
+    top: -0.2px;
+    left: -0.2px;
+    -webkit-transform-origin: 10.4px 10.2px;
+    transform-origin: 10.4px 10.2px;
+    -webkit-animation: loading 2s infinite ease 1.5s;
+    animation: loading 2s infinite ease 1.5s;
+}
+.spinner:after {
+    width: 10.4px;
+    height: 10.2px;
+    background: #06c4ea;
+    border-radius: 0 10.2px 10.2px 0;
+    top: -0.1px;
+    left: 10.2px;
+    -webkit-transform-origin: 0px 10.2px;
+    transform-origin: 0px 10.2px;
+    -webkit-animation: loading 2s infinite ease;
+    animation: loading 2s infinite ease;
+}
+@-webkit-keyframes loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@media only screen and (max-width: 600px) {
+    /* form {
+        width: 80vw;
+    } */
+}
+.alert-button {
+    color: black;
+    width: fit-content;
+    border-radius: 0;
+    top: 5px;
+    right: 10px;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+    font-size: 25px;
+    opacity: 0.5;
 }
 </style>

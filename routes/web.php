@@ -1,28 +1,35 @@
 <?php
 
+use App\Booking;
 use App\Vehicle;
-use App\Events\MyEvent;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\File;
-use App\Events\BookingSubmittedEvent;
 use App\Mail\ContactUs;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-use App\Notifications\CareerNotification;
-use App\Notifications\BookingSubmittedNotification;
+use Cartalyst\Stripe\Stripe;
+use Cartalyst\Stripe\Exception\CardErrorException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::post('/checkout', function (Request $request) {
+    $booking = Booking::findOrFail(2);
+    try {
+        $stripe = Stripe::make(getenv("STRIPE_SECRET_KEY"), getenv("STRIPE_API_VERSION"));
+        $charge = $stripe->charges()->create([
+            'currency' => 'GBP',
+            'source' => $request->stripeToken,
+            'receipt_email' => $request->receipt_email,
+            'metadata' => [
+                'booking_id' => $booking->id,
+            ],
+            'amount'   => $booking->total_price,
+        ]);
+
+        // return $charge;
+        return response()->json(['id' => $charge['id'], 'receipt_url' => $charge['receipt_url']], 200);
+    } catch (CardErrorException $e) {
+        return $e->getMessage();
+        // return back()->withErrors('Error!' . $e->getMessage());
+    }
+});
 
 Route::get('/get-file/{path}', function ($path) {
     $image = storage_path("app/career/new/" . $path);
@@ -31,21 +38,6 @@ Route::get('/get-file/{path}', function ($path) {
     }
     return response()->file($image);
 })->name('get.file')->middleware('auth');
-
-// Route::get('/get-file/{filename}', function ($filename) {
-
-//     $path = storage_path("/app/images/customer-profile-image/" . $filename);
-//     if (!file_exists($path)) {
-//         abort('404');
-//     }
-//     $file = File::get($path);
-//     $type = File::mimeType($path);
-//     $response = Response::make($file, 200);
-//     $response->header("Content-Type", $type);
-//     return $response;
-
-//     // return response()->file($path);
-// })->name('get.file')->middleware('auth');
 
 Route::get('/', function () {
     return view('layouts.master');
@@ -73,14 +65,29 @@ Route::get('/price-list', function () {
     return response()->json($prices, 200);
 });
 
-Route::post('/send-email', 'BookingController@sendEmail')->name('send-email');
+Route::post('/send-email', 'BookingController@sendEmail')->name('send.email');
 
-Route::post('/download-PDF', 'BookingController@downloadPDF')->name('download-pdf');
+Route::post('/download-PDF', 'BookingController@downloadPDF')->name('download.pdf');
 
-Route::post('get-price/', 'BookingController@getPrice')->name('get-price');
+Route::post('get-price/', 'BookingController@getPrice')->name('get.price');
 
-Route::post('/submit-booking', 'BookingController@create')->name('guest-booking');
+Route::post('/submit-booking', 'BookingController@create')->name('guest.booking');
 
+/*
+* Stripe Payment
+*/
+Route::post('/paymentIntent', 'BookingController@stripePaymentIntent')->name('stripe.payment.intent');
+Route::post('/confirmPayment', 'BookingController@confirmPayment')->name('stripe.payment.confirm');
+
+/*
+|-------------------------------------------------------------------------------
+* Customer's dashboard
+|-------------------------------------------------------------------------------
+| Base URL:       /dashboard
+| Controller:     CustomerController@index
+| Method:         GET
+| Description:    Customer's area
+*/
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 
     Route::get('/', 'CustomerController@index')->name('customer.dashboard');
@@ -107,7 +114,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
 });
 
 Route::get('/{any}', function () {
-    return view('index');
+    return view('layouts.master');
 })->where('any', '.*');
 
 // Route::get("{path}", "WelcomeController@index")->where("path", "([A-z\d-\/_.]+)?");

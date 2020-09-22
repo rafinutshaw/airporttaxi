@@ -30,7 +30,9 @@
     <link rel="stylesheet" href="{{ asset('css/theme/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-
+    
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     {{-- Mapbox --}}

@@ -106,7 +106,7 @@ ul {
 }
 
 select {
-    display: block;
+    /* display: block; */
 }
 
 figure {
@@ -2641,20 +2641,20 @@ body.mobile-nav-active #mobile-nav-toggle {
 .header-right .default-select .nice-select {
     width: 100%;
     border-radius: 0.25rem;
-    background-color: #000000;
+    /* background-color: #000000; */
 }
 
 .header-right .form-control {
     font-size: 14px;
     padding: 0.575rem 0.75rem;
-    background-color: #000000;
+    /* background-color: #000000; */
     border: none;
 }
 
 .header-right .input-group-text {
     margin-right: 0;
-    border-top-right-radius: 0.25rem !important;
-    border-bottom-right-radius: 0.25rem !important;
+    /* border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important; */
     background: #fff;
     border-color: #fff;
 }

@@ -203,6 +203,8 @@ return [
          */
         Barryvdh\Debugbar\ServiceProvider::class,
 
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+
     ],
 
     /*
@@ -259,6 +261,8 @@ return [
          * Laravel DOM PDF 
          */
         'PDF' => Barryvdh\DomPDF\Facade::class,
+
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
     ],
 
 ];

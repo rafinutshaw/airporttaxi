@@ -61,12 +61,8 @@
                                         </div>
                                     </div>
 
-                                    @if (!empty($booking->passport))
+                                    @if (!empty($booking->flight_number))
                                     <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label class="col-sm-6 col-form-label">Passport</label>
-                                            <p class="booking-data">{{ $booking->passport }}</p>
-                                        </div>
                                         <div class="form-group col-md-4">
                                             <label class="col-sm-6 col-form-label">Flight Number</label>
                                             <p class="booking-data">{{ $booking->flight_number }}</p>
@@ -77,6 +73,7 @@
                                         </div>
                                     </div>
                                     @endif
+                                    
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label class="col-sm-6 col-form-label">Passengers</label>
