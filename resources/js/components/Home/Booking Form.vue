@@ -2221,6 +2221,7 @@ export default {
 
 <style scoped>
 ::v-deep .flat-datepicker {
+    margin-right: -1px;
     font-size: 15px;
     padding-left: 18px !important;
     background-color: white;

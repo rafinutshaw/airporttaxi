@@ -64,6 +64,11 @@ const routes = [
         path: "/terms-and-conditions",
         name: "terms-and-conditions",
         component: () => import("./pages/Terms & Conditions")
+    },
+    {
+        path: "/manage-bookings",
+        name: "manage-bookings",
+        component: () => import("./pages/Manage Bookings")
     }
 ];
 

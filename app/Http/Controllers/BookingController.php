@@ -8,21 +8,22 @@ use App\Booking;
 use App\Customer;
 use App\Jobs\SendEmailJob;
 use Illuminate\Support\Str;
+use Cartalyst\Stripe\Stripe;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use App\Notifications\BookingSubmittedNotification;
-use App\Http\Controllers\Traits\BookingInvoiceTrait;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-
-use Cartalyst\Stripe\Stripe;
-use Cartalyst\Stripe\Exception\BadRequestException;
 use Cartalyst\Stripe\Exception\NotFoundException;
+
 use Cartalyst\Stripe\Exception\CardErrorException;
+use App\Notifications\BookingSubmittedNotification;
+use Cartalyst\Stripe\Exception\BadRequestException;
+use App\Http\Controllers\Traits\BookingInvoiceTrait;
 use Cartalyst\Stripe\Exception\ServerErrorException;
 use Cartalyst\Stripe\Exception\UnauthorizedException;
 use Cartalyst\Stripe\Exception\InvalidRequestException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BookingController extends Controller
 {
@@ -75,7 +76,7 @@ class BookingController extends Controller
                 'password' => Hash::make(Str::random(8)),
                 'status' => 0,
             ]);
-            
+
             $booking = Booking::create([
                 'customer_id' => $guest->id,
                 'mobile' => $guest->mobile,
@@ -207,5 +208,56 @@ class BookingController extends Controller
         } catch (ModelNotFoundException $exception) {
             return response()->json(['error' => 'Model not found'], 404);
         }
+    }
+
+    /*
+    * Search Booking for "Manage Booking"
+    */
+    public function searchBooking(Request $request)
+    {
+        $booking = Booking::find($request->bookingId);
+
+        if (!empty($booking) && $booking->customer->email == $request->email) {
+
+            if ($booking->updated_at != null || $booking->journey_date <= today() || $booking->booking_status_id != 2) {
+                return response()->json(
+                    [
+                        'message' => "Sorry you can't not edit this booking right now.",
+                        'booking' => $booking
+                    ],
+                    403
+                );
+            }
+
+            return response()->json([
+                'booking' => $booking
+            ], 200);
+        } else {
+            return response()->json(['message' => 'Booking not found'], 404);
+        }
+    }
+
+    /*
+    * Update booking for "Manage Booking"
+    */
+    public function updateBooking(Request $request)
+    {
+        $booking = Booking::find($request->bookingId);
+
+        if (empty($booking)) {
+            return response()->json(['message' => 'Booking not found.'], 404);
+        }
+
+        $date = now()->addDays(1);
+
+        $request->validate([
+            "journey_date" => 'required|date|after:' . $date
+        ]);
+
+        $booking->journey_date = $request->journey_date;
+        $booking->updated_at = now();
+        $booking->save();
+
+        return response()->json(['message' => 'Date of journey updated successfully.'], 200);
     }
 }

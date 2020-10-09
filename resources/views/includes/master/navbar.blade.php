@@ -16,6 +16,9 @@
                     <router-link to="/" tag="a" class="nav-link">Home</router-link>
                 </li>
                 <li class="nav-item pr-2">
+                    <router-link to="/manage-bookings" tag="a" class="nav-link">Manage Bookings</router-link>
+                </li>
+                <li class="nav-item pr-2">
                     <router-link to="/about" tag="a" class="nav-link">About</router-link>
                 </li>
                 <li class="nav-item pr-2">

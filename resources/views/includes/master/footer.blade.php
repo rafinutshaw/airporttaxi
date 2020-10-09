@@ -19,11 +19,11 @@
                     {{-- <p>Let us be social</p> --}}
                     <div class="footer-social d-flex align-items-center">
                         <ul>
-                            <li><i class="mr-2 fas fa-phone-alt"></i> {{ config('app.mobile') }}</li>
+                            <li><i class="mr-2 fas fa-phone-alt"></i> {{ $settings[0]->value }}</li>
                             <li><i class="mr-2 fas fa-envelope"></i> <a
-                                    href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></li>
+                                    href="mailto:{{ $settings[1]->value }}">{{ $settings[1]->value }}</a></li>
                             <li class="d-flex flex-inline"><i class="mr-3 fas fa-map-marker-alt"></i>
-                                <div>{{ config('app.address') }}</div>
+                                <div>{{ $settings[2]->value }}</div>
                             </li>
                             <li><h6 >We are licensed by</h6></li>
                             <li>

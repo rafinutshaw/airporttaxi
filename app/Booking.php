@@ -29,7 +29,7 @@ class Booking extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'journey_date'
+        // 'journey_date'
     ];
 
     // To initially make updated_at column null

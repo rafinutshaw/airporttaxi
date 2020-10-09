@@ -74,6 +74,12 @@ Route::post('get-price/', 'BookingController@getPrice')->name('get.price');
 Route::post('/submit-booking', 'BookingController@create')->name('guest.booking');
 
 /*
+* Manage Booking
+*/
+Route::post('/search-booking', 'BookingController@searchBooking')->name('search.booking');
+Route::post('/update-booking', 'BookingController@updateBooking')->name('update.booking');
+
+/*
 * Stripe Payment
 */
 Route::post('/paymentIntent', 'BookingController@stripePaymentIntent')->name('stripe.payment.intent');

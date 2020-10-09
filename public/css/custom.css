@@ -279,3 +279,6 @@ button:focus{
     outline: none;
 }
 
+.content-wrapper {
+    background: #f8fafc;
+}

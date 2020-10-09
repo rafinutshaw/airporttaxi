@@ -56,7 +56,8 @@ class CustomerController extends Controller
                     return $booking->bookingStatus->status;
                 })
                 ->editColumn('journey_date', function ($booking) {
-                    return $booking->journey_date->format('Y-m-d h:i A');
+                    // return $booking->journey_date->format('Y-m-d h:i A');
+                    return date('Y-m-d h:i A', strtotime($booking->journey_date));
                 })
                 ->filterColumn('journey_date', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(journey_date,'%Y-%m-%d') like ?", ["%$keyword%"]);
@@ -79,55 +80,6 @@ class CustomerController extends Controller
     {
         return view('pages.customer.settings');
     }
-
-    // public function uploadImage(Request $request)
-    // {
-    //     $request->validate(
-    //         [
-    //             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024'
-    //         ],
-    //         [
-    //             'image.max' => "The :attribute can't be getter than 1 Mb.",
-    //             'image.image' => "The file must be an image type.",
-    //         ]
-    //     );
-
-    //     $imageName = $this->storeMedia($request, $this->profileImagePath, 'image')->original['name'];
-    //     // $fullPath = $this->profileImagePath . $imageName;
-    //     if (auth()->user()->image !=  "default.png") {
-    //         Storage::disk('profile-images')->delete(auth()->user()->image);
-    //     }
-    //     // dd(Storage::disk('profile-images'), $imageName);
-    //     // dd($fullPath);
-    //     // dd(Storage::exists($fullPath));
-    //     // dd(is_file($fullPath));
-    //     // File::delete($fullPath);
-    //     // dd($fullPath);
-
-    //     // if ($request->hasFile('image')) {
-
-    //     //     // ? Making new file name for the image
-    //     //     $fileName = time() . '.' . $request->image->extension();
-
-    //     //     // ? Storing the image and getting the file path
-    //     //     // $path = $request->image->storeAs('images/customer-profile-image', $fileName, 'public');
-    //     //     $path = $request->image->storeAs('customer-profile-image', $fileName, 'images');
-    //     // }
-
-    //     // $this->deleteOldImage();
-
-    //     Customer::find(auth()->user()->id)->update(['image' => $imageName]);
-
-    //     return redirect()->back()->with('success', 'You have successfully upload image.');
-    // }
-    // public function deleteOldImage()
-    // {
-    //     if (auth()->user()->image !=  "default.png") {
-    //         // Storage::delete('public/' . auth()->user()->image);
-    //         // File::delete(Storage::url($fullPath));
-    //         Storage::disk('privateImage')->delete(auth()->user()->image);
-    //     }
-    // }
 
     public function uploadImage(Request $request)
     {
@@ -188,28 +140,6 @@ class CustomerController extends Controller
         return redirect()->back()->with('successfully-profile-updated', 'You have successfully updated your profile.');
     }
 
-    // public function changePassword(Request $request)
-    // {
-    //     // dd($request['id']);
-    //     $request->validate([
-    //         'current-password' => ['required', new MatchOldPassword],
-    //         'new-password' => ['required','min:8', 'string'],
-    //         'confirm-password' => ['same:new-password']
-    //     ]);
-
-    //     // Validator::make($request->all(), [
-    //     //     'current-password' => ['required', new MatchOldPassword],
-    //     //     'new-password' => 'required|min:8|string',
-    //     //     'Confirm Password' => 'same:new-password'
-    //     // ])->validateWithBag('changePasswordError');
-
-    //     if ($request->id == Auth::id()) {
-    //         Customer::find(Auth::id())->update(['password' => Hash::make($request['new-password'])]);
-    //     };
-
-    //     return redirect()->back()->with('successfully-password-updated', 'You have successfully updated your profile.');
-    // }
-
     public function changePassword()
     {
         return view('pages.customer.change-password');
@@ -244,25 +174,6 @@ class CustomerController extends Controller
 
         return redirect()->back()->with("successfully-password-updated", "Password changed successfully !");
     }
-
-    // public function bookingHistory()
-    // {
-    //     // $bookingHistory = Booking::where(
-    //     //     [
-    //     //         ['customer_id', Auth::id()],
-    //     //         ['journey_date', '<', Carbon::now()]
-    //     //     ]
-    //     // )->paginate(10);
-
-    //     $bookingHistory = Booking::where(
-    //         [
-    //             // ['journey_date', '<', Carbon::now()],
-    //             ['booking_status_id', '!=', '1'],
-    //         ]
-    //     )->orderBy('journey_date', 'ASC')->paginate(10);
-
-    //     return view('pages.customer.booking.booking-history', compact('bookingHistory'));
-    // }
 
     public function bookingHistory()
     {
@@ -299,7 +210,8 @@ class CustomerController extends Controller
                     return $booking->bookingStatus->status;
                 })
                 ->editColumn('journey_date', function ($booking) {
-                    return $booking->journey_date->format('Y-m-d h:i A');
+                    // return $booking->journey_date->format('Y-m-d h:i A');
+                    return date('Y-m-d h:i A', strtotime($booking->journey_date));
                 })
                 ->filterColumn('journey_date', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(journey_date,'%Y-%m-%d') like ?", ["%$keyword%"]);
