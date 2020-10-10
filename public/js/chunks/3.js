@@ -132,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
         // if (response.response.status === 200) {
         // }
       })["catch"](function (errors) {
-        console.log(errors);
+        // console.log(errors);
         _this.errors = errors.response.data.errors;
       });
     }

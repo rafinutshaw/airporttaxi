@@ -2057,12 +2057,19 @@ export default {
                                             this.formStage.submittedStatus = true;
                                         }
                                     }
+                                })
+                                .catch(error => {
+                                    this.loading(false);
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: `Oops... Error ` + error.response.status,
+                                        text: error.response.data.message
+                                    });
                                 });
                         });
                 })
                 .catch(error => {
                     this.loading(false);
-                    console.log(error);
                     Swal.fire({
                         icon: "error",
                         title: `Oops... Error ` + error.response.status,

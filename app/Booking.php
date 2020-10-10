@@ -42,7 +42,7 @@ class Booking extends Model
             if (auth()->check()) {
                 return $builder->where([
                     ['customer_id', auth()->id()],
-                    ['booking_status_id', '!=', '1']
+                    // ['booking_status_id', '!=', '1']
                 ]);
             }
         });

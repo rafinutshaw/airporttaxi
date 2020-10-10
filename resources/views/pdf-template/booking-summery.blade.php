@@ -367,10 +367,10 @@
             <tr>
                 <td width="50%"><big>Contact</big>
                     <br><br>
-                    <strong>Tel :</strong> {{ config('app.mobile') }} <br>
-                    <strong>Mail :</strong> <a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a>
+                    <strong>Tel :</strong> {{ $settings[0]->value }} <br>
+                    <strong>Mail :</strong> <a href="mailto:{{ $settings[1]->value }}">{{ $settings[1]->value }}</a>
                     <br>
-                    <strong>Address :</strong> {{ config('app.address') }}<br>
+                    <strong>Address :</strong> {{ $settings[2]->value }}<br>
                     <strong>Website :</strong> {{ config('app.website') }}
                 </td>
                 <td width="50%"><big>We are licensed by</big>

@@ -129,7 +129,7 @@ export default {
                 this.card,
                 options
             );
-            console.log(token);
+            // console.log(token);
 
             if (error) {
                 // Inform the user if there was an error.
@@ -191,7 +191,7 @@ export default {
                     displayError.textContent = "";
                 }
             });
-            console.log(this.stripe);
+            // console.log(this.stripe);
         });
     }
 };

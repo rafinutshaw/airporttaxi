@@ -10,7 +10,7 @@
 Thank you.<br>
 
 # {{ config('app.name') }} <br>
-**Address:** {{ config('app.address') }} <br>
-**Mobile:** {{ config('app.mobile') }} <br>
+**Address:** {{ $settings[2]->value }} <br>
+**Mobile:** {{ $settings[0]->value }} <br>
 **Website:** {{ config('app.url') }}
 @endcomponent

@@ -146,7 +146,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this.form.success = response.data.message;
       })["catch"](function (errors) {
-        console.log(errors.response.data.errors);
+        // console.log(errors.response.data.errors);
         _this.form.errors = errors.response.data.errors;
       })["finally"](function () {
         _this.isLoading = false;

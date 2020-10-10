@@ -181,7 +181,7 @@
 <script type="application/javascript">
     function submit(e) {
         e.preventDefault();
-        console.log(document.getElementsByName('Gender')[0].value);
+        // console.log(document.getElementsByName('Gender')[0].value);
     }
 
     $(document).ready(function () {

@@ -115,7 +115,7 @@ export default {
             };
             createToken(options)
                 .then(result => {
-                    console.log(result.token);
+                    // console.log(result.token);
 
                     let formData = {
                         name: this.name_on_card,
@@ -126,10 +126,10 @@ export default {
                     axios
                         .post("/checkout", formData)
                         .then(response => {
-                            console.log(response);
+                            // console.log(response);
                         })
                         .catch(error => {
-                            console.log(error);
+                            // console.log(error);
                         });
 
                     // var form = document.getElementById("payment-form");
@@ -142,7 +142,7 @@ export default {
                     this.complete = true;
                 })
                 .catch(error => {
-                    console.log(error);
+                    // console.log(error);
                 });
             this.complete = false;
         }

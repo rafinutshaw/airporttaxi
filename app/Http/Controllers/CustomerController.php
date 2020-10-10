@@ -182,6 +182,7 @@ class CustomerController extends Controller
             $query = Booking::with('customer', 'bookingStatus')
                 ->where(
                     [
+                        ['booking_status_id', '!=', '1'],
                         ['booking_status_id', '!=', '2']
                     ]
                 );

@@ -147,7 +147,7 @@ class BookingController extends Controller
         try {
             $booking = Booking::findOrFail($request->bookingId);
         } catch (ModelNotFoundException $exception) {
-            return response()->json(['error' => 'Model not found'], 404);
+            return response()->json(['message' => 'Model not found'], 404);
         }
         try {
             $stripe = Stripe::make(getenv("STRIPE_SECRET_KEY"), getenv("STRIPE_API_VERSION"));

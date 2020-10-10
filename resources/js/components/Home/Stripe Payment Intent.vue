@@ -172,7 +172,7 @@ export default {
 
                 this.elements = this.stripe.elements();
                 this.card = this.elements.create("card", this.stripeOptions);
-                console.log(this.card._complete);
+                // console.log(this.card._complete);
 
                 // Add an instance of the card Element into the `card-element` <div>.
                 this.card.mount("#card-element");
@@ -186,7 +186,7 @@ export default {
                         displayError.textContent = "";
                     }
                 });
-                console.log(this.stripe);
+                // console.log(this.stripe);
             });
         },
 
@@ -217,13 +217,13 @@ export default {
                         this.loading(false);
                         this.cardPayment.error = true;
                         this.cardPayment.errorText = result.error.message;
-                        console.log(result.error.message);
+                        // console.log(result.error.message);
                     } else {
                         // The payment has been processed!
                         if (result.paymentIntent.status === "succeeded") {
                             this.loading(false);
                             this.cardPayment.success = true;
-                            console.log(result);
+                            // console.log(result);
                         }
                     }
                 });

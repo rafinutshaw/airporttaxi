@@ -127,7 +127,7 @@ export default {
                     // }
                 })
                 .catch(errors => {
-                    console.log(errors);
+                    // console.log(errors);
                     this.errors = errors.response.data.errors;
                 });
         }

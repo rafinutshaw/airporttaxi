@@ -135,7 +135,7 @@ export default {
                     this.form.success = response.data.message;
                 })
                 .catch(errors => {
-                    console.log(errors.response.data.errors);
+                    // console.log(errors.response.data.errors);
                     this.form.errors = errors.response.data.errors;
                 })
                 .finally(() => {
