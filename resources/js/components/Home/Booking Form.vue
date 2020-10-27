@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <v-select
-                                    label="text_en"
+                                    label="text"
                                     placeholder="Enter your pickup point"
                                     class="form-control d-flex flex-column justify-content-center style-chooser"
                                     v-model="item.origin"
@@ -42,7 +42,7 @@
                                     </template>
                                     <template slot="option" slot-scope="option">
                                         <div class="d-center">
-                                            {{ option.text_en }}
+                                            {{ option.text }}
                                         </div>
                                     </template>
                                     <template
@@ -50,7 +50,7 @@
                                         slot-scope="option"
                                     >
                                         <div class="selected d-center">
-                                            {{ option.text_en }}
+                                            {{ option.text }}
                                         </div>
                                     </template>
 
@@ -115,7 +115,7 @@
                                                 </div>
                                             </div>
                                             <v-select
-                                                label="text_en"
+                                                label="text"
                                                 placeholder="Enter your Via Route point"
                                                 class="form-control d-flex flex-column justify-content-center style-chooser"
                                                 v-model="viaItem.route"
@@ -132,7 +132,7 @@
                                                     slot-scope="option"
                                                 >
                                                     <div class="d-center">
-                                                        {{ option.text_en }}
+                                                        {{ option.text }}
                                                     </div>
                                                 </template>
                                                 <template
@@ -142,7 +142,7 @@
                                                     <div
                                                         class="selected d-center"
                                                     >
-                                                        {{ option.text_en }}
+                                                        {{ option.text }}
                                                     </div>
                                                 </template>
 
@@ -190,7 +190,7 @@
                                     </div>
                                 </div>
                                 <v-select
-                                    label="text_en"
+                                    label="text"
                                     placeholder="Enter your Drop off point"
                                     class="form-control d-flex flex-column justify-content-center style-chooser"
                                     v-model="item.destination"
@@ -204,7 +204,7 @@
                                     </template>
                                     <template slot="option" slot-scope="option">
                                         <div class="d-center">
-                                            {{ option.text_en }}
+                                            {{ option.text }}
                                         </div>
                                     </template>
                                     <template
@@ -212,7 +212,7 @@
                                         slot-scope="option"
                                     >
                                         <div class="selected d-center">
-                                            {{ option.text_en }}
+                                            {{ option.text }}
                                         </div>
                                     </template>
 
@@ -1139,6 +1139,12 @@
                                 >
                                     <tbody>
                                         <tr>
+                                            <th scope="row">Booking Id</th>
+                                            <td>
+                                                {{ quoteDetails.afterSubmittedBookingId }}
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th scope="row">Pickup</th>
                                             <td>
                                                 {{ quoteDetails.originName }}
@@ -1520,7 +1526,7 @@ export default {
             if (search.length > 0) {
                 axios
                     .get(
-                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${vm.mapBox.accessToken}&country=gb&language=en&limit=5&types=address,poi`
+                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${vm.mapBox.accessToken}&country=gb&limit=5&types=address,poi`
                     )
                     .then(response => {
                         vm.options = response.data.features;

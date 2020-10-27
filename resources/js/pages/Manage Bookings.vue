@@ -42,13 +42,21 @@
             <div class="row mt-4 justify-content-center">
                 <div class="col-12">
                     <div class="row justify-content-center">
-                        <!-- Errors -->
-                        <div class="col-md-10 col-sm-12" v-if="error">
+                        <!-- Success or Error after update request -->
+                        <div
+                            class="col-md-10 col-sm-12"
+                            v-if="updated || updateError"
+                        >
                             <div
-                                class="mt-4 alert alert-danger alert-dismissible fade show"
+                                class="alert alert-dismissible fade show"
+                                :class="{
+                                    'alert-success': updated,
+                                    'alert-danger': updateError
+                                }"
+                                v-if="updated || updateError"
                                 role="alert"
                             >
-                                {{ error.data.message }}
+                                {{ updated ? updated : updateError }}
                                 <button
                                     type="button"
                                     class="close"
@@ -59,20 +67,39 @@
                                 </button>
                             </div>
                         </div>
-                        <!-- Errors -->
+                        <!-- Success or Error after update request -->
 
                         <div class="col-md-10 col-sm-12" v-if="showBooking">
-                            <small
-                                class="text-danger container"
-                                v-if="!errorTypes.editNotPossible"
-                            >
-                                *** You can only update journey date once.
-                            </small>
                             <div class="card mt-2">
                                 <div class="card-header">
                                     <h3 class="card-title text-dark">
-                                        Booking
+                                        Booking Id #{{ booking.id }}
                                     </h3>
+                                    <button
+                                        id="edit"
+                                        type="button"
+                                        class="btn btn-sm btn-primary card-tool ml-3"
+                                        v-if="
+                                            !errorTypes.editNotPossible &&
+                                                !allowEdit
+                                        "
+                                        @click="allowEdit = true"
+                                    >
+                                        Edit <i class="fas fa-edit ml-1"></i>
+                                    </button>
+                                    <button
+                                        id="cancel-edit"
+                                        type="button"
+                                        class="btn btn-sm btn-danger card-tool ml-3"
+                                        v-if="
+                                            !errorTypes.editNotPossible &&
+                                                allowEdit
+                                        "
+                                        @click="allowEdit = false"
+                                    >
+                                        Cancel
+                                        <i class="fas fa-window-close ml-1"></i>
+                                    </button>
                                     <div class="card-tools">
                                         <p
                                             class="mb-0 badge font-weight-bold"
@@ -139,17 +166,32 @@
                                                         | moment
                                                 }}
                                             </p>
-                                            <flat-pickr
-                                                name="journey_date"
-                                                v-model="booking.journey_date"
-                                                :config="config"
-                                                class="flat-datepicker"
-                                                placeholder="Select date (BST)"
+                                            <div
                                                 v-if="
                                                     !errorTypes.editNotPossible
                                                 "
                                             >
-                                            </flat-pickr>
+                                                <p
+                                                    class="booking-data"
+                                                    v-if="!allowEdit"
+                                                >
+                                                    {{
+                                                        booking.journey_date
+                                                            | moment
+                                                    }}
+                                                </p>
+                                                <flat-pickr
+                                                    name="journey_date"
+                                                    v-model="
+                                                        booking.journey_date
+                                                    "
+                                                    :config="config"
+                                                    class="flat-datepicker"
+                                                    placeholder="Select date (BST)"
+                                                    v-if="allowEdit"
+                                                >
+                                                </flat-pickr>
+                                            </div>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label
@@ -233,6 +275,26 @@
                                             </p>
                                         </div>
                                     </div>
+                                    <p
+                                        class="text-danger container"
+                                        v-if="!errorTypes.editNotPossible"
+                                    >
+                                        *** You can only update journey date
+                                        once.
+                                    </p>
+                                    <p
+                                        class="text-danger container"
+                                        v-if="error"
+                                    >
+                                        {{ error.data.message }}
+                                    </p>
+                                    <!-- <p
+                                        class="text-danger container"
+                                        v-if="errorTypes.editNotPossible"
+                                    >
+                                        Sorry you can't not edit this booking
+                                        right now.
+                                    </p> -->
                                     <div v-if="!errorTypes.editNotPossible">
                                         <button
                                             type="submit"
@@ -245,33 +307,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Success or Error after update request -->
-                        <div
-                            class="col-md-10 col-sm-12"
-                            v-if="updated || updateError"
-                        >
-                            <div
-                                class="alert alert-dismissible fade show"
-                                :class="{
-                                    'alert-success': updated,
-                                    'alert-danger': updateError
-                                }"
-                                v-if="updated || updateError"
-                                role="alert"
-                            >
-                                {{ updated ? updated : updateError }}
-                                <button
-                                    type="button"
-                                    class="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Success or Error after update request -->
                     </div>
                 </div>
             </div>
@@ -318,11 +353,16 @@ export default {
                 "Canceled"
             ],
             showBooking: false,
+            allowEdit: false,
             errorTypes: {
                 editNotPossible: false,
                 bookingNotFound: false
             },
-            error: null,
+            error: {
+                data: {
+                    message: ""
+                }
+            },
             updated: null,
             updateError: null
         };
@@ -346,10 +386,15 @@ export default {
             };
 
             this.showBooking = false;
-            this.error = null;
+            this.error = {
+                data: {
+                    message: ""
+                }
+            };
 
             this.updated = null;
             this.updateError = null;
+            this.errorTypes.editNotPossible = false;
 
             axios
                 .post("/search-booking", {
@@ -385,6 +430,9 @@ export default {
                 })
                 .then(response => {
                     this.updated = response.data.message;
+                    this.errorTypes.editNotPossible = true;
+                    this.error.data.message =
+                        "Sorry you can't not edit this booking right now.";
                 })
                 .catch(error => {
                     this.updateError = error.response.data.message;
@@ -395,6 +443,7 @@ export default {
                 })
                 .finally(() => {
                     this.isLoading = false;
+                    this.allowEdit = false;
                 });
         }
     }

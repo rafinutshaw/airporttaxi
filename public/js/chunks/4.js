@@ -295,6 +295,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -326,11 +361,16 @@ __webpack_require__.r(__webpack_exports__);
       },
       bookingStatus: ["Unpaid", "Pending", "Approved", "Ongoing", "Completed", "Canceled"],
       showBooking: false,
+      allowEdit: false,
       errorTypes: {
         editNotPossible: false,
         bookingNotFound: false
       },
-      error: null,
+      error: {
+        data: {
+          message: ""
+        }
+      },
       updated: null,
       updateError: null
     };
@@ -355,9 +395,14 @@ __webpack_require__.r(__webpack_exports__);
         bookingNotFound: false
       };
       this.showBooking = false;
-      this.error = null;
+      this.error = {
+        data: {
+          message: ""
+        }
+      };
       this.updated = null;
       this.updateError = null;
+      this.errorTypes.editNotPossible = false;
       axios.post("/search-booking", {
         bookingId: this.bookingId,
         email: this.email
@@ -389,6 +434,8 @@ __webpack_require__.r(__webpack_exports__);
         journey_date: this.booking.journey_date
       }).then(function (response) {
         _this2.updated = response.data.message;
+        _this2.errorTypes.editNotPossible = true;
+        _this2.error.data.message = "Sorry you can't not edit this booking right now.";
       })["catch"](function (error) {
         _this2.updateError = error.response.data.message;
 
@@ -397,6 +444,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["finally"](function () {
         _this2.isLoading = false;
+        _this2.allowEdit = false;
       });
     }
   }
@@ -570,44 +618,91 @@ var render = function() {
         _c("div", { staticClass: "row mt-4 justify-content-center" }, [
           _c("div", { staticClass: "col-12" }, [
             _c("div", { staticClass: "row justify-content-center" }, [
-              _vm.error
+              _vm.updated || _vm.updateError
                 ? _c("div", { staticClass: "col-md-10 col-sm-12" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "mt-4 alert alert-danger alert-dismissible fade show",
-                        attrs: { role: "alert" }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.error.data.message) +
-                            "\n                            "
-                        ),
-                        _vm._m(1)
-                      ]
-                    )
+                    _vm.updated || _vm.updateError
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "alert alert-dismissible fade show",
+                            class: {
+                              "alert-success": _vm.updated,
+                              "alert-danger": _vm.updateError
+                            },
+                            attrs: { role: "alert" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(
+                                  _vm.updated ? _vm.updated : _vm.updateError
+                                ) +
+                                "\n                            "
+                            ),
+                            _vm._m(1)
+                          ]
+                        )
+                      : _vm._e()
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.showBooking
                 ? _c("div", { staticClass: "col-md-10 col-sm-12" }, [
-                    !_vm.errorTypes.editNotPossible
-                      ? _c("small", { staticClass: "text-danger container" }, [
-                          _vm._v(
-                            "\n                            *** You can only update journey date once.\n                        "
-                          )
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
                     _c("div", { staticClass: "card mt-2" }, [
                       _c("div", { staticClass: "card-header" }, [
                         _c("h3", { staticClass: "card-title text-dark" }, [
                           _vm._v(
-                            "\n                                    Booking\n                                "
+                            "\n                                    Booking Id #" +
+                              _vm._s(_vm.booking.id) +
+                              "\n                                "
                           )
                         ]),
+                        _vm._v(" "),
+                        !_vm.errorTypes.editNotPossible && !_vm.allowEdit
+                          ? _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-sm btn-primary card-tool ml-3",
+                                attrs: { id: "edit", type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.allowEdit = true
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    Edit "
+                                ),
+                                _c("i", { staticClass: "fas fa-edit ml-1" })
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        !_vm.errorTypes.editNotPossible && _vm.allowEdit
+                          ? _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-sm btn-danger card-tool ml-3",
+                                attrs: { id: "cancel-edit", type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.allowEdit = false
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    Cancel\n                                    "
+                                ),
+                                _c("i", {
+                                  staticClass: "fas fa-window-close ml-1"
+                                })
+                              ]
+                            )
+                          : _vm._e(),
                         _vm._v(" "),
                         _c("div", { staticClass: "card-tools" }, [
                           _c(
@@ -689,54 +784,76 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-row" }, [
-                          _c(
-                            "div",
-                            { staticClass: "form-group col-md-4" },
-                            [
-                              _c(
-                                "label",
-                                { staticClass: "col-sm-6 col-form-label" },
-                                [_vm._v("Journey Date")]
-                              ),
-                              _vm._v(" "),
-                              _vm.errorTypes.editNotPossible
-                                ? _c("p", { staticClass: "booking-data" }, [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(
-                                          _vm._f("moment")(
-                                            _vm.booking.journey_date
-                                          )
-                                        ) +
-                                        "\n                                        "
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              !_vm.errorTypes.editNotPossible
-                                ? _c("flat-pickr", {
-                                    staticClass: "flat-datepicker",
-                                    attrs: {
-                                      name: "journey_date",
-                                      config: _vm.config,
-                                      placeholder: "Select date (BST)"
-                                    },
-                                    model: {
-                                      value: _vm.booking.journey_date,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.booking,
-                                          "journey_date",
-                                          $$v
+                          _c("div", { staticClass: "form-group col-md-4" }, [
+                            _c(
+                              "label",
+                              { staticClass: "col-sm-6 col-form-label" },
+                              [_vm._v("Journey Date")]
+                            ),
+                            _vm._v(" "),
+                            _vm.errorTypes.editNotPossible
+                              ? _c("p", { staticClass: "booking-data" }, [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(
+                                        _vm._f("moment")(
+                                          _vm.booking.journey_date
                                         )
-                                      },
-                                      expression: "booking.journey_date"
-                                    }
-                                  })
-                                : _vm._e()
-                            ],
-                            1
-                          ),
+                                      ) +
+                                      "\n                                        "
+                                  )
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !_vm.errorTypes.editNotPossible
+                              ? _c(
+                                  "div",
+                                  [
+                                    !_vm.allowEdit
+                                      ? _c(
+                                          "p",
+                                          { staticClass: "booking-data" },
+                                          [
+                                            _vm._v(
+                                              "\n                                                " +
+                                                _vm._s(
+                                                  _vm._f("moment")(
+                                                    _vm.booking.journey_date
+                                                  )
+                                                ) +
+                                                "\n                                            "
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.allowEdit
+                                      ? _c("flat-pickr", {
+                                          staticClass: "flat-datepicker",
+                                          attrs: {
+                                            name: "journey_date",
+                                            config: _vm.config,
+                                            placeholder: "Select date (BST)"
+                                          },
+                                          model: {
+                                            value: _vm.booking.journey_date,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.booking,
+                                                "journey_date",
+                                                $$v
+                                              )
+                                            },
+                                            expression:
+                                              "\n                                                    booking.journey_date\n                                                "
+                                          }
+                                        })
+                                      : _vm._e()
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group col-md-4" }, [
                             _c(
@@ -878,6 +995,24 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         !_vm.errorTypes.editNotPossible
+                          ? _c("p", { staticClass: "text-danger container" }, [
+                              _vm._v(
+                                "\n                                    *** You can only update journey date\n                                    once.\n                                "
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.error
+                          ? _c("p", { staticClass: "text-danger container" }, [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm.error.data.message) +
+                                  "\n                                "
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        !_vm.errorTypes.editNotPossible
                           ? _c("div", [
                               _c(
                                 "button",
@@ -902,34 +1037,6 @@ var render = function() {
                       ])
                     ])
                   ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.updated || _vm.updateError
-                ? _c("div", { staticClass: "col-md-10 col-sm-12" }, [
-                    _vm.updated || _vm.updateError
-                      ? _c(
-                          "div",
-                          {
-                            staticClass: "alert alert-dismissible fade show",
-                            class: {
-                              "alert-success": _vm.updated,
-                              "alert-danger": _vm.updateError
-                            },
-                            attrs: { role: "alert" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(
-                                  _vm.updated ? _vm.updated : _vm.updateError
-                                ) +
-                                "\n                            "
-                            ),
-                            _vm._m(2)
-                          ]
-                        )
-                      : _vm._e()
-                  ])
                 : _vm._e()
             ])
           ])
@@ -945,23 +1052,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [_c("hr")])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
   },
   function() {
     var _vm = this

@@ -248,6 +248,16 @@ class BookingController extends Controller
             return response()->json(['message' => 'Booking not found.'], 404);
         }
 
+        if ($booking->updated_at != null || $booking->journey_date <= today() || $booking->booking_status_id != 2) {
+            return response()->json(
+                [
+                    'message' => "Sorry you can't not edit this booking right now.",
+                    'booking' => $booking
+                ],
+                403
+            );
+        }
+
         $date = now()->addDays(1);
 
         $request->validate([
@@ -258,6 +268,6 @@ class BookingController extends Controller
         $booking->updated_at = now();
         $booking->save();
 
-        return response()->json(['message' => 'Date of journey updated successfully.'], 200);
+        return response()->json(['message' => 'Date of journey changes saved successfully.'], 200);
     }
 }
