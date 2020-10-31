@@ -22,7 +22,7 @@
                                 class="form-group input-group col-sm-12 pl-0 pr-0"
                                 style="background-color: white;"
                             >
-                                <div class="input-group-prepend">
+                                <div class="input-group-prepend input-prepend">
                                     <div class="input-group-text">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
@@ -30,7 +30,7 @@
                                 <v-select
                                     label="text"
                                     placeholder="Enter your pickup point"
-                                    class="form-control d-flex flex-column justify-content-center style-chooser"
+                                    class="form-control form-control-iconized d-flex flex-column justify-content-center style-chooser"
                                     v-model="item.origin"
                                     :filterable="false"
                                     :options="options"
@@ -98,7 +98,7 @@
                                 v-for="(viaItem, viaIndex) in item.via"
                                 :key="viaIndex"
                             >
-                                <div class="mb-2 mt-2">
+                                <div>
                                     <div
                                         class="row pl-3 pr-3 justify-content-end"
                                     >
@@ -106,7 +106,7 @@
                                             class="form-group input-group col-sm-11 pl-0 pr-0 bg-white"
                                         >
                                             <div
-                                                class="input-group-prepend grab"
+                                                class="input-group-prepend grab  input-prepend"
                                             >
                                                 <div class="input-group-text">
                                                     <i
@@ -117,7 +117,7 @@
                                             <v-select
                                                 label="text"
                                                 placeholder="Enter your Via Route point"
-                                                class="form-control d-flex flex-column justify-content-center style-chooser"
+                                                class="form-control form-control-iconized d-flex flex-column justify-content-center style-chooser"
                                                 v-model="viaItem.route"
                                                 :filterable="false"
                                                 :options="options"
@@ -184,7 +184,7 @@
                     <div class="row">
                         <div class="mt-2 dropoff-point col-sm-12">
                             <div class="form-group input-group">
-                                <div class="input-group-prepend">
+                                <div class="input-group-prepend  input-prepend">
                                     <div class="input-group-text">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
@@ -192,7 +192,7 @@
                                 <v-select
                                     label="text"
                                     placeholder="Enter your Drop off point"
-                                    class="form-control d-flex flex-column justify-content-center style-chooser"
+                                    class="form-control form-control-iconized  d-flex flex-column justify-content-center style-chooser"
                                     v-model="item.destination"
                                     :filterable="false"
                                     :options="options"
@@ -245,7 +245,7 @@
                             <div class="form-row align-items-center">
                                 <div class="col">
                                     <div class="form-group input-group">
-                                        <div class="input-group-prepend">
+                                        <div class="input-group-prepend input-prepend">
                                             <button
                                                 class="input-group-text"
                                                 type="button"
@@ -270,7 +270,7 @@
                                             placeholder="Select date (BST)"
                                         >
                                         </flat-pickr>
-                                        <div class="input-group-append">
+                                        <div class="input-group-append input-append">
                                             <button
                                                 class="input-group-text"
                                                 type="button"
@@ -289,7 +289,7 @@
                                     </div>
 
                                     <div class="form-group input-group">
-                                        <!-- <div class="input-group-prepend">
+                                        <!-- <div class="input-group-prepend input-prepend">
                                             <div class="input-group-text">
                                                 <i
                                                     class="far fa-calendar-alt"
@@ -298,7 +298,7 @@
                                         </div> -->
 
                                         <!-- <div class="form-control d-flex flex-column justify-content-center">
-                                            <a class="input-group-prepend input-button" title="toggle" data-toggle>
+                                            <a class="input-group-prepend input-prepend input-button" title="toggle" data-toggle>
                                                 <i class="far fa-calendar-alt"></i>
                                             </a>
 
@@ -478,7 +478,7 @@
                 :key="vehicle.id"
             >
                 <div
-                    class="group vehicle row d-flex justify-content-center width-100 mb-3"
+                    class="group vehicle row d-flex justify-content-center width-100"
                 >
                     <div class="vehicle-img-wrapper col-sm-7">
                         <img :src="vehicle.image" />
@@ -551,11 +551,11 @@
             >
                 <div>
                     <div class="mb-2">
-                        <label>Full Name</label>
+                        <label class='required'>Full Name</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
+                                    <div class="input-group-prepend input-prepend">
                                         <div class="input-group-text">
                                             <i
                                                 class="fa fa-user"
@@ -565,7 +565,7 @@
                                     </div>
                                     <input
                                         type="text"
-                                        class="form-control"
+                                        class="form-control form-control-iconized"
                                         placeholder="Enter name"
                                         v-model="quoteDetails.name"
                                     />
@@ -575,11 +575,11 @@
                     </div>
 
                     <div v-if="!loggedIn" class="mt-2 width-100">
-                        <label>Email</label>
+                        <label class='required'>Email</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
+                                    <div class="input-group-prepend input-prepend">
                                         <div class="input-group-text">
                                             <i class="fas fa-envelope"></i>
                                         </div>
@@ -589,7 +589,7 @@
                                         name="email"
                                         required
                                         autocomplete="off"
-                                        class="form-control"
+                                        class="form-control form-control-iconized"
                                         placeholder="Ex: john@example.com"
                                         v-model="quoteDetails.email"
                                     />
@@ -598,11 +598,11 @@
                         </div>
                     </div>
                     <div class="mb-2">
-                        <label>Contact Number</label>
+                        <label class='required'>Contact Number</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
+                                    <div class="input-group-prepend input-prepend">
                                         <div class="input-group-text">
                                             <i
                                                 class="fas fa-mobile-alt"
@@ -612,7 +612,7 @@
                                     </div>
                                     <input
                                         type="tel"
-                                        class="form-control"
+                                        class="form-control form-control-iconized"
                                         placeholder="Enter contact number"
                                         v-model="quoteDetails.mobile"
                                     />
@@ -628,7 +628,7 @@
                     >
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
-                                <label>Flight Number</label>
+                                <label class='required'>Flight Number</label>
                                 <input
                                     type="text"
                                     class="form-control"
@@ -975,11 +975,11 @@
             </div>
             <div class='payment-details'>
                 <div class="d-flex flex-column align-items-start form-group">
-                    <label for="name_on_card">Name on Card</label>
+                    <label for="name_on_card" class='required'>Name on Card</label>
                     <div class="form-row align-items-center w-100">
                         <div class="col">
                             <div class="input-group mb-2">
-                                <div class="input-group-prepend">
+                                <div class="input-group-prepend input-prepend">
                                     <div class="input-group-text">
                                         <i
                                             class="fa fa-user"
@@ -991,7 +991,7 @@
                                 <input
                                     type="text"
                                     autocomplete="off"
-                                    class="form-control"
+                                    class="form-control form-control-iconized"
                                     id="name_on_card"
                                     name="name_on_card"
                                     placeholder="Ex: John"
@@ -1005,11 +1005,11 @@
                 </div>
 
                 <div class="d-flex flex-column align-items-start form-group">
-                    <label for="receipt_email">Email Address</label>
+                    <label class='required' for="receipt_email">Email Address</label>
                     <div class="form-row align-items-center w-100">
                         <div class="col">
                             <div class="input-group mb-2">
-                                <div class="input-group-prepend">
+                                <div class="input-group-prepend input-prepend">
                                     <div class="input-group-text">
                                         <i
                                             class="fas fa-envelope"
@@ -1020,7 +1020,7 @@
                                 <input
                                     autocomplete="off"
                                     type="email"
-                                    class="form-control"
+                                    class="form-control form-control-iconized"
                                     name="receipt_email"
                                     id="receipt_email"
                                     v-model="receipt_email"
@@ -1038,7 +1038,7 @@
                 <input type="hidden" name="_token" :value="csrf" />
 
                 <div class="d-flex flex-column align-items-start form-group">
-                    <label for="card-element">
+                    <label for="card-element" class='required'>
                         Credit or debit card
                     </label>
                     <div id="card-element">
@@ -1046,10 +1046,10 @@
                     </div>
 
                     <!-- Used to display form errors. -->
-                    <div id="card-errors" role="alert"></div>
+                    <div class="form-error" id="card-errors" role="alert"></div>
                 </div>
 
-                <div class="info-section border-left-danger mt-1">
+                <div class="info-section border-left-danger my-2">
                     Payment is non refundable
                 </div>
 
@@ -1126,7 +1126,7 @@
             style="text-align: left;"
         >
             <div class="row continue-to-basket ml-0 mr-0">
-                <div class="d-flex after-successfull-booking ml-0 mr-0 mt-2">
+                <div class="d-flex after-successfull-booking ml-0 mr-0 mb-2">
                     <div style="font-size: 13px;">
                         <h5 class="text-black text-center">
                             Booking <b>successful</b>
@@ -1164,11 +1164,10 @@
                             booking details. <br />
                             Thank you.
                         </p>
-
+                        <h5 class="text-black text-left mb-2">
+                            Trip Details
+                        </h5>
                         <div class="width-100" style="font-size: 13px;">
-                            <h5 class="text-black text-left mt-2 mb-3 text-white">
-                                Trip Details
-                            </h5>
                             <div class="table-responsive-sm">
                                 <table
                                     class="table table-striped table-sm table-hover table-bordered"
@@ -1285,7 +1284,7 @@
                             <h5 class="text-black text-left mb-2">
                                 Passenger Details
                             </h5>
-                            <div class="table-responsive-sm mt-3">
+                            <div class="table-responsive-sm">
                                 <table
                                     class="table table-striped table-sm table-hover table-bordered"
                                 >
@@ -1335,6 +1334,7 @@
                 >
                     Finish Booking
                 </button>
+                
             </div>
         </div>
         <!-- /**
@@ -2314,7 +2314,7 @@ export default {
 .input-group {
     background-color: white;
 }
-.input-group-prepend {
+.input-prepend {
     margin-right: -39px;
 }
 /* Starting V-Select */
@@ -2486,7 +2486,8 @@ label {
 .header-right .form-control {
     font-size: 15px;
     padding: 0.575rem 0.75rem;
-    background-color: #fff0;
+    background-color:  #ffff;
+   
     /* border-top-right-radius: 5px;
     border-bottom-right-radius: 5px; */
     /* background-color: #f3f3f3eb; */
@@ -2536,7 +2537,7 @@ label {
 
 .vehicle {
     display: block;
-    margin: 10px 0 0 0;
+    margin: 5px 0;
     padding: 8px 0 8px 0px;
     border-radius: 5px;
     font-size: 12px;
@@ -2727,7 +2728,6 @@ label {
 /* Starting After Booking Submission */
 .after-successfull-booking {
     background-color: #ffffffe3;
-    box-shadow: 1px 5px 8px 2px #929292;
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
     width: 100%;
@@ -3207,7 +3207,8 @@ button:disabled {
     opacity: 0.5;
 }
 
-.input-group-append {
+
+.input-append {
     margin-left: -35px;
     z-index: 10;
 }

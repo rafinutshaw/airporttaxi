@@ -169,8 +169,15 @@ a:hover {
     padding: 2px 3px 0 3px !important;
 }
 .header-right .form-control {
-    padding: 0.575rem 0.575rem 0.575rem 2.3rem !important;
+    /* padding: 0.575rem 0.575rem 0.575rem 2.3rem !important; */
+    padding: 0.575rem 0.575rem 10px !important;
 }
+
+.header-right .form-control-iconized {
+    padding: 0.575rem 0.575rem 0.575rem 2.3rem !important;
+    background-color: #fff0 !important;
+}
+
 @media only screen and (max-width: 450px) {
     .selected.d-center {
         max-width: 75px;
@@ -269,10 +276,9 @@ nav {
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
 }
-#card-errors {
-    color: #d62400;
-    margin-top: 5px;
-    font-weight: 600;
+.form-error {
+    color: red;
+    font-style: italic;
 }
 
 button:focus{
@@ -282,3 +288,8 @@ button:focus{
 .content-wrapper {
     background: #f8fafc;
 }
+
+.required:after {
+    content:" *";
+    color: red;
+  }
