@@ -3,7 +3,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <router-link to="/" tag="a" class="navbar-brand"><img src="{{ asset("/images/logo.png") }}" alt=""
-                title="{{ config('app.name') }}" style="width: 100px;" />
+                title="{{ config('app.name') }}" style="max-width: 100px;max-height: 60px;" />
+        </router-link>
+        <router-link to="/" tag="a" class="navbar-brand"><img src="{{ asset("/images/logo-2.png") }}" alt=""
+                title="{{ config('app.name') }}" style="max-width: 100px;max-height: 60px;" />
         </router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
