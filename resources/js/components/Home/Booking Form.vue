@@ -373,7 +373,7 @@
                         :disabled="!validateQuote"
                         @click.prevent="submitQuote"
                     >
-                        Book Now
+                        Quote Now
                         <span
                             ><i
                                 class="fa fa-arrow-right ml-1"
@@ -2501,10 +2501,10 @@ label {
     border-radius: 5px;
     font-size: 12px;
     color: black;
-    background-color: #f3f3f3;
     box-shadow: 1px 5px 8px 2px #a1a5a8;
+    background-color: #f3f3f3bf;
     /* height: 75px;
-    background-color: #282828;
+    background-color: #f3f3f3bf;
     background: -webkit-linear-gradient(
         0deg,
         rgba(255, 255, 255, 0.25) 0%,
@@ -2517,7 +2517,7 @@ label {
     ); */
 }
 .vehicle:hover {
-    background-color: #b5f1fb;
+    background-color: #fbfbfb;
 }
 
 .group {

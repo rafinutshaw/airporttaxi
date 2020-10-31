@@ -34961,8 +34961,9 @@ fieldset:disabled a.btn {
 
 .btn-secondary:hover {
   color: #fff;
-  background-color: #3444f3;
+  background-color: #2638f9;
   border-color: #2839f2;
+  font-weight: 600;
 }
 
 .btn-secondary:focus,
@@ -49801,8 +49802,9 @@ readers do not read off random characters that represent icons */
 }
 
 .btn-primary:hover {
-  background-color: #06c4ea;
+  background-color: #16d2f7;
   border-color: #06c4ea;
+  font-weight: 600;
 }
 
 .btn-primary.disabled,
