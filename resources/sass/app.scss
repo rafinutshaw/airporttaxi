@@ -58,14 +58,14 @@
 
 
 .btn-primary {
-    background-color:  $primary;
-    border-color:  $primary;
+    background-color:  $primary !important;
+    border-color:  $primary !important;
 }
 
 .btn-primary:hover {
-    background-color: #16d2f7;
-    border-color: #06c4ea;
-    font-weight: 600;
+    background-color: #16d2f7 !important;
+    border-color: #06c4ea !important;
+    font-weight: 600 !important;
 }
 .btn-primary.disabled,
 .btn-primary:disabled {

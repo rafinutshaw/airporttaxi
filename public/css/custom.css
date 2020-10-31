@@ -169,7 +169,7 @@ a:hover {
     padding: 2px 3px 0 3px !important;
 }
 .header-right .form-control {
-    padding: 0.575rem 0.575rem 10px !important;
+    padding: 0.575rem 0.575rem 0.575rem 2.3rem !important;
 }
 @media only screen and (max-width: 450px) {
     .selected.d-center {

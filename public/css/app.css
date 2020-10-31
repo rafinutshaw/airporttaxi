@@ -49796,14 +49796,14 @@ readers do not read off random characters that represent icons */
 }
 
 .btn-primary {
-  background-color: #3acae6;
-  border-color: #3acae6;
+  background-color: #3acae6 !important;
+  border-color: #3acae6 !important;
 }
 
 .btn-primary:hover {
-  background-color: #16d2f7;
-  border-color: #06c4ea;
-  font-weight: 600;
+  background-color: #16d2f7 !important;
+  border-color: #06c4ea !important;
+  font-weight: 600 !important;
 }
 
 .btn-primary.disabled,

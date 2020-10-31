@@ -233,25 +233,6 @@
                                     </template>
                                 </v-select>
                             </div>
-
-                            <!-- Starting Map Error -->
-                            <div v-if="mapData.errors.length > 0">
-                                <div
-                                    class="mt-4 alert alert-danger alert-dismissible fade show"
-                                    role="alert"
-                                >
-                                    {{ mapData.errors }}
-                                    <button
-                                        type="button"
-                                        class="close"
-                                        data-dismiss="alert"
-                                        aria-label="Close"
-                                    >
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- Ending Map Error -->
                         </div>
                     </div>
 
@@ -289,7 +270,7 @@
                                             placeholder="Select date (BST)"
                                         >
                                         </flat-pickr>
-                                        <div class="input-group-prepend">
+                                        <div class="input-group-append">
                                             <button
                                                 class="input-group-text"
                                                 type="button"
@@ -365,10 +346,27 @@
                         </div>
                     </div> -->
                 </div>
-
+                <!-- Starting Map Error -->
+                <div v-if="mapData.errors.length > 0">
+                    <div
+                        class="mt-4 alert alert-danger alert-dismissible fade show"
+                        role="alert"
+                    >
+                        {{ mapData.errors }}
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Ending Map Error -->
                 <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
                     <button
-                        class="btn btn-block btn-primary mt-2"
+                        class="btn btn-block btn-primary mt-4"
                         style="border-radius: 0px; width: 100%;"
                         :disabled="!validateQuote"
                         @click.prevent="submitQuote"
@@ -545,9 +543,7 @@
             * ? Passenger Details
             */ -->
             <div class="row d-flex justify-content-between ml-0 mr-0">
-                <div>
-                    <h5>Passenger Details</h5>
-                </div>
+                <h5 class="text-white mb-3">Passenger Details</h5>
             </div>
 
             <div
@@ -555,7 +551,7 @@
             >
                 <div>
                     <div class="mb-2">
-                        <label>Head Passenger Full Name</label>
+                        <label>Full Name</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
@@ -570,7 +566,7 @@
                                     <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="---"
+                                        placeholder="Enter name"
                                         v-model="quoteDetails.name"
                                     />
                                 </div>
@@ -579,7 +575,7 @@
                     </div>
 
                     <div v-if="!loggedIn" class="mt-2 width-100">
-                        <label>Enter Your Email to get e-ticekt</label>
+                        <label>Email</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
@@ -592,6 +588,7 @@
                                         type="email"
                                         name="email"
                                         required
+                                        autocomplete="off"
                                         class="form-control"
                                         placeholder="Ex: john@example.com"
                                         v-model="quoteDetails.email"
@@ -601,7 +598,7 @@
                         </div>
                     </div>
                     <div class="mb-2">
-                        <label>Passenger Mobile</label>
+                        <label>Contact Number</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
@@ -616,7 +613,7 @@
                                     <input
                                         type="tel"
                                         class="form-control"
-                                        placeholder="---"
+                                        placeholder="Enter contact number"
                                         v-model="quoteDetails.mobile"
                                     />
                                 </div>
@@ -653,7 +650,7 @@
 
                     <div class="form-row">
                         <div class="col-md-5 mb-3">
-                            <label>Passengers</label>
+                            <label>No. of Passengers</label>
                             <select
                                 class="custom-select"
                                 required
@@ -668,7 +665,7 @@
                             </select>
                         </div>
                         <div class="col-md-7 mb-3">
-                            <label>Luggage</label>
+                            <label>No. of Luggages</label>
                             <select
                                 class="custom-select"
                                 required
@@ -697,7 +694,7 @@
                 * ? Back to Fares Button & Continue to Basket Button
                  */ -->
                 <div
-                    class="container d-flex flex-row justify-content-between mt-1 pl-0 pr-0"
+                    class="container d-flex flex-row justify-content-between mt-3 pl-0 pr-0"
                 >
                     <div class="mr-2">
                         <button
@@ -706,10 +703,10 @@
                             class="btn btn-secondary"
                         >
                             <i
-                                class="fa fa-angle-left mr-1"
+                                class="fas fa-arrow-left mr-1"
                                 aria-hidden="true"
                             ></i>
-                            Back
+                           Go Back
                         </button>
                     </div>
                     <div class="">
@@ -741,14 +738,15 @@
 
         <div class="basket" v-if="formStage.basket" style="text-align: left;">
             <div class="row continue-to-basket ml-0 mr-0">
-                <div class="row continue-to-basket ml-0 mr-0 mt-2 width-100">
+            <h5 class="text-white text-left mb-3">
+                Trip Details
+            </h5>
+                <div class="row continue-to-basket ml-0 mr-0 width-100">
                     <div
-                        class="d-flex after-successfull-booking-details ml-0 mr-0 mt-2"
+                        class="d-flex after-successfull-booking-details ml-0 mr-0"
                     >
                         <div class="width-100" style="font-size: 13px;">
-                            <h5 class="text-black text-left mt-2 mb-2">
-                                Trip Details
-                            </h5>
+                            
                             <div class="table-responsive-sm">
                                 <table
                                     class="table table-striped table-sm table-hover table-bordered"
@@ -966,113 +964,151 @@
         * TODO:     Stage 5
         * ? Payment Information
         */ -->
-
+       
         <form
-            id="payment-form"
+            id="payment-form" class="text-left"
             @submit.prevent="confirmCardPayment()"
             v-if="formStage.payment === true"
         >
-            <div class="d-flex flex-column align-items-start form-group">
-                <label for="name_on_card">Name on Card</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="name_on_card"
-                    name="name_on_card"
-                    placeholder="Ex: John"
-                    onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Ex: John'"
-                    v-model="name_on_card"
-                />
+            <div class="row d-flex justify-content-between ml-0 mr-0">
+                <h5 class="text-white mb-3">Payment Details</h5>
             </div>
-
-            <div class="d-flex flex-column align-items-start form-group">
-                <label for="receipt_email">Email Address</label>
-                <input
-                    type="email"
-                    class="form-control"
-                    name="receipt_email"
-                    id="receipt_email"
-                    v-model="receipt_email"
-                    placeholder="Ex: john@example.com"
-                    onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Ex: john@example.com'"
-                />
-            </div>
-
-            <!-- CSRF Field -->
-            <input type="hidden" name="_token" :value="csrf" />
-
-            <div class="d-flex flex-column align-items-start form-group">
-                <label for="card-element">
-                    Credit or debit card
-                </label>
-                <div id="card-element">
-                    <!-- A Stripe Element will be inserted here. -->
+            <div class='payment-details'>
+                <div class="d-flex flex-column align-items-start form-group">
+                    <label for="name_on_card">Name on Card</label>
+                    <div class="form-row align-items-center w-100">
+                        <div class="col">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i
+                                            class="fa fa-user"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </div>
+                                </div>
+                                
+                                <input
+                                    type="text"
+                                    autocomplete="off"
+                                    class="form-control"
+                                    id="name_on_card"
+                                    name="name_on_card"
+                                    placeholder="Ex: John"
+                                    onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Ex: John'"
+                                    v-model="name_on_card"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Used to display form errors. -->
-                <div id="card-errors" role="alert"></div>
+                <div class="d-flex flex-column align-items-start form-group">
+                    <label for="receipt_email">Email Address</label>
+                    <div class="form-row align-items-center w-100">
+                        <div class="col">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i
+                                            class="fas fa-envelope"
+                                            aria-hidden="true"
+                                        ></i>
+                                    </div>
+                                </div>
+                                <input
+                                    autocomplete="off"
+                                    type="email"
+                                    class="form-control"
+                                    name="receipt_email"
+                                    id="receipt_email"
+                                    v-model="receipt_email"
+                                    placeholder="Ex: john@example.com"
+                                    onfocus="this.placeholder = ''"
+                                    onblur="this.placeholder = 'Ex: john@example.com'"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- CSRF Field -->
+                <input type="hidden" name="_token" :value="csrf" />
+
+                <div class="d-flex flex-column align-items-start form-group">
+                    <label for="card-element">
+                        Credit or debit card
+                    </label>
+                    <div id="card-element">
+                        <!-- A Stripe Element will be inserted here. -->
+                    </div>
+
+                    <!-- Used to display form errors. -->
+                    <div id="card-errors" role="alert"></div>
+                </div>
+
+                <div class="info-section border-left-danger mt-1">
+                    Payment is non refundable
+                </div>
+
+                <button class='btn btn-primary' id="payment-submit-button" :disabled="!validatePaymentForm">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span id="button-text"></span>
+                </button>
+                <!-- Error Message -->
+                <div
+                    id="card-error"
+                    class="alert alert-danger alert-dismissible fade show"
+                    role="alert"
+                    v-if="cardPayment.error"
+                >
+                    {{ cardPayment.errorText }} <br />
+                    <a href="#" @click="tryAgain" style="color: black;">
+                        Try again.
+                    </a>
+                    <button
+                        type="button"
+                        class="close alert-button"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                        @click="cardPayment.error = false"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!-- Success Message -->
+                <div
+                    id="card-success"
+                    class="alert alert-success alert-dismissible fade show"
+                    role="alert"
+                    v-if="cardPayment.success"
+                >
+                    Payment succeeded.
+                    <button
+                        type="button"
+                        class="close alert-button"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                        @click="cardPayment.success = false"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
-
-            <div class="info-section border-left-danger mt-1">
-                Payment is non refundable
-            </div>
-
-            <button id="payment-submit-button" :disabled="!validatePaymentForm">
-                <div class="spinner hidden" id="spinner"></div>
-                <span id="button-text"></span>
-            </button>
-
+            
             <button
                 type="button"
-                class="btn btn-secondary btn-block mt-2"
+                class="btn btn-secondary mt-3"
                 @click="backToBasket"
             >
                 <i class="fa fa-angle-left mr-1" aria-hidden="true"></i>
                 Back
             </button>
 
-            <!-- Error Message -->
-            <div
-                id="card-error"
-                class="alert alert-danger alert-dismissible fade show"
-                role="alert"
-                v-if="cardPayment.error"
-            >
-                {{ cardPayment.errorText }} <br />
-                <a href="#" @click="tryAgain" style="color: black;">
-                    Try again.
-                </a>
-                <button
-                    type="button"
-                    class="close alert-button"
-                    data-dismiss="alert"
-                    aria-label="Close"
-                    @click="cardPayment.error = false"
-                >
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <!-- Success Message -->
-            <div
-                id="card-success"
-                class="alert alert-success alert-dismissible fade show"
-                role="alert"
-                v-if="cardPayment.success"
-            >
-                Payment succeeded.
-                <button
-                    type="button"
-                    class="close alert-button"
-                    data-dismiss="alert"
-                    aria-label="Close"
-                    @click="cardPayment.success = false"
-                >
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            
         </form>
 
         <!-- /**
@@ -1117,9 +1153,9 @@
                 </div>
             </div>
 
-            <div class="row continue-to-basket ml-0 mr-0 mt-2">
+            <div class="row continue-to-basket ml-0 mr-0">
                 <div
-                    class="d-flex after-successfull-booking-details ml-0 mr-0 mt-2"
+                    class="d-flex after-successfull-booking-details ml-0 mr-0"
                 >
                     <div style="font-size: 13px;">
                         <p class="text-black-50 text-center mb-1">
@@ -1130,7 +1166,7 @@
                         </p>
 
                         <div class="width-100" style="font-size: 13px;">
-                            <h5 class="text-black text-left mt-2 mb-2">
+                            <h5 class="text-black text-left mt-2 mb-3 text-white">
                                 Trip Details
                             </h5>
                             <div class="table-responsive-sm">
@@ -2236,8 +2272,8 @@ export default {
 ::v-deep .flat-datepicker {
     margin-right: -1px;
     font-size: 15px;
-    padding-left: 18px !important;
-    background-color: white;
+    padding: 17px 38px 17px 43px !important;
+    background-color: transparent;
 }
 ::v-deep .flat-datepicker::placeholder {
     color: black;
@@ -2255,7 +2291,6 @@ export default {
     font-weight: 500;
     color: black;
     background-color: #f3f3f3;
-    box-shadow: 1px 5px 8px 2px #a1a5a8;
 }
 .border-left-danger {
     border-left: 5px solid #ff7851 !important;
@@ -2276,7 +2311,12 @@ export default {
     height: 250px;
     margin-bottom: 5px;
 }
-
+.input-group {
+    background-color: white;
+}
+.input-group-prepend {
+    margin-right: -39px;
+}
 /* Starting V-Select */
 .input-group-text {
     border-radius: 0px;
@@ -2406,10 +2446,10 @@ label {
 }
 
 .header-right {
-    background-color: #ffffff8f;
-    box-shadow: 0px 2px 10px #999999a3;
-    border-radius: 8px;
-    padding: 35px;
+    background-color: #2a2a2a;
+   /* box-shadow: 0px 2px 10px #999999a3;*/
+   /* border-radius: 8px; */
+    padding: 30px 35px;
     margin-bottom: 50px;
     margin-top: 120px;
     /* background-color: #f3f3f3eb; */
@@ -2446,7 +2486,7 @@ label {
 .header-right .form-control {
     font-size: 15px;
     padding: 0.575rem 0.75rem;
-    background-color: #ffff;
+    background-color: #fff0;
     /* border-top-right-radius: 5px;
     border-bottom-right-radius: 5px; */
     /* background-color: #f3f3f3eb; */
@@ -2501,7 +2541,7 @@ label {
     border-radius: 5px;
     font-size: 12px;
     color: black;
-    box-shadow: 1px 5px 8px 2px #a1a5a8;
+    /* box-shadow: 1px 5px 8px 2px #a1a5a8; */
     background-color: #f3f3f3bf;
     /* height: 75px;
     background-color: #f3f3f3bf;
@@ -2674,7 +2714,7 @@ label {
 
 /* Starting Passenger Details */
 .passenger-details {
-    background-color: #fff0;
+    background-color: #e0e0e0;
     /* box-shadow: 1px 5px 8px 2px #929292; */
     color: #5a5a5a;
     padding: 10px;
@@ -2698,7 +2738,7 @@ label {
 
 .after-successfull-booking-details {
     background-color: #ffffffe3;
-    box-shadow: 1px 5px 8px 2px #929292;
+   
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
     width: 100%;
@@ -2967,15 +3007,11 @@ label {
     color: black;
 }
 
-#payment-form {
-    align-self: center;
-    /* width: 30vw;
-    min-width: 500px;
-    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
-        0px 2px 5px 0px rgba(50, 50, 93, 0.1),
-        0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
-    border-radius: 7px;
-    padding: 40px; */
+.payment-details {
+    background-color: #e0e0e0;
+    color: #5a5a5a;
+    padding: 10px;
+    border-radius: 5px;
 }
 /* input {
     border-radius: 6px;
@@ -2991,6 +3027,7 @@ label {
     line-height: 22px;
     font-size: 16px;
 }
+
 .result-message a {
     color: rgb(89, 111, 214);
     font-weight: 600;
@@ -3169,4 +3206,10 @@ button:disabled {
     font-size: 25px;
     opacity: 0.5;
 }
+
+.input-group-append {
+    margin-left: -35px;
+    z-index: 10;
+}
+
 </style>
