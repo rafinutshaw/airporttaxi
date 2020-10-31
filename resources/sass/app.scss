@@ -56,20 +56,33 @@
 //     transform: scale(1.05);
 // }
 
+
 .btn-primary {
-    background-color: $primary;
-    border-color: $primary;
+    background-color:  $primary;
+    border-color:  $primary;
 }
+
 .btn-primary:hover {
     background-color: #16d2f7;
     border-color: #06c4ea;
-    font-weight: bold;
+    font-weight: 600;
 }
 .btn-primary.disabled,
 .btn-primary:disabled {
     cursor: not-allowed;
 }
-
+.btn-secondary {
+    color: #fff;
+    background-color: #5865f5;
+    border-color: #5865f5;
+}
+  
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #3444f3;
+    border-color: #2839f2;
+    font-weight: 600;
+}
 // .btn-primary {
 //     color: #fff;
 //     background-color: #5856d6;

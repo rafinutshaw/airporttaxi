@@ -34961,9 +34961,8 @@ fieldset:disabled a.btn {
 
 .btn-secondary:hover {
   color: #fff;
-  background-color: #2638f9;
+  background-color: #3444f3;
   border-color: #2839f2;
-  font-weight: 600;
 }
 
 .btn-secondary:focus,
@@ -49810,6 +49809,19 @@ readers do not read off random characters that represent icons */
 .btn-primary.disabled,
 .btn-primary:disabled {
   cursor: not-allowed;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #5865f5;
+  border-color: #5865f5;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #3444f3;
+  border-color: #2839f2;
+  font-weight: 600;
 }
 
 .pagination > .page-item > .page-link {
