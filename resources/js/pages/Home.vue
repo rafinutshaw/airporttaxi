@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-6 col-lg-8 d-flex align-items-center">
                         <div>
-                            <h3>Mr. Tony</h3>
+                            <h3>Ahmed Al Ansar</h3>
                             <p>
                                 We aim to be No.1 company in customer satisfaction
                                 by striving to create 'inspiring the next' with
