@@ -276,20 +276,19 @@
                                         </div>
                                     </div>
                                     <p
-                                        class="text-danger container"
+                                        class="info-section border-left-danger"
                                         v-if="!errorTypes.editNotPossible"
                                     >
-                                        *** You can only update journey date
-                                        once.
+                                        You can only update your journey once.
                                     </p>
                                     <p
-                                        class="text-danger container"
-                                        v-if="error"
+                                        class="info-section border-left-danger"
+                                        v-if="error && error.data && error.data.message"
                                     >
                                         {{ error.data.message }}
                                     </p>
                                     <!-- <p
-                                        class="text-danger container"
+                                        class="info-section border-left-danger"
                                         v-if="errorTypes.editNotPossible"
                                     >
                                         Sorry you can't not edit this booking

@@ -649,7 +649,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-5 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label>No. of Passengers</label>
                             <select
                                 class="custom-select"
@@ -664,7 +664,7 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-md-7 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label>No. of Luggages</label>
                             <select
                                 class="custom-select"
@@ -974,9 +974,9 @@
                 <h5 class="text-white mb-3">Payment Details</h5>
             </div>
             <div class='payment-details'>
-                <div class="d-flex flex-column align-items-start form-group">
+                <div class="form-group">
                     <label for="name_on_card" class='required'>Name on Card</label>
-                    <div class="form-row align-items-center w-100">
+                    <div class="form-row align-items-center">
                         <div class="col">
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend input-prepend">
@@ -1004,9 +1004,9 @@
                     </div>
                 </div>
 
-                <div class="d-flex flex-column align-items-start form-group">
+                <div class="form-group">
                     <label class='required' for="receipt_email">Email Address</label>
-                    <div class="form-row align-items-center w-100">
+                    <div class="form-row align-items-center">
                         <div class="col">
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend input-prepend">
@@ -1037,11 +1037,11 @@
                 <!-- CSRF Field -->
                 <input type="hidden" name="_token" :value="csrf" />
 
-                <div class="d-flex flex-column align-items-start form-group">
+                <div class="form-group">
                     <label for="card-element" class='required'>
                         Credit or debit card
                     </label>
-                    <div id="card-element">
+                    <div id="card-element" class="form-control">
                         <!-- A Stripe Element will be inserted here. -->
                     </div>
 
@@ -2278,22 +2278,7 @@ export default {
     color: black;
 }
 
-.info-section {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    text-align: left;
-    padding: 8px 8px 8px 8px;
-    border-left: 5px solid #60bbcc;
-    border-radius: 5px;
-    font-size: 13px;
-    font-weight: 500;
-    color: black;
-    background-color: #f3f3f3;
-}
-.border-left-danger {
-    border-left: 5px solid #ff7851 !important;
-}
+
 .row.container-fluid p {
     margin-bottom: 0px !important;
 }

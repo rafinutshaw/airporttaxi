@@ -293,3 +293,25 @@ button:focus{
     content:" *";
     color: red;
 }
+
+.info-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+    padding: 8px 8px 8px 8px;
+    border-left: 5px solid #60bbcc;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    color: black;
+    background-color: #f3f3f3;
+}
+.border-left-danger {
+    border-left: 5px solid #ff7851 !important;
+    background-color: #f9c1c1;
+}
+
+select, .form-control {
+    border-radius: 0 !important;
+}
