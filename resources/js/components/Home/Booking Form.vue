@@ -1104,8 +1104,8 @@
                 class="btn btn-secondary mt-3"
                 @click="backToBasket"
             >
-                <i class="fa fa-angle-left mr-1" aria-hidden="true"></i>
-                Back
+                <i class="fas fa-arrow-left mr-1" aria-hidden="true"></i>
+                Go Back
             </button>
             
         </form>
