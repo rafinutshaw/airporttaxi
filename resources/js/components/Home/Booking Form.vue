@@ -515,7 +515,7 @@
             <button
                 @click="backToBooking"
                 type="button"
-                class="btn btn-secondary btn-block"
+                class="btn btn-secondary btn-block mt-3"
             >
                 <i class="fas fa-arrow-left mr-1" aria-hidden="true"></i>
                 Go Back
