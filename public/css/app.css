@@ -49771,12 +49771,6 @@ readers do not read off random characters that represent icons */
   border-radius: 0px;
 }
 
-.fa:hover,
-.fas:hover,
-.far:hover {
-  color: #504e4e;
-}
-
 .grab {
   cursor: -webkit-grab;
   cursor: grab;

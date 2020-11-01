@@ -908,7 +908,7 @@
                             target="_blank"
                             >terms & conditions</router-link
                         >
-                        of booking with OTS.
+                        .
                     </div>
                     <div class="d-flex align-self-center">
                         <input
@@ -931,10 +931,10 @@
                             class="btn btn-secondary"
                         >
                             <i
-                                class="fa fa-angle-left mr-1"
+                                class="fas fa-arrow-left mr-1"
                                 aria-hidden="true"
                             ></i>
-                            Back
+                            Go Back
                         </button>
                     </div>
                     <div class="">
@@ -1050,7 +1050,7 @@
                 </div>
 
                 <div class="info-section border-left-danger my-2">
-                    Payment is non refundable
+                    Payment is non refundable.
                 </div>
 
                 <button class='btn btn-primary' id="payment-submit-button" :disabled="!validatePaymentForm">
