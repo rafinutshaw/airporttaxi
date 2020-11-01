@@ -42,7 +42,7 @@
                                         type to search Places..
                                     </template>
                                     <template slot="option" slot-scope="option">
-                                        <div class="d-center">
+                                        <div class="d-center" v-bind:class="{'disabled-option' : option.isSubheader}">
                                             {{ option.text }}
                                         </div>
                                     </template>
@@ -124,6 +124,7 @@
                                                 :options="options"
                                                 @search="onSearch"
                                                 :closeOnSelect="true"
+                                                :selectable="option => !option.isSubheader"
                                             >
                                                 <template slot="no-options">
                                                     type to search Places..
@@ -132,7 +133,7 @@
                                                     slot="option"
                                                     slot-scope="option"
                                                 >
-                                                    <div class="d-center">
+                                                    <div class="d-center" v-bind:class="{'disabled-option' : option.isSubheader}">
                                                         {{ option.text }}
                                                     </div>
                                                 </template>
@@ -199,12 +200,13 @@
                                     :options="options"
                                     @search="onSearch"
                                     :clearSearchOnSelect="true"
+                                    :selectable="option => !option.isSubheader"
                                 >
                                     <template slot="no-options">
                                         type to search Places..
                                     </template>
                                     <template slot="option" slot-scope="option">
-                                        <div class="d-center">
+                                         <div class="d-center" v-bind:class="{'disabled-option' : option.isSubheader}">
                                             {{ option.text }}
                                         </div>
                                     </template>
@@ -1598,6 +1600,7 @@ export default {
                             if (x?.categories?.length) {
                                 category = x.categories[0].name;
                             }
+
                             const data = {
                                 text: x.title,
                                 coordinates: [x.position.lng, x.position.lat],
@@ -1613,10 +1616,12 @@ export default {
                         });
                         vm.options = [];
                         for (const [key, value] of Object.entries(results)) {
-                           vm.options.push({text: key, isSubheader: true});
-                           value.forEach((data)=> {
-                                 vm.options.push(data);
-                           })
+                            if(key != 'Airport'){
+                                vm.options.push({text: key, isSubheader: true});
+                                value.forEach((data)=> {
+                                    vm.options.push(data);
+                                })
+                            }
                         }
                     },
                     error: function() {

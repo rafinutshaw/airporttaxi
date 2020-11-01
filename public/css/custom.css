@@ -321,3 +321,10 @@ select, .form-control {
 .form-invalid {
     border-color: red;
 }
+
+.disabled-option {
+    border: none;
+    padding: 0;
+    font-size: smaller;
+    font-style: italic;
+}
