@@ -932,7 +932,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.about-banner[data-v-01b3a6b2] {\r\n    background: url(" + escape(__webpack_require__(/*! ../../../public/img/asset 5.jpeg */ "./public/img/asset 5.jpeg")) + ") center;\n}\n.banner-area[data-v-01b3a6b2] {\r\n    background: url(" + escape(__webpack_require__(/*! ../../../public/img/asset 5.jpeg */ "./public/img/asset 5.jpeg")) + ") center;\r\n    background-size: cover;\n}\r\n", ""]);
+exports.push([module.i, "\n.about-banner[data-v-01b3a6b2] {\n    background: url(" + escape(__webpack_require__(/*! ../../../public/img/asset 5.jpeg */ "./public/img/asset 5.jpeg")) + ") center;\n}\n.banner-area[data-v-01b3a6b2] {\n    background: url(" + escape(__webpack_require__(/*! ../../../public/img/asset 5.jpeg */ "./public/img/asset 5.jpeg")) + ") center;\n    background-size: cover;\n}\n", ""]);
 
 // exports
 

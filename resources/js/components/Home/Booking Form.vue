@@ -245,7 +245,9 @@
                             <div class="form-row align-items-center">
                                 <div class="col">
                                     <div class="form-group input-group">
-                                        <div class="input-group-prepend input-prepend">
+                                        <div
+                                            class="input-group-prepend input-prepend"
+                                        >
                                             <button
                                                 class="input-group-text"
                                                 type="button"
@@ -270,7 +272,9 @@
                                             placeholder="Select date (BST)"
                                         >
                                         </flat-pickr>
-                                        <div class="input-group-append input-append">
+                                        <div
+                                            class="input-group-append input-append"
+                                        >
                                             <button
                                                 class="input-group-text"
                                                 type="button"
@@ -372,7 +376,10 @@
                         @click.prevent="submitQuote"
                     >
                         Quote Now
-                        <i class="fa fa-arrow-right ml-1" aria-hidden="true"></i>
+                        <i
+                            class="fa fa-arrow-right ml-1"
+                            aria-hidden="true"
+                        ></i>
                     </button>
                 </div>
                 <!-- <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
@@ -546,11 +553,13 @@
             >
                 <div>
                     <div class="mb-2">
-                        <label class='required'>Full Name</label>
+                        <label class="required">Full Name</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
-                                    <div class="input-group-prepend input-prepend">
+                                    <div
+                                        class="input-group-prepend input-prepend"
+                                    >
                                         <div class="input-group-text">
                                             <i
                                                 class="fa fa-user"
@@ -570,11 +579,13 @@
                     </div>
 
                     <div v-if="!loggedIn" class="mt-2 width-100">
-                        <label class='required'>Email</label>
+                        <label class="required">Email</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
-                                    <div class="input-group-prepend input-prepend">
+                                    <div
+                                        class="input-group-prepend input-prepend"
+                                    >
                                         <div class="input-group-text">
                                             <i class="fas fa-envelope"></i>
                                         </div>
@@ -593,11 +604,13 @@
                         </div>
                     </div>
                     <div class="mb-2">
-                        <label class='required'>Contact Number</label>
+                        <label class="required">Contact Number</label>
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <div class="input-group mb-2">
-                                    <div class="input-group-prepend input-prepend">
+                                    <div
+                                        class="input-group-prepend input-prepend"
+                                    >
                                         <div class="input-group-text">
                                             <i
                                                 class="fas fa-mobile-alt"
@@ -623,7 +636,7 @@
                     >
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
-                                <label class='required'>Flight Number</label>
+                                <label class="required">Flight Number</label>
                                 <input
                                     type="text"
                                     class="form-control"
@@ -701,7 +714,7 @@
                                 class="fas fa-arrow-left mr-1"
                                 aria-hidden="true"
                             ></i>
-                           Go Back
+                            Go Back
                         </button>
                     </div>
                     <div class="">
@@ -733,15 +746,14 @@
 
         <div class="basket" v-if="formStage.basket" style="text-align: left;">
             <div class="row continue-to-basket ml-0 mr-0">
-            <h5 class="text-white text-left mb-3">
-                Trip Details
-            </h5>
+                <h5 class="text-white text-left mb-3">
+                    Trip Details
+                </h5>
                 <div class="row continue-to-basket ml-0 mr-0 width-100">
                     <div
                         class="d-flex after-successfull-booking-details ml-0 mr-0"
                     >
                         <div class="width-100" style="font-size: 13px;">
-                            
                             <div class="table-responsive-sm">
                                 <table
                                     class="table table-striped table-sm table-hover table-bordered"
@@ -959,18 +971,21 @@
         * TODO:     Stage 5
         * ? Payment Information
         */ -->
-       
+
         <form
-            id="payment-form" class="text-left"
+            id="payment-form"
+            class="text-left"
             @submit.prevent="confirmCardPayment()"
             v-if="formStage.payment === true"
         >
             <div class="row d-flex justify-content-between ml-0 mr-0">
                 <h5 class="text-white mb-3">Payment Details</h5>
             </div>
-            <div class='payment-details'>
+            <div class="payment-details">
                 <div class="form-group">
-                    <label for="name_on_card" class='required'>Name on Card</label>
+                    <label for="name_on_card" class="required"
+                        >Name on Card</label
+                    >
                     <div class="form-row align-items-center">
                         <div class="col">
                             <div class="input-group mb-2">
@@ -982,7 +997,7 @@
                                         ></i>
                                     </div>
                                 </div>
-                                
+
                                 <input
                                     type="text"
                                     autocomplete="off"
@@ -1000,7 +1015,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class='required' for="receipt_email">Email Address</label>
+                    <label class="required" for="receipt_email"
+                        >Email Address</label
+                    >
                     <div class="form-row align-items-center">
                         <div class="col">
                             <div class="input-group mb-2">
@@ -1026,14 +1043,13 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
 
                 <!-- CSRF Field -->
                 <input type="hidden" name="_token" :value="csrf" />
 
                 <div class="form-group">
-                    <label for="card-element" class='required'>
+                    <label for="card-element" class="required">
                         Credit or debit card
                     </label>
                     <div id="card-element" class="form-control">
@@ -1048,7 +1064,11 @@
                     Payment is non refundable.
                 </div>
 
-                <button class='btn btn-primary' id="payment-submit-button" :disabled="!validatePaymentForm">
+                <button
+                    class="btn btn-primary"
+                    id="payment-submit-button"
+                    :disabled="!validatePaymentForm"
+                >
                     <div class="spinner hidden" id="spinner"></div>
                     <span id="button-text"></span>
                 </button>
@@ -1093,7 +1113,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <button
                 type="button"
                 class="btn btn-secondary mt-3"
@@ -1102,7 +1122,6 @@
                 <i class="fas fa-arrow-left mr-1" aria-hidden="true"></i>
                 Go Back
             </button>
-            
         </form>
 
         <!-- /**
@@ -1148,9 +1167,7 @@
             </div>
 
             <div class="row continue-to-basket ml-0 mr-0">
-                <div
-                    class="d-flex after-successfull-booking-details ml-0 mr-0"
-                >
+                <div class="d-flex after-successfull-booking-details ml-0 mr-0">
                     <div style="font-size: 13px;">
                         <p class="text-black-50 text-center mb-1">
                             Your request to book a transport for your trip in UK
@@ -1170,7 +1187,9 @@
                                         <tr>
                                             <th scope="row">Booking Id</th>
                                             <td>
-                                                {{ quoteDetails.afterSubmittedBookingId }}
+                                                {{
+                                                    quoteDetails.afterSubmittedBookingId
+                                                }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -1328,7 +1347,6 @@
                 >
                     Finish Booking
                 </button>
-                
             </div>
         </div>
         <!-- /**
@@ -1385,7 +1403,7 @@ export default {
                 enableTime: true,
                 dateFormat: "Y-m-d",
                 minDate: "today",
-                closeOnSelect: true,
+                closeOnSelect: true
                 // onValueUpdate: function() {
                 //     this.close();
                 // }
@@ -1552,19 +1570,64 @@ export default {
         },
 
         // Searching a place
+        // search: _.debounce((loading, search, vm) => {
+        //     if (search.length > 0) {
+        //         axios
+        //             .get(
+        //                 `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${vm.mapBox.accessToken}&country=gb&limit=5&types=address,poi`
+        //             )
+        //             .then(response => {
+        //                 vm.options = response.data.features;
+        //             });
+        //     }
+        //     loading(false);
+        // }, 1000),
+
         search: _.debounce((loading, search, vm) => {
             if (search.length > 0) {
-                axios
-                    .get(
-                        `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${vm.mapBox.accessToken}&country=gb&limit=5&types=address,poi`
-                    )
-                    .then(response => {
-                        vm.options = response.data.features;
-                    });
+                // let axiosConfig = {
+                //     headers: {
+                //         "Content-Type": "application/json"
+                //     }
+                // };
+                // axios
+                //     .get(
+                //         `https://autosuggest.search.hereapi.com/v1/autosuggest?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q=${search}&at=51.509865,-0.118092`,
+                //         axiosConfig
+                //     )
+                //     .then(response => {
+                //         vm.options = response.data.items;
+                //     });
+                $.ajax({
+                    type: "GET", //THIS NEEDS TO BE GET
+                    dataType: "jsonp",
+                    url: `https://autosuggest.search.hereapi.com/v1/autosuggest?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q=${search}&at=51.509865,-0.118092&limit=5`,
+                    success: function(data) {
+                        console.log(data.items);
+                        let results = [];
+                        data.items.forEach(x => {
+                            let category = "Others";
+                            // if(x.categories && x.categories.length && x.categories[0]){
+                            //     categories = x.categories[0].name;
+                            // }
+                            if (x?.categories?.length) {
+                                category = x.categories[0].name;
+                            }
+                            results.push({
+                                text: x.title,
+                                coordinates: [x.position.lng, x.position.lat],
+                                category
+                            });
+                        });
+                        vm.options = results;
+                    },
+                    error: function() {
+                        console.log(data);
+                    }
+                });
             }
             loading(false);
         }, 1000),
-
         // Creating a MapBox
         loaded(map) {
             map.addSource("route", {
@@ -1658,8 +1721,11 @@ export default {
             return new Promise((resolve, reject) => {
                 this.mapData.fullRoutes = "";
                 // Storing the starting point
+                //  text: x.title,
+                // coordinates: [x.position.lng, x.position.lat],
+                // category
                 this.mapData.fullRoutes +=
-                    this.journey[0].origin.geometry.coordinates.join(",") + ";";
+                    this.journey[0].origin.coordinates.join(",") + ";";
 
                 // ? Checking is there is any via route
                 if (this.journey[0].via.length) {
@@ -1676,8 +1742,7 @@ export default {
 
                         // If there is any via route then concate it with mapData.fullRoutes
                         this.mapData.fullRoutes +=
-                            viaRoutes[i].route.geometry.coordinates.join(",") +
-                            ";";
+                            viaRoutes[i].route.coordinates.join(",") + ";";
                     }
 
                     // Checking if via routes are there and if so then delete last two words
@@ -1691,14 +1756,13 @@ export default {
                 }
 
                 // Storing the ending point
-                this.mapData.fullRoutes += this.journey[0].destination.geometry.coordinates.join(
+                this.mapData.fullRoutes += this.journey[0].destination.coordinates.join(
                     ","
                 );
 
                 // Getting the origin / pickup point type
-                if (this.journey[0].origin.properties.maki) {
-                    this.journey[0].originType = this.journey[0].origin.properties.maki;
-                }
+
+                this.journey[0].originType = this.journey[0].origin.category;
 
                 const data = qs.stringify({
                     coordinates: this.mapData.fullRoutes,
@@ -2098,7 +2162,9 @@ export default {
                                     this.loading(false);
                                     Swal.fire({
                                         icon: "error",
-                                        title: `Oops... Error ` + error.response.status,
+                                        title:
+                                            `Oops... Error ` +
+                                            error.response.status,
                                         text: error.response.data.message
                                     });
                                 });
@@ -2273,7 +2339,6 @@ export default {
     color: black;
 }
 
-
 .row.container-fluid p {
     margin-bottom: 0px !important;
 }
@@ -2426,8 +2491,8 @@ label {
 
 .header-right {
     background-color: #2a2a2a;
-   /* box-shadow: 0px 2px 10px #999999a3;*/
-   /* border-radius: 8px; */
+    /* box-shadow: 0px 2px 10px #999999a3;*/
+    /* border-radius: 8px; */
     padding: 30px 35px;
     margin-bottom: 50px;
     margin-top: 120px;
@@ -2465,8 +2530,8 @@ label {
 .header-right .form-control {
     font-size: 15px;
     padding: 0.575rem 0.75rem;
-    background-color:  #ffff;
-   
+    background-color: #ffff;
+
     /* border-top-right-radius: 5px;
     border-bottom-right-radius: 5px; */
     /* background-color: #f3f3f3eb; */
@@ -2717,7 +2782,7 @@ label {
 
 .after-successfull-booking-details {
     background-color: #ffffffe3;
-   
+
     padding: 10px 10px 10px 10px;
     border-radius: 5px;
     width: 100%;
@@ -3186,10 +3251,8 @@ button:disabled {
     opacity: 0.5;
 }
 
-
 .input-append {
     margin-left: -35px;
     z-index: 10;
 }
-
 </style>
