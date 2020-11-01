@@ -118,18 +118,14 @@
                                 <div class="card-body">
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >From</label
+                                            <label>From</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.from }}
                                             </p>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >To</label
+                                            <label>To</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.to }}
@@ -139,9 +135,7 @@
                                             class="form-group col-md-4"
                                             v-if="booking.via"
                                         >
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Via Route</label
+                                            <label>Via Route</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.via }}
@@ -151,9 +145,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Journey Date</label
+                                            <label :class="{ required: allowEdit }">Journey Date</label
                                             >
                                             <p
                                                 class="booking-data"
@@ -194,18 +186,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Journey Type</label
+                                            <label>Journey Type</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.journey_type }}
                                             </p>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Vehicle</label
+                                            <label>Vehicle</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.vehicle_id }}
@@ -218,9 +206,7 @@
                                         v-if="booking.flight_number"
                                     >
                                         <div class="form-group col-md-4">
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Flight Number</label
+                                            <label>Flight Number</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.flight_number }}
@@ -230,9 +216,7 @@
                                             class="form-group col-md-4"
                                             v-if="booking.flight_origin"
                                         >
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Flight Origin</label
+                                            <label>Flight Origin</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.flight_origin }}
@@ -242,18 +226,14 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Passengers</label
+                                            <label>Passengers</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.passengers }}
                                             </p>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Luggage</label
+                                            <label>Luggage</label
                                             >
                                             <p class="booking-data">
                                                 {{ booking.luggage }}
@@ -266,9 +246,7 @@
                                         <div
                                             class="form-group col-md-12 text-right"
                                         >
-                                            <label
-                                                class="col-sm-6 col-form-label"
-                                                >Total price</label
+                                            <label>Total price</label
                                             >
                                             <p class="booking-data">
                                                 {{ "₤ " + booking.total_price }}
@@ -291,7 +269,7 @@
                                         class="info-section border-left-danger"
                                         v-if="errorTypes.editNotPossible"
                                     >
-                                        Sorry you can't not edit this booking
+                                        Sorry, you can't not edit this booking
                                         right now.
                                     </p> -->
                                     <div v-if="!errorTypes.editNotPossible">
@@ -454,7 +432,7 @@ export default {
     display: block;
     width: 100%;
     height: calc(1.6em + 0.75rem + 2px);
-    padding: 0.375rem 1rem;
+    
     font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.6;

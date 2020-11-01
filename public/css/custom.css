@@ -316,3 +316,7 @@ button:focus{
 select, .form-control {
     border-radius: 0 !important;
 }
+
+.form-invalid {
+    border-color: red;
+}
