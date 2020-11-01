@@ -94,7 +94,7 @@
                                         @csrf @method('PATCH')
 
                                         <div class="form-group">
-                                            <label>Email address</label>
+                                            <label>Email</label>
                                             <input name="email" type="email" class="form-control" readonly
                                                 value="{{ Auth::user()->email }}">
                                         </div>
