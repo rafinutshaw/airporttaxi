@@ -36,6 +36,7 @@
                                     :options="options"
                                     @search="onSearch"
                                     :closeOnSelect="true"
+                                    :selectable="option => !option.isSubheader"
                                 >
                                     <template slot="no-options">
                                         type to search Places..
@@ -1585,41 +1586,38 @@ export default {
 
         search: _.debounce((loading, search, vm) => {
             if (search.length > 0) {
-                // let axiosConfig = {
-                //     headers: {
-                //         "Content-Type": "application/json"
-                //     }
-                // };
-                // axios
-                //     .get(
-                //         `https://autosuggest.search.hereapi.com/v1/autosuggest?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q=${search}&at=51.509865,-0.118092`,
-                //         axiosConfig
-                //     )
-                //     .then(response => {
-                //         vm.options = response.data.items;
-                //     });
                 $.ajax({
                     type: "GET", //THIS NEEDS TO BE GET
                     dataType: "jsonp",
                     url: `https://autosuggest.search.hereapi.com/v1/autosuggest?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q=${search}&at=51.509865,-0.118092&limit=5`,
                     success: function(data) {
-                        console.log(data.items);
-                        let results = [];
+                        let results = {};
                         data.items.forEach(x => {
                             let category = "Others";
-                            // if(x.categories && x.categories.length && x.categories[0]){
-                            //     categories = x.categories[0].name;
-                            // }
+      
                             if (x?.categories?.length) {
                                 category = x.categories[0].name;
                             }
-                            results.push({
+                            const data = {
                                 text: x.title,
                                 coordinates: [x.position.lng, x.position.lat],
-                                category
-                            });
+                                category,
+                                isSubheader: false
+                            }
+                            if(results[data.category]){
+                                results[data.category].push(data);
+                            } else {
+                                results[data.category]=[];
+                                 results[data.category].push(data);
+                            }
                         });
-                        vm.options = results;
+                        vm.options = [];
+                        for (const [key, value] of Object.entries(results)) {
+                           vm.options.push({text: key, isSubheader: true});
+                           value.forEach((data)=> {
+                                 vm.options.push(data);
+                           })
+                        }
                     },
                     error: function() {
                         console.log(data);
