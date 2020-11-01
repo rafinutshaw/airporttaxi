@@ -1383,6 +1383,8 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import stripePaymentIntent from "./Stripe Payment Intent";
 
+import { isValid } from "postcode";
+
 export default {
     components: {
         draggable,
@@ -1586,43 +1588,102 @@ export default {
 
         search: _.debounce((loading, search, vm) => {
             if (search.length > 0) {
-                $.ajax({
-                    type: "GET", //THIS NEEDS TO BE GET
-                    dataType: "jsonp",
-                    url: `https://autosuggest.search.hereapi.com/v1/autosuggest?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q=${search}&at=51.509865,-0.118092&limit=5`,
-                    success: function(data) {
-                        let results = {};
-                        data.items.forEach(x => {
-                            let category = "Others";
-      
-                            if (x?.categories?.length) {
-                                category = x.categories[0].name;
-                            }
-                            const data = {
-                                text: x.title,
-                                coordinates: [x.position.lng, x.position.lat],
-                                category,
-                                isSubheader: false
-                            }
-                            if(results[data.category]){
-                                results[data.category].push(data);
-                            } else {
-                                results[data.category]=[];
-                                 results[data.category].push(data);
-                            }
-                        });
-                        vm.options = [];
-                        for (const [key, value] of Object.entries(results)) {
-                           vm.options.push({text: key, isSubheader: true});
-                           value.forEach((data)=> {
-                                 vm.options.push(data);
-                           })
+                // Check if the input is a postcode or not
+                if (isValid(search)) {
+                    $.ajax({
+                        type: "GET", //THIS NEEDS TO BE GET
+                        dataType: "jsonp",
+                        url: `https://api.postcodes.io/postcodes/${search}`,
+                        success: function(data) {
+                            console.log(data.result);
+                            let coordinates = {
+                                latitude: data.result.latitude,
+                                longitude: data.result.longitude
+                            };
+
+                            // Send ajax request to here maps api with coordinates 
+                            $.ajax({
+                                type: "GET",
+                                url: `https://revgeocode.search.hereapi.com/v1/revgeocode?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q&at=${encodeURI(
+                                    coordinates.latitude +
+                                        "," +
+                                        coordinates.longitude
+                                )}&lang=en-US`,
+                                dataType: "jsonp",
+                                success: function(data) {
+                                    console.log(data);
+                                    vm.options = [];
+                                    let category = "Others";
+
+                                    if (data?.items?.length) {
+                                        vm.options.push({
+                                            text: data.items[0].title,
+                                            coordinates: [
+                                                data.items[0].position.lng,
+                                                data.items[0].position.lat
+                                            ],
+                                            category,
+                                            isSubheader: false
+                                        });
+                                    }
+                                },
+
+                                error: function(error) {
+                                    console.log(error);
+                                }
+                            });
+                        },
+                        error: function() {
+                            console.log(data);
                         }
-                    },
-                    error: function() {
-                        console.log(data);
-                    }
-                });
+                    });
+                } else {
+                    $.ajax({
+                        type: "GET", //THIS NEEDS TO BE GET
+                        dataType: "jsonp",
+                        url: `https://autosuggest.search.hereapi.com/v1/autosuggest?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q=${search}&at=51.509865,-0.118092&limit=5`,
+                        success: function(data) {
+                            let results = {};
+                            data.items.forEach(x => {
+                                let category = "Others";
+
+                                if (x?.categories?.length) {
+                                    category = x.categories[0].name;
+                                }
+                                const data = {
+                                    text: x.title,
+                                    coordinates: [
+                                        x.position.lng,
+                                        x.position.lat
+                                    ],
+                                    category,
+                                    isSubheader: false
+                                };
+                                if (results[data.category]) {
+                                    results[data.category].push(data);
+                                } else {
+                                    results[data.category] = [];
+                                    results[data.category].push(data);
+                                }
+                            });
+                            vm.options = [];
+                            for (const [key, value] of Object.entries(
+                                results
+                            )) {
+                                vm.options.push({
+                                    text: key,
+                                    isSubheader: true
+                                });
+                                value.forEach(data => {
+                                    vm.options.push(data);
+                                });
+                            }
+                        },
+                        error: function() {
+                            console.log(data);
+                        }
+                    });
+                }
             }
             loading(false);
         }, 1000),
