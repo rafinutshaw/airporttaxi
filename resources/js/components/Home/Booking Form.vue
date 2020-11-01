@@ -372,12 +372,7 @@
                         @click.prevent="submitQuote"
                     >
                         Quote Now
-                        <span
-                            ><i
-                                class="fa fa-arrow-right ml-1"
-                                aria-hidden="true"
-                            ></i
-                        ></span>
+                        <i class="fa fa-arrow-right ml-1" aria-hidden="true"></i>
                     </button>
                 </div>
                 <!-- <div class="col-sm-12 pl-0 pr-0 booking-form-btn">
