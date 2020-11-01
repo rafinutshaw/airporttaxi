@@ -268,6 +268,6 @@ class BookingController extends Controller
         $booking->updated_at = now();
         $booking->save();
 
-        return response()->json(['message' => 'Date of journey changes saved successfully.'], 200);
+        return response()->json(['message' => 'Success! Changes saved.'], 200);
     }
 }
