@@ -1683,7 +1683,7 @@ export default {
                                     category = x.categories[0].name;
                                 }
                                 const data = {
-                                    text: x.address?.label x.address?.label : x.title,
+                                    text: x.address?.label ? x.address?.label : x.title,
                                     coordinates: [
                                         x.position.lng,
                                         x.position.lat
