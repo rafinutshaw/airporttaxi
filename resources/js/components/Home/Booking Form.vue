@@ -1664,7 +1664,14 @@ export default {
                     $.ajax({
                         type: "GET", //THIS NEEDS TO BE GET
                         dataType: "jsonp",
-                        url: `https://autosuggest.search.hereapi.com/v1/autosuggest?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q=${search}&at=51.509865,-0.118092&limit=5`,
+                        url: `https://autosuggest.search.hereapi.com/v1/autosuggest`,
+                        data: { 
+                                apiKey: "cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M", 
+                                q : search ,
+                                at: '51.509865,-0.118092',
+                                limit: 10,
+                                in: 'countryCode:GBR'
+                            },
                         success: function(data) {
                             let results = {};
                             data.items.forEach(x => {
@@ -1690,10 +1697,17 @@ export default {
                                 }
                             });
                             vm.options = [];
-                            for (const [key, value] of Object.entries(
-                                results
-                            )) {
-                                if (key != "Airport") {
+                            if(results['Airport Terminal']){
+                                vm.options.push({
+                                    text: 'Airport Terminal',
+                                    isSubheader: true
+                                });
+                                results['Airport Terminal'].forEach(data => {
+                                    vm.options.push(data);
+                                });
+                            }
+                            for (const [key, value] of Object.entries(results)) {
+                                if (key != "Airport Terminal" && key != "Others") {
                                     vm.options.push({
                                         text: key,
                                         isSubheader: true
@@ -1702,6 +1716,15 @@ export default {
                                         vm.options.push(data);
                                     });
                                 }
+                            }
+                            if(results['Others']){
+                                vm.options.push({
+                                    text: 'Others',
+                                    isSubheader: true
+                                });
+                                results['Others'].forEach(data => {
+                                    vm.options.push(data);
+                                });
                             }
                         },
                         error: function() {
