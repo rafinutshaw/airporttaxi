@@ -1627,11 +1627,12 @@ export default {
                             // Send ajax request to here maps api with coordinates
                             $.ajax({
                                 type: "GET",
-                                url: `https://revgeocode.search.hereapi.com/v1/revgeocode?apiKey=cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M&q&at=${encodeURI(
-                                    coordinates.latitude +
-                                        "," +
-                                        coordinates.longitude
-                                )}&lang=en-US`,
+                                url: `https://revgeocode.search.hereapi.com/v1/revgeocode`,
+                                data: { 
+                                    apiKey: "cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M", 
+                                    at: encodeURI( coordinates.latitude + "," + coordinates.longitude ),
+                                    lang: 'en-US'
+                                },
                                 dataType: "jsonp",
                                 success: function(data) {
                                     console.log(data);
@@ -1736,7 +1737,7 @@ export default {
                 }
             }
             loading(false);
-        }, 1000),
+        }, 500),
         // Creating a MapBox
         loaded(map) {
             map.addSource("route", {
