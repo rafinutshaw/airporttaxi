@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div
-                        class="form-group input-group via-route"
+                        class="form-group via-route"
                         v-show="!index && item.via.length > 0"
                     >
                         <draggable
@@ -104,6 +104,7 @@
                             <div
                                 v-for="(viaItem, viaIndex) in item.via"
                                 :key="viaIndex"
+                                class="mb-2"
                             >
                                 <div>
                                     <div
@@ -199,7 +200,7 @@
                         </draggable>
                     </div>
                     <div class="row">
-                        <div class="mt-2 dropoff-point col-sm-12">
+                        <div class="mb-2 dropoff-point col-sm-12">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend  input-prepend">
                                     <div class="input-group-text">
@@ -262,7 +263,7 @@
 
                     <!-- Pick-up Date & Time -->
                     <div
-                        class="row d-flex text-left justify-content-between ml-0 mr-0 mt-3"
+                        class="row d-flex text-left justify-content-between ml-0 mr-0 mt-1"
                     >
                         <div class="width-100">
                             <!-- <label>Pick-up Date & Time</label> -->
@@ -1768,44 +1769,31 @@ export default {
                     "line-width": 8
                 }
             });
-            new mapboxgl.Marker()
-                .setLngLat(this.mapData.coordinates[0])
-                .addTo(map);
+            console.log(this.mapData)
+            let features = [];
+            this.mapData.waypoints.forEach((x)=>{
+                features.push({
+                    type: "Feature",
+                    properties: {
+                        description: x.name
+                    },
+                    geometry: {
+                        type: "Point",
+                        coordinates: x.location
+                    }
+                });
+                new mapboxgl.Marker().setLngLat(x.location).addTo(map);
+              
+            })
+            const markerLocations = [this.mapData.waypoints[0].location, this.mapData.waypoints[this.mapData.waypoints.length-1].location];
 
-            new mapboxgl.Marker()
-                .setLngLat(
-                    this.mapData.coordinates[
-                        this.mapData.coordinates.length - 1
-                    ]
-                )
-                .addTo(map);
+            map.fitBounds(markerLocations, 
+                { padding: {top: 60, bottom: 60, left: 60, right: 60} } 
+            );
 
             var places = {
                 type: "FeatureCollection",
-                features: [
-                    {
-                        type: "Feature",
-                        properties: {
-                            description: this.mapData.start
-                        },
-                        geometry: {
-                            type: "Point",
-                            coordinates: this.mapData.coordinates[0]
-                        }
-                    },
-                    {
-                        type: "Feature",
-                        properties: {
-                            description: this.mapData.end
-                        },
-                        geometry: {
-                            type: "Point",
-                            coordinates: this.mapData.coordinates[
-                                this.mapData.coordinates.length - 1
-                            ]
-                        }
-                    }
-                ]
+                features: features
             };
 
             map.addSource("places", {
@@ -1915,6 +1903,10 @@ export default {
                             this.mapBox.fullRoutes = "";
                             reject(false);
                         } else {
+                            //save route markers
+                            this.mapData.waypoints = response.data.waypoints;
+                      
+                            console.log(this.mapData.waypoints);
                             // Getting sesponse code from mapbox api
                             this.mapData.responseCode = response.data.code;
 
