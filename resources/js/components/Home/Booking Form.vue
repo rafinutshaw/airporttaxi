@@ -1640,7 +1640,7 @@ export default {
 
                                     if (data?.items?.length) {
                                         vm.options.push({
-                                            text: data.items[0].title,
+                                            text: data.items[0].address.label,
                                             coordinates: [
                                                 data.items[0].position.lng,
                                                 data.items[0].position.lat
@@ -1674,6 +1674,8 @@ export default {
                             },
                         success: function(data) {
                             let results = {};
+                            data.items = data.items.filter((x)=> x.localityType != "city")
+                            console.log(data.items)
                             data.items.forEach(x => {
                                 let category = "Others";
 
@@ -1681,7 +1683,7 @@ export default {
                                     category = x.categories[0].name;
                                 }
                                 const data = {
-                                    text: x.title,
+                                    text: x.address.label,
                                     coordinates: [
                                         x.position.lng,
                                         x.position.lat
