@@ -653,12 +653,7 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        v-show="
-                            journey[0].originType == 'airport' ||
-                                journey[0].originType == 'terminal'
-                        "
-                    >
+                    <div v-show="journey[0].originType == 'Airport Terminal'">
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
                                 <label class="required">Flight Number</label>
@@ -691,7 +686,7 @@
                             >
                                 <option
                                     v-for="passengers in journey[0]
-                                        .maxPassenger"
+                                        .maxPassenger" :key="passengers"
                                 >
                                     {{ passengers }}
                                 </option>
@@ -705,7 +700,8 @@
                                 v-model="quoteDetails.luggage"
                             >
                                 <option>None</option>
-                                <option v-for="luggage in journey[0].luggage">
+                                <option v-for="luggage in journey[0].luggage"
+                                    :key="luggage">
                                     {{ luggage }} Luggage
                                 </option>
                             </select>
@@ -871,6 +867,26 @@
                                                 </span>
                                             </td>
                                         </tr>
+                                        <tr v-if="quoteDetails.flightNumber !== ''">
+                                            <th scope="row">
+                                                Flight Number
+                                            </th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.flightNumber
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr v-if="quoteDetails.flightOrigin !== ''">
+                                            <th scope="row">
+                                                Flight Origin
+                                            </th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.flightOrigin
+                                                }}
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <th
                                                 class="table-primary"
@@ -1026,6 +1042,7 @@
                                 <input
                                     type="text"
                                     autocomplete="off"
+                                    required
                                     class="form-control form-control-iconized"
                                     id="name_on_card"
                                     name="name_on_card"
@@ -1057,6 +1074,7 @@
                                 <input
                                     autocomplete="off"
                                     type="email"
+                                    required
                                     class="form-control form-control-iconized"
                                     name="receipt_email"
                                     id="receipt_email"
@@ -1142,6 +1160,7 @@
             <button
                 type="button"
                 class="btn btn-secondary mt-3"
+                :disabled="disableConfirmCardPaymentBack"
                 @click="backToBasket"
             >
                 <i class="fas fa-arrow-left mr-1" aria-hidden="true"></i>
@@ -1304,6 +1323,26 @@
                                                 </span>
                                             </td>
                                         </tr>
+                                        <tr v-if="quoteDetails.flightNumber !== ''">
+                                            <th scope="row">
+                                                Flight Number
+                                            </th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.flightNumber
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr v-if="quoteDetails.flightOrigin !== ''">
+                                            <th scope="row">
+                                                Flight Origin
+                                            </th>
+                                            <td>
+                                                {{
+                                                    quoteDetails.flightOrigin
+                                                }}
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <th
                                                 class="table-primary"
@@ -1436,6 +1475,7 @@ export default {
                 // }
             },
             isLoading: false,
+            disableConfirmCardPaymentBack: false,
             loggedIn: false,
 
             formStage: {
@@ -2164,6 +2204,7 @@ export default {
 
         // Confirm Card Payment
         confirmCardPayment() {
+            this.disableConfirmCardPaymentBack = true;
             var form = document.getElementById("payment-form");
 
             this.loading(true);
@@ -2371,6 +2412,11 @@ export default {
 
         windowReload() {
             window.location = "/";
+        },
+
+        validateEmail(email) {
+            const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
         }
     },
     created() {
@@ -2389,12 +2435,10 @@ export default {
         },
 
         checkPassengerDetails() {
-            if (
-                this.journey[0].originType == "airport" ||
-                this.journey[0].originType == "terminal"
-            ) {
+            if (this.journey[0].originType == "Airport Terminal") {
                 if (
                     this.quoteDetails.name === "" ||
+                    this.validateEmail(this.quoteDetails.email) == false ||
                     this.quoteDetails.mobile === "" ||
                     this.quoteDetails.flightNumber === "" ||
                     this.quoteDetails.passengers === null ||
@@ -2406,6 +2450,7 @@ export default {
             } else {
                 if (
                     this.quoteDetails.name === "" ||
+                    this.validateEmail(this.quoteDetails.email) == false ||
                     this.quoteDetails.mobile === "" ||
                     this.quoteDetails.passengers === null ||
                     this.quoteDetails.luggage === "" ||
@@ -2418,7 +2463,7 @@ export default {
         validatePaymentForm() {
             if (
                 this.name_on_card === null ||
-                this.receipt_email === null ||
+                this.validateEmail(this.receipt_email) == false ||
                 this.card._complete === false
             ) {
                 return false;

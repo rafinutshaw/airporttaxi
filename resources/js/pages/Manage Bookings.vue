@@ -42,6 +42,28 @@
             <div class="row mt-4 justify-content-center">
                 <div class="col-12">
                     <div class="row justify-content-center">
+                        <!-- Booking Not Found -->
+                        <div
+                            class="col-md-10 col-sm-12"
+                            v-if="error.data.message != ''"
+                        >
+                            <div
+                                class="alert alert-dismissible alert-danger fade show"
+                                role="alert"
+                            >
+                                {{ error.data.message }}
+                                <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="alert"
+                                    aria-label="Close"
+                                >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Booking Not Found -->
+
                         <!-- Success or Error after update request -->
                         <div
                             class="col-md-10 col-sm-12"
@@ -83,7 +105,7 @@
                                             !errorTypes.editNotPossible &&
                                                 !allowEdit
                                         "
-                                        @click="allowEdit = true"
+                                        @click="onEdit"
                                     >
                                         Edit <i class="fas fa-edit ml-1"></i>
                                     </button>
@@ -95,7 +117,7 @@
                                             !errorTypes.editNotPossible &&
                                                 allowEdit
                                         "
-                                        @click="allowEdit = false"
+                                        @click="cancelEdit"
                                     >
                                         Cancel
                                         <i class="fas fa-window-close ml-1"></i>
@@ -118,15 +140,13 @@
                                 <div class="card-body">
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label>From</label
-                                            >
+                                            <label>From</label>
                                             <p class="booking-data">
                                                 {{ booking.from }}
                                             </p>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label>To</label
-                                            >
+                                            <label>To</label>
                                             <p class="booking-data">
                                                 {{ booking.to }}
                                             </p>
@@ -135,8 +155,7 @@
                                             class="form-group col-md-4"
                                             v-if="booking.via"
                                         >
-                                            <label>Via Route</label
-                                            >
+                                            <label>Via Route</label>
                                             <p class="booking-data">
                                                 {{ booking.via }}
                                             </p>
@@ -145,99 +164,135 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label :class="{ required: allowEdit }">Journey Date</label
+                                            <label
+                                                :class="{ required: allowEdit }"
+                                                >Journey Date</label
                                             >
                                             <p
                                                 class="booking-data"
-                                                v-if="
-                                                    errorTypes.editNotPossible
-                                                "
+                                                v-if="!allowEdit"
                                             >
                                                 {{
                                                     booking.journey_date
                                                         | moment
                                                 }}
                                             </p>
-                                            <div
-                                                v-if="
-                                                    !errorTypes.editNotPossible
-                                                "
+                                            <flat-pickr
+                                                name="journey_date"
+                                                v-model="booking.journey_date"
+                                                :config="config"
+                                                class="flat-datepicker"
+                                                placeholder="Select date (BST)"
+                                                v-else
                                             >
-                                                <p
-                                                    class="booking-data"
-                                                    v-if="!allowEdit"
-                                                >
-                                                    {{
-                                                        booking.journey_date
-                                                            | moment
-                                                    }}
-                                                </p>
-                                                <flat-pickr
-                                                    name="journey_date"
-                                                    v-model="
-                                                        booking.journey_date
-                                                    "
-                                                    :config="config"
-                                                    class="flat-datepicker"
-                                                    placeholder="Select date (BST)"
-                                                    v-if="allowEdit"
-                                                >
-                                                </flat-pickr>
-                                            </div>
+                                            </flat-pickr>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label>Journey Type</label
-                                            >
+                                            <label>Journey Type</label>
                                             <p class="booking-data">
                                                 {{ booking.journey_type }}
                                             </p>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label>Vehicle</label
-                                            >
+                                            <label>Vehicle</label>
                                             <p class="booking-data">
-                                                {{ booking.vehicle_id }}
+                                                <!-- {{ booking.vehicle_id }} -->
+                                                {{ vehicle.type }}
                                             </p>
                                         </div>
                                     </div>
 
                                     <div
                                         class="form-row"
-                                        v-if="booking.flight_number"
+                                        v-if="booking.hasFlightNumber"
                                     >
                                         <div class="form-group col-md-4">
-                                            <label>Flight Number</label
+                                            <label
+                                                :class="{ required: allowEdit }"
+                                                >Flight Number</label
                                             >
-                                            <p class="booking-data">
+                                            <p
+                                                class="booking-data"
+                                                v-if="!allowEdit"
+                                            >
                                                 {{ booking.flight_number }}
                                             </p>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                required
+                                                v-else
+                                                v-model="booking.flight_number"
+                                                placeholder="Flight Number"
+                                                aria-label="Flight Number"
+                                                aria-describedby="basic-addon1"
+                                            />
                                         </div>
                                         <div
                                             class="form-group col-md-4"
-                                            v-if="booking.flight_origin"
+                                            v-if="booking.hasFlightOrigin"
                                         >
-                                            <label>Flight Origin</label
+                                            <label>Flight Origin</label>
+                                            <p
+                                                class="booking-data"
+                                                v-if="!allowEdit"
                                             >
-                                            <p class="booking-data">
                                                 {{ booking.flight_origin }}
                                             </p>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                v-else
+                                                v-model="booking.flight_origin"
+                                                placeholder="Flight Origin"
+                                                aria-label="Flight Origin"
+                                                aria-describedby="basic-addon1"
+                                            />
                                         </div>
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Passengers</label
+                                            <label>Passengers</label>
+                                            <p
+                                                class="booking-data"
+                                                v-if="!allowEdit"
                                             >
-                                            <p class="booking-data">
                                                 {{ booking.passengers }}
                                             </p>
+                                            <select
+                                                v-model="booking.passengers"
+                                                class="form-control"
+                                                v-else
+                                                ><option
+                                                    v-for="passengers in maxPassengerArray"
+                                                    :key="passengers"
+                                                >
+                                                    {{ passengers }}
+                                                </option>
+                                            </select>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Luggage</label
+                                            <label>Luggage</label>
+                                            <p
+                                                class="booking-data"
+                                                v-if="!allowEdit"
                                             >
-                                            <p class="booking-data">
                                                 {{ booking.luggage }}
                                             </p>
+                                            <select
+                                                v-model="booking.luggage"
+                                                class="form-control"
+                                                v-else
+                                            >
+                                                <option>None</option>
+                                                <option
+                                                    v-for="luggage in maxLuggageArray"
+                                                    :key="luggage"
+                                                >
+                                                    {{ luggage }} luggage
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -246,8 +301,7 @@
                                         <div
                                             class="form-group col-md-12 text-right"
                                         >
-                                            <label>Total price</label
-                                            >
+                                            <label>Total price</label>
                                             <p class="booking-data">
                                                 {{ "₤ " + booking.total_price }}
                                             </p>
@@ -261,7 +315,11 @@
                                     </p>
                                     <p
                                         class="info-section border-left-danger"
-                                        v-if="error && error.data && error.data.message"
+                                        v-if="
+                                            error &&
+                                                error.data &&
+                                                error.data.message
+                                        "
                                     >
                                         {{ error.data.message }}
                                     </p>
@@ -276,6 +334,7 @@
                                         <button
                                             type="submit"
                                             class="btn btn-primary"
+                                            v-if="allowEdit"
                                             @click.prevent="onUpdate"
                                         >
                                             Update
@@ -295,6 +354,7 @@
 import moment from "moment";
 import flatPickr from "vue-flatpickr-component";
 import loader from "../components/Loader";
+import _ from "lodash";
 
 export default {
     components: {
@@ -314,13 +374,21 @@ export default {
                 closeOnSelect: true
             },
             isLoading: false,
-            bookingId: null,
-            email: "",
+            bookingId: 218,
+            email: "sezansarker@gmail.com",
             booking: {
                 booking_status_id: null,
                 journey_date: null,
-                updated_at: null
+                updated_at: null,
+                hasFlightNumber: false,
+                hasFlightOrigin: false,
+                vehicle: {
+                    type: "asd",
+                    maxPassenger: null,
+                    luggage: null
+                }
             },
+            temporaryBooking: {},
             bookingStatus: [
                 "Unpaid",
                 "Pending",
@@ -341,7 +409,11 @@ export default {
                 }
             },
             updated: null,
-            updateError: null
+            updateError: null,
+            vehicles: null,
+            vehicle: {},
+            maxPassengerArray: [],
+            maxLuggageArray: []
         };
     },
     filters: {
@@ -373,6 +445,11 @@ export default {
             this.updateError = null;
             this.errorTypes.editNotPossible = false;
 
+            axios.get("/price-list").then(response => {
+                this.vehicles = response.data;
+            });
+
+            // Getting the price list from database
             axios
                 .post("/search-booking", {
                     bookingId: this.bookingId,
@@ -381,6 +458,30 @@ export default {
                 .then(response => {
                     this.showBooking = true;
                     this.booking = response.data.booking;
+
+                    this.booking.flight_number !== "" &&
+                    this.booking.flight_number !== null
+                        ? (this.booking.hasFlightNumber = true)
+                        : false;
+                    this.booking.flight_origin !== "" &&
+                    this.booking.flight_origin !== null
+                        ? (this.booking.hasFlightOrigin = true)
+                        : false;
+
+                    this.vehicles.forEach(element => {
+                        if (element.id === this.booking.vehicle_id) {
+                            console.log(element.type);
+                            this.vehicle = JSON.parse(JSON.stringify(element));
+                        }
+                    });
+                    for (let i = 1; i <= this.vehicle.maxPassenger; i++) {
+                        this.maxPassengerArray.push(i);
+                    }
+                    for (let i = 1; i <= this.vehicle.luggage; i++) {
+                        this.maxLuggageArray.push(i);
+                    }
+
+                    // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
                 })
                 .catch(error => {
                     if (error.response.status === 403) {
@@ -403,7 +504,9 @@ export default {
             axios
                 .post("/update-booking", {
                     bookingId: this.booking.id,
-                    journey_date: this.booking.journey_date
+                    journey_date: this.booking.journey_date,
+                    flight_number: this.booking.flight_number,
+                    flight_origin: this.booking.flight_origin
                 })
                 .then(response => {
                     this.updated = response.data.message;
@@ -422,6 +525,14 @@ export default {
                     this.isLoading = false;
                     this.allowEdit = false;
                 });
+        },
+        onEdit() {
+            this.allowEdit = true;
+            this.temporaryBooking = _.cloneDeep(this.booking);
+        },
+        cancelEdit() {
+            this.allowEdit = false;
+            this.booking = _.cloneDeep(this.temporaryBooking)
         }
     }
 };
@@ -432,7 +543,7 @@ export default {
     display: block;
     width: 100%;
     height: calc(1.6em + 0.75rem + 2px);
-    
+
     font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.6;
