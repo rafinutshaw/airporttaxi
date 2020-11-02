@@ -1640,7 +1640,7 @@ export default {
 
                                     if (data?.items?.length) {
                                         vm.options.push({
-                                            text: data.items[0].address.label,
+                                            text: data.items[0].address?.label ? data.items[0].address?.label : data.items[0].title,
                                             coordinates: [
                                                 data.items[0].position.lng,
                                                 data.items[0].position.lat
@@ -1683,7 +1683,7 @@ export default {
                                     category = x.categories[0].name;
                                 }
                                 const data = {
-                                    text: x.address.label,
+                                    text: x.address?.label x.address?.label : x.title,
                                     coordinates: [
                                         x.position.lng,
                                         x.position.lat
