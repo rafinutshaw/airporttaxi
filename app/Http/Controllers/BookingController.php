@@ -267,7 +267,7 @@ class BookingController extends Controller
         $booking->journey_date = $request->journey_date;
         $booking->flight_number = $request->flight_number;
         $booking->flight_origin = $request->flight_origin;
-        // $booking->updated_at = now();
+        $booking->updated_at = now();
         $booking->save();
 
         return response()->json(['message' => 'Success! Changes saved.'], 200);

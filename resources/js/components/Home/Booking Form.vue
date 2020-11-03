@@ -1662,7 +1662,7 @@ export default {
                         dataType: "jsonp",
                         url: `https://api.postcodes.io/postcodes/${search}`,
                         success: function(data) {
-                            console.log(data.result);
+                            // console.log(data.result);
                             let coordinates = {
                                 latitude: data.result.latitude,
                                 longitude: data.result.longitude
@@ -1684,7 +1684,6 @@ export default {
                                 },
                                 dataType: "jsonp",
                                 success: function(data) {
-                                    console.log(data);
                                     vm.options = [];
                                     let category = "Others";
 
@@ -1704,12 +1703,10 @@ export default {
                                 },
 
                                 error: function(error) {
-                                    console.log(error);
                                 }
                             });
                         },
                         error: function() {
-                            console.log(data);
                         }
                     });
                 } else {
@@ -1730,7 +1727,6 @@ export default {
                             data.items = data.items.filter(
                                 x => x.localityType != "city"
                             );
-                            console.log(data.items);
                             data.items.forEach(x => {
                                 let category = "Others";
 
@@ -1792,7 +1788,6 @@ export default {
                             }
                         },
                         error: function() {
-                            console.log(data);
                         }
                     });
                 }
@@ -1829,7 +1824,6 @@ export default {
                     "line-width": 8
                 }
             });
-            console.log(this.mapData);
             let features = [];
             this.mapData.waypoints.forEach(x => {
                 features.push({
@@ -1969,7 +1963,7 @@ export default {
                             //save route markers
                             this.mapData.waypoints = response.data.waypoints;
 
-                            console.log(this.mapData.waypoints);
+                            // console.log(this.mapData.waypoints);
                             // Getting sesponse code from mapbox api
                             this.mapData.responseCode = response.data.code;
 
