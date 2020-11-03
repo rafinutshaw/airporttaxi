@@ -26,7 +26,7 @@ const hideLoading = () => {
     document.querySelector("#loading-content").classList.remove("lds-ellipsis");
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
     // Change Side Nav Option color after clicking (Admin Lte 3)
     $(".nav-link").click(function() {
         if (!$(this).hasClass("active")) {
