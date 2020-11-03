@@ -319,7 +319,7 @@
                 </tr>
 
                 <tr>
-                    <td class="no">Vechile</td>
+                    <td class="no">Vehicle</td>
                     <td class="desc" colspan="4">
                         {{ $data['vehicle'] }}
                     </td>
@@ -328,9 +328,27 @@
                 <tr>
                     <td class="no">Time & Date</td>
                     <td class="desc" colspan="4">
-                        {{ $data['journeyDate'] }}
+                        {{ date('l jS \\of F Y h:i:s A', strtotime($data['journeyDate'])) }}
                     </td>
                 </tr>
+
+                @isset($data['flight_number'])
+                <tr>
+                    <td class="no">Flight Number</td>
+                    <td class="desc" colspan="4">
+                        {{ $data['flight_number'] }}
+                    </td>
+                </tr>
+                @endisset
+
+                @isset($data['flight_origin'])
+                <tr>
+                    <td class="no">Flight Origin</td>
+                    <td class="desc" colspan="4">
+                        {{ $data['flight_origin'] }}
+                    </td>
+                </tr>
+                @endisset
 
                 <tr>
                     <td class="no">

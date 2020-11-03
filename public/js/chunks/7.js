@@ -14,6 +14,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
 /* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_Loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Loader */ "./resources/js/components/Loader.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -307,6 +309,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -319,23 +382,31 @@ __webpack_require__.r(__webpack_exports__);
     return {
       // FlatPickr Config
       config: {
-        wrap: true,
+        wrap: false,
         // set wrap to true only when using 'input-group'
         altFormat: "M j, Y h:i K",
         altInput: true,
         enableTime: true,
-        dateFormat: "Y-m-d",
+        dateFormat: "Y-m-d H:i",
         minDate: "today",
         closeOnSelect: true
       },
       isLoading: false,
-      bookingId: null,
-      email: "",
+      bookingId: 218,
+      email: "sezansarker@gmail.com",
       booking: {
         booking_status_id: null,
         journey_date: null,
-        updated_at: null
+        updated_at: null,
+        hasFlightNumber: false,
+        hasFlightOrigin: false,
+        vehicle: {
+          type: "asd",
+          maxPassenger: null,
+          luggage: null
+        }
       },
+      temporaryBooking: {},
       bookingStatus: ["Unpaid", "Pending", "Approved", "Ongoing", "Completed", "Canceled"],
       showBooking: false,
       allowEdit: false,
@@ -349,7 +420,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       },
       updated: null,
-      updateError: null
+      updateError: null,
+      vehicles: null,
+      vehicle: {},
+      maxPassengerArray: [],
+      maxLuggageArray: []
     };
   },
   filters: {
@@ -361,6 +436,8 @@ __webpack_require__.r(__webpack_exports__);
     onSearchSubmit: function onSearchSubmit() {
       var _this = this;
 
+      this.allowEdit = false, this.maxPassengerArray = [];
+      this.maxLuggageArray = [];
       this.isLoading = true;
       this.booking = {
         booking_status_id: null,
@@ -380,22 +457,46 @@ __webpack_require__.r(__webpack_exports__);
       this.updated = null;
       this.updateError = null;
       this.errorTypes.editNotPossible = false;
+      axios.get("/price-list").then(function (response) {
+        _this.vehicles = response.data;
+      }); // Getting the price list from database
+
       axios.post("/search-booking", {
         bookingId: this.bookingId,
         email: this.email
       }).then(function (response) {
-        _this.showBooking = true;
         _this.booking = response.data.booking;
-      })["catch"](function (error) {
-        if (error.response.status === 403) {
-          _this.showBooking = true;
-          _this.booking = error.response.data.booking;
-          _this.errorTypes.editNotPossible = true;
-        } else if (error.response.status === 404) {
-          _this.errorTypes.bookingNotFound == true;
+
+        _this.vehicles.forEach(function (element) {
+          if (element.id === _this.booking.vehicle_id) {
+            console.log(element.type);
+            _this.vehicle = JSON.parse(JSON.stringify(element));
+          }
+        });
+
+        for (var i = 1; i <= _this.vehicle.maxPassenger; i++) {
+          _this.maxPassengerArray.push(i);
         }
 
-        _this.error = error.response;
+        for (var _i = 1; _i <= _this.vehicle.luggage; _i++) {
+          _this.maxLuggageArray.push(_i);
+        }
+
+        _this.showBooking = true;
+        _this.booking.flight_number !== "" && _this.booking.flight_number !== null ? _this.booking.hasFlightNumber = true : false;
+        _this.booking.flight_origin !== "" && _this.booking.flight_origin !== null ? _this.booking.hasFlightOrigin = true : false; // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
+      })["catch"](function (error) {
+        if (error.response) {
+          if (error.response.status === 403) {
+            _this.showBooking = true;
+            _this.booking = error.response.data.booking;
+            _this.errorTypes.editNotPossible = true;
+          } else if (error.response.status === 404) {
+            _this.errorTypes.bookingNotFound == true;
+          }
+
+          _this.error = error.response;
+        }
       })["finally"](function () {
         _this.isLoading = false;
       });
@@ -408,7 +509,9 @@ __webpack_require__.r(__webpack_exports__);
       this.updateError = null;
       axios.post("/update-booking", {
         bookingId: this.booking.id,
-        journey_date: this.booking.journey_date
+        journey_date: this.booking.journey_date,
+        flight_number: this.booking.flight_number,
+        flight_origin: this.booking.flight_origin
       }).then(function (response) {
         _this2.updated = response.data.message;
         _this2.errorTypes.editNotPossible = true;
@@ -423,6 +526,30 @@ __webpack_require__.r(__webpack_exports__);
         _this2.isLoading = false;
         _this2.allowEdit = false;
       });
+    },
+    onEdit: function onEdit() {
+      this.allowEdit = true;
+      this.temporaryBooking = lodash__WEBPACK_IMPORTED_MODULE_3___default.a.cloneDeep(this.booking);
+    },
+    cancelEdit: function cancelEdit() {
+      this.allowEdit = false;
+      this.booking = lodash__WEBPACK_IMPORTED_MODULE_3___default.a.cloneDeep(this.temporaryBooking);
+    }
+  },
+  computed: {
+    validateUpdate: function validateUpdate() {
+      if (this.booking.journey_date !== "" && this.booking.flight_number) {
+        return true;
+      } else return false; // if (
+      //     moment(
+      //         this.booking.journey_date,
+      //         "dddd, MMMM Do YYYY, h:mm:ss a",
+      //         true
+      //     ).isValid()
+      // ) {
+      //     return true;
+      // } else return false;
+
     }
   }
 });
@@ -441,7 +568,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.booking-data[data-v-6f93c2bc] {\r\n    display: block;\r\n    width: 100%;\r\n    height: calc(1.6em + 0.75rem + 2px);\r\n    \r\n    font-size: 0.9rem;\r\n    font-weight: 400;\r\n    line-height: 1.6;\r\n    color: #5a5a5a;\r\n    background-color: #fff;\n}\r\n", ""]);
+exports.push([module.i, "\n.booking-data[data-v-6f93c2bc] {\r\n    display: block;\r\n    width: 100%;\r\n    height: calc(1.6em + 0.75rem + 2px);\r\n\r\n    font-size: 0.9rem;\r\n    font-weight: 400;\r\n    line-height: 1.6;\r\n    color: #5a5a5a;\r\n    background-color: #fff;\n}\r\n", ""]);
 
 // exports
 
@@ -893,6 +1020,27 @@ var render = function() {
         _c("div", { staticClass: "row mt-4 justify-content-center" }, [
           _c("div", { staticClass: "col-12" }, [
             _c("div", { staticClass: "row justify-content-center" }, [
+              _vm.error.data.message != ""
+                ? _c("div", { staticClass: "col-md-10 col-sm-12" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "alert alert-dismissible alert-danger fade show",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.error.data.message) +
+                            "\n                            "
+                        ),
+                        _vm._m(1)
+                      ]
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _vm.updated || _vm.updateError
                 ? _c("div", { staticClass: "col-md-10 col-sm-12" }, [
                     _vm.updated || _vm.updateError
@@ -914,7 +1062,7 @@ var render = function() {
                                 ) +
                                 "\n                            "
                             ),
-                            _vm._m(1)
+                            _vm._m(2)
                           ]
                         )
                       : _vm._e()
@@ -940,11 +1088,7 @@ var render = function() {
                                 staticClass:
                                   "btn btn-sm btn-primary card-tool ml-3",
                                 attrs: { id: "edit", type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.allowEdit = true
-                                  }
-                                }
+                                on: { click: _vm.onEdit }
                               },
                               [
                                 _vm._v(
@@ -962,11 +1106,7 @@ var render = function() {
                                 staticClass:
                                   "btn btn-sm btn-danger card-tool ml-3",
                                 attrs: { id: "cancel-edit", type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.allowEdit = false
-                                  }
-                                }
+                                on: { click: _vm.cancelEdit }
                               },
                               [
                                 _vm._v(
@@ -1047,76 +1187,50 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-row" }, [
-                          _c("div", { staticClass: "form-group col-md-4" }, [
-                            _c(
-                              "label",
-                              { class: { required: _vm.allowEdit } },
-                              [_vm._v("Journey Date")]
-                            ),
-                            _vm._v(" "),
-                            _vm.errorTypes.editNotPossible
-                              ? _c("p", { staticClass: "booking-data" }, [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(
-                                        _vm._f("moment")(
-                                          _vm.booking.journey_date
+                          _c(
+                            "div",
+                            { staticClass: "form-group col-md-4" },
+                            [
+                              _c(
+                                "label",
+                                { class: { required: _vm.allowEdit } },
+                                [_vm._v("Journey Date")]
+                              ),
+                              _vm._v(" "),
+                              !_vm.allowEdit
+                                ? _c("p", { staticClass: "booking-data" }, [
+                                    _vm._v(
+                                      "\n                                            " +
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            _vm.booking.journey_date
+                                          )
+                                        ) +
+                                        "\n                                        "
+                                    )
+                                  ])
+                                : _c("flat-pickr", {
+                                    staticClass: "flat-datepicker form-control",
+                                    attrs: {
+                                      name: "journey_date",
+                                      config: _vm.config,
+                                      placeholder: "Select date (BST)"
+                                    },
+                                    model: {
+                                      value: _vm.booking.journey_date,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.booking,
+                                          "journey_date",
+                                          $$v
                                         )
-                                      ) +
-                                      "\n                                        "
-                                  )
-                                ])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            !_vm.errorTypes.editNotPossible
-                              ? _c(
-                                  "div",
-                                  [
-                                    !_vm.allowEdit
-                                      ? _c(
-                                          "p",
-                                          { staticClass: "booking-data" },
-                                          [
-                                            _vm._v(
-                                              "\n                                                " +
-                                                _vm._s(
-                                                  _vm._f("moment")(
-                                                    _vm.booking.journey_date
-                                                  )
-                                                ) +
-                                                "\n                                            "
-                                            )
-                                          ]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.allowEdit
-                                      ? _c("flat-pickr", {
-                                          staticClass: "flat-datepicker",
-                                          attrs: {
-                                            name: "journey_date",
-                                            config: _vm.config,
-                                            placeholder: "Select date (BST)"
-                                          },
-                                          model: {
-                                            value: _vm.booking.journey_date,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.booking,
-                                                "journey_date",
-                                                $$v
-                                              )
-                                            },
-                                            expression:
-                                              "\n                                                    booking.journey_date\n                                                "
-                                          }
-                                        })
-                                      : _vm._e()
-                                  ],
-                                  1
-                                )
-                              : _vm._e()
-                          ]),
+                                      },
+                                      expression: "booking.journey_date"
+                                    }
+                                  })
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group col-md-4" }, [
                             _c("label", [_vm._v("Journey Type")]),
@@ -1136,45 +1250,124 @@ var render = function() {
                             _c("p", { staticClass: "booking-data" }, [
                               _vm._v(
                                 "\n                                            " +
-                                  _vm._s(_vm.booking.vehicle_id) +
+                                  _vm._s(_vm.vehicle.type) +
                                   "\n                                        "
                               )
                             ])
                           ])
                         ]),
                         _vm._v(" "),
-                        _vm.booking.flight_number
+                        _vm.booking.hasFlightNumber
                           ? _c("div", { staticClass: "form-row" }, [
                               _c(
                                 "div",
                                 { staticClass: "form-group col-md-4" },
                                 [
-                                  _c("label", [_vm._v("Flight Number")]),
+                                  _c(
+                                    "label",
+                                    { class: { required: _vm.allowEdit } },
+                                    [_vm._v("Flight Number")]
+                                  ),
                                   _vm._v(" "),
-                                  _c("p", { staticClass: "booking-data" }, [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(_vm.booking.flight_number) +
-                                        "\n                                        "
-                                    )
-                                  ])
+                                  !_vm.allowEdit
+                                    ? _c("p", { staticClass: "booking-data" }, [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.booking.flight_number) +
+                                            "\n                                        "
+                                        )
+                                      ])
+                                    : _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.booking.flight_number,
+                                            expression: "booking.flight_number"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          required: "",
+                                          placeholder: "Flight Number",
+                                          "aria-label": "Flight Number",
+                                          "aria-describedby": "basic-addon1"
+                                        },
+                                        domProps: {
+                                          value: _vm.booking.flight_number
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.booking,
+                                              "flight_number",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
                                 ]
                               ),
                               _vm._v(" "),
-                              _vm.booking.flight_origin
+                              _vm.booking.hasFlightOrigin
                                 ? _c(
                                     "div",
                                     { staticClass: "form-group col-md-4" },
                                     [
                                       _c("label", [_vm._v("Flight Origin")]),
                                       _vm._v(" "),
-                                      _c("p", { staticClass: "booking-data" }, [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(_vm.booking.flight_origin) +
-                                            "\n                                        "
-                                        )
-                                      ])
+                                      !_vm.allowEdit
+                                        ? _c(
+                                            "p",
+                                            { staticClass: "booking-data" },
+                                            [
+                                              _vm._v(
+                                                "\n                                            " +
+                                                  _vm._s(
+                                                    _vm.booking.flight_origin
+                                                  ) +
+                                                  "\n                                        "
+                                              )
+                                            ]
+                                          )
+                                        : _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  _vm.booking.flight_origin,
+                                                expression:
+                                                  "booking.flight_origin"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Flight Origin",
+                                              "aria-label": "Flight Origin",
+                                              "aria-describedby": "basic-addon1"
+                                            },
+                                            domProps: {
+                                              value: _vm.booking.flight_origin
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.booking,
+                                                  "flight_origin",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
                                     ]
                                   )
                                 : _vm._e()
@@ -1185,25 +1378,127 @@ var render = function() {
                           _c("div", { staticClass: "form-group col-md-6" }, [
                             _c("label", [_vm._v("Passengers")]),
                             _vm._v(" "),
-                            _c("p", { staticClass: "booking-data" }, [
-                              _vm._v(
-                                "\n                                            " +
-                                  _vm._s(_vm.booking.passengers) +
-                                  "\n                                        "
-                              )
-                            ])
+                            !_vm.allowEdit
+                              ? _c("p", { staticClass: "booking-data" }, [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(_vm.booking.passengers) +
+                                      "\n                                        "
+                                  )
+                                ])
+                              : _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.booking.passengers,
+                                        expression: "booking.passengers"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.booking,
+                                          "passengers",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(_vm.maxPassengerArray, function(
+                                    passengers
+                                  ) {
+                                    return _c("option", { key: passengers }, [
+                                      _vm._v(
+                                        "\n                                                " +
+                                          _vm._s(passengers) +
+                                          "\n                                            "
+                                      )
+                                    ])
+                                  }),
+                                  0
+                                )
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group col-md-6" }, [
                             _c("label", [_vm._v("Luggage")]),
                             _vm._v(" "),
-                            _c("p", { staticClass: "booking-data" }, [
-                              _vm._v(
-                                "\n                                            " +
-                                  _vm._s(_vm.booking.luggage) +
-                                  "\n                                        "
-                              )
-                            ])
+                            !_vm.allowEdit
+                              ? _c("p", { staticClass: "booking-data" }, [
+                                  _vm._v(
+                                    "\n                                            " +
+                                      _vm._s(_vm.booking.luggage) +
+                                      "\n                                        "
+                                  )
+                                ])
+                              : _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.booking.luggage,
+                                        expression: "booking.luggage"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.booking,
+                                          "luggage",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("option", [_vm._v("None")]),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.maxLuggageArray, function(
+                                      luggage
+                                    ) {
+                                      return _c("option", { key: luggage }, [
+                                        _vm._v(
+                                          "\n                                                " +
+                                            _vm._s(luggage) +
+                                            " luggage\n                                            "
+                                        )
+                                      ])
+                                    })
+                                  ],
+                                  2
+                                )
                           ])
                         ]),
                         _vm._v(" "),
@@ -1259,24 +1554,29 @@ var render = function() {
                         _vm._v(" "),
                         !_vm.errorTypes.editNotPossible
                           ? _c("div", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  attrs: { type: "submit" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.onUpdate($event)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        Update\n                                    "
+                              _vm.allowEdit
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      attrs: {
+                                        type: "submit",
+                                        disabled: !_vm.validateUpdate
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.onUpdate($event)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        Update\n                                    "
+                                      )
+                                    ]
                                   )
-                                ]
-                              )
+                                : _vm._e()
                             ])
                           : _vm._e()
                       ])
@@ -1297,6 +1597,23 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [_c("hr")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this

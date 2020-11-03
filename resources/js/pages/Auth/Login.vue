@@ -121,9 +121,9 @@
                                         v-for="(error, index) in form.errors"
                                         :key="index"
                                     >
-                                        <li v-if="error[0]">
+                                        <p class="mb-0" v-if="error[0]">
                                             {{ error }}
-                                        </li>
+                                        </p>
                                         <button
                                             type="button"
                                             class="close"

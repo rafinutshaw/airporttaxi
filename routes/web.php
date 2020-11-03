@@ -67,7 +67,7 @@ Route::get('/price-list', function () {
 
 Route::post('/send-email', 'BookingController@sendEmail')->name('send.email');
 
-Route::post('/download-PDF', 'BookingController@downloadPDF')->name('download.pdf');
+Route::post('/download-PDF/{id?}', 'BookingController@downloadPDF')->name('download.pdf');
 
 Route::post('get-price/', 'BookingController@getPrice')->name('get.price');
 

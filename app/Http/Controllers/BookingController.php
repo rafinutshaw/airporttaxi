@@ -131,7 +131,7 @@ class BookingController extends Controller
     /*
     * Download PDF after booking submission
     */
-    public function downloadPDF(Request $request)
+    public function downloadPDF(Request $request, $id = null)
     {
         $booking = Booking::find($request->id);
         if (!empty($booking) && $booking->customer->email == $request->email) {
@@ -244,11 +244,11 @@ class BookingController extends Controller
     {
         $booking = Booking::find($request->bookingId);
 
-        if (empty($booking)) {
+        if (!isset($booking)) {
             return response()->json(['message' => 'Booking not found.'], 404);
         }
 
-        if ($booking->updated_at != null || $booking->journey_date <= today() || $booking->booking_status_id != 2) {
+        if (!empty($booking->updated_at) || $booking->journey_date <= today() || $booking->booking_status_id != 2) {
             return response()->json(
                 [
                     'message' => "Sorry you can't not edit this booking right now.",

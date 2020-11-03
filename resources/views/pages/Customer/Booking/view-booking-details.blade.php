@@ -49,7 +49,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label class="col-sm-6 col-form-label">Journey Date</label>
-                                            <p class="booking-data">{{ $booking->journey_date }}</p>
+                                            <p class="booking-data">{{ date('l jS \\of F Y h:i:s A', strtotime($booking->journey_date)) }}</p>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="col-sm-6 col-form-label">Journey Type</label>

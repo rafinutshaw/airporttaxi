@@ -181,7 +181,7 @@
                                                 name="journey_date"
                                                 v-model="booking.journey_date"
                                                 :config="config"
-                                                class="flat-datepicker"
+                                                class="flat-datepicker form-control"
                                                 placeholder="Select date (BST)"
                                                 v-else
                                             >
@@ -335,6 +335,7 @@
                                             type="submit"
                                             class="btn btn-primary"
                                             v-if="allowEdit"
+                                            :disabled="!validateUpdate"
                                             @click.prevent="onUpdate"
                                         >
                                             Update
@@ -365,11 +366,11 @@ export default {
         return {
             // FlatPickr Config
             config: {
-                wrap: true, // set wrap to true only when using 'input-group'
+                wrap: false, // set wrap to true only when using 'input-group'
                 altFormat: "M j, Y h:i K",
                 altInput: true,
                 enableTime: true,
-                dateFormat: "Y-m-d",
+                dateFormat: "Y-m-d H:i",
                 minDate: "today",
                 closeOnSelect: true
             },
@@ -423,6 +424,8 @@ export default {
     },
     methods: {
         onSearchSubmit() {
+            (this.allowEdit = false), (this.maxPassengerArray = []);
+            this.maxLuggageArray = [];
             this.isLoading = true;
             this.booking = {
                 booking_status_id: null,
@@ -456,17 +459,7 @@ export default {
                     email: this.email
                 })
                 .then(response => {
-                    this.showBooking = true;
                     this.booking = response.data.booking;
-
-                    this.booking.flight_number !== "" &&
-                    this.booking.flight_number !== null
-                        ? (this.booking.hasFlightNumber = true)
-                        : false;
-                    this.booking.flight_origin !== "" &&
-                    this.booking.flight_origin !== null
-                        ? (this.booking.hasFlightOrigin = true)
-                        : false;
 
                     this.vehicles.forEach(element => {
                         if (element.id === this.booking.vehicle_id) {
@@ -481,17 +474,30 @@ export default {
                         this.maxLuggageArray.push(i);
                     }
 
+                    this.showBooking = true;
+
+                    this.booking.flight_number !== "" &&
+                    this.booking.flight_number !== null
+                        ? (this.booking.hasFlightNumber = true)
+                        : false;
+                    this.booking.flight_origin !== "" &&
+                    this.booking.flight_origin !== null
+                        ? (this.booking.hasFlightOrigin = true)
+                        : false;
+
                     // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
                 })
                 .catch(error => {
-                    if (error.response.status === 403) {
-                        this.showBooking = true;
-                        this.booking = error.response.data.booking;
-                        this.errorTypes.editNotPossible = true;
-                    } else if (error.response.status === 404) {
-                        this.errorTypes.bookingNotFound == true;
+                    if(error.response) {
+                        if (error.response.status === 403) {
+                            this.showBooking = true;
+                            this.booking = error.response.data.booking;
+                            this.errorTypes.editNotPossible = true;
+                        } else if (error.response.status === 404) {
+                            this.errorTypes.bookingNotFound == true;
+                        }
+                        this.error = error.response;
                     }
-                    this.error = error.response;
                 })
                 .finally(() => {
                     this.isLoading = false;
@@ -532,7 +538,26 @@ export default {
         },
         cancelEdit() {
             this.allowEdit = false;
-            this.booking = _.cloneDeep(this.temporaryBooking)
+            this.booking = _.cloneDeep(this.temporaryBooking);
+        }
+    },
+    computed: {
+        validateUpdate() {
+            if (
+                this.booking.journey_date !== "" &&
+                this.booking.flight_number
+            ) {
+                return true;
+            } else return false;
+            // if (
+            //     moment(
+            //         this.booking.journey_date,
+            //         "dddd, MMMM Do YYYY, h:mm:ss a",
+            //         true
+            //     ).isValid()
+            // ) {
+            //     return true;
+            // } else return false;
         }
     }
 };

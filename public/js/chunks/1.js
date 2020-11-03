@@ -641,7 +641,7 @@ var render = function() {
                                     },
                                     [
                                       error[0]
-                                        ? _c("li", [
+                                        ? _c("p", { staticClass: "mb-0" }, [
                                             _vm._v(
                                               "\n                                        " +
                                                 _vm._s(error) +

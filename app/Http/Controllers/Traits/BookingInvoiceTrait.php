@@ -64,6 +64,8 @@ trait BookingInvoiceTrait
             'to' => $booking->to,
             'journeyDate' => $booking->journey_date,
             'journeyType' => $booking->journey_type,
+            'flight_number' => $booking->flight_number,
+            'flight_origin' => $booking->flight_origin,
             'passengers' => $booking->passengers,
             'luggage' => $booking->luggage,
             'totalPrice' => $booking->total_price,

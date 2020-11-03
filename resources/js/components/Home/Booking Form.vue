@@ -465,14 +465,6 @@
                             {{ journey[0].destination.text }}
                         </span>
                     </li>
-                    <li>
-                        <span class="d-flex">
-                            <p class="mb-0" style="min-width: 45px;">
-                                <strong>Type: </strong>
-                            </p>
-                            {{ journey[0].return ? "Return Trip" : "One Way" }}
-                        </span>
-                    </li>
                 </ul>
             </div>
 
@@ -686,7 +678,8 @@
                             >
                                 <option
                                     v-for="passengers in journey[0]
-                                        .maxPassenger" :key="passengers"
+                                        .maxPassenger"
+                                    :key="passengers"
                                 >
                                     {{ passengers }}
                                 </option>
@@ -700,8 +693,10 @@
                                 v-model="quoteDetails.luggage"
                             >
                                 <option>None</option>
-                                <option v-for="luggage in journey[0].luggage"
-                                    :key="luggage">
+                                <option
+                                    v-for="luggage in journey[0].luggage"
+                                    :key="luggage"
+                                >
                                     {{ luggage }} Luggage
                                 </option>
                             </select>
@@ -867,24 +862,28 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                        <tr v-if="quoteDetails.flightNumber !== ''">
+                                        <tr
+                                            v-if="
+                                                quoteDetails.flightNumber !== ''
+                                            "
+                                        >
                                             <th scope="row">
                                                 Flight Number
                                             </th>
                                             <td>
-                                                {{
-                                                    quoteDetails.flightNumber
-                                                }}
+                                                {{ quoteDetails.flightNumber }}
                                             </td>
                                         </tr>
-                                        <tr v-if="quoteDetails.flightOrigin !== ''">
+                                        <tr
+                                            v-if="
+                                                quoteDetails.flightOrigin !== ''
+                                            "
+                                        >
                                             <th scope="row">
                                                 Flight Origin
                                             </th>
                                             <td>
-                                                {{
-                                                    quoteDetails.flightOrigin
-                                                }}
+                                                {{ quoteDetails.flightOrigin }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -1323,24 +1322,28 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                        <tr v-if="quoteDetails.flightNumber !== ''">
+                                        <tr
+                                            v-if="
+                                                quoteDetails.flightNumber !== ''
+                                            "
+                                        >
                                             <th scope="row">
                                                 Flight Number
                                             </th>
                                             <td>
-                                                {{
-                                                    quoteDetails.flightNumber
-                                                }}
+                                                {{ quoteDetails.flightNumber }}
                                             </td>
                                         </tr>
-                                        <tr v-if="quoteDetails.flightOrigin !== ''">
+                                        <tr
+                                            v-if="
+                                                quoteDetails.flightOrigin !== ''
+                                            "
+                                        >
                                             <th scope="row">
                                                 Flight Origin
                                             </th>
                                             <td>
-                                                {{
-                                                    quoteDetails.flightOrigin
-                                                }}
+                                                {{ quoteDetails.flightOrigin }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -1669,10 +1672,15 @@ export default {
                             $.ajax({
                                 type: "GET",
                                 url: `https://revgeocode.search.hereapi.com/v1/revgeocode`,
-                                data: { 
-                                    apiKey: "cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M", 
-                                    at: encodeURI( coordinates.latitude + "," + coordinates.longitude ),
-                                    lang: 'en-US'
+                                data: {
+                                    apiKey:
+                                        "cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M",
+                                    at: encodeURI(
+                                        coordinates.latitude +
+                                            "," +
+                                            coordinates.longitude
+                                    ),
+                                    lang: "en-US"
                                 },
                                 dataType: "jsonp",
                                 success: function(data) {
@@ -1682,7 +1690,9 @@ export default {
 
                                     if (data?.items?.length) {
                                         vm.options.push({
-                                            text: data.items[0].address?.label ? data.items[0].address?.label : data.items[0].title,
+                                            text: data.items[0].address?.label
+                                                ? data.items[0].address?.label
+                                                : data.items[0].title,
                                             coordinates: [
                                                 data.items[0].position.lng,
                                                 data.items[0].position.lat
@@ -1707,17 +1717,20 @@ export default {
                         type: "GET", //THIS NEEDS TO BE GET
                         dataType: "jsonp",
                         url: `https://autosuggest.search.hereapi.com/v1/autosuggest`,
-                        data: { 
-                                apiKey: "cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M", 
-                                q : search ,
-                                at: '51.509865,-0.118092',
-                                limit: 10,
-                                in: 'countryCode:GBR'
-                            },
+                        data: {
+                            apiKey:
+                                "cjIBaDMMh1wzu2gTnCXKfAABCW9hTLr0PhyIX8KIk6M",
+                            q: search,
+                            at: "51.509865,-0.118092",
+                            limit: 10,
+                            in: "countryCode:GBR"
+                        },
                         success: function(data) {
                             let results = {};
-                            data.items = data.items.filter((x)=> x.localityType != "city")
-                            console.log(data.items)
+                            data.items = data.items.filter(
+                                x => x.localityType != "city"
+                            );
+                            console.log(data.items);
                             data.items.forEach(x => {
                                 let category = "Others";
 
@@ -1725,7 +1738,9 @@ export default {
                                     category = x.categories[0].name;
                                 }
                                 const data = {
-                                    text: x.address?.label ? x.address?.label : x.title,
+                                    text: x.address?.label
+                                        ? x.address?.label
+                                        : x.title,
                                     coordinates: [
                                         x.position.lng,
                                         x.position.lat
@@ -1741,17 +1756,22 @@ export default {
                                 }
                             });
                             vm.options = [];
-                            if(results['Airport Terminal']){
+                            if (results["Airport Terminal"]) {
                                 vm.options.push({
-                                    text: 'Airport Terminal',
+                                    text: "Airport Terminal",
                                     isSubheader: true
                                 });
-                                results['Airport Terminal'].forEach(data => {
+                                results["Airport Terminal"].forEach(data => {
                                     vm.options.push(data);
                                 });
                             }
-                            for (const [key, value] of Object.entries(results)) {
-                                if (key != "Airport Terminal" && key != "Others") {
+                            for (const [key, value] of Object.entries(
+                                results
+                            )) {
+                                if (
+                                    key != "Airport Terminal" &&
+                                    key != "Others"
+                                ) {
                                     vm.options.push({
                                         text: key,
                                         isSubheader: true
@@ -1761,12 +1781,12 @@ export default {
                                     });
                                 }
                             }
-                            if(results['Others']){
+                            if (results["Others"]) {
                                 vm.options.push({
-                                    text: 'Others',
+                                    text: "Others",
                                     isSubheader: true
                                 });
-                                results['Others'].forEach(data => {
+                                results["Others"].forEach(data => {
                                     vm.options.push(data);
                                 });
                             }
@@ -1809,9 +1829,9 @@ export default {
                     "line-width": 8
                 }
             });
-            console.log(this.mapData)
+            console.log(this.mapData);
             let features = [];
-            this.mapData.waypoints.forEach((x)=>{
+            this.mapData.waypoints.forEach(x => {
                 features.push({
                     type: "Feature",
                     properties: {
@@ -1823,13 +1843,16 @@ export default {
                     }
                 });
                 new mapboxgl.Marker().setLngLat(x.location).addTo(map);
-              
-            })
-            const markerLocations = [this.mapData.waypoints[0].location, this.mapData.waypoints[this.mapData.waypoints.length-1].location];
+            });
+            const markerLocations = [
+                this.mapData.waypoints[0].location,
+                this.mapData.waypoints[this.mapData.waypoints.length - 1]
+                    .location
+            ];
 
-            map.fitBounds(markerLocations, 
-                { padding: {top: 60, bottom: 60, left: 60, right: 60} } 
-            );
+            map.fitBounds(markerLocations, {
+                padding: { top: 60, bottom: 60, left: 60, right: 60 }
+            });
 
             var places = {
                 type: "FeatureCollection",
@@ -1945,7 +1968,7 @@ export default {
                         } else {
                             //save route markers
                             this.mapData.waypoints = response.data.waypoints;
-                      
+
                             console.log(this.mapData.waypoints);
                             // Getting sesponse code from mapbox api
                             this.mapData.responseCode = response.data.code;
@@ -2373,7 +2396,7 @@ export default {
 
         downloadBookingTicket() {
             axios({
-                url: "/download-PDF",
+                url: `/download-PDF/${this.makeRandomString(10)}`,
                 method: "POST",
                 responseType: "blob",
                 data: {
@@ -2383,6 +2406,19 @@ export default {
             }).then(response => {
                 this.downloadFile(response.data, "booking-summery.pdf");
             });
+        },
+
+        makeRandomString(length = 10) {
+            var result = "";
+            var characters =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(
+                    Math.floor(Math.random() * charactersLength)
+                );
+            }
+            return result;
         },
 
         downloadFile(blob, fileName) {

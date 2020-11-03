@@ -368,6 +368,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -381,12 +382,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       // FlatPickr Config
       config: {
-        wrap: true,
+        wrap: false,
         // set wrap to true only when using 'input-group'
         altFormat: "M j, Y h:i K",
         altInput: true,
         enableTime: true,
-        dateFormat: "Y-m-d",
+        dateFormat: "Y-m-d H:i",
         minDate: "today",
         closeOnSelect: true
       },
@@ -435,6 +436,8 @@ __webpack_require__.r(__webpack_exports__);
     onSearchSubmit: function onSearchSubmit() {
       var _this = this;
 
+      this.allowEdit = false, this.maxPassengerArray = [];
+      this.maxLuggageArray = [];
       this.isLoading = true;
       this.booking = {
         booking_status_id: null,
@@ -462,10 +465,7 @@ __webpack_require__.r(__webpack_exports__);
         bookingId: this.bookingId,
         email: this.email
       }).then(function (response) {
-        _this.showBooking = true;
         _this.booking = response.data.booking;
-        _this.booking.flight_number !== "" && _this.booking.flight_number !== null ? _this.booking.hasFlightNumber = true : false;
-        _this.booking.flight_origin !== "" && _this.booking.flight_origin !== null ? _this.booking.hasFlightOrigin = true : false;
 
         _this.vehicles.forEach(function (element) {
           if (element.id === _this.booking.vehicle_id) {
@@ -480,18 +480,23 @@ __webpack_require__.r(__webpack_exports__);
 
         for (var _i = 1; _i <= _this.vehicle.luggage; _i++) {
           _this.maxLuggageArray.push(_i);
-        } // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
-
-      })["catch"](function (error) {
-        if (error.response.status === 403) {
-          _this.showBooking = true;
-          _this.booking = error.response.data.booking;
-          _this.errorTypes.editNotPossible = true;
-        } else if (error.response.status === 404) {
-          _this.errorTypes.bookingNotFound == true;
         }
 
-        _this.error = error.response;
+        _this.showBooking = true;
+        _this.booking.flight_number !== "" && _this.booking.flight_number !== null ? _this.booking.hasFlightNumber = true : false;
+        _this.booking.flight_origin !== "" && _this.booking.flight_origin !== null ? _this.booking.hasFlightOrigin = true : false; // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
+      })["catch"](function (error) {
+        if (error.response) {
+          if (error.response.status === 403) {
+            _this.showBooking = true;
+            _this.booking = error.response.data.booking;
+            _this.errorTypes.editNotPossible = true;
+          } else if (error.response.status === 404) {
+            _this.errorTypes.bookingNotFound == true;
+          }
+
+          _this.error = error.response;
+        }
       })["finally"](function () {
         _this.isLoading = false;
       });
@@ -529,6 +534,22 @@ __webpack_require__.r(__webpack_exports__);
     cancelEdit: function cancelEdit() {
       this.allowEdit = false;
       this.booking = lodash__WEBPACK_IMPORTED_MODULE_3___default.a.cloneDeep(this.temporaryBooking);
+    }
+  },
+  computed: {
+    validateUpdate: function validateUpdate() {
+      if (this.booking.journey_date !== "" && this.booking.flight_number) {
+        return true;
+      } else return false; // if (
+      //     moment(
+      //         this.booking.journey_date,
+      //         "dddd, MMMM Do YYYY, h:mm:ss a",
+      //         true
+      //     ).isValid()
+      // ) {
+      //     return true;
+      // } else return false;
+
     }
   }
 });
@@ -891,7 +912,7 @@ var render = function() {
                                     )
                                   ])
                                 : _c("flat-pickr", {
-                                    staticClass: "flat-datepicker",
+                                    staticClass: "flat-datepicker form-control",
                                     attrs: {
                                       name: "journey_date",
                                       config: _vm.config,
@@ -1240,7 +1261,10 @@ var render = function() {
                                     "button",
                                     {
                                       staticClass: "btn btn-primary",
-                                      attrs: { type: "submit" },
+                                      attrs: {
+                                        type: "submit",
+                                        disabled: !_vm.validateUpdate
+                                      },
                                       on: {
                                         click: function($event) {
                                           $event.preventDefault()
