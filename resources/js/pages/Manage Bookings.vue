@@ -177,15 +177,29 @@
                                                         | moment
                                                 }}
                                             </p>
-                                            <flat-pickr
-                                                name="journey_date"
-                                                v-model="booking.journey_date"
-                                                :config="config"
-                                                class="flat-datepicker form-control"
-                                                placeholder="Select date (BST)"
-                                                v-else
+
+                                            <ValidationProvider
+                                                vid="journey_date"
+                                                name="Journey Date"
+                                                rules="required"
+                                                v-if="allowEdit"
+                                                v-slot="{ errors }"
                                             >
-                                            </flat-pickr>
+                                                <flat-pickr
+                                                    name="journey_date"
+                                                    v-model="
+                                                        booking.journey_date
+                                                    "
+                                                    :config="config"
+                                                    class="flat-datepicker form-control"
+                                                    placeholder="Select date (BST)"
+                                                >
+                                                </flat-pickr>
+                                                <span
+                                                    class="text-danger font-italic"
+                                                    >{{ errors[0] }}
+                                                </span>
+                                            </ValidationProvider>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Journey Type</label>
@@ -217,16 +231,30 @@
                                             >
                                                 {{ booking.flight_number }}
                                             </p>
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                required
-                                                v-else
-                                                v-model="booking.flight_number"
-                                                placeholder="Flight Number"
-                                                aria-label="Flight Number"
-                                                aria-describedby="basic-addon1"
-                                            />
+
+                                            <ValidationProvider
+                                                vid="flightNumber"
+                                                name="Flight Number"
+                                                rules="required"
+                                                v-if="allowEdit"
+                                                v-slot="{ errors }"
+                                            >
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    required
+                                                    v-model="
+                                                        booking.flight_number
+                                                    "
+                                                    placeholder="Flight Number"
+                                                    aria-label="Flight Number"
+                                                    aria-describedby="basic-addon1"
+                                                />
+                                                <span
+                                                    class="text-danger font-italic"
+                                                    >{{ errors[0] }}
+                                                </span>
+                                            </ValidationProvider>
                                         </div>
                                         <div
                                             class="form-group col-md-4"
@@ -419,7 +447,7 @@ export default {
     },
     filters: {
         moment(date) {
-            return moment(date).format("MMMM Do YYYY, h:mm:ss a");
+            return moment(date).format("MMM DD, YYYY h:mm:ss a");
         }
     },
     methods: {
@@ -480,15 +508,15 @@ export default {
                     this.booking.flight_number !== null
                         ? (this.booking.hasFlightNumber = true)
                         : false;
-                    this.booking.flight_origin !== "" &&
-                    this.booking.flight_origin !== null
+
+                    this.booking.hasFlightNumber == true
                         ? (this.booking.hasFlightOrigin = true)
-                        : false;
+                        : (this.booking.flight_origin = false);
 
                     // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
                 })
                 .catch(error => {
-                    if(error.response) {
+                    if (error.response) {
                         if (error.response.status === 403) {
                             this.showBooking = true;
                             this.booking = error.response.data.booking;

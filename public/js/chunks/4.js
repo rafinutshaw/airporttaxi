@@ -369,6 +369,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -429,7 +457,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     moment: function moment(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_0___default()(date).format("MMMM Do YYYY, h:mm:ss a");
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(date).format("MMM DD, YYYY h:mm:ss a");
     }
   },
   methods: {
@@ -484,7 +512,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.showBooking = true;
         _this.booking.flight_number !== "" && _this.booking.flight_number !== null ? _this.booking.hasFlightNumber = true : false;
-        _this.booking.flight_origin !== "" && _this.booking.flight_origin !== null ? _this.booking.hasFlightOrigin = true : false; // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
+        _this.booking.hasFlightNumber == true ? _this.booking.hasFlightOrigin = true : _this.booking.flight_origin = false; // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
       })["catch"](function (error) {
         if (error.response) {
           if (error.response.status === 403) {
@@ -911,25 +939,69 @@ var render = function() {
                                         "\n                                        "
                                     )
                                   ])
-                                : _c("flat-pickr", {
-                                    staticClass: "flat-datepicker form-control",
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.allowEdit
+                                ? _c("ValidationProvider", {
                                     attrs: {
-                                      name: "journey_date",
-                                      config: _vm.config,
-                                      placeholder: "Select date (BST)"
+                                      vid: "journey_date",
+                                      name: "Journey Date",
+                                      rules: "required"
                                     },
-                                    model: {
-                                      value: _vm.booking.journey_date,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.booking,
-                                          "journey_date",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "booking.journey_date"
-                                    }
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function(ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c("flat-pickr", {
+                                                staticClass:
+                                                  "flat-datepicker form-control",
+                                                attrs: {
+                                                  name: "journey_date",
+                                                  config: _vm.config,
+                                                  placeholder:
+                                                    "Select date (BST)"
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.booking.journey_date,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.booking,
+                                                      "journey_date",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "\n                                                    booking.journey_date\n                                                "
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass:
+                                                    "text-danger font-italic"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(errors[0]) +
+                                                      "\n                                            "
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      null,
+                                      false,
+                                      694061947
+                                    )
                                   })
+                                : _vm._e()
                             ],
                             1
                           ),
@@ -979,40 +1051,92 @@ var render = function() {
                                             "\n                                        "
                                         )
                                       ])
-                                    : _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.booking.flight_number,
-                                            expression: "booking.flight_number"
-                                          }
-                                        ],
-                                        staticClass: "form-control",
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.allowEdit
+                                    ? _c("ValidationProvider", {
                                         attrs: {
-                                          type: "text",
-                                          required: "",
-                                          placeholder: "Flight Number",
-                                          "aria-label": "Flight Number",
-                                          "aria-describedby": "basic-addon1"
+                                          vid: "flightNumber",
+                                          name: "Flight Number",
+                                          rules: "required"
                                         },
-                                        domProps: {
-                                          value: _vm.booking.flight_number
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "default",
+                                              fn: function(ref) {
+                                                var errors = ref.errors
+                                                return [
+                                                  _c("input", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value:
+                                                          _vm.booking
+                                                            .flight_number,
+                                                        expression:
+                                                          "\n                                                    booking.flight_number\n                                                "
+                                                      }
+                                                    ],
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      type: "text",
+                                                      required: "",
+                                                      placeholder:
+                                                        "Flight Number",
+                                                      "aria-label":
+                                                        "Flight Number",
+                                                      "aria-describedby":
+                                                        "basic-addon1"
+                                                    },
+                                                    domProps: {
+                                                      value:
+                                                        _vm.booking
+                                                          .flight_number
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.$set(
+                                                          _vm.booking,
+                                                          "flight_number",
+                                                          $event.target.value
+                                                        )
+                                                      }
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "text-danger font-italic"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(errors[0]) +
+                                                          "\n                                            "
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              }
                                             }
-                                            _vm.$set(
-                                              _vm.booking,
-                                              "flight_number",
-                                              $event.target.value
-                                            )
-                                          }
-                                        }
+                                          ],
+                                          null,
+                                          false,
+                                          656218323
+                                        )
                                       })
-                                ]
+                                    : _vm._e()
+                                ],
+                                1
                               ),
                               _vm._v(" "),
                               _vm.booking.hasFlightOrigin

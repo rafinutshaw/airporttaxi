@@ -569,81 +569,126 @@
                 class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0"
             >
                 <div>
-                    <div class="mb-2">
-                        <label class="required">Full Name</label>
-                        <div class="form-row align-items-center">
-                            <div class="col">
-                                <div class="input-group mb-2">
-                                    <div
-                                        class="input-group-prepend input-prepend"
-                                    >
-                                        <div class="input-group-text">
-                                            <i
-                                                class="fa fa-user"
-                                                aria-hidden="true"
-                                            ></i>
+                    <ValidationProvider
+                        vid="fullName"
+                        name="Full Name"
+                        rules="required"
+                        v-slot="{ errors }"
+                    >
+                        <div>
+                            <label class="required">Full Name</label>
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <div class="input-group mb-2">
+                                        <div
+                                            class="input-group-prepend input-prepend"
+                                        >
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fa fa-user"
+                                                    aria-hidden="true"
+                                                ></i>
+                                            </div>
                                         </div>
+                                        <input
+                                            type="text"
+                                            class="form-control form-control-iconized"
+                                            placeholder="Enter name"
+                                            v-model="quoteDetails.name"
+                                            @blur="
+                                                inputFieldFocused.passengerDetails.fullName = true
+                                            "
+                                        />
                                     </div>
-                                    <input
-                                        type="text"
-                                        class="form-control form-control-iconized"
-                                        placeholder="Enter name"
-                                        v-model="quoteDetails.name"
-                                    />
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <span
+                            v-if="inputFieldFocused.passengerDetails.fullName"
+                            class="text-danger font-italic"
+                            >{{ errors[0] }}
+                        </span>
+                    </ValidationProvider>
 
-                    <div v-if="!loggedIn" class="mt-2 width-100">
+                    <div v-if="!loggedIn" class="width-100">
                         <label class="required">Email</label>
-                        <div class="form-row align-items-center">
-                            <div class="col">
-                                <div class="input-group mb-2">
-                                    <div
-                                        class="input-group-prepend input-prepend"
-                                    >
-                                        <div class="input-group-text">
-                                            <i class="fas fa-envelope"></i>
+                        <ValidationProvider
+                            vid="email"
+                            name="E-Mail"
+                            rules="required|email"
+                            v-slot="{ errors }"
+                        >
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <div class="input-group mb-2">
+                                        <div
+                                            class="input-group-prepend input-prepend"
+                                        >
+                                            <div class="input-group-text">
+                                                <i class="fas fa-envelope"></i>
+                                            </div>
                                         </div>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            required
+                                            autocomplete="off"
+                                            class="form-control form-control-iconized"
+                                            placeholder="Ex: john@example.com"
+                                            v-model="quoteDetails.email"
+                                            @blur="
+                                                inputFieldFocused.passengerDetails.email = true
+                                            "
+                                        />
                                     </div>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        required
-                                        autocomplete="off"
-                                        class="form-control form-control-iconized"
-                                        placeholder="Ex: john@example.com"
-                                        v-model="quoteDetails.email"
-                                    />
                                 </div>
                             </div>
-                        </div>
+                            <span
+                                v-if="inputFieldFocused.passengerDetails.email"
+                                class="text-danger font-italic"
+                                >{{ errors[0] }}
+                            </span>
+                        </ValidationProvider>
                     </div>
-                    <div class="mb-2">
-                        <label class="required">Contact Number</label>
-                        <div class="form-row align-items-center">
-                            <div class="col">
-                                <div class="input-group mb-2">
-                                    <div
-                                        class="input-group-prepend input-prepend"
-                                    >
-                                        <div class="input-group-text">
-                                            <i
-                                                class="fas fa-mobile-alt"
-                                                aria-hidden="true"
-                                            ></i>
+                    <div>
+                        <ValidationProvider
+                            vid="number"
+                            name="Contact Number"
+                            rules="required"
+                            v-slot="{ errors }"
+                        >
+                            <label class="required">Contact Number</label>
+                            <div class="form-row align-items-center">
+                                <div class="col">
+                                    <div class="input-group mb-2">
+                                        <div
+                                            class="input-group-prepend input-prepend"
+                                        >
+                                            <div class="input-group-text">
+                                                <i
+                                                    class="fas fa-mobile-alt"
+                                                    aria-hidden="true"
+                                                ></i>
+                                            </div>
                                         </div>
+                                        <input
+                                            type="tel"
+                                            class="form-control form-control-iconized"
+                                            placeholder="Enter contact number"
+                                            v-model="quoteDetails.mobile"
+                                            @blur="
+                                                inputFieldFocused.passengerDetails.mobile = true
+                                            "
+                                        />
                                     </div>
-                                    <input
-                                        type="tel"
-                                        class="form-control form-control-iconized"
-                                        placeholder="Enter contact number"
-                                        v-model="quoteDetails.mobile"
-                                    />
                                 </div>
                             </div>
-                        </div>
+                            <span
+                                v-if="inputFieldFocused.passengerDetails.mobile"
+                                class="text-danger font-italic"
+                                >{{ errors[0] }}
+                            </span>
+                        </ValidationProvider>
                     </div>
                     <div v-show="journey[0].originType == 'Airport Terminal'">
                         <div class="form-row">
@@ -1026,65 +1071,101 @@
                     <label for="name_on_card" class="required"
                         >Name on Card</label
                     >
-                    <div class="form-row align-items-center">
-                        <div class="col">
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend input-prepend">
-                                    <div class="input-group-text">
-                                        <i
-                                            class="fa fa-user"
-                                            aria-hidden="true"
-                                        ></i>
-                                    </div>
-                                </div>
 
-                                <input
-                                    type="text"
-                                    autocomplete="off"
-                                    required
-                                    class="form-control form-control-iconized"
-                                    id="name_on_card"
-                                    name="name_on_card"
-                                    placeholder="Ex: John"
-                                    onfocus="this.placeholder = ''"
-                                    onblur="this.placeholder = 'Ex: John'"
-                                    v-model="name_on_card"
-                                />
+                    <ValidationProvider
+                        vid="fullName"
+                        name="Name"
+                        rules="required"
+                        v-slot="{ errors }"
+                    >
+                        <div class="form-row align-items-center">
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <div
+                                        class="input-group-prepend input-prepend"
+                                    >
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fa fa-user"
+                                                aria-hidden="true"
+                                            ></i>
+                                        </div>
+                                    </div>
+
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        required
+                                        class="form-control form-control-iconized"
+                                        id="name_on_card"
+                                        name="name_on_card"
+                                        placeholder="Ex: John"
+                                        onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Ex: John'"
+                                        v-model="name_on_card"
+                                        @blur="
+                                            inputFieldFocused.paymentDetails.fullName = true
+                                        "
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <span
+                            v-if="inputFieldFocused.paymentDetails.fullName"
+                            class="text-danger font-italic"
+                            >{{ errors[0] }}
+                        </span>
+                    </ValidationProvider>
                 </div>
 
                 <div class="form-group">
                     <label class="required" for="receipt_email"
                         >Email Address</label
                     >
-                    <div class="form-row align-items-center">
-                        <div class="col">
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend input-prepend">
-                                    <div class="input-group-text">
-                                        <i
-                                            class="fas fa-envelope"
-                                            aria-hidden="true"
-                                        ></i>
+
+                    <ValidationProvider
+                        vid="email"
+                        name="Email"
+                        rules="required|email"
+                        v-slot="{ errors }"
+                    >
+                        <div class="form-row align-items-center">
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <div
+                                        class="input-group-prepend input-prepend"
+                                    >
+                                        <div class="input-group-text">
+                                            <i
+                                                class="fas fa-envelope"
+                                                aria-hidden="true"
+                                            ></i>
+                                        </div>
                                     </div>
+                                    <input
+                                        autocomplete="off"
+                                        type="email"
+                                        required
+                                        class="form-control form-control-iconized"
+                                        name="receipt_email"
+                                        id="receipt_email"
+                                        v-model="receipt_email"
+                                        placeholder="Ex: john@example.com"
+                                        onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Ex: john@example.com'"
+                                        @blur="
+                                            inputFieldFocused.paymentDetails.email = true
+                                        "
+                                    />
                                 </div>
-                                <input
-                                    autocomplete="off"
-                                    type="email"
-                                    required
-                                    class="form-control form-control-iconized"
-                                    name="receipt_email"
-                                    id="receipt_email"
-                                    v-model="receipt_email"
-                                    placeholder="Ex: john@example.com"
-                                    onfocus="this.placeholder = ''"
-                                    onblur="this.placeholder = 'Ex: john@example.com'"
-                                />
                             </div>
                         </div>
-                    </div>
+                        <span
+                            v-if="inputFieldFocused.paymentDetails.email"
+                            class="text-danger font-italic"
+                            >{{ errors[0] }}
+                        </span>
+                    </ValidationProvider>
                 </div>
 
                 <!-- CSRF Field -->
@@ -1477,6 +1558,18 @@ export default {
                 //     this.close();
                 // }
             },
+
+            inputFieldFocused: {
+                passengerDetails: {
+                    email: false,
+                    fullName: false,
+                    mobile: false
+                },
+                paymentDetails: {
+                    email: false,
+                    fullName: false
+                }
+            },
             isLoading: false,
             disableConfirmCardPaymentBack: false,
             loggedIn: false,
@@ -1702,12 +1795,10 @@ export default {
                                     }
                                 },
 
-                                error: function(error) {
-                                }
+                                error: function(error) {}
                             });
                         },
-                        error: function() {
-                        }
+                        error: function() {}
                     });
                 } else {
                     $.ajax({
@@ -1787,8 +1878,7 @@ export default {
                                 });
                             }
                         },
-                        error: function() {
-                        }
+                        error: function() {}
                     });
                 }
             }
