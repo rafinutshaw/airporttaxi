@@ -73,14 +73,12 @@
     </div>
 </nav>
 <header class="bg-black">
-    <div class="d-flex flex-row">
-        <marquee class="col-sm-9" width="100%" direction="left" height="25px">
+    <div class="d-flex flex-row" style="font-weight: bold">
+        <marquee width="100%" direction="left" height="25px" class="ml-2">
             Welcome to UK Airporttaxi.
         </marquee>
-        <div class="col-sm-3 pl-0 pr-0 text-center">
-            <span>Time: </span>
+        <div class="pl-2 pr-0" style="word-break: keep-all; min-width: 220px">
             <span id="clock" class="clock">loading ...</span>
-            <span> (BST)</span>
         </div>
     </div>
 </header>
