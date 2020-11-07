@@ -1202,7 +1202,7 @@
                     </div>
 
                     <!-- Used to display form errors. -->
-                    <div class="form-error" id="card-errors" role="alert"></div>
+                    <div class="text-danger font-italic" id="card-errors" role="alert"></div>
                 </div>
 
                 <div class="info-section border-left-danger my-2">

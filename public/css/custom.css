@@ -276,10 +276,6 @@ nav {
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
 }
-.form-error {
-    color: red;
-    font-style: italic;
-}
 
 button:focus{
     outline: none;
