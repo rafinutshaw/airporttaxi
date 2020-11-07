@@ -478,58 +478,59 @@ export default {
 
             axios.get("/price-list").then(response => {
                 this.vehicles = response.data;
-            });
 
-            // Getting the price list from database
-            axios
-                .post("/search-booking", {
-                    bookingId: this.bookingId,
-                    email: this.email
-                })
-                .then(response => {
-                    this.booking = response.data.booking;
+                // Getting the price list from database
+                axios
+                    .post("/search-booking", {
+                        bookingId: this.bookingId,
+                        email: this.email
+                    })
+                    .then(response => {
+                        this.booking = response.data.booking;
 
-                    this.vehicles.forEach(element => {
-                        if (element.id === this.booking.vehicle_id) {
-                            console.log(element.type);
-                            this.vehicle = JSON.parse(JSON.stringify(element));
+                        this.vehicles.forEach(element => {
+                            if (element.id === this.booking.vehicle_id) {
+                                this.vehicle = JSON.parse(
+                                    JSON.stringify(element)
+                                );
+                            }
+                        });
+                        for (let i = 1; i <= this.vehicle.maxPassenger; i++) {
+                            this.maxPassengerArray.push(i);
                         }
+                        for (let i = 1; i <= this.vehicle.luggage; i++) {
+                            this.maxLuggageArray.push(i);
+                        }
+
+                        this.showBooking = true;
+
+                        this.booking.flight_number !== "" &&
+                        this.booking.flight_number !== null
+                            ? (this.booking.hasFlightNumber = true)
+                            : false;
+
+                        this.booking.hasFlightNumber == true
+                            ? (this.booking.hasFlightOrigin = true)
+                            : (this.booking.flight_origin = false);
+
+                        // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            if (error.response.status === 403) {
+                                this.showBooking = true;
+                                this.booking = error.response.data.booking;
+                                this.errorTypes.editNotPossible = true;
+                            } else if (error.response.status === 404) {
+                                this.errorTypes.bookingNotFound == true;
+                            }
+                            this.error = error.response;
+                        }
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
-                    for (let i = 1; i <= this.vehicle.maxPassenger; i++) {
-                        this.maxPassengerArray.push(i);
-                    }
-                    for (let i = 1; i <= this.vehicle.luggage; i++) {
-                        this.maxLuggageArray.push(i);
-                    }
-
-                    this.showBooking = true;
-
-                    this.booking.flight_number !== "" &&
-                    this.booking.flight_number !== null
-                        ? (this.booking.hasFlightNumber = true)
-                        : false;
-
-                    this.booking.hasFlightNumber == true
-                        ? (this.booking.hasFlightOrigin = true)
-                        : (this.booking.flight_origin = false);
-
-                    // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
-                })
-                .catch(error => {
-                    if (error.response) {
-                        if (error.response.status === 403) {
-                            this.showBooking = true;
-                            this.booking = error.response.data.booking;
-                            this.errorTypes.editNotPossible = true;
-                        } else if (error.response.status === 404) {
-                            this.errorTypes.bookingNotFound == true;
-                        }
-                        this.error = error.response;
-                    }
-                })
-                .finally(() => {
-                    this.isLoading = false;
-                });
+            });
         },
         onUpdate() {
             this.isLoading = true;

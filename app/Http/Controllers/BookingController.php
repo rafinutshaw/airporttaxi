@@ -227,11 +227,11 @@ class BookingController extends Controller
                     ],
                     403
                 );
+            } else {
+                return response()->json([
+                    'booking' => $booking
+                ], 200);
             }
-
-            return response()->json([
-                'booking' => $booking
-            ], 200);
         } else {
             return response()->json(['message' => 'Booking not found'], 404);
         }
