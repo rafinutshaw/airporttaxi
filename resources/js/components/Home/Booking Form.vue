@@ -569,7 +569,7 @@
                 class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0"
             >
                 <div>
-                    <div class="mb-2" >
+                    <div class="mb-2">
                         <ValidationProvider
                             vid="fullName"
                             name="Full Name"
@@ -605,7 +605,9 @@
                                 </div>
                             </div>
                             <span
-                                v-if="inputFieldFocused.passengerDetails.fullName"
+                                v-if="
+                                    inputFieldFocused.passengerDetails.fullName
+                                "
                                 class="text-danger font-italic"
                                 >{{ errors[0] }}
                             </span>
@@ -618,7 +620,6 @@
                             name="E-Mail"
                             rules="required|email"
                             v-slot="{ errors }"
-                            
                         >
                             <div class="form-row align-items-center">
                                 <div class="col">
@@ -657,7 +658,7 @@
                             vid="number"
                             name="Contact Number"
                             rules="required"
-                            v-slot="{ errors }" 
+                            v-slot="{ errors }"
                         >
                             <label class="required">Contact Number</label>
                             <div class="form-row align-items-center">
@@ -1202,7 +1203,11 @@
                     </div>
 
                     <!-- Used to display form errors. -->
-                    <div class="text-danger font-italic" id="card-errors" role="alert"></div>
+                    <div
+                        class="text-danger font-italic"
+                        id="card-errors"
+                        role="alert"
+                    ></div>
                 </div>
 
                 <div class="info-section border-left-danger my-2">
@@ -2323,10 +2328,13 @@ export default {
                 // Handle real-time validation errors from the card Element.
                 this.card.on("change", function(event) {
                     var displayError = document.getElementById("card-errors");
+
                     if (event.error) {
                         displayError.textContent = event.error.message;
-                    } else {
+                    } else if(event.complete) {
                         displayError.textContent = "";
+                    } else {
+                        displayError.textContent = "Card Number is incomplete/required.";
                     }
                 });
             });
