@@ -569,58 +569,60 @@
                 class="row d-flex text-left justify-content-between passenger-details ml-0 mr-0"
             >
                 <div>
-                    <ValidationProvider
-                        vid="fullName"
-                        name="Full Name"
-                        rules="required"
-                        v-slot="{ errors }"
-                    >
-                        <div>
-                            <label class="required">Full Name</label>
-                            <div class="form-row align-items-center">
-                                <div class="col">
-                                    <div class="input-group mb-2">
-                                        <div
-                                            class="input-group-prepend input-prepend"
-                                        >
-                                            <div class="input-group-text">
-                                                <i
-                                                    class="fa fa-user"
-                                                    aria-hidden="true"
-                                                ></i>
+                    <div class="mb-2" >
+                        <ValidationProvider
+                            vid="fullName"
+                            name="Full Name"
+                            rules="required"
+                            v-slot="{ errors }"
+                        >
+                            <div>
+                                <label class="required">Full Name</label>
+                                <div class="form-row align-items-center">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div
+                                                class="input-group-prepend input-prepend"
+                                            >
+                                                <div class="input-group-text">
+                                                    <i
+                                                        class="fa fa-user"
+                                                        aria-hidden="true"
+                                                    ></i>
+                                                </div>
                                             </div>
+                                            <input
+                                                type="text"
+                                                class="form-control form-control-iconized"
+                                                placeholder="Enter name"
+                                                v-model="quoteDetails.name"
+                                                @blur="
+                                                    inputFieldFocused.passengerDetails.fullName = true
+                                                "
+                                            />
                                         </div>
-                                        <input
-                                            type="text"
-                                            class="form-control form-control-iconized"
-                                            placeholder="Enter name"
-                                            v-model="quoteDetails.name"
-                                            @blur="
-                                                inputFieldFocused.passengerDetails.fullName = true
-                                            "
-                                        />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <span
-                            v-if="inputFieldFocused.passengerDetails.fullName"
-                            class="text-danger font-italic"
-                            >{{ errors[0] }}
-                        </span>
-                    </ValidationProvider>
-
-                    <div v-if="!loggedIn" class="width-100">
+                            <span
+                                v-if="inputFieldFocused.passengerDetails.fullName"
+                                class="text-danger font-italic"
+                                >{{ errors[0] }}
+                            </span>
+                        </ValidationProvider>
+                    </div>
+                    <div v-if="!loggedIn" class="width-100 mb-2">
                         <label class="required">Email</label>
                         <ValidationProvider
                             vid="email"
                             name="E-Mail"
                             rules="required|email"
                             v-slot="{ errors }"
+                            
                         >
                             <div class="form-row align-items-center">
                                 <div class="col">
-                                    <div class="input-group mb-2">
+                                    <div class="input-group">
                                         <div
                                             class="input-group-prepend input-prepend"
                                         >
@@ -650,17 +652,17 @@
                             </span>
                         </ValidationProvider>
                     </div>
-                    <div>
+                    <div class="mb-2">
                         <ValidationProvider
                             vid="number"
                             name="Contact Number"
                             rules="required"
-                            v-slot="{ errors }"
+                            v-slot="{ errors }" 
                         >
                             <label class="required">Contact Number</label>
                             <div class="form-row align-items-center">
                                 <div class="col">
-                                    <div class="input-group mb-2">
+                                    <div class="input-group">
                                         <div
                                             class="input-group-prepend input-prepend"
                                         >
@@ -1067,7 +1069,7 @@
                 <h5 class="text-white mb-3">Payment Details</h5>
             </div>
             <div class="payment-details">
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label for="name_on_card" class="required"
                         >Name on Card</label
                     >
@@ -1080,7 +1082,7 @@
                     >
                         <div class="form-row align-items-center">
                             <div class="col">
-                                <div class="input-group mb-2">
+                                <div class="input-group">
                                     <div
                                         class="input-group-prepend input-prepend"
                                     >
@@ -1118,7 +1120,7 @@
                     </ValidationProvider>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label class="required" for="receipt_email"
                         >Email Address</label
                     >
@@ -1131,7 +1133,7 @@
                     >
                         <div class="form-row align-items-center">
                             <div class="col">
-                                <div class="input-group mb-2">
+                                <div class="input-group">
                                     <div
                                         class="input-group-prepend input-prepend"
                                     >
@@ -1266,7 +1268,7 @@
                 <div class="d-flex after-successfull-booking ml-0 mr-0 mb-2">
                     <div style="font-size: 13px;">
                         <h5 class="text-black text-center">
-                            Booking <b>successful</b>
+                            Booking <b>Successful</b>
                             <i class="fas fa-check text-primary ml-1"></i>
                         </h5>
                         <p class="text-black-50 text-center mb-1">
