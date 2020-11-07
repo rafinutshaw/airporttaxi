@@ -420,8 +420,8 @@ __webpack_require__.r(__webpack_exports__);
         closeOnSelect: true
       },
       isLoading: false,
-      bookingId: null,
-      email: "",
+      bookingId: 233,
+      email: "syqym@gmail.com",
       booking: {
         booking_status_id: null,
         journey_date: null,
@@ -486,47 +486,46 @@ __webpack_require__.r(__webpack_exports__);
       this.updateError = null;
       this.errorTypes.editNotPossible = false;
       axios.get("/price-list").then(function (response) {
-        _this.vehicles = response.data;
-      }); // Getting the price list from database
+        _this.vehicles = response.data; // Getting the price list from database
 
-      axios.post("/search-booking", {
-        bookingId: this.bookingId,
-        email: this.email
-      }).then(function (response) {
-        _this.booking = response.data.booking;
+        axios.post("/search-booking", {
+          bookingId: _this.bookingId,
+          email: _this.email
+        }).then(function (response) {
+          _this.booking = response.data.booking;
 
-        _this.vehicles.forEach(function (element) {
-          if (element.id === _this.booking.vehicle_id) {
-            console.log(element.type);
-            _this.vehicle = JSON.parse(JSON.stringify(element));
+          _this.vehicles.forEach(function (element) {
+            if (element.id === _this.booking.vehicle_id) {
+              _this.vehicle = JSON.parse(JSON.stringify(element));
+            }
+          });
+
+          for (var i = 1; i <= _this.vehicle.maxPassenger; i++) {
+            _this.maxPassengerArray.push(i);
           }
+
+          for (var _i = 1; _i <= _this.vehicle.luggage; _i++) {
+            _this.maxLuggageArray.push(_i);
+          }
+
+          _this.showBooking = true;
+          _this.booking.flight_number !== "" && _this.booking.flight_number !== null ? _this.booking.hasFlightNumber = true : false;
+          _this.booking.hasFlightNumber == true ? _this.booking.hasFlightOrigin = true : _this.booking.flight_origin = false; // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
+        })["catch"](function (error) {
+          if (error.response) {
+            if (error.response.status === 403) {
+              _this.showBooking = true;
+              _this.booking = error.response.data.booking;
+              _this.errorTypes.editNotPossible = true;
+            } else if (error.response.status === 404) {
+              _this.errorTypes.bookingNotFound == true;
+            }
+
+            _this.error = error.response;
+          }
+        })["finally"](function () {
+          _this.isLoading = false;
         });
-
-        for (var i = 1; i <= _this.vehicle.maxPassenger; i++) {
-          _this.maxPassengerArray.push(i);
-        }
-
-        for (var _i = 1; _i <= _this.vehicle.luggage; _i++) {
-          _this.maxLuggageArray.push(_i);
-        }
-
-        _this.showBooking = true;
-        _this.booking.flight_number !== "" && _this.booking.flight_number !== null ? _this.booking.hasFlightNumber = true : false;
-        _this.booking.hasFlightNumber == true ? _this.booking.hasFlightOrigin = true : _this.booking.flight_origin = false; // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
-      })["catch"](function (error) {
-        if (error.response) {
-          if (error.response.status === 403) {
-            _this.showBooking = true;
-            _this.booking = error.response.data.booking;
-            _this.errorTypes.editNotPossible = true;
-          } else if (error.response.status === 404) {
-            _this.errorTypes.bookingNotFound == true;
-          }
-
-          _this.error = error.response;
-        }
-      })["finally"](function () {
-        _this.isLoading = false;
       });
     },
     onUpdate: function onUpdate() {
