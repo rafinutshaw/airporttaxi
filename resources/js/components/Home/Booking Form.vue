@@ -693,13 +693,33 @@
                     <div v-show="journey[0].originType == 'Airport Terminal'">
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
-                                <label class="required">Flight Number</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Flight Number"
-                                    v-model="quoteDetails.flightNumber"
-                                />
+                                <ValidationProvider
+                                    vid="flightNumber"
+                                    name="Flight Number"
+                                    rules="required"
+                                    v-slot="{ errors }"
+                                >
+                                    <label class="required"
+                                        >Flight Number</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Flight Number"
+                                        @blur="
+                                            inputFieldFocused.passengerDetails.flightNumber = true
+                                        "
+                                        v-model="quoteDetails.flightNumber"
+                                    />
+                                    <span
+                                        v-if="
+                                            inputFieldFocused.passengerDetails
+                                                .flightNumber
+                                        "
+                                        class="text-danger font-italic"
+                                        >{{ errors[0] }}
+                                    </span>
+                                </ValidationProvider>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label>Flight Origin</label>
@@ -1563,7 +1583,8 @@ export default {
                 passengerDetails: {
                     email: false,
                     fullName: false,
-                    mobile: false
+                    mobile: false,
+                    flightNumber: false
                 },
                 paymentDetails: {
                     email: false,

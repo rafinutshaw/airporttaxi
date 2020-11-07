@@ -403,8 +403,8 @@ export default {
                 closeOnSelect: true
             },
             isLoading: false,
-            bookingId: 233,
-            email: "syqym@gmail.com",
+            bookingId: null,
+            email: "",
             booking: {
                 booking_status_id: null,
                 journey_date: null,
