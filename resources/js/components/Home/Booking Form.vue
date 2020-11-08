@@ -1580,7 +1580,8 @@ export default {
                 enableTime: true,
                 dateFormat: "Y-m-d",
                 minDate: "today",
-                closeOnSelect: true
+                closeOnSelect: true,
+                disableMobile: true
                 // onValueUpdate: function() {
                 //     this.close();
                 // }

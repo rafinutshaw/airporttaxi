@@ -23,7 +23,7 @@
                 <!-- Bootstrap Card -->
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
-                        <div class="card-deck border-0 transform-on-hover justify-content-center">
+                        <div class="d-flex card-deck border-0 transform-on-hover justify-content-center">
                             <img
                                     src="../../../public/img/owner.jpg"
                                     class="card-img ceo-img"
@@ -31,7 +31,7 @@
                                 />
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-8 d-flex align-items-center">
+                    <div class="col-md-6 col-lg-8 d-flex mt-4 align-items-center">
                         <div>
                             <h3>Ahmed Al Ansar</h3>
                             <p>
