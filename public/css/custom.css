@@ -148,7 +148,7 @@ a:hover {
     margin: 0px !important;
 }
 .selected.d-center {
-    overflow: hidden;
+    /* overflow: hidden; */
     white-space: nowrap;
     text-overflow: ellipsis;
     /* max-width: 180px; */
