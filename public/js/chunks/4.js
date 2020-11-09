@@ -13,9 +13,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-flatpickr-component */ "./node_modules/vue-flatpickr-component/dist/vue-flatpickr.min.js");
 /* harmony import */ var vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_Loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Loader */ "./resources/js/components/Loader.vue");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var flatpickr_dist_plugins_confirmDate_confirmDate_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flatpickr/dist/plugins/confirmDate/confirmDate.js */ "./node_modules/flatpickr/dist/plugins/confirmDate/confirmDate.js");
+/* harmony import */ var flatpickr_dist_plugins_confirmDate_confirmDate_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_plugins_confirmDate_confirmDate_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var flatpickr_dist_plugins_confirmDate_confirmDate_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! flatpickr/dist/plugins/confirmDate/confirmDate.css */ "./node_modules/flatpickr/dist/plugins/confirmDate/confirmDate.css");
+/* harmony import */ var flatpickr_dist_plugins_confirmDate_confirmDate_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(flatpickr_dist_plugins_confirmDate_confirmDate_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_Loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Loader */ "./resources/js/components/Loader.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_5__);
 //
 //
 //
@@ -397,6 +401,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -404,12 +410,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     flatPickr: vue_flatpickr_component__WEBPACK_IMPORTED_MODULE_1___default.a,
-    loader: _components_Loader__WEBPACK_IMPORTED_MODULE_2__["default"]
+    loader: _components_Loader__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
       // FlatPickr Config
       config: {
+        plugins: [new flatpickr_dist_plugins_confirmDate_confirmDate_js__WEBPACK_IMPORTED_MODULE_2___default.a()],
+        confirmIcon: "<i class='fa fa-check'></i>",
+        // your icon's html, if you wish to override
+        confirmText: "Select",
+        showAlways: false,
+        theme: "light",
         wrap: false,
         // set wrap to true only when using 'input-group'
         altFormat: "M j, Y h:i K",
@@ -556,11 +568,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     onEdit: function onEdit() {
       this.allowEdit = true;
-      this.temporaryBooking = lodash__WEBPACK_IMPORTED_MODULE_3___default.a.cloneDeep(this.booking);
+      this.temporaryBooking = lodash__WEBPACK_IMPORTED_MODULE_5___default.a.cloneDeep(this.booking);
     },
     cancelEdit: function cancelEdit() {
       this.allowEdit = false;
-      this.booking = lodash__WEBPACK_IMPORTED_MODULE_3___default.a.cloneDeep(this.temporaryBooking);
+      this.booking = lodash__WEBPACK_IMPORTED_MODULE_5___default.a.cloneDeep(this.temporaryBooking);
     }
   },
   computed: {

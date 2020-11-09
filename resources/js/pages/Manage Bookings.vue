@@ -382,6 +382,8 @@
 <script>
 import moment from "moment";
 import flatPickr from "vue-flatpickr-component";
+import ConfirmDatePlugin from "flatpickr/dist/plugins/confirmDate/confirmDate.js";
+import "flatpickr/dist/plugins/confirmDate/confirmDate.css";
 import loader from "../components/Loader";
 import _ from "lodash";
 
@@ -394,6 +396,11 @@ export default {
         return {
             // FlatPickr Config
             config: {
+                plugins: [new ConfirmDatePlugin()],
+                confirmIcon: "<i class='fa fa-check'></i>", // your icon's html, if you wish to override
+                confirmText: "Select",
+                showAlways: false,
+                theme: "light",
                 wrap: false, // set wrap to true only when using 'input-group'
                 altFormat: "M j, Y h:i K",
                 altInput: true,
