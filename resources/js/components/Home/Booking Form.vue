@@ -1541,6 +1541,8 @@ import "vue-select/dist/vue-select.css";
 // import "vue2-datepicker/index.css";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import ConfirmDatePlugin from "flatpickr/dist/plugins/confirmDate/confirmDate.js";
+import "flatpickr/dist/plugins/confirmDate/confirmDate.css";
 
 import _ from "lodash";
 
@@ -1574,6 +1576,11 @@ export default {
         return {
             // FlatPickr Config
             config: {
+                plugins: [new ConfirmDatePlugin()],
+                confirmIcon: "<i class='fa fa-check'></i>", // your icon's html, if you wish to override
+                confirmText: "Select",
+                showAlways: false,
+                theme: "light",
                 wrap: true, // set wrap to true only when using 'input-group'
                 altFormat: "M j, Y h:i K",
                 altInput: true,
@@ -2332,10 +2339,11 @@ export default {
 
                     if (event.error) {
                         displayError.textContent = event.error.message;
-                    } else if(event.complete) {
+                    } else if (event.complete) {
                         displayError.textContent = "";
                     } else {
-                        displayError.textContent = "Card Number is incomplete/required.";
+                        displayError.textContent =
+                            "Card Number is incomplete/required.";
                     }
                 });
             });
@@ -2628,6 +2636,13 @@ export default {
 </script>
 
 <style scoped>
+/* Flatpicker */
+::v-deep .flatpickr-confirm {
+    color: white !important;
+    background: #3acae6 !important;
+    border-radius: 0 0 5px 5px !important;
+}
+
 ::v-deep .flat-datepicker {
     margin-right: -1px;
     font-size: 15px;
