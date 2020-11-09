@@ -325,3 +325,19 @@ select, .form-control {
     font-style: italic;
 }
 
+.flatpickr-confirm {
+    background-color: #05badd !important;
+    border-color:   #05badd !important;
+    color: white;
+    border-radius: 0 0 5px 5px;
+}
+
+.flatpickr-confirm svg {
+    display: none;
+}
+
+.flatpickr-confirm:hover {
+    background-color: #16d2f7 !important;
+    border-color: #06c4ea !important;
+    font-weight: 600 !important;
+}
