@@ -65,6 +65,8 @@ Route::get('/price-list', function () {
     return response()->json($prices, 200);
 });
 
+Route::get('/partners', "PartnerController@index")->name("partners");
+
 Route::post('/send-email', 'BookingController@sendEmail')->name('send.email');
 
 Route::post('/download-PDF/{id?}', 'BookingController@downloadPDF')->name('download.pdf');

@@ -2122,9 +2122,6 @@ export default {
                                 2
                             );
 
-                            if (this.journey[0].return == true)
-                                this.quoteDetails.distance *= 2;
-
                             // Calculating Price
                             this.vehicles.map(item => {
                                 item.totalPrice = parseFloat(

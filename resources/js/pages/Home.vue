@@ -5,9 +5,7 @@
         <section class="banner-area relative" id="home">
             <div class="overlay overlay-bg"></div>
             <div class="container-fluid pl-5 pr-5">
-                <div
-                    class="row fullscreen d-flex justify-content-between"
-                >
+                <div class="row fullscreen d-flex justify-content-between">
                     <div class="col-lg-5 col-md-12 booking-form-div">
                         <booking-form></booking-form>
                     </div>
@@ -23,21 +21,26 @@
                 <!-- Bootstrap Card -->
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
-                        <div class="d-flex card-deck border-0 transform-on-hover justify-content-center">
+                        <div
+                            class="d-flex card-deck border-0 transform-on-hover justify-content-center"
+                        >
                             <img
-                                    src="../../../public/img/owner.jpg"
-                                    class="card-img ceo-img"
-                                    alt="..."
-                                />
+                                src="../../../public/img/owner.jpg"
+                                class="card-img ceo-img"
+                                alt="..."
+                            />
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-8 d-flex mt-4 align-items-center">
+                    <div
+                        class="col-md-6 col-lg-8 d-flex mt-4 align-items-center"
+                    >
                         <div>
                             <h3>Ahmed Al Ansar</h3>
                             <p>
-                                We aim to be No.1 company in customer satisfaction
-                                by striving to create 'inspiring the next' with
-                                pursuit of creativity and technical expertise.
+                                We aim to be No.1 company in customer
+                                satisfaction by striving to create 'inspiring
+                                the next' with pursuit of creativity and
+                                technical expertise.
                             </p>
                         </div>
                     </div>
@@ -538,7 +541,11 @@
                 </div>
             </div>
         </section>
-        <!-- End Our Service  -->
+        <!-- End Our Services Area  -->
+
+        <!-- Start Partners Area -->
+        <partners></partners>
+        <!-- End Partners Area  -->
     </div>
 </template>
 
@@ -546,11 +553,13 @@
 import BookingForm from "../components/Home/Booking Form";
 import FindCarByType from "../components/Home/Find Cars By Type";
 import About from "../pages/About";
+import Partners from "../components/Home/Partners";
 export default {
     components: {
         BookingForm,
         FindCarByType,
-        About
+        About,
+        Partners
     },
     created() {
         $("html,body").scrollTop(0);
