@@ -368,7 +368,7 @@
                             <label for="a">
                                 <div
                                     class="can-toggle__switch"
-                                    data-checked="Return Trip"
+                                    data-checked="Return"
                                     data-unchecked="One Way"
                                 ></div>
                             </label>
@@ -744,6 +744,9 @@
                                 required
                                 v-model="quoteDetails.passengers"
                             >
+                                <option disabled selected
+                                    >Please select one</option
+                                >
                                 <option
                                     v-for="passengers in journey[0]
                                         .maxPassenger"
@@ -756,16 +759,19 @@
                         <div class="col-md-6 mb-3">
                             <label>No. of Luggages</label>
                             <select
-                                class="custom-select"
+                                class="form-control custom-select"
                                 required
                                 v-model="quoteDetails.luggage"
                             >
-                                <option>None</option>
+                                <option disabled selected value=""
+                                    >Please select one</option
+                                >
+                                <option value="0">None</option>
                                 <option
                                     v-for="luggage in journey[0].luggage"
                                     :key="luggage"
                                 >
-                                    {{ luggage }} Luggage
+                                    {{ luggage }}
                                 </option>
                             </select>
                         </div>
@@ -868,8 +874,8 @@
                                             <td>
                                                 {{
                                                     journey[0].return
-                                                        ? "Return Trip"
-                                                        : "One way"
+                                                        ? "Return"
+                                                        : "Single"
                                                 }}
                                             </td>
                                         </tr>
@@ -906,8 +912,8 @@
                                                 Passenger
                                                 <span
                                                     v-if="
-                                                        quoteDetails.luggage !==
-                                                            'None'
+                                                        quoteDetails.luggage !=
+                                                            parseInt('0')
                                                     "
                                                 >
                                                     & Luggage
@@ -922,11 +928,13 @@
                                                 Passenger
                                                 <span
                                                     v-if="
-                                                        quoteDetails.luggage !==
-                                                            'None'
+                                                        quoteDetails.luggage !=
+                                                            parseInt('0')
                                                     "
                                                 >
-                                                    & {{ quoteDetails.luggage }}
+                                                    &
+                                                    {{ quoteDetails.luggage }}
+                                                    Luggage
                                                 </span>
                                             </td>
                                         </tr>
@@ -1368,8 +1376,8 @@
                                             <td>
                                                 {{
                                                     journey[0].return
-                                                        ? "Return Trip"
-                                                        : "One way"
+                                                        ? "Return"
+                                                        : "Single"
                                                 }}
                                             </td>
                                         </tr>
@@ -1406,8 +1414,8 @@
                                                 Passenger
                                                 <span
                                                     v-if="
-                                                        quoteDetails.luggage !==
-                                                            'None'
+                                                        quoteDetails.luggage !=
+                                                            parseInt('0')
                                                     "
                                                 >
                                                     & Luggage
@@ -1422,11 +1430,13 @@
                                                 Passenger
                                                 <span
                                                     v-if="
-                                                        quoteDetails.luggage !==
-                                                            'None'
+                                                        quoteDetails.luggage !=
+                                                            parseInt('0')
                                                     "
                                                 >
-                                                    & {{ quoteDetails.luggage }}
+                                                    &
+                                                    {{ quoteDetails.luggage }}
+                                                    Luggage
                                                 </span>
                                             </td>
                                         </tr>
@@ -1647,6 +1657,9 @@ export default {
                 originName: "",
                 originType: "",
                 destinationName: "",
+                via: {
+                    viaRouteNames: null
+                },
                 viaRouteNames: "",
                 journeyType: "",
 
@@ -1668,7 +1681,7 @@ export default {
                 flightNumber: "",
                 flightOrigin: "",
                 passengers: 1,
-                luggage: "None",
+                luggage: 0,
 
                 agreedWithTerms: false,
 
@@ -2110,7 +2123,9 @@ export default {
                             this.quoteDetails.originType = this.journey[0].originType;
 
                             this.quoteDetails.destinationName = this.journey[0].destination.text;
-                            this.quoteDetails.viaRouteNames = this.journey[0].viaRouteNames;
+                            this.quoteDetails.via = this.journey[0].via;
+                            this.quoteDetails.via.viaRouteNames = this.journey[0].viaRouteNames;
+                            // this.quoteDetails.viaRouteNames = this.journey[0].viaRouteNames;
 
                             // Distance of the Journey in meters
                             this.quoteDetails.distance = parseFloat(
@@ -2174,7 +2189,9 @@ export default {
             this.quoteDetails.originType = "";
 
             this.quoteDetails.destinationName = "";
-            this.quoteDetails.viaRouteNames = "";
+            this.quoteDetails.via = {
+                viaRouteNames: null
+            };
 
             this.quoteDetails.distance = null;
             this.vehicles.forEach(item => {
@@ -2185,6 +2202,9 @@ export default {
         },
 
         selectedPrice(vehicle, multiple = 1) {
+            multiple == 1
+                ? (this.quoteDetails.journeyType = "Single")
+                : (this.quoteDetails.journeyType = "Return");
             this.journey[0].vehicle = vehicle;
             this.journey[0].fare = vehicle.price;
             this.quoteDetails.fare = vehicle.totalPrice * multiple;
@@ -2216,7 +2236,7 @@ export default {
             this.journey[0].luggage = [];
 
             this.quoteDetails.passengers = 1;
-            this.quoteDetails.luggage = "None";
+            this.quoteDetails.luggage = 0;
 
             $("html,body").scrollTop(0);
         },
@@ -2255,9 +2275,6 @@ export default {
 
         payment() {
             this.isLoading = true;
-            this.journey[0].return == true
-                ? (this.quoteDetails.journeyType = "Return Trip")
-                : (this.quoteDetails.journeyType = "One Way");
 
             this.data = {
                 name: this.quoteDetails.name,
@@ -2274,7 +2291,7 @@ export default {
                 luggage: this.quoteDetails.luggage,
                 vehicle_id: this.quoteDetails.vehicleId,
 
-                discount: this.quoteDetails.discount,
+                distance: this.quoteDetails.distance,
                 total_price: parseFloat(this.quoteDetails.fare),
                 flight_number: this.quoteDetails.flightNumber,
                 flight_origin: this.quoteDetails.flightOrigin,
@@ -2312,7 +2329,7 @@ export default {
             ).then(response => {
                 this.stripe = response;
 
-                let bookingId = 3;
+                // let bookingId = 3;
 
                 // Create Payment Intent
                 // (async () => {
@@ -2349,22 +2366,20 @@ export default {
         // Confirm Card Payment
         confirmCardPayment() {
             this.disableConfirmCardPaymentBack = true;
-            var form = document.getElementById("payment-form");
 
             this.loading(true);
 
             this.isLoading = true;
-            this.journey[0].return == true
-                ? (this.quoteDetails.journeyType = "Return Trip")
-                : (this.quoteDetails.journeyType = "One Way");
 
             this.data = {
                 name: this.quoteDetails.name,
                 email: this.quoteDetails.email,
                 mobile: this.quoteDetails.mobile,
-                from: this.quoteDetails.originName,
-                via: this.quoteDetails.viaRouteNames,
-                to: this.quoteDetails.destinationName,
+                from: JSON.stringify(this.journey[0].origin),
+                // from: this.quoteDetails.originName,
+                via: JSON.stringify(this.quoteDetails.via),
+                to: JSON.stringify(this.journey[0].destination),
+                // to: this.quoteDetails.destinationName,
                 journey_date: this.quoteDetails.journeyDate.Details,
 
                 journey_type: this.quoteDetails.journeyType,
@@ -2373,7 +2388,7 @@ export default {
                 luggage: this.quoteDetails.luggage,
                 vehicle_id: this.quoteDetails.vehicleId,
 
-                discount: this.quoteDetails.discount,
+                distance: this.quoteDetails.distance,
                 total_price: parseFloat(this.quoteDetails.fare),
                 flight_number: this.quoteDetails.flightNumber,
                 flight_origin: this.quoteDetails.flightOrigin,
@@ -2436,12 +2451,23 @@ export default {
                                                     .afterSubmittedBookingId,
                                                 paymentIntentId:
                                                     result.paymentIntent.id
-                                            });
-                                            this.loading(false);
-                                            this.cardPayment.success = true;
+                                            }).then(() => {
+                                                this.loading(false);
+                                                this.cardPayment.success = true;
 
-                                            this.formStage.payment = false;
-                                            this.formStage.submittedStatus = true;
+                                                this.formStage.payment = false;
+                                                this.formStage.submittedStatus = true;
+                                            })
+                                            .catch(error => {
+                                                this.loading(false);
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    title:
+                                                        `Oops... Error ` +
+                                                        error.response.status,
+                                                    text: error.response.data.message
+                                                });
+                                            })
                                         }
                                     }
                                 })
@@ -2599,7 +2625,7 @@ export default {
                     this.quoteDetails.mobile === "" ||
                     this.quoteDetails.flightNumber === "" ||
                     this.quoteDetails.passengers === null ||
-                    this.quoteDetails.luggage === "" ||
+                    this.quoteDetails.luggage === null ||
                     this.quoteDetails.journeyDate.Details === null
                 )
                     return true;
@@ -2610,7 +2636,7 @@ export default {
                     this.validateEmail(this.quoteDetails.email) == false ||
                     this.quoteDetails.mobile === "" ||
                     this.quoteDetails.passengers === null ||
-                    this.quoteDetails.luggage === "" ||
+                    this.quoteDetails.luggage === null ||
                     this.quoteDetails.journeyDate.Details === null
                 )
                     return true;

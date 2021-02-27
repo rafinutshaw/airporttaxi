@@ -291,7 +291,7 @@
                 <tr>
                     <td class="no">Pick up</td>
                     <td class="desc" colspan="4">
-                        {{ $data['from'] }}
+                        {{ $data['from']->text }}
                     </td>
                 </tr>
 
@@ -299,7 +299,9 @@
                 <tr>
                     <td class="no">Via</td>
                     <td class="desc" colspan="4">
-                        {{ $data['via'] }}
+                        @foreach ($data['via'] as $item)
+                            {{ $item->route->text }},
+                        @endforeach
                     </td>
                 </tr>
                 @endisset
@@ -307,7 +309,7 @@
                 <tr>
                     <td class="no">Drop off</td>
                     <td class="desc" colspan="4">
-                        {{ $data['to'] }}
+                        {{ $data['to']->text }}
                     </td>
                 </tr>
 
@@ -332,7 +334,7 @@
                     </td>
                 </tr>
 
-                @isset($data['flight_number'])
+                {{-- @isset($data['flight_number'])
                 <tr>
                     <td class="no">Flight Number</td>
                     <td class="desc" colspan="4">
@@ -348,12 +350,12 @@
                         {{ $data['flight_origin'] }}
                     </td>
                 </tr>
-                @endisset
+                @endisset --}}
 
                 <tr>
                     <td class="no">
                         Passengers
-                        @if ($data['luggage'] != 'None')
+                        @if ($data['luggage'] != 0)
                         & Luggages
                         @endif
                     </td>
@@ -362,8 +364,8 @@
 
                         </h3>
                         {{ $data['passengers'] }} Passenger
-                        @if ($data['luggage'] != 'None')
-                        & {{ $data['luggage'] }}
+                        @if ($data['luggage'] != 0)
+                        & {{ $data['luggage'] }} Luggage
                         @endif
                     </td>
                 </tr>

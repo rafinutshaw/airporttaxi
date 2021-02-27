@@ -6,6 +6,8 @@ import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import * as rules from "vee-validate/dist/rules";
 import store from "./store";
 
+import moment from "moment";
+
 Vue.prototype.lodash = window._;
 
 // Sweet Alert 2
@@ -43,6 +45,13 @@ extend("confirmed", {
         }
     },
     message: "Passwords don't match"
+});
+
+/**
+ * * Filter time with moment.js
+ */
+Vue.filter("moment-with-time", value => {
+    return moment(value).format("MMMM Do YYYY, h:mm:ss a");
 });
 
 // install Vee-Validate rules and localization

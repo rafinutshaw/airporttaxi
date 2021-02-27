@@ -86,6 +86,8 @@ Route::post('/update-booking', 'BookingController@updateBooking')->name('update.
 */
 Route::post('/paymentIntent', 'BookingController@stripePaymentIntent')->name('stripe.payment.intent');
 Route::post('/confirmPayment', 'BookingController@confirmPayment')->name('stripe.payment.confirm');
+Route::post('/get-booking-info', 'BookingController@getBookingForNewPayment')->name('stripe.booking.info');
+Route::post('/repay-intent', 'BookingController@repayPaymentIntent')->name('stripe.repay.intent');
 
 /*
 |-------------------------------------------------------------------------------

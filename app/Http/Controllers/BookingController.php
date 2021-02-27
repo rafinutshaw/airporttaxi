@@ -6,6 +6,7 @@ use App\User;
 use App\Price;
 use App\Booking;
 use App\Customer;
+use Stripe\StripeClient;
 use App\Jobs\SendEmailJob;
 use Illuminate\Support\Str;
 use Cartalyst\Stripe\Stripe;
@@ -14,8 +15,8 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Cartalyst\Stripe\Exception\NotFoundException;
 
+use Cartalyst\Stripe\Exception\NotFoundException;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use App\Notifications\BookingSubmittedNotification;
 use Cartalyst\Stripe\Exception\BadRequestException;
@@ -57,7 +58,8 @@ class BookingController extends Controller
 
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
-                'discount' => $request['discount'],
+                'distance' => $request['distance'],
+                'unpaid_amount' => $request['total_price'],
                 'total_price' => $request['total_price'],
                 // 'passport' => $request['passport'],
                 'flight_number' => $request['flight_number'],
@@ -89,7 +91,8 @@ class BookingController extends Controller
 
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
-                'discount' => $request['discount'],
+                'distance' => $request['distance'],
+                'unpaid_amount' => $request['total_price'],
                 'total_price' => $request['total_price'],
                 // 'passport' => $request['passport'],
                 'flight_number' => $request['flight_number'],
@@ -147,7 +150,7 @@ class BookingController extends Controller
         try {
             $booking = Booking::findOrFail($request->bookingId);
         } catch (ModelNotFoundException $exception) {
-            return response()->json(['message' => 'Model not found'], 404);
+            return response()->json(['message' => 'Data not found'], 404);
         }
         try {
             $stripe = Stripe::make(getenv("STRIPE_SECRET_KEY"), getenv("STRIPE_API_VERSION"));
@@ -164,6 +167,7 @@ class BookingController extends Controller
                 ],
             ]);
 
+            // return response()->json(['client_secret' => $stripe], 200);
             return response()->json(['client_secret' => $paymentIntent['client_secret']], 200);
         } catch (CardErrorException $e) {
             // Get the error message returned by Stripe
@@ -190,23 +194,26 @@ class BookingController extends Controller
     {
         try {
             $booking = Booking::findOrFail($request->bookingId);
+            $booking->unpaid_amount = 0;
             $booking->booking_status_id = 2;
             $booking->stripe_payment_intent_id = $request->paymentIntentId;
             $booking->save();
 
-            //  * Sending an email
-            $this->sendEmail($booking);
+            /*
+             * Sending an email 
+             */
+            // $this->sendEmail($booking);
 
-            $users = User::all();
-            foreach ($users as $user) {
-                $user->notify(new BookingSubmittedNotification($booking->id));
-            }
+            // $users = User::all();
+            // foreach ($users as $user) {
+            //     $user->notify(new BookingSubmittedNotification($booking->id));
+            // }
 
             return response()->json([
                 'data_updated' => 'booking status updated'
             ], 200);
         } catch (ModelNotFoundException $exception) {
-            return response()->json(['error' => 'Model not found'], 404);
+            return response()->json(['message' => 'Data not found'], 404);
         }
     }
 
@@ -220,16 +227,26 @@ class BookingController extends Controller
         if (!empty($booking) && $booking->customer->email == $request->email) {
 
             if ($booking->updated_at != null || $booking->journey_date <= today() || $booking->booking_status_id != 2) {
+
+                $booking->from = json_decode($booking->from);
+                $booking->via = json_decode($booking->via);
+                $booking->to = json_decode($booking->to);
+
                 return response()->json(
                     [
                         'message' => "Sorry you can't not edit this booking right now.",
-                        'booking' => $booking
+                        'booking' => $booking,
+                        'editable' => false,
                     ],
-                    403
+                    200
                 );
             } else {
+                $booking->from = json_decode($booking->from);
+                $booking->via = json_decode($booking->via);
+                $booking->to = json_decode($booking->to);
                 return response()->json([
-                    'booking' => $booking
+                    'booking' => $booking,
+                    'editable' => true,
                 ], 200);
             }
         } else {
@@ -265,11 +282,76 @@ class BookingController extends Controller
         ]);
 
         $booking->journey_date = $request->journey_date;
+        $booking->passengers = $request->passengers;
+        $booking->luggage = $request->luggage;
         $booking->flight_number = $request->flight_number;
         $booking->flight_origin = $request->flight_origin;
         $booking->updated_at = now();
         $booking->save();
 
         return response()->json(['message' => 'Success! Changes saved.'], 200);
+    }
+
+    public function getBookingForNewPayment(Request $request)
+    {
+        try {
+            $booking = Booking::findOrFail($request->id)->only('id', 'customer', 'from', 'to', 'unpaid_amount', 'journey_date', 'total_price');
+
+            if($booking['unpaid_amount'] <= 0) {
+                return response()->json(['message' => 'No payment is needed for this booking'], 404);
+            }
+
+            $booking['from'] = json_decode($booking['from']);
+            $booking['to'] = json_decode($booking['to']);
+
+            return response()->json($booking, 200);
+        } catch (ModelNotFoundException $exception) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+    }
+
+    /*
+    * Stripe Payment Intent
+    */
+    public function repayPaymentIntent(Request $request)
+    {
+        try {
+            $booking = Booking::findOrFail($request->bookingId);
+        } catch (ModelNotFoundException $exception) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+        try {
+            $stripe = Stripe::make(getenv("STRIPE_SECRET_KEY"), getenv("STRIPE_API_VERSION"));
+
+            $paymentIntent = $stripe->paymentIntents()->create([
+                'amount' => $booking->unpaid_amount,
+                'currency' => 'GBP',
+                'receipt_email' => $request->receipt_email,
+                'payment_method_types' => [
+                    'card',
+                ],
+                'metadata' => [
+                    'booking_Id' => $booking->id,
+                ],
+            ]);
+
+            // return response()->json(['client_secret' => $stripe], 200);
+            return response()->json(['client_secret' => $paymentIntent['client_secret']], 200);
+        } catch (CardErrorException $e) {
+            // Get the error message returned by Stripe
+            return $e->getMessage();
+        } catch (NotFoundException $e) {
+            return $e->getMessage();
+        } catch (ServerErrorException $e) {
+            return $e->getMessage();
+        } catch (UnauthorizedException $e) {
+            return $e->getMessage();
+        } catch (BadRequestException $e) {
+            return $e->getMessage();
+        } catch (InvalidRequestException $e) {
+            return $e->getMessage();
+        } catch (UnauthorizedException $e) {
+            return $e->getMessage();
+        }
     }
 }

@@ -69,6 +69,11 @@ const routes = [
         path: "/manage-bookings",
         name: "manage-bookings",
         component: () => import("./pages/Manage Bookings")
+    },
+    {
+        path: "/new-payment/:id",
+        name: "new-payment",
+        component: () => import("./pages/New Payment")
     }
 ];
 

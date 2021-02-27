@@ -139,25 +139,30 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-row">
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-sm-6">
                                             <label>From</label>
                                             <p class="booking-data">
-                                                {{ booking.from }}
+                                                {{ booking.from.text }}
                                             </p>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-sm-6">
                                             <label>To</label>
                                             <p class="booking-data">
-                                                {{ booking.to }}
+                                                {{ booking.to.text }}
                                             </p>
                                         </div>
-                                        <div
-                                            class="form-group col-md-4"
-                                            v-if="booking.via"
-                                        >
+                                    </div>
+
+                                    <div class="form-row" v-if="booking.via">
+                                        <div class="form-group col-sm-12">
                                             <label>Via Route</label>
-                                            <p class="booking-data">
-                                                {{ booking.via }}
+                                            <p
+                                                class="booking-data mb-0"
+                                                v-for="(item,
+                                                index) in booking.via"
+                                                :key="index"
+                                            >
+                                                {{ item.route.text }}
                                             </p>
                                         </div>
                                     </div>
@@ -292,7 +297,11 @@
                                                 v-model="booking.passengers"
                                                 class="form-control"
                                                 v-else
-                                                ><option
+                                            >
+                                                <option disabled value=""
+                                                    >Please select one</option
+                                                >
+                                                <option
                                                     v-for="passengers in maxPassengerArray"
                                                     :key="passengers"
                                                 >
@@ -313,12 +322,32 @@
                                                 class="form-control"
                                                 v-else
                                             >
-                                                <option>None</option>
-                                                <option
-                                                    v-for="luggage in maxLuggageArray"
-                                                    :key="luggage"
+                                                <option disabled value=""
+                                                    >Please select one</option
                                                 >
-                                                    {{ luggage }} luggage
+                                                <option
+                                                    :value="parseInt(0)"
+                                                    :selected="
+                                                        booking.luggage == 0
+                                                            ? true
+                                                            : false
+                                                    "
+                                                >
+                                                    0
+                                                </option>
+                                                <option
+                                                    v-for="(luggage,
+                                                    index) in maxLuggageArray"
+                                                    :key="index"
+                                                    :value="luggage"
+                                                    :selected="
+                                                        luggage ==
+                                                        booking.luggage
+                                                            ? true
+                                                            : false
+                                                    "
+                                                >
+                                                    {{ luggage }}
                                                 </option>
                                             </select>
                                         </div>
@@ -410,8 +439,8 @@ export default {
                 closeOnSelect: true
             },
             isLoading: false,
-            bookingId: null,
-            email: "",
+            bookingId: 250,
+            email: "vuku@gmail.com",
             booking: {
                 booking_status_id: null,
                 journey_date: null,
@@ -422,7 +451,8 @@ export default {
                     type: "asd",
                     maxPassenger: null,
                     luggage: null
-                }
+                },
+                editable: false,
             },
             temporaryBooking: {},
             bookingStatus: [
@@ -483,23 +513,26 @@ export default {
             this.updateError = null;
             this.errorTypes.editNotPossible = false;
 
+            // Getting the price list from database
             axios.get("/price-list").then(response => {
                 this.vehicles = response.data;
 
-                // Getting the price list from database
                 axios
                     .post("/search-booking", {
                         bookingId: this.bookingId,
                         email: this.email
                     })
                     .then(response => {
+                        if (response.data.editable == false) {
+                            // this.booking = error.response.data.booking;
+                            this.errorTypes.editNotPossible = true;
+                            this.error.data.message = response.data.message
+                        }
                         this.booking = response.data.booking;
 
                         this.vehicles.forEach(element => {
                             if (element.id === this.booking.vehicle_id) {
-                                this.vehicle = JSON.parse(
-                                    JSON.stringify(element)
-                                );
+                                this.vehicle = element;
                             }
                         });
                         for (let i = 1; i <= this.vehicle.maxPassenger; i++) {
@@ -524,11 +557,7 @@ export default {
                     })
                     .catch(error => {
                         if (error.response) {
-                            if (error.response.status === 403) {
-                                this.showBooking = true;
-                                this.booking = error.response.data.booking;
-                                this.errorTypes.editNotPossible = true;
-                            } else if (error.response.status === 404) {
+                             if (error.response.status === 404) {
                                 this.errorTypes.bookingNotFound == true;
                             }
                             this.error = error.response;
@@ -547,14 +576,16 @@ export default {
                 .post("/update-booking", {
                     bookingId: this.booking.id,
                     journey_date: this.booking.journey_date,
+                    passengers: this.booking.passengers,
+                    luggage: this.booking.luggage,
                     flight_number: this.booking.flight_number,
                     flight_origin: this.booking.flight_origin
                 })
                 .then(response => {
                     this.updated = response.data.message;
                     this.errorTypes.editNotPossible = true;
-                    this.error.data.message =
-                        "Sorry you can't not edit this booking right now.";
+                    // this.error.data.message =
+                    //     "Sorry you can't not edit this booking right now.";
                 })
                 .catch(error => {
                     this.updateError = error.response.data.message;
@@ -579,10 +610,7 @@ export default {
     },
     computed: {
         validateUpdate() {
-            if (
-                this.booking.journey_date !== "" &&
-                this.booking.flight_number
-            ) {
+            if (this.booking.journey_date !== "") {
                 return true;
             } else return false;
             // if (

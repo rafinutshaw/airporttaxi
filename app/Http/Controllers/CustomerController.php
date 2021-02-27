@@ -52,6 +52,18 @@ class CustomerController extends Controller
                 ->editColumn('customer', function ($booking) {
                     return $booking->customer->name;
                 })
+                /**
+                 * * Convert string to JSON Data
+                 */
+                ->editColumn('from', function ($booking) {
+                    return json_decode($booking->from, true);
+                })
+                /**
+                 * * Convert string to JSON Data
+                 */
+                ->editColumn('to', function ($booking) {
+                    return json_decode($booking->to, true);
+                })
                 ->editColumn('booking_status', function ($booking) {
                     return $booking->bookingStatus->status;
                 })
@@ -229,12 +241,17 @@ class CustomerController extends Controller
     public function viewBooking(Request $request)
     {
         $booking = Booking::findOrFail($request->id);
+        $booking->from = json_decode($booking->from);
+        $booking->via = json_decode($booking->via);
+        $booking->to = json_decode($booking->to);
         return view('pages.customer.booking.view-booking-details', compact('booking'));
     }
 
     public function viewUpcomingBookingDetails(Request $request)
     {
         $booking = Booking::findOrFail($request->id);
+        $booking->from = json_decode($booking->from);
+        $booking->to = json_decode($booking->to);
         return view('pages.customer.booking.view-upcoming-booking-details', compact('booking'));
     }
 }

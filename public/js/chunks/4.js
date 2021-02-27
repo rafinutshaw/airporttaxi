@@ -401,6 +401,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -432,8 +461,8 @@ __webpack_require__.r(__webpack_exports__);
         closeOnSelect: true
       },
       isLoading: false,
-      bookingId: null,
-      email: "",
+      bookingId: 250,
+      email: "vuku@gmail.com",
       booking: {
         booking_status_id: null,
         journey_date: null,
@@ -444,7 +473,8 @@ __webpack_require__.r(__webpack_exports__);
           type: "asd",
           maxPassenger: null,
           luggage: null
-        }
+        },
+        editable: false
       },
       temporaryBooking: {},
       bookingStatus: ["Unpaid", "Pending", "Approved", "Ongoing", "Completed", "Canceled"],
@@ -496,19 +526,25 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.updated = null;
       this.updateError = null;
-      this.errorTypes.editNotPossible = false;
-      axios.get("/price-list").then(function (response) {
-        _this.vehicles = response.data; // Getting the price list from database
+      this.errorTypes.editNotPossible = false; // Getting the price list from database
 
+      axios.get("/price-list").then(function (response) {
+        _this.vehicles = response.data;
         axios.post("/search-booking", {
           bookingId: _this.bookingId,
           email: _this.email
         }).then(function (response) {
+          if (response.data.editable == false) {
+            // this.booking = error.response.data.booking;
+            _this.errorTypes.editNotPossible = true;
+            _this.error.data.message = response.data.message;
+          }
+
           _this.booking = response.data.booking;
 
           _this.vehicles.forEach(function (element) {
             if (element.id === _this.booking.vehicle_id) {
-              _this.vehicle = JSON.parse(JSON.stringify(element));
+              _this.vehicle = element;
             }
           });
 
@@ -525,11 +561,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.booking.hasFlightNumber == true ? _this.booking.hasFlightOrigin = true : _this.booking.flight_origin = false; // this.vehicle = this.vehicles.find(element => element.id == this.booking.vehicle_id);
         })["catch"](function (error) {
           if (error.response) {
-            if (error.response.status === 403) {
-              _this.showBooking = true;
-              _this.booking = error.response.data.booking;
-              _this.errorTypes.editNotPossible = true;
-            } else if (error.response.status === 404) {
+            if (error.response.status === 404) {
               _this.errorTypes.bookingNotFound == true;
             }
 
@@ -549,12 +581,14 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/update-booking", {
         bookingId: this.booking.id,
         journey_date: this.booking.journey_date,
+        passengers: this.booking.passengers,
+        luggage: this.booking.luggage,
         flight_number: this.booking.flight_number,
         flight_origin: this.booking.flight_origin
       }).then(function (response) {
         _this2.updated = response.data.message;
-        _this2.errorTypes.editNotPossible = true;
-        _this2.error.data.message = "Sorry you can't not edit this booking right now.";
+        _this2.errorTypes.editNotPossible = true; // this.error.data.message =
+        //     "Sorry you can't not edit this booking right now.";
       })["catch"](function (error) {
         _this2.updateError = error.response.data.message;
 
@@ -577,7 +611,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     validateUpdate: function validateUpdate() {
-      if (this.booking.journey_date !== "" && this.booking.flight_number) {
+      if (this.booking.journey_date !== "") {
         return true;
       } else return false; // if (
       //     moment(
@@ -884,48 +918,63 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c("div", { staticClass: "form-row" }, [
-                          _c("div", { staticClass: "form-group col-md-4" }, [
+                          _c("div", { staticClass: "form-group col-sm-6" }, [
                             _c("label", [_vm._v("From")]),
                             _vm._v(" "),
                             _c("p", { staticClass: "booking-data" }, [
                               _vm._v(
                                 "\n                                            " +
-                                  _vm._s(_vm.booking.from) +
+                                  _vm._s(_vm.booking.from.text) +
                                   "\n                                        "
                               )
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group col-md-4" }, [
+                          _c("div", { staticClass: "form-group col-sm-6" }, [
                             _c("label", [_vm._v("To")]),
                             _vm._v(" "),
                             _c("p", { staticClass: "booking-data" }, [
                               _vm._v(
                                 "\n                                            " +
-                                  _vm._s(_vm.booking.to) +
+                                  _vm._s(_vm.booking.to.text) +
                                   "\n                                        "
                               )
                             ])
-                          ]),
-                          _vm._v(" "),
-                          _vm.booking.via
-                            ? _c(
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm.booking.via
+                          ? _c("div", { staticClass: "form-row" }, [
+                              _c(
                                 "div",
-                                { staticClass: "form-group col-md-4" },
+                                { staticClass: "form-group col-sm-12" },
                                 [
                                   _c("label", [_vm._v("Via Route")]),
                                   _vm._v(" "),
-                                  _c("p", { staticClass: "booking-data" }, [
-                                    _vm._v(
-                                      "\n                                            " +
-                                        _vm._s(_vm.booking.via) +
-                                        "\n                                        "
+                                  _vm._l(_vm.booking.via, function(
+                                    item,
+                                    index
+                                  ) {
+                                    return _c(
+                                      "p",
+                                      {
+                                        key: index,
+                                        staticClass: "booking-data mb-0"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(item.route.text) +
+                                            "\n                                        "
+                                        )
+                                      ]
                                     )
-                                  ])
-                                ]
+                                  })
+                                ],
+                                2
                               )
-                            : _vm._e()
-                        ]),
+                            ])
+                          : _vm._e(),
                         _vm._v(" "),
                         _c("div", { staticClass: "form-row" }, [
                           _c(
@@ -1258,18 +1307,26 @@ var render = function() {
                                       }
                                     }
                                   },
-                                  _vm._l(_vm.maxPassengerArray, function(
-                                    passengers
-                                  ) {
-                                    return _c("option", { key: passengers }, [
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(passengers) +
-                                          "\n                                            "
-                                      )
-                                    ])
-                                  }),
-                                  0
+                                  [
+                                    _c(
+                                      "option",
+                                      { attrs: { disabled: "", value: "" } },
+                                      [_vm._v("Please select one")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.maxPassengerArray, function(
+                                      passengers
+                                    ) {
+                                      return _c("option", { key: passengers }, [
+                                        _vm._v(
+                                          "\n                                                " +
+                                            _vm._s(passengers) +
+                                            "\n                                            "
+                                        )
+                                      ])
+                                    })
+                                  ],
+                                  2
                                 )
                           ]),
                           _vm._v(" "),
@@ -1320,18 +1377,54 @@ var render = function() {
                                     }
                                   },
                                   [
-                                    _c("option", [_vm._v("None")]),
+                                    _c(
+                                      "option",
+                                      { attrs: { disabled: "", value: "" } },
+                                      [_vm._v("Please select one")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "option",
+                                      {
+                                        domProps: {
+                                          value: parseInt(0),
+                                          selected:
+                                            _vm.booking.luggage == 0
+                                              ? true
+                                              : false
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                                0\n                                            "
+                                        )
+                                      ]
+                                    ),
                                     _vm._v(" "),
                                     _vm._l(_vm.maxLuggageArray, function(
-                                      luggage
+                                      luggage,
+                                      index
                                     ) {
-                                      return _c("option", { key: luggage }, [
-                                        _vm._v(
-                                          "\n                                                " +
-                                            _vm._s(luggage) +
-                                            " luggage\n                                            "
-                                        )
-                                      ])
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: index,
+                                          domProps: {
+                                            value: luggage,
+                                            selected:
+                                              luggage == _vm.booking.luggage
+                                                ? true
+                                                : false
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(luggage) +
+                                              "\n                                            "
+                                          )
+                                        ]
+                                      )
                                     })
                                   ],
                                   2

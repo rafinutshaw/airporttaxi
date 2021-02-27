@@ -29,21 +29,28 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
+    
                                     <div class="form-row">
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6 mb-0">
                                             <label class="col-sm-6 col-form-label">From</label>
-                                            <p class="booking-data">{{ $booking->from }}</p>
+                                            <p class="booking-data">{{ $booking->from->text }}</p>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6 mb-0">
                                             <label class="col-sm-6 col-form-label">To</label>
-                                            <p class="booking-data">{{ $booking->to }}</p>
+                                            <p class="booking-data">{{ $booking->to->text }}</p>
                                         </div>
-                                        @if (!empty($booking->via))
-                                        <div class="form-group col-md-4">
-                                            <label class="col-sm-6 col-form-label">Via Route</label>
-                                            <p class="booking-data">{{ $booking->via }}</p>
+                                        <div class="form-row">
+                                            @if (!empty($booking->via))
+                                            <div class="form-group col-md-12 mb-0">
+                                                <label class="col-sm-6 col-form-label">Via Routes</label>
+                                                <p class="booking-data">
+                                                    @foreach ($booking->via as $viaRoute)
+                                                        {{ $viaRoute->route->text }},
+                                                    @endforeach
+                                                </p>
+                                            </div>
+                                            @endif
                                         </div>
-                                        @endif
                                     </div>
 
                                     <div class="form-row">

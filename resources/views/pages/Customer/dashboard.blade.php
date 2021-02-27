@@ -73,12 +73,24 @@
                     data: 'mobile',
                     name: 'mobile'
                 },
+                /*
+                *  Convert 'from' string to json object
+                */
                 {
-                    data: 'from',
+                    data: 'from.text',
+                    render: (data) => {
+                        return JSON.parse('"' + data + '"')
+                    },
                     name: 'from'
                 },
+                /*
+                *  Convert 'to' string to json object
+                */
                 {
-                    data: 'to',
+                    data: 'to.text',
+                    render: function (data) {
+                        return JSON.parse('"' + data + '"');
+                    },
                     name: 'to'
                 },
                 {

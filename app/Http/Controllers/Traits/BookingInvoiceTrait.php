@@ -53,6 +53,9 @@ trait BookingInvoiceTrait
      */
     private function setInvoiceData(Booking $booking)
     {
+        $booking->from = json_decode($booking->from);
+        $booking->via = json_decode($booking->via);
+        $booking->to = json_decode($booking->to);
         $data = [
             'name' => $booking->customer->name,
             'mobile' => $booking->mobile,
