@@ -15,10 +15,10 @@
 <script>
 import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
 // core version + navigation, pagination modules:
-import SwiperCore, { Navigation, Pagination } from "swiper/core";
+import SwiperCore, { Navigation, Pagination, Autoplay  } from "swiper/core";
 
 // configure Swiper to use modules
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination, Autoplay ]);
 
 // import Swiper styles
 import "swiper/swiper-bundle.css";
@@ -42,15 +42,19 @@ export default {
                 loopFillGroupWithBlank: true,
                 freeMode: true,
                 grabCursor: true,
+                autoplay: {
+                    delay: 2000,
+                    disableOnInteraction: false
+                },
                 pagination: {
                     el: ".swiper-pagination",
                     clickable: true,
-                    dynamicBullets: true,
+                    dynamicBullets: true
                 },
                 navigation: {
                     nextEl: ".swiper-button-next",
                     prevEl: ".swiper-button-prev"
-                },
+                }
             }
         };
     },
