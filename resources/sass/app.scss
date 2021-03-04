@@ -28,7 +28,7 @@
 // }
 // @import '~vue2-datepicker/scss/index.scss';
 
-@import './datepicker.scss';
+@import "./datepicker.scss";
 
 // .btn:hover .fa,
 // .btn:hover .fas,
@@ -56,10 +56,9 @@
 //     transform: scale(1.05);
 // }
 
-
 .btn-primary {
-    background-color:  $primary !important;
-    border-color:  $primary !important;
+    background-color: $primary !important;
+    border-color: $primary !important;
 }
 
 .btn-primary:hover {
@@ -76,7 +75,7 @@
     background-color: #5865f5;
     border-color: #5865f5;
 }
-  
+
 .btn-secondary:hover {
     color: #fff;
     background-color: #3444f3;
@@ -102,7 +101,6 @@
 //   border-color: #5856d6;
 //   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 // }
-
 
 // Pagination
 .pagination > .page-item > .page-link {

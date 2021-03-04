@@ -545,6 +545,7 @@
 
         <!-- Start Partners Area -->
         <partners></partners>
+        <!-- <PartnersVue></PartnersVue> -->
         <!-- End Partners Area  -->
     </div>
 </template>
@@ -559,7 +560,7 @@ export default {
         BookingForm,
         FindCarByType,
         About,
-        Partners
+        Partners,
     },
     created() {
         $("html,body").scrollTop(0);

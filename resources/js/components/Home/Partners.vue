@@ -1,73 +1,60 @@
 <template>
     <div>
         <h3 class="bg-white text-center mb-0 pb-4">Our Partners</h3>
-        <div
-            id="carouselExampleIndicators"
-            class="carousel slide"
-            data-ride="carousel"
-        >
-            <ol class="carousel-indicators">
-                <li
-                    data-target="#carouselExampleIndicators"
-                    data-slide-to="0"
-                    class="active"
-                ></li>
-                <li
-                    data-target="#carouselExampleIndicators"
-                    data-slide-to="1"
-                ></li>
-                <li
-                    data-target="#carouselExampleIndicators"
-                    data-slide-to="2"
-                ></li>
-            </ol>
-            <div class="carousel-inner">
-                <div
-                    v-for="(partner, index) in partners"
-                    :key="index"
-                    class="carousel-item"
-                    :class="{ active: index == 0 }"
-                >
-                    <img :src="partner.photo" class="d-block w-100" alt="..." />
-                </div>
-            </div>
-            <a
-                class="carousel-control-prev"
-                href="#carouselExampleIndicators"
-                role="button"
-                data-slide="prev"
-            >
-                <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                ></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a
-                class="carousel-control-next"
-                href="#carouselExampleIndicators"
-                role="button"
-                data-slide="next"
-            >
-                <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                ></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+        <swiper class="swiper" :options="swiperOption">
+            <swiper-slide v-for="(partner, index) in partners" :key="index">
+                <img :src="partner.photo" class="d-block w-100" alt="..." />
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+            <div class="swiper-button-prev" slot="button-prev"></div>
+            <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
     </div>
 </template>
 
 <script>
+import { Swiper, SwiperSlide, directive } from "vue-awesome-swiper";
+// core version + navigation, pagination modules:
+import SwiperCore, { Navigation, Pagination } from "swiper/core";
+
+// configure Swiper to use modules
+SwiperCore.use([Navigation, Pagination]);
+
+// import Swiper styles
+import "swiper/swiper-bundle.css";
+// import "swiper/swiper.min.css";
+
 export default {
+    components: {
+        Swiper,
+        SwiperSlide
+    },
+    directives: {
+        swiper: directive
+    },
     data() {
         return {
-            partners: null
+            partners: null,
+            swiperOption: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                loop: true,
+                loopFillGroupWithBlank: true,
+                freeMode: true,
+                grabCursor: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    dynamicBullets: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                },
+            }
         };
     },
     mounted() {
-        console.log(process.env.MIX_ADMIN_APP_URL);
         axios.get("/partners").then(response => {
             this.partners = response.data;
         });
@@ -76,7 +63,28 @@ export default {
 </script>
 
 <style scoped>
-.carousel-item img {
-    height: 200px !important;
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
 }
 </style>
