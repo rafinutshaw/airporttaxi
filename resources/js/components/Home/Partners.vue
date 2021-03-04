@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3 class="bg-white text-center mb-0 pb-4">Our Partners</h3>
-        <swiper class="swiper" :options="swiperOption">
+        <swiper class="swiper bg-white" :options="swiperOption">
             <swiper-slide v-for="(partner, index) in partners" :key="index">
                 <img :src="partner.photo" class="d-block w-100" alt="..." />
             </swiper-slide>
