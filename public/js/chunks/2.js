@@ -101,19 +101,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -144,10 +131,13 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("password/email", {
         email: email
       }).then(function (response) {
-        _this.form.success = response.data.message;
+        if (response.status == 200) {
+          _this.form.success = "Password reset link sent successfully.";
+        }
       })["catch"](function (errors) {
-        // console.log(errors.response.data.errors);
-        _this.form.errors = errors.response.data.errors;
+        if (errors.response) {
+          _this.form.errors = errors.response.data.message;
+        }
       })["finally"](function () {
         _this.isLoading = false;
       });
@@ -238,6 +228,35 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-md-8" }, [
+          _vm.form.success || _vm.form.errors
+            ? _c(
+                "div",
+                {
+                  staticClass: "alert alert-dismissible fade show",
+                  class: _vm.form.success
+                    ? "alert-success"
+                    : _vm.form.errors
+                    ? "alert-danger"
+                    : "",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(
+                        _vm.form.success
+                          ? _vm.form.success
+                          : _vm.form.errors
+                          ? _vm.form.errors
+                          : ""
+                      ) +
+                      "\n                "
+                  ),
+                  _vm._m(0)
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("Reset Password")
@@ -374,94 +393,8 @@ var render = function() {
                                     ]
                                   )
                                 ]
-                              ),
-                              _vm._v(" "),
-                              _vm.form.success
-                                ? _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "col-sm-6 offset-md-4 alert alert-success alert-dismissible fade show mt-3",
-                                      attrs: { role: "alert" }
-                                    },
-                                    [
-                                      _c("li", [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(_vm.form.success) +
-                                            "\n                                "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "close",
-                                          attrs: {
-                                            type: "button",
-                                            "data-dismiss": "alert",
-                                            "aria-label": "Close"
-                                          }
-                                        },
-                                        [
-                                          _c(
-                                            "span",
-                                            {
-                                              attrs: { "aria-hidden": "true" }
-                                            },
-                                            [_vm._v("×")]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm._l(_vm.form.errors, function(error, index) {
-                                return _c(
-                                  "div",
-                                  {
-                                    key: index,
-                                    staticClass:
-                                      "col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show mt-3"
-                                  },
-                                  [
-                                    _vm._l(error, function(singleError, index) {
-                                      return _c("div", { key: index }, [
-                                        _c("li", [
-                                          _vm._v(
-                                            "\n                                        " +
-                                              _vm._s(singleError) +
-                                              "\n                                    "
-                                          )
-                                        ])
-                                      ])
-                                    }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "close",
-                                        attrs: {
-                                          type: "button",
-                                          "data-dismiss": "alert",
-                                          "aria-label": "Close"
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "span",
-                                          { attrs: { "aria-hidden": "true" } },
-                                          [_vm._v("×")]
-                                        )
-                                      ]
-                                    )
-                                  ],
-                                  2
-                                )
-                              })
-                            ],
-                            2
+                              )
+                            ]
                           )
                         ]
                       }
@@ -478,7 +411,25 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
 render._withStripped = true
 
 

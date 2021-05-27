@@ -59,7 +59,7 @@ class BookingController extends Controller
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
                 'distance' => $request['distance'],
-                'unpaid_amount' => $request['total_price'],
+                'sub_total' => $request['sub_total'],
                 'total_price' => $request['total_price'],
                 // 'passport' => $request['passport'],
                 'flight_number' => $request['flight_number'],
@@ -92,7 +92,7 @@ class BookingController extends Controller
                 'passengers' => $request['passengers'],
                 'luggage' => $request['luggage'],
                 'distance' => $request['distance'],
-                'unpaid_amount' => $request['total_price'],
+                'sub_total' => $request['sub_total'],
                 'total_price' => $request['total_price'],
                 // 'passport' => $request['passport'],
                 'flight_number' => $request['flight_number'],
@@ -194,7 +194,9 @@ class BookingController extends Controller
     {
         try {
             $booking = Booking::findOrFail($request->bookingId);
-            $booking->unpaid_amount = 0;
+            $booking->total_price = $booking->sub_total - $booking->discount;
+            $booking->paid = $request->paid;
+            $booking->total_due = $booking->total_price - $booking->paid;
             $booking->booking_status_id = 2;
             $booking->stripe_payment_intent_id = $request->paymentIntentId;
             $booking->save();
@@ -202,12 +204,12 @@ class BookingController extends Controller
             /*
              * Sending an email 
              */
-            // $this->sendEmail($booking);
+            $this->sendEmail($booking);
 
-            // $users = User::all();
-            // foreach ($users as $user) {
-            //     $user->notify(new BookingSubmittedNotification($booking->id));
-            // }
+            $users = User::all();
+            foreach ($users as $user) {
+                $user->notify(new BookingSubmittedNotification($booking->id));
+            }
 
             return response()->json([
                 'data_updated' => 'booking status updated'
@@ -295,9 +297,9 @@ class BookingController extends Controller
     public function getBookingForNewPayment(Request $request)
     {
         try {
-            $booking = Booking::findOrFail($request->id)->only('id', 'customer', 'from', 'to', 'unpaid_amount', 'journey_date', 'total_price');
+            $booking = Booking::findOrFail($request->id)->only('id', 'customer', 'from', 'to', 'total_due', 'journey_date', 'total_price');
 
-            if($booking['unpaid_amount'] <= 0) {
+            if ($booking['total_due'] <= 0) {
                 return response()->json(['message' => 'No payment is needed for this booking'], 404);
             }
 
@@ -324,7 +326,7 @@ class BookingController extends Controller
             $stripe = Stripe::make(getenv("STRIPE_SECRET_KEY"), getenv("STRIPE_API_VERSION"));
 
             $paymentIntent = $stripe->paymentIntents()->create([
-                'amount' => $booking->unpaid_amount,
+                'amount' => $booking->total_due,
                 'currency' => 'GBP',
                 'receipt_email' => $request->receipt_email,
                 'payment_method_types' => [

@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-    
+
                                     <div class="form-row">
                                         <div class="form-group col-md-6 mb-0">
                                             <label class="col-sm-6 col-form-label">From</label>
@@ -45,7 +45,7 @@
                                                 <label class="col-sm-6 col-form-label">Via Routes</label>
                                                 <p class="booking-data">
                                                     @foreach ($booking->via as $viaRoute)
-                                                        {{ $viaRoute->route->text }},
+                                                    {{ $viaRoute->route->text }},
                                                     @endforeach
                                                 </p>
                                             </div>
@@ -56,7 +56,9 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label class="col-sm-6 col-form-label">Journey Date</label>
-                                            <p class="booking-data">{{ date('l jS \\of F Y h:i:s A', strtotime($booking->journey_date)) }}</p>
+                                            <p class="booking-data">
+                                                {{ date('l jS \\of F Y h:i:s A', strtotime($booking->journey_date)) }}
+                                            </p>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label class="col-sm-6 col-form-label">Journey Type</label>
@@ -80,7 +82,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    
+
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label class="col-sm-6 col-form-label">Passengers</label>
@@ -94,10 +96,53 @@
 
                                     <hr>
                                     <div class="form-row">
-                                        <div class="form-group col-md-12 text-right">
-                                            <label class="col-sm-6 col-form-label">Total price</label>
-                                            <p class="booking-data">{{ '₤ '. $booking->total_price }}</p>
-                                        </div>
+                                        <table
+                                            class="table table-sm table-striped table-hover table-responsive-sm d-flex justify-content-end">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">
+                                                        Sub Total
+                                                    </th>
+                                                    <td>
+                                                        {{ "₤ " . $booking->sub_total }}
+                                                    </td>
+                                                </tr>
+                                                @if ($booking->discount > 0)
+                                                <tr>
+                                                    <th scope="row">
+                                                        Discount
+                                                    </th>
+                                                    <td>
+                                                        {{ "₤ " . $booking->discount }}
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                                <tr class="table-primary">
+                                                    <th scope="row">Total</th>
+                                                    <td>
+                                                        {{ "₤ " . $booking->total_price }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        Paid amount
+                                                    </th>
+                                                    <td>
+                                                        {{ "₤ " . $booking->paid }}
+                                                    </td>
+                                                </tr>
+                                                @if ($booking->total_due > 0)
+                                                <tr class="table-warning">
+                                                    <th scope="row">
+                                                        Total Due
+                                                    </th>
+                                                    <td>
+                                                        {{ "₤ " . $booking->total_due }}
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                            </tbody>
+                                        </table>
                                     </div>
 
                                     @if ($booking->bookingStatus->status == "Pending")

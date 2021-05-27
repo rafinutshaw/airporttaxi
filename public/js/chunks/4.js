@@ -430,6 +430,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -461,8 +517,8 @@ __webpack_require__.r(__webpack_exports__);
         closeOnSelect: true
       },
       isLoading: false,
-      bookingId: 250,
-      email: "vuku@gmail.com",
+      bookingId: 302,
+      email: "tesu@gmail.com",
       booking: {
         booking_status_id: null,
         journey_date: null,
@@ -1436,17 +1492,101 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "form-row" }, [
                           _c(
-                            "div",
-                            { staticClass: "form-group col-md-12 text-right" },
+                            "table",
+                            {
+                              staticClass:
+                                "table table-sm table-striped table-hover table-responsive-sm d-flex justify-content-end"
+                            },
                             [
-                              _c("label", [_vm._v("Total price")]),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "booking-data" }, [
-                                _vm._v(
-                                  "\n                                            " +
-                                    _vm._s("₤ " + _vm.booking.total_price) +
-                                    "\n                                        "
-                                )
+                              _c("tbody", [
+                                _c("tr", [
+                                  _c("th", { attrs: { scope: "row" } }, [
+                                    _vm._v(
+                                      "\n                                                    Sub Total\n                                                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                                                    " +
+                                        _vm._s(
+                                          "₤ " +
+                                            _vm.booking.sub_total.toFixed(2)
+                                        ) +
+                                        "\n                                                "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.booking.discount > 0
+                                  ? _c("tr", [
+                                      _c("th", { attrs: { scope: "row" } }, [
+                                        _vm._v(
+                                          "\n                                                    Discount\n                                                "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          "\n                                                    " +
+                                            _vm._s(
+                                              "₤ " + _vm.booking.discount
+                                            ) +
+                                            "\n                                                "
+                                        )
+                                      ])
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c("tr", { staticClass: "table-primary" }, [
+                                  _c("th", { attrs: { scope: "row" } }, [
+                                    _vm._v("Total")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                                                    " +
+                                        _vm._s("₤ " + _vm.booking.total_price) +
+                                        "\n                                                "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _c("th", { attrs: { scope: "row" } }, [
+                                    _vm._v(
+                                      "\n                                                    Paid amount\n                                                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n                                                    " +
+                                        _vm._s("₤ " + _vm.booking.paid) +
+                                        "\n                                                "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.booking.total_due > 0
+                                  ? _c("tr", { staticClass: "table-warning" }, [
+                                      _c("th", { attrs: { scope: "row" } }, [
+                                        _vm._v(
+                                          "\n                                                    Total Due\n                                                "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(
+                                          "\n                                                    " +
+                                            _vm._s(
+                                              "₤ " + _vm.booking.total_due
+                                            ) +
+                                            "\n                                                "
+                                        )
+                                      ])
+                                    ])
+                                  : _vm._e()
                               ])
                             ]
                           )

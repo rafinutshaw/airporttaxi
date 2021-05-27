@@ -106,29 +106,32 @@ export default {
                     password_confirmation: this.password_confirmation
                 })
                 .then(response => {
-                    localStorage.setItem("loggedIn", true);
-                    localStorage.setItem(
-                        "authUsername",
-                        response.data.auth.name
-                    );
-                    localStorage.setItem("authEmail", response.data.auth.email);
-
-                    Swal.fire({
-                        icon: "success",
-                        title: "Great!",
-                        text: response.data.message,
-                        timer: 3000
-                    });
-                    setTimeout(() => {
-                        window.location.href = "/";
-                    }, 4000);
-                    // this.$router.push({ name: "Home" });
-                    // if (response.response.status === 200) {
-                    // }
+                    if (response.status == 200) {
+                        try {
+                            localStorage.setItem("loggedIn", true);
+                            localStorage.setItem(
+                                "authUsername",
+                                response.data.auth.name
+                            );
+                            localStorage.setItem(
+                                "authEmail",
+                                response.data.auth.email
+                            );
+                        } catch (error) {}
+                        Swal.fire({
+                            icon: "success",
+                            title: "Great",
+                            text: "Password changed successfully.",
+                            timer: 2000
+                        }).then(() => {
+                            window.location = "/";
+                        });
+                    }
                 })
                 .catch(errors => {
-                    // console.log(errors);
-                    this.errors = errors.response.data.errors;
+                    if (errors.response) {
+                        this.errors = errors.response.data.errors;
+                    }
                 });
         }
     },

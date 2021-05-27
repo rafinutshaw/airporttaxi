@@ -148,3 +148,24 @@
 }
 
 /* Ending Loader */
+
+
+/* For Datatable search field */
+.dataTables_filter {
+    display: inline-block;
+    float: right;
+}
+
+.align-self-center {
+    align-self: center !important;
+}
+
+/* For Datatable on mouse hover pointer*/
+table.dataTable tbody tr:hover {
+    cursor: pointer;
+}
+table.dataTable tbody > tr.selected,
+table.dataTable tbody > tr > .selected {
+    color:white;
+    background-color: #464646;
+}

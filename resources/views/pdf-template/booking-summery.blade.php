@@ -9,6 +9,7 @@
             display: table;
             clear: both;
         }
+
         a {
             color: #0087C3;
             text-decoration: none;
@@ -102,7 +103,7 @@
 
         table th,
         table td {
-            padding: 20px;
+            padding: 10px;
             background: #EEEEEE;
             text-align: center;
             border-bottom: 1px solid #FFFFFF;
@@ -162,7 +163,7 @@
             padding: 10px 20px;
             background: #FFFFFF;
             border-bottom: none;
-            font-size: 1.2em;
+            font-size: 1em;
             white-space: nowrap;
             border-top: 1px solid #AAAAAA;
         }
@@ -173,7 +174,7 @@
 
         table tfoot tr:last-child td {
             color: #0087c3;
-            font-size: 1.4em;
+            /* font-size: 1.4em; */
             border-top: 1px solid #0087c3;
 
         }
@@ -235,7 +236,6 @@
         .footertable tr td {
             text-align: left !important;
         }
-
     </style>
 </head>
 
@@ -295,16 +295,16 @@
                     </td>
                 </tr>
 
-                @isset($data['via'])
+                @empty(!$data['via'])
                 <tr>
                     <td class="no">Via</td>
                     <td class="desc" colspan="4">
                         @foreach ($data['via'] as $item)
-                            {{ $item->route->text }},
+                        {{ $item->route->text }},
                         @endforeach
                     </td>
                 </tr>
-                @endisset
+                @endempty
 
                 <tr>
                     <td class="no">Drop off</td>
@@ -339,7 +339,7 @@
                     <td class="no">Flight Number</td>
                     <td class="desc" colspan="4">
                         {{ $data['flight_number'] }}
-                    </td>
+                </td>
                 </tr>
                 @endisset
 
@@ -373,12 +373,48 @@
             <tfoot>
                 <tr>
                     <td colspan="2"></td>
-                    <td colspan="2">TOTAL</td>
+                    <td colspan="2">Sub Total</td>
+                    <td style="text-align: right">
+                        <span style="font-family: DejaVu Sans; sans-serif;">&#8356;</span>
+                        {{ $data['sub_total'] }}
+                    </td>
+                </tr>
+                @if ($data['discount'] > 0)
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">Discount</td>
+                    <td style="text-align: right">
+                        <span style="font-family: DejaVu Sans; sans-serif;">&#8356;</span>
+                        {{ $data['discount'] }}
+                    </td>
+                </tr>
+                @endif
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">Total</td>
                     <td style="text-align: right">
                         <span style="font-family: DejaVu Sans; sans-serif;">&#8356;</span>
                         {{ $data['totalPrice'] }}
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">Paid Amount</td>
+                    <td style="text-align: right">
+                        <span style="font-family: DejaVu Sans; sans-serif;">&#8356;</span>
+                        {{ $data['paid'] }}
+                    </td>
+                </tr>
+                @if ($data['total_due'] > 0)
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2">Total Due</td>
+                    <td style="text-align: right">
+                        <span style="font-family: DejaVu Sans; sans-serif;">&#8356;</span>
+                        {{ $data['total_due'] }}
+                    </td>
+                </tr>
+                @endif
             </tfoot>
         </table>
     </main>

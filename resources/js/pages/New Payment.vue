@@ -32,9 +32,8 @@
         <div class="container d-flex flex-row justify-content-center mb-2">
             <div
                 class="row mt-4 justify-content-center"
-                v-if="error.data.message == '' && journey.unpaid_amount > 0"
+                v-if="error.data.message == '' && journey.total_due > 0"
             >
-
                 <!-- Passenger Details -->
                 <div class="col-md-10 col-sm-12">
                     <div class="card">
@@ -108,7 +107,7 @@
                                         >Unpaid Amount</label
                                     >
                                     <p class="text-danger font-italic mb-0">
-                                        £{{ journey.unpaid_amount }}
+                                        £{{ journey.total_due }}
                                     </p>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -381,7 +380,7 @@ export default {
                 to: {
                     text: ""
                 },
-                unpaid_amount: 0
+                total_due: 0
             },
             error: {
                 data: {
@@ -449,7 +448,7 @@ export default {
                     // Add an instance of the card Element into the `card-element` <div>.
                     this.card.mount("#card-element");
                     document.getElementById("button-text").innerText =
-                        "Pay £" + this.journey.unpaid_amount;
+                        "Pay £" + this.journey.total_due;
 
                     // Handle real-time validation errors from the card Element.
                     this.card.on("change", function(event) {
@@ -525,7 +524,6 @@ export default {
                                                 result.paymentIntent.id
                                         })
                                         .then(response => {
-                                            console.log(response.data);
                                             this.loading(false);
                                             this.cardPayment.success = true;
 
@@ -576,7 +574,7 @@ export default {
         validateEmail(email) {
             const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
-        },
+        }
     },
     computed: {
         validatePaymentForm() {

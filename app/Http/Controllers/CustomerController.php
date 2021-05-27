@@ -33,22 +33,24 @@ class CustomerController extends Controller
                 );
 
             return DataTables::of($query)
-                ->editColumn('action', function ($row) {
-                    $buttonActions = [
-                        'view' => [
-                            'visible' => true,
-                            'routeName' => 'customer.booking.details'
-                        ],
-                    ];
-                    return view('includes.customer.datatablesAction', compact('buttonActions', 'row'));
-                })
+                // ->editColumn('action', function ($row) {
+                //     $buttonActions = [
+                //         'view' => [
+                //             'visible' => true,
+                //             'routeName' => 'customer.booking.details'
+                //         ],
+                //     ];
+                //     return view('includes.customer.datatablesAction', compact('buttonActions', 'row'));
+                // })
                 /**
                  * * You can add action button with that way (top) [use this when you want more than one button] or this way (bottom)
                  */
                 // ->addColumn('action', function ($row) {
                 //     return '<a href="' . route('customer.booking.details', $row->id) . '" class="btn btn-sm btn-primary mt-1">' . __('View') . '</a>';
                 // })
-                ->rawColumns(['action'])
+                ->addColumn('view', function ($row) {
+                    return route('customer.booking.details', $row->id);
+                })
                 ->editColumn('customer', function ($booking) {
                     return $booking->customer->name;
                 })
@@ -64,12 +66,13 @@ class CustomerController extends Controller
                 ->editColumn('to', function ($booking) {
                     return json_decode($booking->to, true);
                 })
-                ->editColumn('booking_status', function ($booking) {
-                    return $booking->bookingStatus->status;
+                ->editColumn('booking_status', function (Booking $booking) {
+                    $status = $booking->bookingStatus->status;
+                    return view('includes.customer.bookingStatusSpan', compact('status'));
                 })
                 ->editColumn('journey_date', function ($booking) {
                     // return $booking->journey_date->format('Y-m-d h:i A');
-                    return date('Y-m-d h:i A', strtotime($booking->journey_date));
+                    return date('F j, Y, g:i a', strtotime($booking->journey_date));
                 })
                 ->filterColumn('journey_date', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(journey_date,'%Y-%m-%d') like ?", ["%$keyword%"]);
@@ -77,6 +80,7 @@ class CustomerController extends Controller
                 ->orderColumn('id', function ($query) {
                     $query->orderBy('journey_date', 'ASC');
                 })
+                ->rawColumns(['booking_status'])
                 ->toJson();
         }
 
@@ -200,31 +204,31 @@ class CustomerController extends Controller
                 );
 
             return DataTables::of($query)
-                // ->editColumn('action', function ($row) {
-                //     $buttonActions = [
-                //         'view' => [
-                //             'visible' => true,
-                //             'routeName' => 'customer.booking.details'
-                //         ],
-                //     ];
-                //     return view('includes.customer.datatablesAction', compact('buttonActions', 'row'));
-                // })
-                /**
-                 * * You can add action button with that way (top) [use this when you want more than one button] or this way (bottom)
-                 */
-                ->addColumn('action', function ($row) {
-                    return '<a href="' . route('customer.booking.details', $row->id) . '" class="btn btn-sm btn-primary mt-1">' . __('View') . '</a>';
+                ->addColumn('view', function ($row) {
+                    return route('customer.booking.details', $row->id);
                 })
-                ->rawColumns(['action'])
                 ->editColumn('customer', function ($booking) {
                     return $booking->customer->name;
                 })
-                ->editColumn('booking_status', function ($booking) {
-                    return $booking->bookingStatus->status;
+                /**
+                 * * Convert string to JSON Data
+                 */
+                ->editColumn('from', function ($booking) {
+                    return json_decode($booking->from, true);
+                })
+                /**
+                 * * Convert string to JSON Data
+                 */
+                ->editColumn('to', function ($booking) {
+                    return json_decode($booking->to, true);
+                })
+                ->editColumn('booking_status', function (Booking $booking) {
+                    $status = $booking->bookingStatus->status;
+                    return view('includes.customer.bookingStatusSpan', compact('status'));
                 })
                 ->editColumn('journey_date', function ($booking) {
                     // return $booking->journey_date->format('Y-m-d h:i A');
-                    return date('Y-m-d h:i A', strtotime($booking->journey_date));
+                    return date('F j, Y, g:i a', strtotime($booking->journey_date));
                 })
                 ->filterColumn('journey_date', function ($query, $keyword) {
                     $query->whereRaw("DATE_FORMAT(journey_date,'%Y-%m-%d') like ?", ["%$keyword%"]);
@@ -232,10 +236,11 @@ class CustomerController extends Controller
                 ->orderColumn('id', function ($query) {
                     $query->orderBy('journey_date', 'ASC');
                 })
+                ->rawColumns(['booking_status'])
                 ->toJson();
         }
 
-        return view('pages.customer.booking.booking-history');
+        return view('pages.customer.dashboard');
     }
 
     public function viewBooking(Request $request)

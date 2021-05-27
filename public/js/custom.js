@@ -26,6 +26,28 @@ const hideLoading = () => {
     document.querySelector("#loading-content").classList.remove("lds-ellipsis");
 };
 
+/**
+ * *    Set Sidebar nav item active
+ */
+const setNavItemActive = () => {
+    let url = window.location.href;
+    let allLinks = document.querySelectorAll("ul .nav-item a");
+    let currentLink = [...allLinks].find(e => {
+        return e.href == url;
+    });
+
+    if (currentLink !== undefined && Object.keys(currentLink).length > 0) {
+        currentLink.classList.add("active");
+        if (
+            currentLink.closest(".nav-treeview") &&
+            currentLink.closest(".has-treeview")
+        ) {
+            currentLink.closest(".nav-treeview").style.display = "block";
+            currentLink.closest(".has-treeview").classList.add("active");
+        }
+    }
+};
+
 $(document).ready(function() {
     // Change Side Nav Option color after clicking (Admin Lte 3)
     $(".nav-link").click(function() {
@@ -52,20 +74,8 @@ $(document).ready(function() {
         }
     });
 
-    // alert("HI");
-    // console.log("HI");
-    // // auto logout
-    // const timeout = 5000; // 900000 ms = 15 minutes
-    // var idleTimer = null;
-    // $("*").bind(
-    //     "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
-    //     function() {
-    //         clearTimeout(idleTimer);
-
-    //         idleTimer = setTimeout(function() {
-    //             document.getElementById("logout-form").submit();
-    //         }, timeout);
-    //     }
-    // );
-    // $("body").trigger("mousemove");
+    /**
+     * * add active class and stay opened when selected in Sidebar
+     */
+    setNavItemActive();
 });

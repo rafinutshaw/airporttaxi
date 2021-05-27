@@ -354,15 +354,71 @@
                                     </div>
 
                                     <hr />
+
                                     <div class="form-row">
-                                        <div
-                                            class="form-group col-md-12 text-right"
+                                        <table
+                                            class="table table-sm table-striped table-hover table-responsive-sm d-flex justify-content-end"
                                         >
-                                            <label>Total price</label>
-                                            <p class="booking-data">
-                                                {{ "₤ " + booking.total_price }}
-                                            </p>
-                                        </div>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">
+                                                        Sub Total
+                                                    </th>
+                                                    <td>
+                                                        {{
+                                                            "₤ " +
+                                                                booking.sub_total.toFixed(
+                                                                    2
+                                                                )
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                                <tr v-if="booking.discount > 0">
+                                                    <th scope="row">
+                                                        Discount
+                                                    </th>
+                                                    <td>
+                                                        {{
+                                                            "₤ " +
+                                                                booking.discount
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-primary">
+                                                    <th scope="row">Total</th>
+                                                    <td>
+                                                        {{
+                                                            "₤ " +
+                                                                booking.total_price
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        Paid amount
+                                                    </th>
+                                                    <td>
+                                                        {{
+                                                            "₤ " + booking.paid
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                                <tr
+                                                    class="table-warning"
+                                                    v-if="booking.total_due > 0"
+                                                >
+                                                    <th scope="row">
+                                                        Total Due
+                                                    </th>
+                                                    <td>
+                                                        {{
+                                                            "₤ " +
+                                                                booking.total_due
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <p
                                         class="info-section border-left-danger"
@@ -439,8 +495,8 @@ export default {
                 closeOnSelect: true
             },
             isLoading: false,
-            bookingId: 250,
-            email: "vuku@gmail.com",
+            bookingId: 302,
+            email: "tesu@gmail.com",
             booking: {
                 booking_status_id: null,
                 journey_date: null,
@@ -452,7 +508,7 @@ export default {
                     maxPassenger: null,
                     luggage: null
                 },
-                editable: false,
+                editable: false
             },
             temporaryBooking: {},
             bookingStatus: [
@@ -526,7 +582,7 @@ export default {
                         if (response.data.editable == false) {
                             // this.booking = error.response.data.booking;
                             this.errorTypes.editNotPossible = true;
-                            this.error.data.message = response.data.message
+                            this.error.data.message = response.data.message;
                         }
                         this.booking = response.data.booking;
 
@@ -557,7 +613,7 @@ export default {
                     })
                     .catch(error => {
                         if (error.response) {
-                             if (error.response.status === 404) {
+                            if (error.response.status === 404) {
                                 this.errorTypes.bookingNotFound == true;
                             }
                             this.error = error.response;

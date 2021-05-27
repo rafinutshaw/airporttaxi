@@ -128,3 +128,94 @@
     background-color: $primary-light;
     border-color: $primary-light;
 }
+
+// Bootstrap badge
+
+.badge {
+    padding: 8px 10px;
+    font-weight: 600;
+    font-size: 12px;
+    font-family: sans-serif;
+    border-radius: 0.2rem;
+}
+.badge-sm {
+    padding: 4px 6px;
+    font-size: 11px;
+}
+
+.badge-outline-primary {
+    color: $primary;
+    background-color: $primary-light;
+    border: 1px solid $primary-light;
+}
+.badge-outline-primary:hover {
+    color: $white;
+    background-color: $primary;
+    border: 1px solid $primary;
+}
+
+.badge-outline-secondary {
+    color: $secondary;
+    background-color: $secondary-light;
+    border: 1px solid $secondary-light;
+}
+.badge-outline-secondary:hover {
+    color: $white;
+    background-color: $secondary;
+    border: 1px solid $secondary;
+}
+
+.badge-outline-success {
+    color: $success;
+    background-color: $success-light;
+    border: 1px solid $success-light;
+}
+.badge-outline-success:hover {
+    color: $white;
+    background-color: $success;
+    border: 1px solid $success;
+}
+
+.badge-outline-info {
+    color: $info;
+    background-color: $info-light;
+    border: 1px solid $info-light;
+}
+.badge-outline-info:hover {
+    color: $white;
+    background-color: $info;
+    border: 1px solid $info;
+}
+
+.badge-outline-warning {
+    color: $warning;
+    background-color: $warning-light;
+    border: 1px solid $warning-light;
+}
+.badge-outline-warning:hover {
+    color: $white;
+    background-color: $warning;
+    border: 1px solid $warning;
+}
+
+.badge-outline-danger {
+    color: $danger;
+    background-color: $danger-light;
+    border: 1px solid $danger-light;
+}
+.badge-outline-danger:hover {
+    color: $white;
+    background-color: $danger;
+    border: 1px solid $danger;
+}
+
+.badge-outline-light-gray-600 {
+    color: $light;
+    background-color: $gray-600;
+    border: 1px solid $gray-600;
+}
+.badge-outline-light-gray-600:hover {
+    color: $gray-600;
+    background-color: $light;
+    border: 1px solid $light;
+}

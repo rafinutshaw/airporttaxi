@@ -71,7 +71,11 @@ trait BookingInvoiceTrait
             'flight_origin' => $booking->flight_origin,
             'passengers' => $booking->passengers,
             'luggage' => $booking->luggage,
+            'sub_total' => $booking->sub_total,
+            'discount' => $booking->discount,
             'totalPrice' => $booking->total_price,
+            'paid' => $booking->paid,
+            'total_due' => $booking->total_due,
             'vehicle' => $booking->vehicle->type
         ];
         return $data;

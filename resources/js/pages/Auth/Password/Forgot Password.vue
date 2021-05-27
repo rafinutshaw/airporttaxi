@@ -3,6 +3,36 @@
         <loader :is-loading="isLoading"></loader>
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+                <!-- Show Success & Error Message -->
+                <div
+                    class="alert alert-dismissible fade show"
+                    :class="
+                        form.success
+                            ? 'alert-success'
+                            : form.errors
+                            ? 'alert-danger'
+                            : ''
+                    "
+                    v-if="form.success || form.errors"
+                    role="alert"
+                >
+                    {{
+                        form.success
+                            ? form.success
+                            : form.errors
+                            ? form.errors
+                            : ""
+                    }}
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="card">
                     <div class="card-header">Reset Password</div>
 
@@ -50,49 +80,6 @@
                                         </button>
                                     </div>
                                 </div>
-
-                                <!-- Show the success -->
-                                <div
-                                    v-if="form.success"
-                                    class="col-sm-6 offset-md-4 alert alert-success alert-dismissible fade show mt-3"
-                                    role="alert"
-                                >
-                                    <li>
-                                        {{ form.success }}
-                                    </li>
-                                    <button
-                                        type="button"
-                                        class="close"
-                                        data-dismiss="alert"
-                                        aria-label="Close"
-                                    >
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                                <!-- Show the errors -->
-                                <div
-                                    v-for="(error, index) in form.errors"
-                                    class="col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show mt-3"
-                                    :key="index"
-                                >
-                                    <div
-                                        v-for="(singleError, index) in error"
-                                        :key="index"
-                                    >
-                                        <li>
-                                            {{ singleError }}
-                                        </li>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        class="close"
-                                        data-dismiss="alert"
-                                        aria-label="Close"
-                                    >
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
                             </form>
                         </ValidationObserver>
                     </div>
@@ -132,11 +119,15 @@ export default {
             axios
                 .post("password/email", { email })
                 .then(response => {
-                    this.form.success = response.data.message;
+                    if (response.status == 200) {
+                        this.form.success =
+                            "Password reset link sent successfully.";
+                    }
                 })
                 .catch(errors => {
-                    // console.log(errors.response.data.errors);
-                    this.form.errors = errors.response.data.errors;
+                    if (errors.response) {
+                        this.form.errors = errors.response.data.message;
+                    }
                 })
                 .finally(() => {
                     this.isLoading = false;

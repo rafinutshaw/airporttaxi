@@ -1493,7 +1493,7 @@
                                                 {{
                                                     quoteDetails.name
                                                         ? quoteDetails.name
-                                                        : "Sezan"
+                                                        : ""
                                                 }}
                                             </td>
                                         </tr>
@@ -1503,7 +1503,7 @@
                                                 {{
                                                     quoteDetails.email
                                                         ? quoteDetails.email
-                                                        : "sezansarker@gmail.com"
+                                                        : ""
                                                 }}
                                             </td>
                                         </tr>
@@ -1513,7 +1513,7 @@
                                                 {{
                                                     quoteDetails.mobile
                                                         ? quoteDetails.mobile
-                                                        : "+8801687407370"
+                                                        : ""
                                                 }}
                                             </td>
                                         </tr>
@@ -1526,7 +1526,7 @@
 
                 <!-- Buttons -->
                 <button
-                    @click="windowReload"
+                    @click="windowReload()"
                     type="button"
                     class="btn btn-secondary btn-block mt-3"
                 >
@@ -1749,13 +1749,35 @@ export default {
         };
     },
     mounted() {
-        if (localStorage.getItem("loggedIn") !== null) {
+        if (localStorage.getItem("authUsername") !== null) {
             this.loggedIn = localStorage.getItem("loggedIn");
             this.quoteDetails.name = localStorage.getItem("authUsername");
             this.quoteDetails.email = localStorage.getItem("authEmail");
 
             if (localStorage.getItem("authMobile"))
                 this.quoteDetails.mobile = localStorage.getItem("authMobile");
+        } else {
+            axios.get("/get-auth-user").then(response => {
+                if (response.data != "") {
+                    (this.loggedIn = true),
+                        localStorage.setItem("loggedIn", true);
+
+                    (this.quoteDetails.name = response.data.name),
+                        localStorage.setItem(
+                            "authUsername",
+                            response.data.name
+                        );
+
+                    (this.quoteDetails.email = response.data.email),
+                        localStorage.setItem("authEmail", response.data.email);
+
+                    (this.quoteDetails.mobile = response.data.mobile),
+                        localStorage.setItem(
+                            "authMobile",
+                            response.data.mobile
+                        );
+                }
+            });
         }
 
         // Getting the price list from database
@@ -2389,7 +2411,8 @@ export default {
                 vehicle_id: this.quoteDetails.vehicleId,
 
                 distance: this.quoteDetails.distance,
-                total_price: parseFloat(this.quoteDetails.fare),
+                sub_total: parseFloat(this.quoteDetails.fare.toFixed(2)),
+                total_price: parseFloat(this.quoteDetails.fare.toFixed(2)),
                 flight_number: this.quoteDetails.flightNumber,
                 flight_origin: this.quoteDetails.flightOrigin,
                 booking_status_id: 0
@@ -2445,29 +2468,43 @@ export default {
                                             result.paymentIntent.status ===
                                             "succeeded"
                                         ) {
+                                            console.log(
+                                                result.paymentIntent.amount
+                                            );
                                             // Update booking status from unpaid to pending
-                                            axios.post("/confirmPayment", {
-                                                bookingId: this.quoteDetails
-                                                    .afterSubmittedBookingId,
-                                                paymentIntentId:
-                                                    result.paymentIntent.id
-                                            }).then(() => {
-                                                this.loading(false);
-                                                this.cardPayment.success = true;
+                                            axios
+                                                .post("/confirmPayment", {
+                                                    bookingId: this.quoteDetails
+                                                        .afterSubmittedBookingId,
+                                                    paymentIntentId:
+                                                        result.paymentIntent.id,
+                                                    paid: parseFloat(
+                                                        (
+                                                            result.paymentIntent
+                                                                .amount / 100
+                                                        ).toFixed(2)
+                                                    )
+                                                })
+                                                .then(() => {
+                                                    this.loading(false);
+                                                    this.cardPayment.success = true;
 
-                                                this.formStage.payment = false;
-                                                this.formStage.submittedStatus = true;
-                                            })
-                                            .catch(error => {
-                                                this.loading(false);
-                                                Swal.fire({
-                                                    icon: "error",
-                                                    title:
-                                                        `Oops... Error ` +
-                                                        error.response.status,
-                                                    text: error.response.data.message
+                                                    this.formStage.payment = false;
+                                                    this.formStage.submittedStatus = true;
+                                                })
+                                                .catch(error => {
+                                                    this.loading(false);
+                                                    Swal.fire({
+                                                        icon: "error",
+                                                        title:
+                                                            `Oops... Error ` +
+                                                            error.response
+                                                                .status,
+                                                        text:
+                                                            error.response.data
+                                                                .message
+                                                    });
                                                 });
-                                            })
                                         }
                                     }
                                 })
@@ -2593,8 +2630,9 @@ export default {
             }, 100);
         },
 
-        windowReload() {
-            window.location = "/";
+        windowReload(param = "") {
+            param == "" ? (param = "/") : (param = param);
+            window.location = param;
         },
 
         validateEmail(email) {

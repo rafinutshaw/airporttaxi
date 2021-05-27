@@ -378,7 +378,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -401,7 +400,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         to: {
           text: ""
         },
-        unpaid_amount: 0
+        total_due: 0
       },
       error: {
         data: {
@@ -467,7 +466,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.card.mount("#card-element");
 
-                  document.getElementById("button-text").innerText = "Pay £" + _this.journey.unpaid_amount; // Handle real-time validation errors from the card Element.
+                  document.getElementById("button-text").innerText = "Pay £" + _this.journey.total_due; // Handle real-time validation errors from the card Element.
 
                   _this.card.on("change", function (event) {
                     var displayError = document.getElementById("card-errors");
@@ -534,8 +533,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 bookingId: _this2.journey.id,
                 paymentIntentId: result.paymentIntent.id
               }).then(function (response) {
-                console.log(response.data);
-
                 _this2.loading(false);
 
                 _this2.cardPayment.success = true;
@@ -662,7 +659,7 @@ var render = function() {
           staticClass: "container d-flex flex-row justify-content-center mb-2"
         },
         [
-          _vm.error.data.message == "" && _vm.journey.unpaid_amount > 0
+          _vm.error.data.message == "" && _vm.journey.total_due > 0
             ? _c("div", { staticClass: "row mt-4 justify-content-center" }, [
                 _c("div", { staticClass: "col-md-10 col-sm-12" }, [
                   _c("div", { staticClass: "card" }, [
@@ -780,7 +777,7 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n                                    £" +
-                                  _vm._s(_vm.journey.unpaid_amount) +
+                                  _vm._s(_vm.journey.total_due) +
                                   "\n                                "
                               )
                             ]

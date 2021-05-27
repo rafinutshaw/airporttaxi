@@ -4,10 +4,11 @@ use App\Booking;
 use App\Vehicle;
 use App\Mail\ContactUs;
 use Cartalyst\Stripe\Stripe;
-use Cartalyst\Stripe\Exception\CardErrorException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Cartalyst\Stripe\Exception\CardErrorException;
 
 Route::post('/checkout', function (Request $request) {
     $booking = Booking::findOrFail(2);
@@ -75,11 +76,17 @@ Route::post('get-price/', 'BookingController@getPrice')->name('get.price');
 
 Route::post('/submit-booking', 'BookingController@create')->name('guest.booking');
 
+Route::get('/get-auth-user', function () {
+    if(auth()->user()) {
+        return auth()->user()->only('name', 'email', 'mobile');
+    } else return false;
+});
+
 /*
 * Manage Booking
 */
-Route::post('/search-booking', 'BookingController@searchBooking')->name('search.booking');
-Route::post('/update-booking', 'BookingController@updateBooking')->name('update.booking');
+Route::post('/search-booking', 'BookingController@searchBooking')->name('booking.search');
+Route::post('/update-booking', 'BookingController@updateBooking')->name('booking.update');
 
 /*
 * Stripe Payment
