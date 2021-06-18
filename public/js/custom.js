@@ -48,6 +48,18 @@ const setNavItemActive = () => {
     }
 };
 
+/**
+ * * Set Date Picker from JQuery UI
+ */
+const setDatePicker = (getElementById = "") => {
+    $(getElementById).datepicker({
+        dateFormat: "mm-dd-yy",
+        changeMonth: true,
+        changeYear: true,
+        currentText: "Now"
+    });
+};
+
 $(document).ready(function() {
     // Change Side Nav Option color after clicking (Admin Lte 3)
     $(".nav-link").click(function() {

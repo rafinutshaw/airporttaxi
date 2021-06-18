@@ -277,7 +277,7 @@ nav {
     background-color: #fefde5 !important;
 }
 
-button:focus{
+button:focus {
     outline: none;
 }
 
@@ -286,7 +286,7 @@ button:focus{
 }
 
 .required:after {
-    content:" *";
+    content: " *";
     color: red;
 }
 
@@ -310,7 +310,8 @@ button:focus{
     font-style: italic;
 }
 
-select, .form-control {
+select,
+.form-control {
     border-radius: 0 !important;
 }
 
@@ -327,7 +328,7 @@ select, .form-control {
 
 .flatpickr-confirm {
     background-color: #05badd !important;
-    border-color:   #05badd !important;
+    border-color: #05badd !important;
     color: white;
     border-radius: 0 0 5px 5px;
 }

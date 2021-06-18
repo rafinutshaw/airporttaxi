@@ -23,6 +23,15 @@ trait MessageTrait
 
     protected $customSuccessMessage = [
         'success' => 'Data updated successfully.',
+        'created' => 'New data created successfully.',
+        'deleted' => 'Data deleted successfully.',
+        'data_updated' => 'Data updated successfully.',
+        'status_updated' => 'Status updated successfully.',
+        'image_updated' => 'Image updated successfully',
+        'profile_updated' => 'Profile updated successfully',
+        'password_updated' => 'Password updated successfully',
+        'career_submitted' => 'Your request is submitted successfully. Our team will contact you shortly.',
+        'booking_created' => 'Booking created successfully.'
     ];
 
     /**

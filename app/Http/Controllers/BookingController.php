@@ -11,24 +11,117 @@ use App\Jobs\SendEmailJob;
 use Illuminate\Support\Str;
 use Cartalyst\Stripe\Stripe;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\Storage;
 use Cartalyst\Stripe\Exception\NotFoundException;
 use Cartalyst\Stripe\Exception\CardErrorException;
-use App\Notifications\BookingSubmittedNotification;
 use Cartalyst\Stripe\Exception\BadRequestException;
 use App\Http\Controllers\Traits\BookingInvoiceTrait;
 use Cartalyst\Stripe\Exception\ServerErrorException;
 use Cartalyst\Stripe\Exception\UnauthorizedException;
+use App\Notifications\PostBookingSubmittedNotification;
 use Cartalyst\Stripe\Exception\InvalidRequestException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BookingController extends Controller
 {
     use BookingInvoiceTrait;
+
+    /*
+     * Get Bookings
+     */
+    public function index(Request $request)
+    {
+        if (request()->ajax()) {
+            $query = Booking::with(
+                array('customer' => function ($query) {
+                    $query->select('id', 'name', 'email', 'mobile');
+                }),
+                array('bookingStatus' => function ($query) {
+                    $query->select('id', 'status');
+                })
+            )->Join('customers', 'bookings.customer_id', '=', 'customers.id')
+                ->select([
+                    'bookings.id', 'bookings.customer_id', 'bookings.mobile',
+                    'bookings.from', 'bookings.to', 'bookings.journey_date',
+                    'bookings.journey_type', 'bookings.booking_status_id'
+                ]);
+
+            return DataTables::of($query)
+                // ->editColumn('action', function ($row) {
+                //     $buttonActions = [
+                //         'view' => [
+                //             'visible' => true,
+                //             'routeName' => 'bookings.show'
+                //         ],
+                //     ];
+                //     return view('includes.app.datatablesAction', compact('buttonActions', 'row'));
+                // })
+                /**
+                 * * You can add action button with that way (top) [use this when you want more than one button] or this way (bottom)
+                 */
+                // ->addColumn('action', function ($row) {
+                //     return '<a href="' . route('bookings.show', $row->id) . '" class="btn btn-sm btn-primary mt-1">' . __('View') . '</a>';
+                // })
+                ->addColumn('view', function ($row) {
+                    return route('bookings.show', $row->id);
+                })
+                ->editColumn('from', function ($booking) {
+                    return json_decode($booking->from, true);
+                })
+                ->editColumn('to', function ($booking) {
+                    return json_decode($booking->to, true);
+                })
+                ->editColumn('booking_status', function (Booking $booking) {
+                    $status = $booking->bookingStatus->status;
+                    return view('includes.customer.bookingStatusSpan', compact('status'));
+                })
+                ->editColumn('journey_date', function ($booking) {
+                    return date('F j, Y, g:i a', strtotime($booking->journey_date));
+                })
+                ->orderColumn('bookings.id', 'bookings.journey_date $1')
+                ->rawColumns(['booking_status'])
+                ->filter(function ($query) use ($request) {
+                    if (!empty($request->get('searchById'))) {
+                        $query->where('bookings.id', 'like', "%{$request->get('searchById')}%");
+                    }
+                    if (!empty($request->get('searchByName'))) {
+                        $query->where('customers.name', 'like', "%{$request->get('searchByName')}%");
+                    }
+                    if (!empty($request->get('searchByEmail'))) {
+                        $query->where('customers.email', 'like', "%{$request->get('searchByEmail')}%");
+                    }
+                    if (!empty($request->get('searchByMobile'))) {
+                        $query->where('bookings.mobile', 'like', "%{$request->get('searchByMobile')}%");
+                    }
+                    if (!empty($request->get('searchByDate'))) {
+                        // $query->whereDate('bookings.journey_date', 'like', "%{$request->get('searchByDate')}%");
+                        $query->whereRaw("DATE_FORMAT(bookings.journey_date,'%m-%d-%Y') LIKE ?", ["%{$request->get('searchByDate')}%"]);
+                    }
+                    if (!empty($request->get('filterStatus'))) {
+                        $query->where('bookings.booking_status_id', 'like', "%{$request->get('filterStatus')}%");
+                    }
+                }, true)
+                ->make(true);
+        }
+        return view('pages.customer.bookings.index');
+    }
+
+    /*
+     *  View Booking Details 
+     */
+    public function show(Request $request)
+    {
+        $booking = Booking::findOrFail($request->id);
+        $booking->from = json_decode($booking->from);
+        $booking->via = json_decode($booking->via);
+        $booking->to = json_decode($booking->to);
+        return view('pages.customer.bookings.view-booking-details', compact('booking'));
+    }
 
     public function getPrice(Request $request)
     {
@@ -208,7 +301,7 @@ class BookingController extends Controller
 
             $users = User::all();
             foreach ($users as $user) {
-                $user->notify(new BookingSubmittedNotification($booking->id));
+                $user->notify(new PostBookingSubmittedNotification($booking->id));
             }
 
             return response()->json([

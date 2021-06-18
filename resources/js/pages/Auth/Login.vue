@@ -18,6 +18,25 @@
         <div id="loginContainer" class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
+                    <!-- Show the errors -->
+                    <div
+                        class="container alert alert-danger alert-dismissible fade show"
+                        role="alert"
+                        v-for="(error, index) in form.errors"
+                        :key="index"
+                    >
+                        <p class="mb-0" v-if="error[0]">
+                            {{ error }}
+                        </p>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                     <div class="card">
                         <div class="card-header">Login</div>
                         <div class="card-body">
@@ -112,28 +131,6 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <!-- Show the errors -->
-                                    <div
-                                        class="col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show"
-                                        role="alert"
-                                        v-for="(error, index) in form.errors"
-                                        :key="index"
-                                    >
-                                        <p class="mb-0" v-if="error[0]">
-                                            {{ error }}
-                                        </p>
-                                        <button
-                                            type="button"
-                                            class="close"
-                                            data-dismiss="alert"
-                                            aria-label="Close"
-                                        >
-                                            <span aria-hidden="true"
-                                                >&times;</span
-                                            >
-                                        </button>
                                     </div>
                                     <!-- <div v-if="form.errors.length > 0">
                                     </div> -->

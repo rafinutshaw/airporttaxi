@@ -9,31 +9,23 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                {{-- <img src={{ asset(Auth::user()->image) }} class="img-circle elevation-2" alt="User Image"> --}}
-                {{-- <img src={{ asset('storage/'.Auth::user()->image ) }} class="img-circle elevation-2" alt="User
-                Image"> --}}
-                {{-- <img src={{ asset('images/' . Auth::user()->image) }} class="img-circle elevation-2" alt="User
-                Image"> --}}
-
-                {{-- Checking if image is exists? If so then show it, if not then show the default one --}}
                 <?php 
-                    $userProfileImage = 'images/' . Auth::user()->image;
-                    if (file_exists($userProfileImage)) {
-                        $userProfileImagePath = $userProfileImage;
-                    } else {
-                        $userProfileImagePath = 'images/customer-profile-image/default.png';
-                    }
-                ?>
-                <img  src={{ asset($userProfileImagePath) }} class="user-panel-image img-circle elevation-2"
+                        $userProfileImage = 'images/' . Auth::user()->image;
+                        if (file_exists($userProfileImage)) {
+                            $userProfileImagePath = $userProfileImage;
+                        } else {
+                            $userProfileImagePath = 'images/customer-profile-image/default.png';
+                        }
+                    ?>
+                <img src={{ asset($userProfileImagePath) }} class="user-panel-image img-circle elevation-2"
                     alt="User Image">
             </div>
             <div class="info">
                 <a href="{{ route('customer.settings') }}" class="d-block">{{ Auth::user()->name }}</a>
             </div>
-        </div>
-
+        </div> --}}
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -48,39 +40,14 @@
 
                 {{-- Starting Booking --}}
                 <li class="nav-item has-treeview menu">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('bookings.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
-                            Booking
-                            <i class="right fas fa-angle-left"></i>
+                            Bookings
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('customer.booking.history') }}" class="nav-link">
-                                <i class="fas fa-history nav-icon"></i>
-                                <p>Booking History</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 {{-- Ending Booking --}}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}" id="logout" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();
-                            localStorage.removeItem('loggedIn');
-                            localStorage.removeItem('authUsername');
-                            localStorage.removeItem('authEmail');
-                            localStorage.removeItem('authMobile');">
-                        <i class="nav-icon fas fa-power-off red"></i>
-                        <p> Logout </p>
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -94,7 +61,6 @@
         width: 40px !important;
         object-fit: cover !important;
     }
-
 </style>
 @endsection
 @section('scripts')

@@ -6,7 +6,13 @@
         document.getElementById("clock").innerHTML = moment().tz('Europe/London').format('LL LTS')
     }
     setInterval(update, 1000);
-
+    
+    let authUser = '{!! Auth::check() !!}';
+    if(authUser != 1) {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("authUsername");
+        localStorage.removeItem("authEmail");
+    }
 </script>
 
 <body>

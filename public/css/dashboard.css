@@ -3,6 +3,9 @@
     width: 40px !important;
     object-fit: cover !important;
 }
+.hide {
+    display: none !important;
+}
 .brand-link .brand-image {
     margin-left: 0 !important;
 }
@@ -149,7 +152,6 @@
 
 /* Ending Loader */
 
-
 /* For Datatable search field */
 .dataTables_filter {
     display: inline-block;
@@ -166,6 +168,37 @@ table.dataTable tbody tr:hover {
 }
 table.dataTable tbody > tr.selected,
 table.dataTable tbody > tr > .selected {
-    color:white;
+    color: white;
     background-color: #464646;
+}
+.dropdown-menu i {
+    font-size: 1.2em;
+    line-height: 0.75em;
+    vertical-align: -15%;
+    color: #000;
+}
+.pointer-on-hover {
+    cursor: pointer;
+}
+
+/* Nav Bar Dropdown */
+.nav-dropdown-image-wrapper {
+    padding: 0px 5px 0px 2px;
+    border-radius: 50px;
+}
+.nav-dropdown-image-wrapper:hover {
+    border: 0.5px solid #c5c5c500;
+    background: rgba(0, 0, 0, 0.05);
+}
+ul.profile-dropdown {
+    padding: 0;
+}
+ul.profile-dropdown > li.nav-item > a.nav-link {
+    padding: 0.4rem 1.5rem;
+    height: auto;
+}
+ul.profile-dropdown > li.nav-item > a.nav-link:hover {
+    color: #fff;
+    text-decoration: none;
+    background: #5865f5;
 }

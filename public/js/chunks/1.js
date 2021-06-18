@@ -207,9 +207,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -348,380 +345,380 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "container", attrs: { id: "loginContainer" } }, [
         _c("div", { staticClass: "row justify-content-center" }, [
-          _c("div", { staticClass: "col-lg-8" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-header" }, [_vm._v("Login")]),
+          _c(
+            "div",
+            { staticClass: "col-lg-8" },
+            [
+              _vm._l(_vm.form.errors, function(error, index) {
+                return _c(
+                  "div",
+                  {
+                    key: index,
+                    staticClass:
+                      "container alert alert-danger alert-dismissible fade show",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    error[0]
+                      ? _c("p", { staticClass: "mb-0" }, [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(error) +
+                              "\n                    "
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._m(1, true)
+                  ]
+                )
+              }),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-body" },
-                [
-                  _c("ValidationObserver", {
-                    ref: "form",
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(ref) {
-                          var invalid = ref.invalid
-                          return [
-                            _c(
-                              "form",
-                              {
-                                attrs: { method: "post" },
-                                on: {
-                                  submit: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.onSubmit($event)
+              _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [_vm._v("Login")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _c("ValidationObserver", {
+                      ref: "form",
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(ref) {
+                            var invalid = ref.invalid
+                            return [
+                              _c(
+                                "form",
+                                {
+                                  attrs: { method: "post" },
+                                  on: {
+                                    submit: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.onSubmit($event)
+                                    }
                                   }
-                                }
-                              },
-                              [
-                                _c("div", { staticClass: "form-group row" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass:
-                                        "col-md-4 col-form-label text-md-right",
-                                      attrs: { for: "email_address" }
-                                    },
-                                    [_vm._v("E-Mail Address")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "col-md-6" },
-                                    [
-                                      _c("ValidationProvider", {
-                                        attrs: {
-                                          vid: "email",
-                                          name: "E-Mail",
-                                          rules: "required|email"
-                                        },
-                                        scopedSlots: _vm._u(
-                                          [
-                                            {
-                                              key: "default",
-                                              fn: function(ref) {
-                                                var errors = ref.errors
-                                                return [
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value: _vm.form.email,
-                                                        expression: "form.email"
-                                                      }
-                                                    ],
-                                                    staticClass: "form-control",
-                                                    attrs: {
-                                                      type: "email",
-                                                      name: "email",
-                                                      autofocus: "",
-                                                      placeholder:
-                                                        "Ex: john@example.com",
-                                                      onfocus:
-                                                        "this.placeholder = ''",
-                                                      onblur:
-                                                        "this.placeholder = 'Ex: john@example.com'",
-                                                      required: ""
-                                                    },
-                                                    domProps: {
-                                                      value: _vm.form.email
-                                                    },
-                                                    on: {
-                                                      blur: function($event) {
-                                                        _vm.inputFieldFocused.email = true
-                                                      },
-                                                      input: function($event) {
-                                                        if (
-                                                          $event.target
-                                                            .composing
-                                                        ) {
-                                                          return
-                                                        }
-                                                        _vm.$set(
-                                                          _vm.form,
-                                                          "email",
-                                                          $event.target.value
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ]
-                                              }
-                                            }
-                                          ],
-                                          null,
-                                          true
-                                        )
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "form-group row" }, [
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass:
-                                        "col-md-4 col-form-label text-md-right",
-                                      attrs: { for: "password" }
-                                    },
-                                    [_vm._v("Password")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "col-md-6" },
-                                    [
-                                      _c("ValidationProvider", {
-                                        attrs: {
-                                          vid: "password",
-                                          name: "Password",
-                                          rules: "required"
-                                        },
-                                        scopedSlots: _vm._u(
-                                          [
-                                            {
-                                              key: "default",
-                                              fn: function(ref) {
-                                                var errors = ref.errors
-                                                return [
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value:
-                                                          _vm.form.password,
-                                                        expression:
-                                                          "form.password"
-                                                      }
-                                                    ],
-                                                    ref: "password",
-                                                    staticClass: "form-control",
-                                                    attrs: {
-                                                      name: "password",
-                                                      type: "password",
-                                                      required: "",
-                                                      placeholder:
-                                                        "Enter Password",
-                                                      onfocus:
-                                                        "this.placeholder = ''",
-                                                      onblur:
-                                                        "this.placeholder = 'Enter Password'"
-                                                    },
-                                                    domProps: {
-                                                      value: _vm.form.password
-                                                    },
-                                                    on: {
-                                                      blur: function($event) {
-                                                        _vm.inputFieldFocused.password = true
-                                                      },
-                                                      input: function($event) {
-                                                        if (
-                                                          $event.target
-                                                            .composing
-                                                        ) {
-                                                          return
-                                                        }
-                                                        _vm.$set(
-                                                          _vm.form,
-                                                          "password",
-                                                          $event.target.value
-                                                        )
-                                                      }
-                                                    }
-                                                  })
-                                                ]
-                                              }
-                                            }
-                                          ],
-                                          null,
-                                          true
-                                        )
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "form-group row mb-1" },
-                                  [
+                                },
+                                [
+                                  _c("div", { staticClass: "form-group row" }, [
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass:
+                                          "col-md-4 col-form-label text-md-right",
+                                        attrs: { for: "email_address" }
+                                      },
+                                      [_vm._v("E-Mail Address")]
+                                    ),
+                                    _vm._v(" "),
                                     _c(
                                       "div",
-                                      { staticClass: "col-md-6 offset-md-4" },
+                                      { staticClass: "col-md-6" },
                                       [
-                                        _c("div", { staticClass: "checkbox" }, [
-                                          _c("label", [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.form.remember,
-                                                  expression: "form.remember"
-                                                }
-                                              ],
-                                              attrs: {
-                                                type: "checkbox",
-                                                name: "remember"
-                                              },
-                                              domProps: {
-                                                checked: Array.isArray(
-                                                  _vm.form.remember
-                                                )
-                                                  ? _vm._i(
-                                                      _vm.form.remember,
-                                                      null
-                                                    ) > -1
-                                                  : _vm.form.remember
-                                              },
-                                              on: {
-                                                change: function($event) {
-                                                  var $$a = _vm.form.remember,
-                                                    $$el = $event.target,
-                                                    $$c = $$el.checked
-                                                      ? true
-                                                      : false
-                                                  if (Array.isArray($$a)) {
-                                                    var $$v = null,
-                                                      $$i = _vm._i($$a, $$v)
-                                                    if ($$el.checked) {
-                                                      $$i < 0 &&
-                                                        _vm.$set(
-                                                          _vm.form,
-                                                          "remember",
-                                                          $$a.concat([$$v])
-                                                        )
-                                                    } else {
-                                                      $$i > -1 &&
-                                                        _vm.$set(
-                                                          _vm.form,
-                                                          "remember",
-                                                          $$a
-                                                            .slice(0, $$i)
-                                                            .concat(
-                                                              $$a.slice($$i + 1)
-                                                            )
-                                                        )
-                                                    }
-                                                  } else {
-                                                    _vm.$set(
-                                                      _vm.form,
-                                                      "remember",
-                                                      $$c
-                                                    )
-                                                  }
+                                        _c("ValidationProvider", {
+                                          attrs: {
+                                            vid: "email",
+                                            name: "E-Mail",
+                                            rules: "required|email"
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "default",
+                                                fn: function(ref) {
+                                                  var errors = ref.errors
+                                                  return [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value: _vm.form.email,
+                                                          expression:
+                                                            "form.email"
+                                                        }
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      attrs: {
+                                                        type: "email",
+                                                        name: "email",
+                                                        autofocus: "",
+                                                        placeholder:
+                                                          "Ex: john@example.com",
+                                                        onfocus:
+                                                          "this.placeholder = ''",
+                                                        onblur:
+                                                          "this.placeholder = 'Ex: john@example.com'",
+                                                        required: ""
+                                                      },
+                                                      domProps: {
+                                                        value: _vm.form.email
+                                                      },
+                                                      on: {
+                                                        blur: function($event) {
+                                                          _vm.inputFieldFocused.email = true
+                                                        },
+                                                        input: function(
+                                                          $event
+                                                        ) {
+                                                          if (
+                                                            $event.target
+                                                              .composing
+                                                          ) {
+                                                            return
+                                                          }
+                                                          _vm.$set(
+                                                            _vm.form,
+                                                            "email",
+                                                            $event.target.value
+                                                          )
+                                                        }
+                                                      }
+                                                    })
+                                                  ]
                                                 }
                                               }
-                                            }),
-                                            _vm._v(
-                                              "\n                                                Remember Me\n                                            "
-                                            )
-                                          ])
-                                        ])
-                                      ]
+                                            ],
+                                            null,
+                                            true
+                                          )
+                                        })
+                                      ],
+                                      1
                                     )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _vm._l(_vm.form.errors, function(error, index) {
-                                  return _c(
-                                    "div",
-                                    {
-                                      key: index,
-                                      staticClass:
-                                        "col-sm-6 offset-md-4 alert alert-danger alert-dismissible fade show",
-                                      attrs: { role: "alert" }
-                                    },
-                                    [
-                                      error[0]
-                                        ? _c("p", { staticClass: "mb-0" }, [
-                                            _vm._v(
-                                              "\n                                        " +
-                                                _vm._s(error) +
-                                                "\n                                    "
-                                            )
-                                          ])
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "close",
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "form-group row" }, [
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass:
+                                          "col-md-4 col-form-label text-md-right",
+                                        attrs: { for: "password" }
+                                      },
+                                      [_vm._v("Password")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "col-md-6" },
+                                      [
+                                        _c("ValidationProvider", {
                                           attrs: {
-                                            type: "button",
-                                            "data-dismiss": "alert",
-                                            "aria-label": "Close"
-                                          }
-                                        },
+                                            vid: "password",
+                                            name: "Password",
+                                            rules: "required"
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "default",
+                                                fn: function(ref) {
+                                                  var errors = ref.errors
+                                                  return [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.form.password,
+                                                          expression:
+                                                            "form.password"
+                                                        }
+                                                      ],
+                                                      ref: "password",
+                                                      staticClass:
+                                                        "form-control",
+                                                      attrs: {
+                                                        name: "password",
+                                                        type: "password",
+                                                        required: "",
+                                                        placeholder:
+                                                          "Enter Password",
+                                                        onfocus:
+                                                          "this.placeholder = ''",
+                                                        onblur:
+                                                          "this.placeholder = 'Enter Password'"
+                                                      },
+                                                      domProps: {
+                                                        value: _vm.form.password
+                                                      },
+                                                      on: {
+                                                        blur: function($event) {
+                                                          _vm.inputFieldFocused.password = true
+                                                        },
+                                                        input: function(
+                                                          $event
+                                                        ) {
+                                                          if (
+                                                            $event.target
+                                                              .composing
+                                                          ) {
+                                                            return
+                                                          }
+                                                          _vm.$set(
+                                                            _vm.form,
+                                                            "password",
+                                                            $event.target.value
+                                                          )
+                                                        }
+                                                      }
+                                                    })
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            true
+                                          )
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "form-group row mb-1" },
+                                    [
+                                      _c(
+                                        "div",
+                                        { staticClass: "col-md-6 offset-md-4" },
                                         [
                                           _c(
-                                            "span",
-                                            {
-                                              attrs: { "aria-hidden": "true" }
-                                            },
-                                            [_vm._v("×")]
+                                            "div",
+                                            { staticClass: "checkbox" },
+                                            [
+                                              _c("label", [
+                                                _c("input", {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value: _vm.form.remember,
+                                                      expression:
+                                                        "form.remember"
+                                                    }
+                                                  ],
+                                                  attrs: {
+                                                    type: "checkbox",
+                                                    name: "remember"
+                                                  },
+                                                  domProps: {
+                                                    checked: Array.isArray(
+                                                      _vm.form.remember
+                                                    )
+                                                      ? _vm._i(
+                                                          _vm.form.remember,
+                                                          null
+                                                        ) > -1
+                                                      : _vm.form.remember
+                                                  },
+                                                  on: {
+                                                    change: function($event) {
+                                                      var $$a =
+                                                          _vm.form.remember,
+                                                        $$el = $event.target,
+                                                        $$c = $$el.checked
+                                                          ? true
+                                                          : false
+                                                      if (Array.isArray($$a)) {
+                                                        var $$v = null,
+                                                          $$i = _vm._i($$a, $$v)
+                                                        if ($$el.checked) {
+                                                          $$i < 0 &&
+                                                            _vm.$set(
+                                                              _vm.form,
+                                                              "remember",
+                                                              $$a.concat([$$v])
+                                                            )
+                                                        } else {
+                                                          $$i > -1 &&
+                                                            _vm.$set(
+                                                              _vm.form,
+                                                              "remember",
+                                                              $$a
+                                                                .slice(0, $$i)
+                                                                .concat(
+                                                                  $$a.slice(
+                                                                    $$i + 1
+                                                                  )
+                                                                )
+                                                            )
+                                                        }
+                                                      } else {
+                                                        _vm.$set(
+                                                          _vm.form,
+                                                          "remember",
+                                                          $$c
+                                                        )
+                                                      }
+                                                    }
+                                                  }
+                                                }),
+                                                _vm._v(
+                                                  "\n                                                Remember Me\n                                            "
+                                                )
+                                              ])
+                                            ]
                                           )
                                         ]
                                       )
                                     ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-md-6 offset-md-4" },
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-primary",
+                                          attrs: {
+                                            type: "submit",
+                                            disabled: invalid
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Login\n                                    "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "btn btn-link",
+                                          attrs: { to: "/reset-password" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Forgot Your Password?\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
                                   )
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "col-md-6 offset-md-4" },
-                                  [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-primary",
-                                        attrs: {
-                                          type: "submit",
-                                          disabled: invalid
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                        Login\n                                    "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass: "btn btn-link",
-                                        attrs: { to: "/reset-password" }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                        Forgot Your Password?\n                                    "
-                                        )
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              2
-                            )
-                          ]
+                                ]
+                              )
+                            ]
+                          }
                         }
-                      }
-                    ])
-                  })
-                ],
-                1
-              )
-            ])
-          ])
+                      ])
+                    })
+                  ],
+                  1
+                )
+              ])
+            ],
+            2
+          )
         ])
       ])
     ],
@@ -752,6 +749,23 @@ var staticRenderFns = [
         )
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true

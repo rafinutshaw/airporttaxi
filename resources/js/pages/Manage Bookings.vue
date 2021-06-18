@@ -495,8 +495,8 @@ export default {
                 closeOnSelect: true
             },
             isLoading: false,
-            bookingId: 302,
-            email: "tesu@gmail.com",
+            bookingId: null,
+            email: "",
             booking: {
                 booking_status_id: null,
                 journey_date: null,

@@ -62,11 +62,13 @@ Route::post('contact-us', function (Request $request) {
 
 Route::get('/price-list', function () {
     $prices = Vehicle::all(['id', 'type', 'price', 'basePrice', 'maxPassenger', 'luggage', 'image']);
-
     return response()->json($prices, 200);
 });
 
-Route::get('/partners', "PartnerController@index")->name("partners");
+Route::get('/partners', function () {
+    $partners = App\Partner::all(['id', 'path', 'photo']);
+    return response()->json($partners, 200);
+})->name("partners");
 
 Route::post('/send-email', 'BookingController@sendEmail')->name('send.email');
 
@@ -77,7 +79,7 @@ Route::post('get-price/', 'BookingController@getPrice')->name('get.price');
 Route::post('/submit-booking', 'BookingController@create')->name('guest.booking');
 
 Route::get('/get-auth-user', function () {
-    if(auth()->user()) {
+    if (auth()->user()) {
         return auth()->user()->only('name', 'email', 'mobile');
     } else return false;
 });
@@ -105,30 +107,30 @@ Route::post('/repay-intent', 'BookingController@repayPaymentIntent')->name('stri
 | Method:         GET
 | Description:    Customer's area
 */
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard', 'CustomerController@index')->name('customer.dashboard');
 
-    Route::get('/', 'CustomerController@index')->name('customer.dashboard');
-
-    // ? Booking
-    Route::group(['prefix' => 'booking'], function () {
-        Route::get('/booking-history', 'CustomerController@bookingHistory')->name('customer.booking.history');
-        Route::get('/{id}/show-booking-details', 'CustomerController@viewBooking')->name('customer.booking.details');
-
-        Route::get('/{id}/view-upcoming-booking-details', 'CustomerController@viewUpcomingBookingDetails')->name('customer.upcoming.booking.details');
-
-        // Route::get('/{id}/show-booking-details', 'CustomerController@viewCustomerBookingDetails')->name('customer.booking.details');
+    // * Booking
+    Route::group(['prefix' => 'bookings', 'as' => 'bookings.'], function () {
+        Route::get('/index', 'BookingController@index')->name('index');
+        Route::get('/{id}/show', 'BookingController@show')->name('show');
     });
 
-    Route::get('/profile', 'CustomerController@profile')->name('customer.profile');
+    // * Settings
+    Route::group(['prefix' => 'customer/settings', 'as' => 'customer.'], function () {
+        // * Profile
+        Route::get('/', 'CustomerController@settings')->name('settings');
+        Route::patch('/{id}/update', 'CustomerController@updateProfile')->name('profile.update');
+        Route::post('/upload-profile-image', 'CustomerController@uploadImage')->name('upload-image');
 
-    Route::get('/settings', 'CustomerController@settings')->name('customer.settings');
-    Route::post('/upload-profile-image', 'CustomerController@uploadImage')->name('customer.upload-image');
-    Route::patch('/{id}/update', 'CustomerController@updateProfile')->name('customer.profile.update');
-    Route::get('/change-password', 'CustomerController@changePassword')->name('customer.password.change');
-    Route::patch('/{id}/password-update', 'CustomerController@updatePassword')->name('customer.password.update');
+        // * Change Password
+        Route::get('/change-password', 'CustomerController@changePassword')->name('password.change');
+        Route::patch('/{id}/password-update', 'CustomerController@updatePassword')->name('password.update');
+    });
 
     Route::get('/{any}', 'CustomerController@index')->where('any', '.*');
 });
+
 
 Route::get('/{any}', function () {
     return view('layouts.master');
