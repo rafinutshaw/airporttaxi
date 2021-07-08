@@ -679,6 +679,7 @@
                                             class="form-control form-control-iconized"
                                             placeholder="Enter contact number"
                                             v-model="quoteDetails.mobile"
+                                            autocomplete="nope"
                                             @blur="
                                                 inputFieldFocused.passengerDetails.mobile = true
                                             "
@@ -1826,7 +1827,6 @@ export default {
                         dataType: "jsonp",
                         url: `https://api.postcodes.io/postcodes/${search}`,
                         success: function(data) {
-                            // console.log(data.result);
                             let coordinates = {
                                 latitude: data.result.latitude,
                                 longitude: data.result.longitude
@@ -2117,14 +2117,12 @@ export default {
                         ) {
                             this.mapData.errors =
                                 "No road segment could be matched for one or more coordinates within the supplied radiuses. Check for coordinates that are too far away from a road.";
-                            // console.log(this.mapData.errors);
                             this.mapBox.fullRoutes = "";
                             reject(false);
                         } else {
                             //save route markers
                             this.mapData.waypoints = response.data.waypoints;
 
-                            // console.log(this.mapData.waypoints);
                             // Getting sesponse code from mapbox api
                             this.mapData.responseCode = response.data.code;
 
@@ -2468,9 +2466,6 @@ export default {
                                             result.paymentIntent.status ===
                                             "succeeded"
                                         ) {
-                                            console.log(
-                                                result.paymentIntent.amount
-                                            );
                                             // Update booking status from unpaid to pending
                                             axios
                                                 .post("/confirmPayment", {
@@ -2580,7 +2575,7 @@ export default {
 
         downloadBookingTicket() {
             axios({
-                url: `/download-PDF/${this.makeRandomString(10)}`,
+                url: "/download-PDF",
                 method: "POST",
                 responseType: "blob",
                 data: {
@@ -2588,8 +2583,20 @@ export default {
                     email: this.quoteDetails.email
                 }
             }).then(response => {
-                this.downloadFile(response.data, "booking-summery.pdf");
+                let fileName = 'Booking Invoice #' + this.quoteDetails.afterSubmittedBookingId + '.pdf';
+                this.downloadFile(response.data, fileName);
             });
+            // axios({
+            //     url: `/download-PDF/${this.makeRandomString(10)}`,
+            //     method: "POST",
+            //     responseType: "blob",
+            //     data: {
+            //         id: this.quoteDetails.afterSubmittedBookingId,
+            //         email: this.quoteDetails.email
+            //     }
+            // }).then(response => {
+            //     this.downloadFile(response.data, "booking-summery.pdf");
+            // });
         },
 
         makeRandomString(length = 10) {

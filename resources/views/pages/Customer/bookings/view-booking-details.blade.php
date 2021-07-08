@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="card-body">
 
-                                    <div class="form-row">
+                                    <div class="form-row mb-2">
                                         <div class="form-group col-md-6 mb-0">
                                             <label class="col-sm-6 col-form-label">From</label>
                                             <p class="booking-data">{{ $booking->from->text }}</p>
@@ -147,6 +147,10 @@
                                     <a href="javascript:window.history.back()" class="btn btn-outline-primary">Back to
                                         List
                                     </a>
+                                    <button type="button" onClick="downloadBookingTicket()"
+                                        class="ml-2 btn btn-secondary">
+                                        Download PDF <i class="fas fa-file-pdf fa-lg"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -159,4 +163,59 @@
 </div>
 <!-- /.content-wrapper -->
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+    function downloadBookingTicket() {
+        $.ajax({
+            type: "POST",
+            cache: false,
+            xhr: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = "blob";
+                return xhr;
+            },
+            url: "{!! route('download.pdf') !!}",
+            headers: {
+                "X-CSRF-TOKEN": window.Laravel.csrfToken
+            },
+            data: {
+                id: '{!! $booking->id !!}',
+                email: '{!! $booking->customer->email !!}'
+            },
+            success: function (response) {
+                downloadFile(response.data, "booking-summery.pdf");
+            }
+        });
+    }
+
+    function downloadFile(blob, fileName) {
+        // It is necessary to create a new blob object with mime-type explicitly set
+        // otherwise only Chrome works like it should
+        var newBlob = new Blob([blob], {
+            type: "application/pdf"
+        });
+
+        // IE doesn't allow using a blob object directly as link href
+        // instead it is necessary to use msSaveOrOpenBlob
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveOrOpenBlob(newBlob);
+            return;
+        }
+
+        // For other browsers:
+        // Create a link pointing to the ObjectURL containing the blob.
+        const data = window.URL.createObjectURL(newBlob);
+        var link = document.createElement("a");
+        link.href = data;
+        link.download = fileName;
+        link.click();
+        setTimeout(function () {
+            // For Firefox it is necessary to delay revoking the ObjectURL
+            window.URL.revokeObjectURL(data);
+        }, 100);
+    };
+
+</script>
 @endsection

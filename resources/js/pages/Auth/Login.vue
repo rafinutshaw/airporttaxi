@@ -206,8 +206,8 @@ export default {
             isLoading: false,
             // Create a new form instance
             form: {
-                email: "",
-                password: "",
+                email: "vuku@gmail.com",
+                password: "123456789",
                 remember: false,
                 errors: []
             },
@@ -230,37 +230,37 @@ export default {
             axios
                 .post("/login", { email, password })
                 .then(response => {
-                    // console.log(response.data);
-
-                    localStorage.setItem("loggedIn", true);
-                    localStorage.setItem("authUsername", response.data.name);
-                    localStorage.setItem("authEmail", response.data.email);
-
-                    if (response.data.mobile != null)
+                    if (response.status == 200) {
+                        localStorage.setItem("loggedIn", true);
                         localStorage.setItem(
-                            "authMobile",
-                            response.data.mobile
+                            "authUsername",
+                            response.data.name
                         );
+                        localStorage.setItem("authEmail", response.data.email);
 
-                    window.location = "/";
+                        if (response.data.mobile != null)
+                            localStorage.setItem(
+                                "authMobile",
+                                response.data.mobile
+                            );
+
+                        window.location = "/";
+                    }
                 })
                 .catch(error => {
-                    if (error.response.status == 422) {
-                        this.form.errors.push(
-                            "Sorry, email or password was incorrect."
-                        );
-                    } else if (error.response.status == 404) {
-                        this.form.errros.push(
-                            "404 not found! Please try again later."
-                        );
-                    } else if (error.response.status == 429) {
-                        this.form.errors.push(
-                            "Too many login attempts. Please try again in 58 seconds."
-                        );
-                    } else {
-                        this.form.errors.push(
-                            "Something went wrong, please try again later."
-                        );
+                    if (error.response) {
+                        error.response.data.errors
+                            ? this.form.errors.push(
+                                  error.response.data.errors.email[0]
+                              )
+                            : this.form.errors.push(
+                                  error.response.data.message
+                              );
+                        // if(error.response.data.errors) {
+                        //     this.form.errors.push(error.response.data.errors.email[0])
+                        // } else {
+                        //     this.form.errors.push(error.response.data.message);
+                        // }
                     }
                 })
                 .finally(() => {

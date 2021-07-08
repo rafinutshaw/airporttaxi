@@ -116,7 +116,7 @@ class BookingController extends Controller
      */
     public function show(Request $request)
     {
-        $booking = Booking::findOrFail($request->id);
+        $booking = Booking::with('customer')->findOrFail($request->id);
         $booking->from = json_decode($booking->from);
         $booking->via = json_decode($booking->via);
         $booking->to = json_decode($booking->to);
@@ -227,11 +227,11 @@ class BookingController extends Controller
     /*
     * Download PDF after booking submission
     */
-    public function downloadPDF(Request $request, $id = null)
+    public function downloadPDF(Request $request)
     {
-        $booking = Booking::find($request->id);
+        $booking = Booking::findOrFail($request->id);
         if (!empty($booking) && $booking->customer->email == $request->email) {
-            return $this->downloadInvoice($booking->id);
+            return $this->downloadInvoice($booking);
         }
     }
 

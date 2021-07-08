@@ -66,7 +66,7 @@ const routes = [
         component: () => import("./pages/Terms & Conditions")
     },
     {
-        path: "/manage-bookings",
+        path: "/manage-bookings/:id?/:email?",
         name: "manage-bookings",
         component: () => import("./pages/Manage Bookings")
     },

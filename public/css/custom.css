@@ -345,3 +345,7 @@ select,
     border-color: #06c4ea !important;
     font-weight: 600 !important;
 }
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}

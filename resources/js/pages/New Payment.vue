@@ -521,7 +521,13 @@ export default {
                                         .post("/confirmPayment", {
                                             bookingId: this.journey.id,
                                             paymentIntentId:
-                                                result.paymentIntent.id
+                                                result.paymentIntent.id,
+                                            paid: parseFloat(
+                                                (
+                                                    result.paymentIntent
+                                                        .amount / 100
+                                                ).toFixed(2)
+                                            )
                                         })
                                         .then(response => {
                                             this.loading(false);

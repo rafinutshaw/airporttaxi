@@ -531,7 +531,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               // Update booking status from unpaid to pending
               axios.post("/confirmPayment", {
                 bookingId: _this2.journey.id,
-                paymentIntentId: result.paymentIntent.id
+                paymentIntentId: result.paymentIntent.id,
+                paid: parseFloat((result.paymentIntent.amount / 100).toFixed(2))
               }).then(function (response) {
                 _this2.loading(false);
 

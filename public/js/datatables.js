@@ -6,6 +6,7 @@ $(document).ready(function() {
         processing: true,
         serverSide: true,
         searching: false,
+        stateSave: true,
         dom: "Bfrtip",
         colReorder: true,
         select: true,
@@ -80,6 +81,27 @@ $(document).ready(function() {
         ]
     });
 });
+
+/**
+ * * Save the filtered state after changing the page (optional)
+ * @param {Datatable} table
+ */
+function saveState(table) {
+    var state = table.state.loaded();
+    if (state) {
+        table
+            .columns()
+            .eq(0)
+            .each(function(colIdx) {
+                var colSearch = state.columns[colIdx].search;
+
+                if (colSearch.search) {
+                    $("input", $(".filters th")[colIdx]).val(colSearch.search);
+                }
+            });
+        table.draw();
+    }
+}
 
 /**
  * * Refresh Datatables

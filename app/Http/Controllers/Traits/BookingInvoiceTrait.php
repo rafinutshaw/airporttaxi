@@ -32,16 +32,16 @@ trait BookingInvoiceTrait
     /**
      * Download Booking Invoice
      * 
-     * @param mixed $id
-     * @return mixed
+     * @param App/Booking $booking
+     * @return DomPDF download
      */
-    public function downloadInvoice($id)
+    public function downloadInvoice(Booking $booking)
     {
-        $booking = Booking::find($id);
         if (!empty($booking)) {
             $data = $this->setInvoiceData($booking);
             $pdf = PDF::loadView('pdf-template.booking-summery', compact('data'));
-            return $pdf->download('booking-summery ' . uniqid() . '.pdf');
+            // return $pdf->download('booking-summery ' . uniqid() . '.pdf');
+            return $pdf->download($this->setPDFName($booking->id));
         }
     }
 
@@ -79,5 +79,17 @@ trait BookingInvoiceTrait
             'vehicle' => $booking->vehicle->type
         ];
         return $data;
+    }
+
+    /**
+     * Set name for PDF
+     * 
+     * @param booking id
+     * @return string name
+     */
+    private function setPDFName($id)
+    {
+        return 'Booking Invoice #' . $id . '.pdf';
+        // return 'booking id#' . $id . ' ' . uniqid() . '.pdf';
     }
 }

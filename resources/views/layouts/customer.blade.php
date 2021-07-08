@@ -12,7 +12,12 @@
 
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     @yield('style')
-
+    <script>
+        window.Laravel = {!! json_encode([
+                'csrfToken' => csrf_token(),
+                'user' => Auth::user()
+            ]) !!};
+    </script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

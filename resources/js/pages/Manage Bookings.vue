@@ -179,7 +179,7 @@
                                             >
                                                 {{
                                                     booking.journey_date
-                                                        | moment
+                                                        | moment-with-time
                                                 }}
                                             </p>
 
@@ -465,7 +465,6 @@
 </template>
 
 <script>
-import moment from "moment";
 import flatPickr from "vue-flatpickr-component";
 import ConfirmDatePlugin from "flatpickr/dist/plugins/confirmDate/confirmDate.js";
 import "flatpickr/dist/plugins/confirmDate/confirmDate.css";
@@ -495,8 +494,8 @@ export default {
                 closeOnSelect: true
             },
             isLoading: false,
-            bookingId: null,
-            email: "",
+            bookingId: this.$route.params.id ? this.$route.params.id : null,
+            email: this.$route.params.email ? this.$route.params.email : "",
             booking: {
                 booking_status_id: null,
                 journey_date: null,
@@ -537,11 +536,6 @@ export default {
             maxPassengerArray: [],
             maxLuggageArray: []
         };
-    },
-    filters: {
-        moment(date) {
-            return moment(date).format("MMM DD, YYYY h:mm:ss a");
-        }
     },
     methods: {
         onSearchSubmit() {
@@ -679,7 +673,7 @@ export default {
             //     return true;
             // } else return false;
         }
-    }
+    },
 };
 </script>
 

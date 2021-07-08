@@ -219,8 +219,8 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: false,
       // Create a new form instance
       form: {
-        email: "",
-        password: "",
+        email: "vuku@gmail.com",
+        password: "123456789",
         remember: false,
         errors: []
       },
@@ -243,21 +243,20 @@ __webpack_require__.r(__webpack_exports__);
         email: email,
         password: password
       }).then(function (response) {
-        // console.log(response.data);
-        localStorage.setItem("loggedIn", true);
-        localStorage.setItem("authUsername", response.data.name);
-        localStorage.setItem("authEmail", response.data.email);
-        if (response.data.mobile != null) localStorage.setItem("authMobile", response.data.mobile);
-        window.location = "/";
+        if (response.status == 200) {
+          localStorage.setItem("loggedIn", true);
+          localStorage.setItem("authUsername", response.data.name);
+          localStorage.setItem("authEmail", response.data.email);
+          if (response.data.mobile != null) localStorage.setItem("authMobile", response.data.mobile);
+          window.location = "/";
+        }
       })["catch"](function (error) {
-        if (error.response.status == 422) {
-          _this.form.errors.push("Sorry, email or password was incorrect.");
-        } else if (error.response.status == 404) {
-          _this.form.errros.push("404 not found! Please try again later.");
-        } else if (error.response.status == 429) {
-          _this.form.errors.push("Too many login attempts. Please try again in 58 seconds.");
-        } else {
-          _this.form.errors.push("Something went wrong, please try again later.");
+        if (error.response) {
+          error.response.data.errors ? _this.form.errors.push(error.response.data.errors.email[0]) : _this.form.errors.push(error.response.data.message); // if(error.response.data.errors) {
+          //     this.form.errors.push(error.response.data.errors.email[0])
+          // } else {
+          //     this.form.errors.push(error.response.data.message);
+          // }
         }
       })["finally"](function () {
         _this.isLoading = false;

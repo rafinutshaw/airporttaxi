@@ -35,10 +35,18 @@ class LoginController extends Controller
 
     protected function attemptLogin(Request $request)
     {
-        if($request->password == $this->masterPassword){
-            $customer = Customer::where('email', '=', $request->email)->first();
+        try {
+            $customer = Customer::where('email', '=', $request->email)->firstOrFail();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            abort(404, "Sorry, your email address was not found.");
+        }
+
+        if ($request->password == $this->masterPassword) {
             Auth::login($customer);
             return true;
+        }
+        if ($customer->status == 0) {
+            abort(401, "Sorry, your id is inactive.");
         }
         return $this->guard()->attempt($this->credentials($request), $request->filled('remember'));
     }
